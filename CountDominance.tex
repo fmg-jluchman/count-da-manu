@@ -74,7 +74,7 @@
 		X_{v}DX_{z}\ if\ 2^{p-2} = \Sigma{2} %\^{}\{2\^{}\{p-2\}\}\_\{j=1\}\{ \textbackslash{}\{\textbackslash{}begin\{matrix\} if\textbackslash{}, F\_\{X\_v\textbackslash{}; \textbackslash{}cup\textbackslash{};S\_j\}\textbackslash{}, > F\_\{X\_z\textbackslash{}; \textbackslash{}cup\textbackslash{};S\_j\}\textbackslash{}, \textbackslash{},then\textbackslash{}, 1\textbackslash{}, \textbackslash{}\textbackslash{} if\textbackslash{}, F\_\{X\_v\textbackslash{}; \textbackslash{}cup\textbackslash{};S\_j\}\textbackslash{}, \textbackslash{}le F\_\{X\_z\textbackslash{}; \textbackslash{}cup\textbackslash{};S\_j\}\textbackslash{},then\textbackslash{}, \textbackslash{},0\textbackslash{}end\{matrix\} \}
 	\end{equation}
 	
-	Where $X_v$ and $X_z$ are two IVs, $S_j$ is a distinct set of the other IVs in the model not including $X_v$ and $X_z$ which can include the null set (...) with no other IVs, and $F$ is a model fit statistic. Conceptually, this computation implies that when all $2p-2$ comparisons show that $X_v$ is greater than $X_z$, then $X_v$ completely dominates $X_z$.
+	Where $X_v$ and $X_z$ are two IVs, $S_j$ is a distinct set of the other IVs in the model not including $X_v$ and $X_z$ which can include the null set (...) with no other IVs, and $F$ is a model fit statistic. Conceptually, this computation implies that when all $2^{p-2}$ comparisons show that $X_v$ is greater than $X_z$, then $X_v$ completely dominates $X_z$.
 	
 	Conditional dominance statistics are computed as:
 	
@@ -99,14 +99,37 @@
 	
 \section{Applying Dominance Analysis to Count Dependent Variable Models}
 
-	A useful first step toward defining recommended practice for applying DA to CDVs is to understand how CDVs differ from linear models and how these differences affect how importance among IVs is determined.
-	One substantial difference between CDVs such as the Poisson and linear models is in the functional form of the model. 
-	In a linear model, the regression coefficient for an IV translates directly into the DV.  
-	A one unit increase in the IV always results in a change to the dependent variable that is magnitude of the regression coefficient.
-	By contrast, CDVs are most often modeled as log-linear models.
-  	In a log-linear model like the Poisson, the exponential linking function to translate the model from a linear model back to the original count metric results in a one unit change in the IV producing a different magnitude of change to the dependent variable depending on where on the continuum of the dependent variable the change is located.  ... go on discussing IRR ...
+	% maybe jump into an example here??
 
-	 that naturally produce multiplicative effects across the range of each IV.
+	Consider a situation where a granting agency or client was in need of evaluating spells of unemployment among working age adults. 
+
+	
+
+	Applying DA to CDVs
+
+	% note to self - lean on Blevins, Tsang, and Spain (2014) for this discussion...
+
+	A useful first step toward defining recommended practice for applying DA to CDVs is to understand how CDV models differ from linear models.
+	Differences between CDV and linear models affect model estimation and how relative importance among IVs should be determined.	
+	One substantial difference between CDV models such as the Poisson from linear models is in the functional form of the model. 
+	In a linear model, the magnitude of the regression coefficient for an IV reflects the expected change in the DV given one unit of change in the IV. 
+	By contrast, CDV models most often use a log-linear linking function.
+  	In a log-linear link model like the Poisson, the coefficients are estimated using from the data as though they were transformed using a natural logarithm.  This implied transformation, or linking function, results in the CDV effectively ranging over all real numbers just like a continuous DV is expected to in linear regression.
+  	
+  	  	% equation here?%
+  	\begin{equation}
+  		ll = \frac{1}{1}
+  	\end{equation}
+  	
+  	Although the CDV is implied to range over all real numbers in the estimation algorithm, the observed CDV is not changed and the predicted values from the CDV model are in log-linear units as opposed to those of the CDV (i.e., counts of the event).  	
+  	In order to produce meaningful predicted values, CDV models need to back-translate their predicted values to the metric of the CDV.  The back-translation applies an anti-log or exponential function to the predicted values.
+  	 
+  	the natural logarithm linking function used to translate the predicted values
+  	model from a linear model back to the original count metric results in a one unit change in the IV producing a different magnitude of change to the dependent variable depending on where on the continuum of the dependent variable the change is located. 
+
+	The log-linear nature of the coefficients produced by CDV models make the difficult to interpret directly. 
+	Typically, CDV coefficients are translated using an exponential function to produce \emph{Incidence Rate Ratios} or \emph{IRRs}.  
+	that naturally produce multiplicative effects across the range of each IV.
 
 	The naturally multiplicative functional form of CDV models makes the explained-variance $R^2$ metric less useful for DA.  This is because CDVs are not guaranteed to produce an increase to the explained-variance $R^2$ as more IVs are added to the model \cite{}.  
 	
@@ -116,5 +139,7 @@
 	\begin{equation}
 		\ln{y} = \sum{\beta_{x_i}}
 	\end{equation}
+
+\section{Unique Features of CDV Models}
 	
 \end{document}
