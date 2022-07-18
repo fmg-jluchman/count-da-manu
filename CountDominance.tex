@@ -97,12 +97,24 @@
 	Where, $C^{i}_{X_v}$ are the conditional dominance statistics for $X_v$ with $i$ IVs. 
 	Hence, the general dominance statistics are the arithmetic average of all the conditional dominance statistics for an IV.
 	
+	In the section below, I transition to discussing some of the nuances of CDVs for the application of DA.
+	
 \section{Applying Dominance Analysis to Count Dependent Variable Models}
 
-	% maybe jump into an example here??
-
-	Consider a situation where a granting agency or client was in need of evaluating spells of unemployment among working age adults. 
-
+	In applying DA to CDVs, many readers might question whether there is a need to use methods other than the standard linear regression with the explained variance $R^2$ metric.
+	
+	% reverse on this point - note the similarities; simulate different versions to show how similar
+	% take homes have to do with offsets (maybe) and zero-inflation
+	
+	Although CDV models share a number of similarities with continuous DVs, CDVs and the models designed to work with them are a distinct subset of generalized linear models and behave differently than linear regression in ways that  \emph{(cite Blevins and summarize somewhere around here)}.
+	
+	One similarity across count and continuous DVs is that, as the mean of a CDV variable increases, it grows increasingly good at being approximated with a Normal distribution \emph{(cite!)}.  
+	This points to an important difference when applied to CDVs with rare events in that the distributions for count and continuous DVs diverge notably when the mean is nearer 0 (example here?).  
+	Such divergence results in important differences to model-to-data fit that not only affects the model fit metric's value overall but also how specific IVs explain variation in the CDV.  
+	In particular, CDVs are discrete, non-negative integers and, accordingly, CDV models are discrete probability distributions that accommodate non-negative integers.  
+	Normal distributions are continuous
+	
+	
 	
 
 	Applying DA to CDVs

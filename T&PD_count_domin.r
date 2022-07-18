@@ -1,13 +1,13 @@
 setwd("/home/josephluchman/github_misc/count-da-manu/count-da-manu/")
 
-devtools::load_all("/home/josephluchman/R/gitteR/domir/")
-
 library(tidyverse)
 library(magrittr)
+library(domir)
+library(MASS)
 
 # revisit data management here - has this been looked over?
 
-nlsORM79 <- readRDS("NLS79_masterORM.rds")
+nlsORM79 <- readRDS("nls79_masterORM.rds")
 
 # data management ----
 
@@ -36,52 +36,75 @@ nlsORM79_reduced <-
             valid = log(sum(emp_valid)),
             AFQT = first(AFQT),
             LOC = first(LOC) %>% as.numeric,
-            GENDER = first(GENDER))
+            GENDER = first(GENDER)) %>% 
+  drop_na()
 
 # linear model comparison ----
 
-lm_compare <- 
+lm_standard <- 
+  lm(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER, 
+     data = nlsORM79_reduced)
+
+lm_offset <- 
   lm(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER + offset(valid), 
-     data = nlsORM79_reduced %>% 
-       drop_na())
+     data = nlsORM79_reduced)
+
+loglin_nml_offset <- # needs starting values...
+  glm(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER + offset(valid), 
+     data = nlsORM79_reduced, 
+     family = gaussian(link = "log"), start = coef(lm_offset))
 
 poisson_no_offset <- 
 glm(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER, 
-    data = nlsORM79_reduced %>% 
-      drop_na(), family = poisson()) %>% summary
+    data = nlsORM79_reduced, 
+    family = poisson()) #%>% summary
 
 poisson_offset <- 
   glm(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER + offset(valid), 
-      data = nlsORM79_reduced %>% 
-        drop_na(), family = poisson()) %>% summary
+      data = nlsORM79_reduced, 
+      family = poisson()) #%>% summary
 
-glm(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER + offset(valid), 
-    data = nlsORM79_reduced %>% 
-      drop_na(), family = poisson()) %>% pscl::pR2()
+# DA ----
 
- %>% summary
+## Poisson with McFadden ----
 
 domir(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER + offset(valid), 
       \(fml) {
         (res <- glm(fml, 
-            data = nlsORM79_reduced %>% 
-              drop_na(), family = poisson()) %>% 
+            data = nlsORM79_reduced, 
+            family = poisson()) %>% 
           pscl::pR2() %>% pluck("McFadden")) %>% 
           capture.output()
+          #AIC())
         return(res)
       },
-      .adj = ~ offset(valid)) %>% summary
+      .adj = ~ offset(valid)) #%>% summary
+
+## Poisson with Negelkerke (no offset) ----
+
+domir(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER, 
+      \(fml) {
+        (res <- glm(fml, 
+                    data = nlsORM79_reduced, 
+                    family = poisson()) %>% 
+           performance::r2() %>% pluck("R2_Nagelkerke")) %>% 
+          capture.output()
+        return(res)
+      }) 
+
+## Gaussian glm not log linked ----
 
 domir(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER + offset(valid), 
       \(fml) {
         (res <- glm(fml, 
-                    data = nlsORM79_reduced %>% 
-                      drop_na()) %>%
+                    data = nlsORM79_reduced) %>%
            pscl::pR2() %>% pluck("McFadden")) %>% 
           capture.output()
+        #AIC())
         return(res)
       },
-      .adj = ~ offset(valid)) %>% summary
+      .adj = ~ offset(valid)) #%>% summary
+#.adj = ~ 1)
   
 
 # stata code ----
