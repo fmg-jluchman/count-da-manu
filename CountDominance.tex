@@ -101,10 +101,46 @@
 	
 \section{Applying Dominance Analysis to Count Dependent Variable Models}
 
-	In applying DA to CDVs, many readers might question whether there is a need to use methods other than the standard linear regression with the explained variance $R^2$ metric.
+	CDV models are complex, inherently multiplicative (note that it is possible to estimate them as non-multiplicative - but this is rarely done) models that require the use of estimation techniques such as maximum likelihood to obtain parameter estimates and sampling variances.
+	It is helpful to discuss some of the nuances of how these models are estimated to understanding the implications of these complexities for DA.
+	Hence, in the sections to come, I discuss aspects 
+
+	\subsection{Poisson Regression: The Most Basic Case}
 	
-	% reverse on this point - note the similarities; simulate different versions to show how similar
-	% take homes have to do with offsets (maybe) and zero-inflation
+	The most conceptually simple CDV model is the Poisson regression.  
+	The Poisson regression's log likelihood is a sum of three components as is shown below in (can I reference this equation?).
+	
+	\begin{equation}
+		\ln L = \sum_{i=1}^{N} xb_{i}y_{j} - (\ln (y_{i}!) + e^{xb_{i}})
+	\end{equation}
+
+	Where $xb_{i}$ refers to a respondent's untransformed/linear predicted value from the Poisson regression.  
+	Of note with this log-likelihood is the division into two separate components.  
+	On the one hand, the log-likelihood increases, with the $xb_{i}y_{j}$ term.  
+	Hence, the product of the observed CDV value and the predicted value for a respondent contributes directly to the log-likelihood and indicates better fit to the data.
+	On the other hand, the second set of terms, $\ln (y_{i}!) + e^{xb_{i}}$ decrease the log-likelihood.  
+	Thus, has the log factorial of the CDV increases and as the exponential function of the predicted values increase without a concomitant increase in the $xb_{i}y_{j}$.
+	
+	For example consider a respondent with a CDV value of 5.  
+	The best fit to this value would be a transformed predicted value of 5 or an untransformed/linear predicted value of $e^{5} = -1.740$.  
+	When applied to the log-likelihood function, the value obtained is $5*-1.740 - \ln (5) + e^{-1.740} = -1.740$ or untransformed/linear predicted value.
+	By contrast, two hypothetical less ideal predicted values might be 4 and 6.  
+	In both cases, the log-likelihood values diverge from the best fitting one and increase, indicating a lower likelihood.
+	Specifically, 4 gives $5*\ln (4) - \ln (5) + 4 = -1.856$ and 6 gives $5*\ln (6) - \ln (4) + 6 = 1.829$...
+	This also shows an important point about the Poisson log likelihood--that it is not symmetric around
+	
+	Given the Poisson log-likelihood, the best possible fit to this observaton would produce a log-likelihood value of 
+	The balance between these two quantities across all respondents results in the final set of estimates.
+	
+	...negative binomial...
+	
+	\begin{equation}
+		\ln L = \sum_{i=1}^{N} xb_{i}y_{j} - (\ln (y_{i}!) + e^{xb_{i}})
+	\end{equation}
+
+	% rework below
+
+	In applying DA to CDVs, many readers might question whether there is a need to use methods other than the standard linear regression with the explained variance $R^2$ metric.
 	
 	Although CDV models share a number of similarities with continuous DVs, CDVs and the models designed to work with them are a distinct subset of generalized linear models and behave differently than linear regression in ways that  \emph{(cite Blevins and summarize somewhere around here)}.
 	
