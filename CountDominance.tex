@@ -26,12 +26,12 @@
 
 	Organizational scientists conduct research on work-related problems that focus on many different specific topics including job performance, employee wellness, and effective task staffing.  
 	Quantifying topics such as job performance often requires that researchers use data that are in the form of discrete, sometimes infrequent, events such as number of contracts won in a year, number of complaints received in a month, or number of days absent for illness in a business quarter. % use actual examples here?
-	Discrete, infrequent event data, called \textit{count dependent variables}/(\textit{CDVs}) in this paper, are useful representations of many concepts in organizational science but can present additional complications for analysis.
+	Discrete, infrequent event data, called \textit{count dependent variable models}/(\textit{CDMs}) in this paper, are useful representations of many concepts in organizational science but can present additional complications for analysis.
 	One such complication is that count data can diverge from the statistical assumptions made of the Normal or Gaussian distributed linear regression model---by far one of the most common predictive models applied in organizational science \cite{}.
 	
 	
 	CDVs are often modeled using generalized linear models adapted to the structure of infrequent events.
-	Poisson or negative Binomial regressions \cite{} are commonly applied to CDVs as they tend to fit better with positive integer-valued data than do Normal/Gaussian distributions.  
+	Poisson or negative Binomial regressions \cite{} are commonly applied to CDMs as they tend to fit better with positive integer-valued data than do Normal/Gaussian distributions.  
 	Although models such as the Poisson regression fit better to CDVs, Poisson and similar regressions are more complex to interpret than linear regression as they are intrinsically non-linear.
 	In addition, CDVs' discrete, event-oriented nature requires additional considerations that tend not to apply to continuous, Normally-distributed data.
 	
@@ -43,7 +43,9 @@
 	Moreover, CDVs can require adjustments to modeling such as the consideration of \textit{exposure} that can affect a DA's relative importance determination results.
 	
 	
-	The goal of this work is to review both DA and CDV models and then offer recommended practice for applying DA to CDV models.
+	The goal of this work is to extend on Blevins, Tsang, and Spain \cite{blevins2015count} in extending considerations regarding CDV models to assessing relative importance using DA...
+	
+	 and then offer recommended practice for applying DA to CDV models.
 	This paper is organized into ... sections.  
 	The first section reviews DA
 	The se
@@ -101,6 +103,66 @@
 	
 \section{Applying Dominance Analysis to Count Dependent Variable Models}
 
+	As a variant of Shapley Value Decomposition, DA is a generally applicable method for decomposing a fit statistic from a statistical model into components.
+	In discussing how to apply DA to CDV models, there are several key considerations that make CDV models more complex than linear models with continuous DVs.  
+	First, CDVs are generalized linear models and traditionally assume a multiplicative relationship between an IV and the DV such that a one unit change in the IV result in a change in the DV that is the anti-log or exponential function (i.e., $e^{\beta}$) of the coefficient.  
+	Thus, in a CDV model, predicted counts produced by a change in the IV depends on the location of the DV.  
+	For instance, a model coefficient of .5 in a linear model will always add .5 to the DV such that 
+	
+	For a CDV, it is common to interpret the coefficient as an incidence rate ratio 1.65
+	
+	will produce a change at a count of 3 that is 1.9 higher (i.e., $e^{3 + .5*1} - e$)
+	
+	The multiplicative nature of CDV models complicates fit metric computation in that the standard fit metric, the explained variance $R^2$ assumes that the underlying model seeks to minimize the sum of the squared residuals from the model.  As will be discussed below, CDVs do not meet this criterion.
+	
+	
+	A second consideration relevant to CDV models is the use of model offsets.  An offset is a variable that is intended to reflect \emph{exposure} or differences between observations in the capability for that observation to produce a count.  Offset variables are usually factors such as population sizes (cite) or exposure time windows (cite) that will affect the observations' counts and are known about different observations beforehand.  Offsets are included into the model with a coefficient of 1 and serve to make the CDV a rate as they adjust the count such that $e^{y_{i} - offset_{i}} = $
+	
+	
+	Finally, a common model applied to CDVs are \emph{zero inflated} models that are recommended for use in modeling CDVs in many situations (see Figure 3 of \cite{blevins2015count}).  Zero inflated models offer a great deal of flexibility in evaluating the processes
+	
+	The flexibility of zero inflated models comes at the cost of greater complexity when considering how to evaluate the contributions IVs have to prediction as there are two predictive equations, the count-producing model and the zero-producing model, which need not have the same set of predictors.  As such, it may be necessary to examine parameter estimate relative importance (PERI; \cite{luchman2020relative}) as opposed to independent variable relative importance (IVRI) when examining 
+	
+	
+	In the sections below, each of the three complications regarding CDVs is discussed in greater detail with a focus on how each can affect the determination of relative importance.
+		
+	
+	\subsection{Fit Metrics for Count Dependent Variables}
+	
+	
+	CDMs are inherently multiplicative in how the underlying prediction model relates to the observed count DV. 
+	The multiplicative nature of CDMs complicates assessing how well the model fits to the data as the way in which residuals are computed for the LRM does not produce useful.
+	Consider the standard explained variance $R^2$.  The $R^2$ is the squared Pearson correlation between the DV and the predicted values from the model. 
+	Pearson correlations, like the LRM, are based on the sums of squared deviations ...  
+	
+	Consider now the simplest of the CDMs, the Poisson regression model. The Poisson regression minimizes the sum of deviations from the product of the DV and the natural log of the predicted value or $\sum (\mu - y \ln \mu)$ \cite{cameron1996r}. The form of the minimizing value for the Poisson makes it is possible that using a metric like the explained variance $R^2$ that computes the sum of squared deviations will produce negative contributions to the $R^2$.
+	%provide an example?
+	A similar discussion to the one above is provided by Traxel and Azen \cite{azen2009using} focused on the closely related generalized linear model, Logistic regression.  Traxel and Azen ...
+	
+	Recommendations specific to CDMs have also been proposed in the literature.  Cameron and Windmeijer \cite{cameron1996r} provide perhaps the most comprehensive review and critique of different fit metrics for CDMs... 
+	
+	The recommended $R^2$ metric is the deviance $R^2$ which has a number of desirable properties that make it similar to the explained variance $R^2$ across a number of the models discussed by Blevins, Tsang, and Spain \cite{blevins2015count}.  These desirable properties make $R^{2}_{DEV}$ the fit metric that is recommended for use in DA when using CRMs.  The effects of using different metrics for DA will be explored in greater detail below.
+	
+	\subsection{Exposures and Offsets}
+	
+	CDMs, as models of counts of discrete events, implicitly assume that the events being counted are comparable.  
+	An observation with a count of 10 is assumed to have had the same chance to get that count of 10 events as any other observation with 10 events.  
+	That is, that the probability of observing events for both observations is equal.
+	By contrast, it is possible two observations with an observed count of 10 arrived at their count with different underlying probabilities of observing events and number of times the events could be realized into a count.  
+	For example, two 10 counts could have resulted from an observation with an event probability of .1 over 100 'trials'.  Another could have arisen from an observation with an event probability of .01 over 1000 'trials'...
+	
+	\subsection{Multiple Equations}
+	
+	... Poisson vs alternatives ...
+	
+\section{Using the Right Model: Implications for Importance}
+
+	... examine effects across multiple 
+	
+	... maybe make multiple Examples? ...
+	
+	% take from below?  Otherwise below might be cut
+	
 	CDV models are complex, inherently multiplicative (note that it is possible to estimate them as non-multiplicative - but this is rarely done) models that require the use of estimation techniques such as maximum likelihood to obtain parameter estimates and sampling variances.
 	It is helpful to discuss some of the nuances of how these models are estimated to understanding the implications of these complexities for DA.
 	Hence, in the sections to come, I discuss aspects 
@@ -127,16 +189,25 @@
 	By contrast, two hypothetical less ideal predicted values might be 4 and 6.  
 	In both cases, the log-likelihood values diverge from the best fitting one and increase, indicating a lower likelihood.
 	Specifically, 4 gives $5*\ln (4) - \ln (5) + 4 = -1.856$ and 6 gives $5*\ln (6) - \ln (4) + 6 = 1.829$...
-	This also shows an important point about the Poisson log likelihood--that it is not symmetric around
+	This also shows an important point about the Poisson log likelihood--that it is not symmetric around the best fitting value.  
+	By contrast, ordinary least squares regression would penalize both 4 and 6 as squared deviations of 1 from the line of best fit (footnote that logged DV can do this too - but the loglik is still symmetrical and the model is now fitting the mean of a transformed DV as opposed to the original DV).
+	That the model fit to the data is asymmetrical has implications for assessing fit to the model that will be discussed in greater detail later.
 	
-	Given the Poisson log-likelihood, the best possible fit to this observaton would produce a log-likelihood value of 
-	The balance between these two quantities across all respondents results in the final set of estimates.
+	\subsection{Negative Binomial: A More Complex and Flexible Case}
+	
+	A constraint with the Poisson model is that it has only a single parameter estimated from the data, it's mean.  The variance of the Poisson distribution is, by assumption, identical to the mean.
+	
+	One way to extend on the Poisson to make it more flexible is to conceptualize the mean of the Poisson distribution as a random variable.  If the mean of the Poisson is conceptualized as Gamma distributed, the hybrid Poisson-Gamma distribution can be reduced to a unique distribution called the negative Binomial.
+	
+	The negative Binomial model is a more complex generalization of the Poisson that relaxes the assumption that the variance and mean are identical
 	
 	...negative binomial...
 	
 	\begin{equation}
-		\ln L = \sum_{i=1}^{N} xb_{i}y_{j} - (\ln (y_{i}!) + e^{xb_{i}})
+		\ln L = \sum_{i=1}^{N} \ln (\Gamma (\frac{1}{\alpha} + y_{i}) ) + m- (\ln (y_{i}!) + e^{xb_{i}})
 	\end{equation}
+
+	
 
 	% rework below
 
@@ -188,6 +259,8 @@
 		\ln{y} = \sum{\beta_{x_i}}
 	\end{equation}
 
-\section{Unique Features of CDV Models}
+
+\bibliography{CountDominance.bib}
+\bibliographystyle{mslapa}
 	
 \end{document}

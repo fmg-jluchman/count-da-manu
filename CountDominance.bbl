@@ -1,0 +1,33 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Azen \& Traxel}{Azen \&
+  Traxel}{2009}{}]{azen2009using}
+Azen, R. \& Traxel, N. (2009).
+\newblock Using dominance analysis to determine predictor importance in
+  logistic regression.
+\newblock {\em Journal of Educational and Behavioral Statistics}, {\em 34(3)},
+  319--347.
+
+\bibitem[\protect\citeauthoryear{Blevins, Tsang \& Spain}{Blevins
+  et~al.}{2015}{}]{blevins2015count}
+Blevins, D.~P., Tsang, E.~W. \& Spain, S.~M. (2015).
+\newblock Count-based research in management: Suggestions for improvement.
+\newblock {\em Organizational Research Methods}, {\em 18(1)}, 47--69.
+
+\bibitem[\protect\citeauthoryear{Cameron \& Windmeijer}{Cameron \&
+  Windmeijer}{1996}{}]{cameron1996r}
+Cameron, A.~C. \& Windmeijer, F.~A. (1996).
+\newblock R-squared measures for count data regression models with applications
+  to health-care utilization.
+\newblock {\em Journal of Business \& Economic Statistics}, {\em 14(2)},
+  209--220.
+
+\bibitem[\protect\citeauthoryear{Luchman, Lei \& Kaplan}{Luchman
+  et~al.}{2020}{}]{luchman2020relative}
+Luchman, J., Lei, X. \& Kaplan, S. (2020).
+\newblock Relative importance analysis with multivariate models: Shifting the
+  focus from independent variables to parameter estimates.
+\newblock {\em Journal of Applied Structural Equation Modeling}, {\em 4(2)},
+  1--20.
+
+\end{thebibliography}
