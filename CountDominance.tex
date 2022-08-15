@@ -136,32 +136,88 @@
 	Pearson correlations, like the LRM, are based on the sums of squared deviations ...  
 	
 	Consider now the simplest of the CDMs, the Poisson regression model. The Poisson regression minimizes the sum of deviations from the product of the DV and the natural log of the predicted value or $\sum (\mu - y \ln \mu)$ \cite{cameron1996r}. The form of the minimizing value for the Poisson makes it is possible that using a metric like the explained variance $R^2$ that computes the sum of squared deviations will produce negative contributions to the $R^2$.
-	%provide an example?
-	A similar discussion to the one above is provided by Traxel and Azen \cite{azen2009using} focused on the closely related generalized linear model, Logistic regression.  Traxel and Azen ...
+	Specifically, the explained variance $R^2$ rewards smaller total or summed squared deviations from the observations.
+	By contrast, a model like the Poisson prefers minimizing deviations with a preference toward shrinking to 0; hence, penalizing more for over-prediction than under-prediction.
+	The differences between these penalty factors mean that a Poisson model might choose a coefficient that shrinks predicted values to such an extent that it appears to reduce fit to the model when applying an explained variance metric.
+	The more complex negative Binomial model shows similar properties and, as is noted by Spain et al., is a direct extension of the Poisson (i.e., a mixture of Poisson and Gamma distributions).
 	
-	Recommendations specific to CDMs have also been proposed in the literature.  Cameron and Windmeijer \cite{cameron1996r} provide perhaps the most comprehensive review and critique of different fit metrics for CDMs... 
+	A similar discussion to the one above is provided by Traxel and Azen \cite{azen2009using} focused on the closely related generalized linear model, Logistic regression.  
+	Azen and Traxel show that likelihood-based pseudo-$R^2$ metrics, in particular the McFadden and Estrella $R^2$s, are useful for DA with logistic regressions as they always increase with the inclusion of more predictors and show several other desirable properties.
 	
-	The recommended $R^2$ metric is the deviance $R^2$ which has a number of desirable properties that make it similar to the explained variance $R^2$ across a number of the models discussed by Blevins, Tsang, and Spain \cite{blevins2015count}.  These desirable properties make $R^{2}_{DEV}$ the fit metric that is recommended for use in DA when using CRMs.  The effects of using different metrics for DA will be explored in greater detail below.
+	$R^2$ recommendations specific to CDMs have also been proposed in the literature.  
+	Cameron and Windmeijer \cite{cameron1996r} provide perhaps the most comprehensive review and critique of different fit metrics for CDMs.
+	Cameron and Windmeijer, similar to Azen and Traxel, focus on desirable properties of $R^2$s but conclude that the $R^2$ that best reflects fit to the data for CRMs is the deviance $R^2$ or $R^{2}_{DEV}$.
+	The deviance $R^2$ is computed as:
+	$$R^{2}_{DEV} = \frac{D_{model}}{D_{null}}$$
+	Where $D$ is the GLM deviance residual computation.
+	In fact, the McFadden $R^2$ recommended by Axen and Traxel is tantamount to the deviance $R^2$ for the logistic model given the way the model is scaled, but differs for CRMs by a factor of ...
 	
-	\subsection{Exposures and Offsets}
+	In sum, the recommended $R^2$ metric is the deviance $R^2$ which has a number of desirable properties that make it similar to the explained variance $R^2$ across a number of the models discussed by Blevins, Tsang, and Spain \cite{blevins2015count}.  
+	These desirable properties make $R^{2}_{DEV}$ the fit metric that is recommended for use in DA when using CRMs.  
+	Further discussion of fit metrics for modeling and DA in CRMs is continued below as applied to the data analytic examples. 
+	
+	\subsection{Exposure and Offset Terms}
 	
 	CDMs, as models of counts of discrete events, implicitly assume that the events being counted are comparable.  
 	An observation with a count of 10 is assumed to have had the same chance to get that count of 10 events as any other observation with 10 events.  
 	That is, that the probability of observing events for both observations is equal.
 	By contrast, it is possible two observations with an observed count of 10 arrived at their count with different underlying probabilities of observing events and number of times the events could be realized into a count.  
-	For example, two 10 counts could have resulted from an observation with an event probability of .1 over 100 'trials'.  Another could have arisen from an observation with an event probability of .01 over 1000 'trials'...
+	For example, two 10 counts could have resulted from an observation with an event probability of .1 over 100 'trials'.  
+	Another could have arisen from an observation with an event probability of .01 over 1000 'trials'.  
+	In data, such equifinality in counts from different underlying probabilities can arise from observations that are units reflecting populations of different sizes or units reflecting different time periods in which events could occur (i.e., unequal employment tenures).
+	
+	CDMs can control for such unequal \emph{exposure} to the count generating conceptual phenomenon using what is known as an \emph{offset} term.  
+	The offset term is usually assumed to be natural log transformed for a CDM and enters into the CDM with a coefficient of 1.
+	The coefficient of 1 results in the count DV being transformed into a rate out of the offset variable.
+	How the count DV is transformed into a rate with a coefficient of 1 follows from the following algebraic manipulations.
+	First, consider a simple case where an intercept only model is fit with an offset such as $y = e^{offset + \beta}$.
+	Recall that the offset term is the natural log of a variable, say, $o$.  
+	Applying the natural log, the prior equation can be written as $\ln y = \ln o + \beta$.
+	Re-arranging the $\ln o$ term results in $\ln y - \ln o = \beta$ which, given the properties of logarithms, is tantamount to $\ln \frac{y}{o} = \beta$.
+	Therefore, the inclusion of a natural log transformed offset variable results in the count DV transforming into a rate.
+	This offset transformation corrects for the issue discussed above as the 10 counts result in the correct underlying rate of .1 versus .01 for each observation.
+	
+	In large part, an offset adjustment serves to re-scale specific observations' predictions and has the biggest effect on CDM's intercept value; adjusting it back to reflect the correct average rate across observations.
+	The offset can, however, affect the magnitude of estimated coefficients if the offset is correlated with an IV.  
+	When the offset is correlated with an IV, then the IV may be both related to exposure to the count generating phenomenon as well as the rate of count generation broadly.
+	Not including the offset can then bias the CDM and can have a notable impact on IV relative importance.
+	How offsets affect CRM modeling and importance determination will also be explored further in the empirical examples below.
+	
+	% on to examples?
 	
 	\subsection{Multiple Equations}
 	
 	... Poisson vs alternatives ...
 	
-\section{Using the Right Model: Implications for Importance}
+\section{Data Analytic Examples: DA with CRMs}
 
-	... examine effects across multiple 
+	% empirical examples illustrating impact of fit metric, offsets, and mutiple equations
+	% also show impact of model choice/using the wrong model
 	
-	... maybe make multiple Examples? ...
+	% make several different versions - 1) uncorrelated vars, 2) moderate, 3) strongly corrd
+	% poisson, neg bin, and zip DVs for each
+	% several offsets?
 	
 	% take from below?  Otherwise below might be cut
+	
+	The purpose of this manuscript is to highlight specific issues in CRMs that affect how relative importance is determined using DA.
+	The three concepts discussed were chosen for their relevance to CRMs and their impact on determining DA using CRMs.
+	This section extends on the discussion above with a number of data analytic examples that illustrate the concepts discussed above with generated data.
+	The data analytic examples also highlight areas that might affect the DA with CRMs in ways that are less crucial but nonetheless noteworthy.
+	
+	\subsection{Data Generation}
+	
+	The data for the analytic examples were generated using a combination of base R \texttt{stats} \cite{R} and the \texttt{MASS} packages \cite{MASS}.
+	In each data analytic example, four IVs were generated with different covariance structures and variances assuming multivariate normality of the underlying distributions of the predictors.
+	Four total IV covariance structures were created.  The first was an equal variance, equal uncorrelated set of four IVs for use as a comparison.  The second was an equal variance power-law type decay (.5, .25, .125..) set of correlations between the predictors.  The third was an uncorrelated with unequal power-law type variance...  The final was a combination of the power-law correlation and variances.
+	In all cases, the strength of the correlations generated between the variables varied inversely with the size of the variance generated for that variable % have to describe this better...
+	
+	
+
+	
+	
+	...
+	
 	
 	CDV models are complex, inherently multiplicative (note that it is possible to estimate them as non-multiplicative - but this is rarely done) models that require the use of estimation techniques such as maximum likelihood to obtain parameter estimates and sampling variances.
 	It is helpful to discuss some of the nuances of how these models are estimated to understanding the implications of these complexities for DA.

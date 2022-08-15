@@ -30,4 +30,16 @@ Luchman, J., Lei, X. \& Kaplan, S. (2020).
 \newblock {\em Journal of Applied Structural Equation Modeling}, {\em 4(2)},
   1--20.
 
+\bibitem[\protect\citeauthoryear{{R Core Team}}{{R Core Team}}{2022}{}]{R}
+{R Core Team} (2022).
+\newblock {\em R: A Language and Environment for Statistical Computing}.
+\newblock Vienna, Austria: R Foundation for Statistical Computing.
+
+\bibitem[\protect\citeauthoryear{Venables \& Ripley}{Venables \&
+  Ripley}{2002}{}]{MASS}
+Venables, W.~N. \& Ripley, B.~D. (2002).
+\newblock {\em Modern Applied Statistics with S\/} (Fourth Ed.).
+\newblock New York: Springer.
+\newblock ISBN 0-387-95457-0.
+
 \end{thebibliography}
