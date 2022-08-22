@@ -201,20 +201,58 @@
 	% take from below?  Otherwise below might be cut
 	
 	The purpose of this manuscript is to highlight specific issues in CRMs that affect how relative importance is determined using DA.
-	The three concepts discussed were chosen for their relevance to CRMs and their impact on determining DA using CRMs.
-	This section extends on the discussion above with a number of data analytic examples that illustrate the concepts discussed above with generated data.
-	The data analytic examples also highlight areas that might affect the DA with CRMs in ways that are less crucial but nonetheless noteworthy.
+	The three concepts discussed above were selected from a broader set of considerations as they are both relevant to the estimation and interpretation of CRMs as well as have direct impact on relative importance determination using DA with CRMs.
+	This section extends on the discussion above by walking through a series of data analytic examples that illustrate the impact of the selected concepts discussed above with generated data.
+	In the course of discussing the data analytic examples I also discuss which aspects of CRMs are less crucial to consider for relative importance determination.
 	
 	\subsection{Data Generation}
 	
 	The data for the analytic examples were generated using a combination of base R \texttt{stats} \cite{R} and the \texttt{MASS} packages \cite{MASS}.
 	In each data analytic example, four IVs were generated with different covariance structures and variances assuming multivariate normality of the underlying distributions of the predictors.
-	Four total IV covariance structures were created.  The first was an equal variance, equal uncorrelated set of four IVs for use as a comparison.  The second was an equal variance power-law type decay (.5, .25, .125..) set of correlations between the predictors.  The third was an uncorrelated with unequal power-law type variance...  The final was a combination of the power-law correlation and variances.
+	Four total IV covariance structures were created.  
+	The first was an equal variance, equal uncorrelated set of four IVs for use as a comparison.  
+	The second was an equal variance half-life type decay (.5, .25, .125..) set of correlations between the predictors.  
+	The third was an uncorrelated with unequal half-life type variance reduction.  
+	The final was a combination of the half-life correlation and variances.
 	In all cases, the strength of the correlations generated between the variables varied inversely with the size of the variance generated for that variable % have to describe this better...
 	
+	\subsection{Model Results}
 	
-
+	%remove model results?
 	
+	I begin examining the effects of different data structures by estimating a model from the data for each outcome, the underlying Gaussian DV as well as the Poisson and negative Binomial DVs.
+	
+	The results from the models estimated on the Gaussian dependent variables are listed below.
+	
+	\input{"./includes/lm_mods.tex"}
+	
+	The results show that the known model parameters were recovered very well from the data across all four data structures.
+	Because these linear regression results underlie the generation of all the count DVs, this result is useful as a comparison point for all CRM results.
+	Similar to the linear regression results, the Poisson regressions produced very similar results across all four data structures and were similar to the results obtained by the linear model (due to similar model underlying result - both had variance of 1).
+	The negative Binomial regression results, by contrast, were more sensitive to data conditions and produced larger coefficients when the variables were both correlated and had unequal variances.
+	The next section shifts to focus on the effect of the model, data structure, and fit metric chosen have on the determination of relative importance.
+	
+	\subsection{Fit Metric}
+	
+	The Gaussian, Poisson, and negative Binomial DVs were also submitted to DAs with their appropriate model to determine ...
+	
+	%r2 - focus on how exp R2 gives biased results that differentially impacts predictors and the most compariable R2 (the deviance) doesn't 
+	
+	The DA results across all four data structures for the underlying Gaussian variables produced the pattern of decompositions of the $R^2$ reported below:
+	
+	%\input{}
+	
+	The effect of the data structure is apparent in these results.  
+	The uncorrelated, equal variance results generally recovered the correct amount of explained variance for each IV.  
+	When introducing correlations to the model, ....
+	
+	% poisson
+	
+	Poisson and linear regression share many similarities and, as a result of these similarities, often give similar answers when a count DV is applied to either model.
+	Indeed the DA results for the Poisson model with the deviance $R^2$ are strikingly similar to those obtained from the Gaussian DV DA both in terms of the magnitudes of the deviance R2.  
+	This result is as expected in that the Poisson results are an extension of the Gaussian DV-based results and the deviance $R^2$ is a direct generalization of the explained variance $R^2$ to generalized linear models.
+	
+	When applying
 	
 	...
 	

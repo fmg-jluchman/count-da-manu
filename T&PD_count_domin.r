@@ -62,20 +62,27 @@ glm(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER,
 poisson_offset <- 
   glm(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER + offset(valid), 
       data = nlsORM79_reduced, 
-      family = poisson()) #%>% summary
+      family = poisson()) %>% summary
 
 # DA ----
+  ## dev R2 ----
+devR2 <- 
+  function(model) {
+    
+    mod_sum <- model |> summary()
+    
+    return(1 - (mod_sum$deviance/mod_sum$null.deviance))
+    
+  }
 
-## Poisson with McFadden ----
+## Poisson with deviance R2 ----
 
 domir(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER + offset(valid), 
       \(fml) {
         (res <- glm(fml, 
             data = nlsORM79_reduced, 
             family = poisson()) %>% 
-          pscl::pR2() %>% pluck("McFadden")) %>% 
-          capture.output()
-          #AIC())
+          devR2)
         return(res)
       },
       .adj = ~ offset(valid)) #%>% summary
