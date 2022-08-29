@@ -190,15 +190,6 @@
 	... Poisson vs alternatives ...
 	
 \section{Data Analytic Examples: DA with CRMs}
-
-	% empirical examples illustrating impact of fit metric, offsets, and mutiple equations
-	% also show impact of model choice/using the wrong model
-	
-	% make several different versions - 1) uncorrelated vars, 2) moderate, 3) strongly corrd
-	% poisson, neg bin, and zip DVs for each
-	% several offsets?
-	
-	% take from below?  Otherwise below might be cut
 	
 	The purpose of this manuscript is to highlight specific issues in CRMs that affect how relative importance is determined using DA.
 	The three concepts discussed above were selected from a broader set of considerations as they are both relevant to the estimation and interpretation of CRMs as well as have direct impact on relative importance determination using DA with CRMs.
@@ -216,35 +207,76 @@
 	The final was a combination of the half-life correlation and variances.
 	In all cases, the strength of the correlations generated between the variables varied inversely with the size of the variance generated for that variable % have to describe this better...
 	
-	\subsection{Model Results}
+	\subsection{Base Modeling}
 	
-	%remove model results?
+	I begin by reporting on the structure of the data that were generated above as well as the model results obtained when estimating the appropriate model from the dependent variable with the same data generating process.
+	The purpose of this section is to provide an in-depth examination of the data generated and its impact on both model estimation as well as relative importance determination.  An additional focus of this section is to highlight differences between models in terms of the results produced despite the underlying similarity of the data generating processes that produced each count DV.
 	
-	I begin examining the effects of different data structures by estimating a model from the data for each outcome, the underlying Gaussian DV as well as the Poisson and negative Binomial DVs.
+		\subsubsection{Model Results}
+	
+	Relative importance analysis such as DA is an extension model estimation and should add to parameter estimate results.  
+	It is thus necessary to evaluate relative importance results in the context of the estimated model on which it was based.
+	Accordingly, this section focuses on estimating a series of twelve models.  A linear, Poisson, and negative Binomial model across all four data structures described above.
+	
+	Note that descriptive statistics for the IVs and DVs are reported in Appendix ...
 	
 	The results from the models estimated on the Gaussian dependent variables are listed below.
 	
 	\input{"./includes/lm_mods.tex"}
 	
-	The results show that the known model parameters were recovered very well from the data across all four data structures.
-	Because these linear regression results underlie the generation of all the count DVs, this result is useful as a comparison point for all CRM results.
-	Similar to the linear regression results, the Poisson regressions produced very similar results across all four data structures and were similar to the results obtained by the linear model (due to similar model underlying result - both had variance of 1).
-	The negative Binomial regression results, by contrast, were more sensitive to data conditions and produced larger coefficients when the variables were both correlated and had unequal variances.
+	Recall that the true parameters were .2 for $X_1$, .15 for $X_2$, .125 for $X_3$, and .1 for $X_4$.  The data generated were a rather large population size (100,000) and our model was correctly specified.  Hence, it is not a surprise that the known model parameters were recovered very well from the data across all four data structures and models.
+	Also recall that these linear regression equations underlie the generation of both the Poisson and negative Binomial DVs.  
+	I expect then that the linear regression results will serve as a useful comparison point for the CRM parameter estimation results.
+	
+	\input{"./includes/pois_mods.tex"}
+	
+	Numerically, the Poisson results look rather similar to the linear regression results as was intended.  
+	Indeed, the linear regression prediction equation (with error) was used to generate the underlying Poisson distributed variable and both had the same underlying variance of 1.
+	A further similarity between the linear and Poisson results is that the coefficients obtained across data structures were nearly identical with the exception of the intercept.
+	
+	\input{"./includes/nb_mods.tex"}
+
+	The negative Binomial regression results, by contrast to the Poisson, were numerically less similar to the linear regression and more noticeably sensitive to data conditions during model estimation.
+	For instance, the negative Binomial results tended to produce larger coefficients when the variables were both correlated and had unequal variances.
 	The next section shifts to focus on the effect of the model, data structure, and fit metric chosen have on the determination of relative importance.
 	
-	\subsection{Fit Metric}
+	\subsubsection{Dominance Analysis}
 	
-	The Gaussian, Poisson, and negative Binomial DVs were also submitted to DAs with their appropriate model to determine ...
+	The model parameter estimates reported on above can be used as a basis for interpretation of the critical set of results for this manuscript; the DA statistics.
+	Above I note that the data structures chosen for this manuscript had little effect on the coefficient estimation broadly.
+	I do not expect that the data structure will be as passive a factor for DA statistic computation and, in fact, the data structures chosen for this paper were chosen as they were expected to have a notable effect on the DA results.
 	
-	%r2 - focus on how exp R2 gives biased results that differentially impacts predictors and the most compariable R2 (the deviance) doesn't 
+	In this section below, the linear, Poisson, and negative Binomial DVs were also submitted to DAs with their appropriate model to determine importance among the IVs.  
+	The results from each DA is presented in the table X.
 	
-	The DA results across all four data structures for the underlying Gaussian variables produced the pattern of decompositions of the $R^2$ reported below:
+	%r2 - maybe take out the exp var R2 pieces - put them into the appendix - focus on interpreting results not by fit metrix
 	
-	%\input{}
+	\input{"./includes/ri_fits.tex"}
+	
+	Table X shows the effect of the intended differences across data structures as realized in the DA results.
+	
+	Table X shows stark differences between the data structures in terms of the dominance statistics obtained by each of the IVs.  The EU data structure
 	
 	The effect of the data structure is apparent in these results.  
 	The uncorrelated, equal variance results generally recovered the correct amount of explained variance for each IV.  
 	When introducing correlations to the model, ....
+	
+	Whereas there were clear differences between the data structures in terms of importance determination, the results across fit metrics within a model were quite similar.
+	Table X shows that the proportional contribution to the fit metric each IV was ascribed remained stable across fit metrics within a model.
+	For instance, $IV_1$s proportional contribution for the Poisson model...
+	Moreover, the dominance determinations did not differ across metrics within a model.
+	$IV_1$ completely dominated all other...
+	
+	One way to interpret the results presented above is to suggest that relative importance determination for CRMs is insensitive to fit metric choice. 
+	Despite their similarities however, the explained variance $R^2$ values are consistently discrepant from the deviance $R^2$ values with the Poisson model producing values that were too high and the negative Binomial producing values that were too low. 
+	This result then suggests that the primary risk of using the explained variance $R^2$ as opposed to the deviance $R^2$ is in mis-characterizing the extent of predictive usefulness of the model as a whole, which affects the the numeric magnitudes or results obtained by the DA, but metric choice does not, itself, affect relative importance determinations.
+	
+	\subsection{Modeling with Exposure}
+	
+	...
+	
+	\subsection{Modeling with Zero-inflation}
+	
 	
 	% poisson
 	

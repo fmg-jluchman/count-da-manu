@@ -104,6 +104,10 @@ devR2 <-
     
   }
 
+# Describe ----
+# 
+# 
+
 # Model ----
 lms <- 
   map(data_list, 
@@ -114,24 +118,22 @@ lms <-
 compare_parameters(lms) 
 sink("./includes/lm_mods.tex")
 compare_parameters(lms) %>% 
-  kbl("latex", booktabs = TRUE)
+  #select(-Component, -matches("CI")) %>%
+  kbl("latex", booktabs = TRUE, digits = 5)
 sink()
 
-pois <- 
+lpois <- 
   map(data_list, 
       ~ glm(
         reformulate(str_c("V", 1:4), response = "dv_pois"),
         data = eval(.), family = poisson()))
 
 compare_parameters(pois)
-
-pois_lm <- 
-  map(data_list, 
-      ~ lm(
-        reformulate(str_c("V", 1:4), response = "dv_pois"),
-        data = eval(.)))
-
-compare_parameters(pois_lm)
+sink("./includes/pois_mods.tex")
+compare_parameters(pois) %>% 
+  #select(-Component, -matches("CI")) %>%
+  kbl("latex", booktabs = TRUE, digits = 5)
+sink()
 
 nb <- 
   map(data_list, 
@@ -140,14 +142,11 @@ nb <-
         data = eval(.)))
 
 compare_parameters(nb)
-
-nb_lm <- 
-  map(data_list, 
-      ~ lm(
-        reformulate(str_c("V", 1:4), response = "dv_nb"),
-        data = eval(.)))
-
-compare_parameters(nb_lm)
+sink("./includes/nb_mods.tex")
+compare_parameters(nb) %>% 
+  #select(-Component, -matches("CI")) %>%
+  kbl("latex", booktabs = TRUE, digits = 5)
+sink()
   
 
 # lm(dv_cont ~ V1 + V2 + V3 + V4, data = eq_v_uncor) %>% summary()
@@ -235,19 +234,44 @@ sapply(nb_lmr2_ri, \(x) x$General_Dominance)
 sapply(nb_lmr2_ri, \(x) x$Value)
 sapply(nb_lmr2_ri, \(x) x$Standardized)
 
-  ## wrong model ----
-poi_fulllm_ri <- 
-  map(data_list, 
-      ~ domir(
-        reformulate(str_c("V", 1:4), response = "dv_pois"),
-        \(fml, data) lm(fml, data = data) %>%
-          r2 %>% pluck(1),
-        data = eval(.)))
+save.image("./Data_Results/count_domin_manu.R")
 
-sapply(poi_fulllm_ri, \(x) x$General_Dominance)
-sapply(poi_fulllm_ri, \(x) x$Value)
-sapply(poi_fulllm_ri, \(x) x$Standardized)
+# Kable results ----
+fit_met_ri <-
+  data.frame( 
+    vars = 1:4,
+    bind_cols(
+      map(lms_ri, pluck, "General_Dominance")
+    ) %>% set_names(str_c("Linear Model ", 1:4)), 
+    bind_cols(
+      map(poi_ri, pluck, "General_Dominance")
+    ) %>% set_names(str_c("Poisson Model A ", 1:4)),
+    bind_cols(
+      map(poi_lmr2_ri, pluck, "General_Dominance")
+    ) %>% set_names(str_c("Poisson Model B ", 1:4)),
+    bind_cols(
+      map(nb_ri, pluck, "General_Dominance")
+    ) %>% set_names(str_c("Negative Binomial Model A ", 1:4)),
+    bind_cols(
+      map(nb_lmr2_ri, pluck, "General_Dominance")
+    )%>% set_names(str_c("Negative Binomial Model B ", 1:4)),
+    check.names = FALSE
+  ) %>% 
+  pivot_longer(matches("[1-4]$"), names_to = c(".value", "data"), names_pattern = "(.+) (.)$") %>%
+  mutate(data = 
+              case_when(data == 1 ~ "EU", 
+                        data == 2 ~ "EC", 
+                        data == 3 ~ "UU", 
+                        data == 4 ~ "UC")) %>%
+  arrange(data, vars)
 
+# ~~ can I get the names to have linebreaks to squeeze the table down?
+# %>% rename_with(~{ str_replace(., " Model", "\nModel")})
+
+sink("./includes/ri_fits.tex")
+fit_met_ri %>%
+  kbl("latex", booktabs = TRUE, digits = 5)
+sink()
 
 
 # 
