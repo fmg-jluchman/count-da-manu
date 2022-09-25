@@ -79,13 +79,13 @@ devR2 <-
 
 domir(unemp_ct ~ nlf_ct + AFQT + LOC + GENDER + offset(valid), 
       \(fml) {
-        (res <- glm(fml, 
+        (res <- glm(fml, # %>% update(. ~ . + offset(valid)), 
             data = nlsORM79_reduced, 
-            family = poisson()) %>% 
+            family = poisson()) %T>% {coef(.) %>% print} %>% 
           devR2)
         return(res)
       },
-      .adj = ~ offset(valid)) #%>% summary
+      .adj = ~ offset(valid)) #%>% summary  <- don't think .adj factor is being included!
 
 ## Poisson with Negelkerke (no offset) ----
 

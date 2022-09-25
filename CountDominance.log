@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021 - Flatpak) (preloaded format=pdflatex 2022.4.5)  28 AUG 2022 09:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021 - Flatpak) (preloaded format=pdflatex 2022.4.5)  25 SEP 2022 09:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -403,62 +403,58 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 130.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 11.39996pt on input line 130.
- [4] [5]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 20
-1.
+ [4] [5] [6] [7]
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 25
+7.
 
 (/app/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [6] (./includes/lm_mods.tex)
-Overfull \hbox (1988.29509pt too wide) in paragraph at lines 2--226
+) (./includes/lm_mods.tex)
+Overfull \hbox (1988.29509pt too wide) in paragraph at lines 2--274
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2--226
+Underfull \hbox (badness 10000) in paragraph at lines 2--274
 
  []
 
-(./includes/pois_mods.tex)
-Overfull \hbox (1988.13762pt too wide) in paragraph at lines 2--232
+[8] (./includes/pois_mods.tex)
+Overfull \hbox (1988.13762pt too wide) in paragraph at lines 2--288
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2--232
+Underfull \hbox (badness 10000) in paragraph at lines 2--288
 
  []
 
-[7] (./includes/nb_mods.tex)
-Overfull \hbox (1988.13762pt too wide) in paragraph at lines 2--238
+(./includes/nb_mods.tex)
+Overfull \hbox (1988.13762pt too wide) in paragraph at lines 2--294
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2--238
+Underfull \hbox (badness 10000) in paragraph at lines 2--294
 
  []
 
-(./includes/ri_fits.tex)
-Overfull \hbox (201.69557pt too wide) in paragraph at lines 2--255
+[9] (./includes/ri_fits.tex)
+Overfull \hbox (201.69557pt too wide) in paragraph at lines 2--315
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2--255
+Underfull \hbox (badness 10000) in paragraph at lines 2--315
 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [8]
-[9] [10] [11] (./CountDominance.bbl) [12] (./CountDominance.aux) )
+[10] [11] [12] (./CountDominance.bbl [13]) [14] (./CountDominance.aux) )
 (\end occurred when \ifx on line 3 was incomplete) 
 Here is how much of TeX's memory you used:
  5146 strings out of 478994
  76398 string characters out of 5859690
- 397951 words of memory out of 5000000
+ 407951 words of memory out of 5000000
  22480 multiletter control sequences out of 15000+600000
  461419 words of font info for 96 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -476,10 +472,10 @@ f-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></app/texlive/texmf-dist/fonts/type1
 /urw/helvetic/uhvr8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr
 o8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></app/texlive
 /texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on CountDominance.pdf (12 pages, 179855 bytes).
+Output written on CountDominance.pdf (14 pages, 186881 bytes).
 PDF statistics:
- 100 PDF objects out of 1000 (max. 8388607)
- 71 compressed objects within 1 object stream
+ 107 PDF objects out of 1000 (max. 8388607)
+ 76 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
