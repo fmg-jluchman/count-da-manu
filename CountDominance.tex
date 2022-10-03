@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{longtable}
 
 
 \begin{document}
@@ -202,43 +203,46 @@
 	The four data structures designed for this manuscript were intended to highlight the impact of IV variance as well as inter-IV covariance on both parameter estimation as well as relative importance determination.
 	I expected that these four designs would also produce useful comparisons across CRMs in terms of how each is affected by IV (co-)variances.
 	
-	The first data structure designed generated all IVs with equal variances and no/zero covariances.  
+	The first data structure generated all IVs with equal variances and no/zero covariances.  
 	This data structure, referred to as EU (i.e., \emph{E}qual and \emph{U}ncorrelated), does not reflect "real" data but is a commonly simulated and useful data structure to show the effect of a model's parameter estimation and relative importance determination results under what could be considered "ideal" estimation conditions when the causal effects of IVs are easiest to identify given they do not overlap.  
 	The EU data structure is then most useful as a comparison point for the other, more realistic data structures to more clearly assess the impact of differences in (co-)variances.
 	
 	The second data structure designed was similar to the first in that all IVs were generated with equal variances but were also generated such that the IVs had non-zero covariances. 
 	This data structure, referred to as EC (i.e., \emph{E}qual and \emph{C}orrelated), is intended to show the effect of IV intercorrelations on both parameter estimation and relative importance determination as compared to EU.  
 	I expect that the intercorrelations imposed in this data structure would be most impactful for relative importance determination which attempts to isolate variance explained by each IV irrespective of its association with other IVs.
-	The EC data structure is useful as a condition to evaluate the effects of IV intercorrelations on parameter estimates and relative importance independent of the underlying predictor variances.
+	The EC data structure is then useful as a condition to evaluate the effects of IV intercorrelations on parameter estimates and relative importance independent of the underlying IV variances.
 	
-	The third was an uncorrelated with unequal half-life type variance reduction...
+	The third data structure was designed such that all IVs were uncorrelated like the EU structure but changed the variances of the IVs to be different from one another.  
+	The third data structure, referred to as UU (i.e., \emph{U}nequal and \emph{U}ncorrelated), is intended to show the effect of IV variance on both parameter estimation and relative importance determination as compared to EU and EC.
+	Like EC, I expect that the UU data structure will be most impactful for determining relative importance given that methods such as DA reflect explained variance(?information?fit?), which is affected by IV variance. 
+	The UU data structure is then also useful as a condition to evaluate the effects of IV variances on parameter estimates and relative importance independent of the underlying IV intercorrelations.
 	
-	The final was a combination of the half-life correlation and variances...
-	In all cases, the strength of the correlations generated between the variables varied inversely with the size of the variance generated for that variable % have to describe this better...
+	The fourth and final data structure designed combined both unequal IV variances as well as IV non-0 IV intercorrelations.
+	The fourth data structure, referred to as UC (i.e., \emph{U}nequal and \emph{C}orrelated), is intended to show the joint effect of IV variance and correlation on both parameter estimation and relative importance determination as compared to the other three data structures.
+	This data structure is the most realistic of the four in that much empirical data have non-0 correlations and differences in variance.  
+	As such, this data structure is intended to show what results may be expected to look like under more normal conditions (?).  
 	
 	For each of the four data structures, a single dataset with 100,000 observations and four IVs was generated based on the theoretical data structure.  
-	For the EU and EC data structures, all variances were set to 1. For the UU and UC data structures, the variance for \emph{V1} was set to 1, for \emph{V2} was set to 1.5, for \emph{V3} was set to 2, and for \emph{V4} was set to 4. 
+	For the EU and EC data structures, all variances were set to 1. For the UU and UC data structures, the variance for $V_{1}$ was set to 1, for $V_2$ was set to 1.5, for $V_3$ was set to 2, and for $V_4$ was set to 4. 
 	These differences in variance were intended to increasingly enhance the relative importance of IVs with larger numeric labels as balanced with each variables' effect on the DV to be discussed below.  
 	The EC and UC data structures shared a single underlying correlation matrix reported below in Table X.
 	
 	\medskip
 	
 	\begin{center}
-
 	\begin{tabular}[5]{r|llll}
-		& $V_1$ & V2 & V3 & V4 \\
+		& $V_1$ & $V_2$ & $V_3$ & $V_4$ \\
 		\toprule
 		$V_1$ & 1.0 & 0.5 & 0.25 & 0.125 \\
-		V2 & 0.5 & 1.0 & 0.125 & 0.25 \\
-		V3 & 0.25 & 0.125 & 1.0 & 0.5 \\
-		V4 & 0.125 & 0.25 & 0.5 & 1.0
+		$V_2$ & 0.5 & 1.0 & 0.125 & 0.25 \\
+		$V_3$ & 0.25 & 0.125 & 1.0 & 0.5 \\
+		$V_4$ & 0.125 & 0.25 & 0.5 & 1.0
 	\end{tabular}
-
 	\end{center}
 	
 	\medskip
 	
-	The correlation matrix in Table X produces a realistic correlations that emphasize the relationship between \emph{V1} and \emph{V2} as well as the relationship between \emph{V3} and \emph{V4}.  
+	The correlation matrix in Table X produces a realistic correlations that emphasize the relationship between $V_1$ and $V_2$ as well as the relationship between $V_3$ and $V_4$.  
 	The balance of the correlations in Table X also does not result in one variable being more redundant than others; all IVs have equal redundancies as others, but are more or less redundant with different other IVs.	The means for all variables were set to 0.
 	
 	Each data structure's dataset was also used to generate all DVs.  An initial Gaussian/Normally distributed DV was generated for each dataset using the following equation: $Y_{cont} = V_1*.2 + V_2*.15 + V_3*.125 + V_4*.1$.  A residual residual variance for $Y_{cont}$ was generated for each dataset as $1 - \sigma_{Y_{cont}}$; hence, $Y_{cont}$ had a variance of 1 and a mean of 0.  
@@ -254,64 +258,56 @@
 	
 	... ZIP ...
 	
+	%this part below (other than final transition) needed in this section?
 	The data for the analytic examples were generated using R \cite{R} using a combination of base R's \texttt{stats} package as well as the \texttt{MASS} package \cite{MASS}.  
 	Other details of data generation for the reproducibility of the analysis can be found in Appendix X.  
 	The section below transitions from discussing data generation processes to data analysis.
 	
-	\subsection{Parameter Estimation Results}
+	\subsection{Base Relative Importance Results}
 	
-	The data analysis begins where all relative importance analysis should, with parameter estimation using the appropriate statistical model for the DV.  
-	Relative importance analysis is an extension of parameter estimation (cite!) that provides additional, useful information about the model and data.  
-	As such, relative importance analysis results should be interpreted in light of the parameter estimates produced by the model that is being dominance analyzed.  
-	The goal of this section is to highlight similarities and differences between the models' results across the four data structures with attention to each data structure's effect parameter estimate magnitudes. 
-	
-		\subsubsection{Base Model Results}
-	
-	This subsection discusses the parameter estimates obtained from the Normal, Poisson, and negative Binomial distributed DVs across all four data structures.  
-	Note that descriptive statistics for the IVs and DVs are reported in Appendix X.  The results from the four models estimated on the Normal DVs are listed below in Table X.
-	
-	\input{"./includes/lm_mods.tex"}
-	
-	The effects of data structure on estimation for Normally distributed variables with linear regression are well-known and the results in Table X are, as a result, consistent with extant research in showing that these data tended to recover the correct parameter estimates.
-	
-	...
-	
-	 data generated were a rather large population size (100,000) and our model was correctly specified.  
-	
-	Hence, it is not a surprise that the known model parameters were recovered very well from the data across all four data structures and models.
-	
-	Recall that the true parameters were .2 for $X_1$, .15 for $X_2$, .125 for $X_3$, and .1 for $X_4$.  
-	Also recall that these linear regression equations underlie the generation of both the Poisson and negative Binomial DVs.  
-	I expect then that the linear regression results will serve as a useful comparison point for the CRM parameter estimation results.
-	
-	\input{"./includes/pois_mods.tex"}
-	
-	Numerically, the Poisson results look rather similar to the linear regression results as was intended.  
-	Indeed, the linear regression prediction equation (with error) was used to generate the underlying Poisson distributed variable and both had the same underlying variance of 1.
-	A further similarity between the linear and Poisson results is that the coefficients obtained across data structures were nearly identical with the exception of the intercept.
-	
-	\input{"./includes/nb_mods.tex"}
-
-	The negative Binomial regression results, by contrast to the Poisson, were numerically less similar to the linear regression and more noticeably sensitive to data conditions during model estimation.
-	For instance, the negative Binomial results tended to produce larger coefficients when the variables were both correlated and had unequal variances.
-	The next section shifts to focus on the effect of the model, data structure, and fit metric chosen have on the determination of relative importance.
-	
-		\subsubsection{Offset Models}
-		
-		\subsubsection{Zero-inflated Models}
-	
-	\subsection{Dominance Analysis}
-	
-	The model parameter estimates reported on above can be used as a basis for interpretation of the critical set of results for this manuscript; the DA statistics.
-	Above I note that the data structures chosen for this manuscript had little effect on the coefficient estimation broadly.
-	I do not expect that the data structure will be as passive a factor for DA statistic computation and, in fact, the data structures chosen for this paper were chosen as they were expected to have a notable effect on the DA results.
-	
-	In this section below, the linear, Poisson, and negative Binomial DVs were also submitted to DAs with their appropriate model to determine importance among the IVs.  
-	The results from each DA is presented in the table X.
+	The data generated above by data structure and DV distribution were submitted to separate DAs to produce a total of twelve different DAs.
+	The four DAs with each Normally distributed DV was based on linear regression.
+	The four DAs with each Poisson distributed DV was based on Poisson regression/generalized linear model with a log link and Poisson family.
+	The four DAs with each negative Binomial distributed DV was based on negative Binomial regression/generalized linear model with a log link and negative Binomial family.
+	The model parameter estimates for each of the twelve models DAs were also estimated but are not reported in this section as they are not a focus; these results are reported in Appendix X. 
+	The general dominance statistic results from each DA are presented in table X.
 	
 	%r2 - maybe take out the exp var R2 pieces - put them into the appendix - focus on interpreting results not by fit metrix
 	
 	\input{"./includes/ri_fits.tex"}
+	
+		\subsubsection{Linear Model}
+	The results from the linear model-based DA is, as noted above, most useful in this table as a comparison point for the other results computed from the CRMs.
+	The linear model is used as a comparison point as it is a better known model than most CRMs and is easier to work with mathematically.
+	The EU data structure is also intended to be a comparison point data structure representing idealized, if unrealistic, data conditions for estimation.
+	As such, I begin the interpretation of the results with the EU data.	
+	The idealized data structure represented by the EU condition produced results that were consistent with those which would be theoretically expected with identically distributed, uncorrelated IVs.  
+	Specifically, when there are no intercorrelations and the variance of the variable is 1, the expected $R^2$ value is the square of the coefficient (cite?).
+	The linear model results in Table X for the EU data structure follow this pattern well and show that general dominance statistic results, when there are no intercorrelations and equal variances, recover the theoretically expected $R^2$ values.  
+	Indeed, as is well known (cite?), DA is not a necessary procedure when IVs are not intercorrelated as the incremental $R^2$ values for each IV are tantamount to the general dominance statistics.
+	
+	% report the conditional dominance and complete stats too?
+	
+	The UU results vary from those obtained by the EU in that $V_4$, despite having a known coefficient value that is half that of $V_1$ obtained nearly the same general dominance statistic value.
+	As with the EU structure, UU's results are theoretically known.
+	For variables with unequal variances with no intercorrelations, the expected $R^2$ value is the square of the coefficient times the IV variance (cite?).
+	Hence, the expected general dominance statistics for $V_1$ and $V_4$ in the UU data structure were theoretically the same (i.e., $C_{V_1} = .2^2*1 = .1^2*4 = C_{V_4}$) however as realized in data as simulated in this manuscript, $V_1$ gained a slight edge and generally dominates $V_4$.
+	The results from the UU condition are intended to reinforce the idea that there are two 'routes' to importance with DA, the magnitude of the relationship between the IV and the DV as well as the variance of the IV.
+	Both relationship and variance contribute to the magnitude of the fit metric.
+	
+	% emphasize the variance and intercorrelations piece more above?  Maybe sufficient - just revisit
+	
+	The EC results for the linear model also vary from those obtained from the EU model by both increasing the total $R^2$ values obtained for each IV, in particular $V_3$ and $V_4$, but also by decreasing the relative differences between the IVs.
+	
+	Finally, the UC results combine...
+	
+	
+	
+		\subsubsection{Poisson Model}
+		
+	The DA results from the Poisson model/DV show a similar pattern to those of the linear model of which they are an extension.
+	
+	can be compared to the linear model results and reveal the same pattern
 	
 	Table X shows the effect of the intended differences across data structures as realized in the DA results.
 	
@@ -327,9 +323,18 @@
 	Moreover, the dominance determinations did not differ across metrics within a model.
 	$IV_1$ completely dominated all other...
 	
-	One way to interpret the results presented above is to suggest that relative importance determination for CRMs is insensitive to fit metric choice. 
-	Despite their similarities however, the explained variance $R^2$ values are consistently discrepant from the deviance $R^2$ values with the Poisson model producing values that were too high and the negative Binomial producing values that were too low. 
-	This result then suggests that the primary risk of using the explained variance $R^2$ as opposed to the deviance $R^2$ is in mis-characterizing the extent of predictive usefulness of the model as a whole, which affects the the numeric magnitudes or results obtained by the DA, but metric choice does not, itself, affect relative importance determinations.
+		\subsubsection{Negative Binomial Model}
+	
+		\subsubsection{Section Summary}
+		
+	The base relative importance section reported on the results of the linear, Poisson, and negative Binomial
+	
+%	One way to interpret the results presented above is to suggest that relative importance determination for CRMs is insensitive to fit metric choice. 
+%	Despite their similarities however, the explained variance $R^2$ values are consistently discrepant from the deviance $R^2$ values with the Poisson model producing values that were too high and the negative Binomial producing values that were too low. 
+%	This result then suggests that the primary risk of using the explained variance $R^2$ as opposed to the deviance $R^2$ is in mis-characterizing the extent of predictive usefulness of the model as a whole, which affects the the numeric magnitudes or results obtained by the DA, but metric choice does not, itself, affect relative importance determinations.
+
+	In the section below the focus moves to determining relative importance among CRMs with specific attention to cases where the DVs have unequal exposures to the count generating process.
+	
 	
 	\subsection{Modeling with Exposure}
 	
@@ -337,6 +342,7 @@
 	
 	\subsection{Modeling with Zero-inflation}
 	
+	...
 	
 	% poisson
 	
@@ -444,6 +450,48 @@
 	\begin{equation}
 		\ln{y} = \sum{\beta_{x_i}}
 	\end{equation}
+
+	\subsection{Parameter Estimation Results}
+
+The data analysis begins where all relative importance analysis should, with parameter estimation using the statistical model appropriate for each DV.  
+Relative importance analysis is an extension of parameter estimation (cite!) that provides additional, useful information about the model and data.  
+As such, relative importance analysis results should be interpreted in light of the parameter estimates produced by the model that is being dominance analyzed.  
+The goal of this section is to highlight similarities and differences between the models' results across the four data structures with attention to each data structure's effect parameter estimate magnitudes. 
+
+\subsubsection{Base Model Results}
+
+This subsection discusses the parameter estimates obtained from the Normal, Poisson, and negative Binomial distributed DVs across all four data structures.  
+Note that descriptive statistics for the IVs and DVs are reported in Appendix X.  The results from the four models estimated on the Normal DVs are listed below in Table X.
+
+\input{"./includes/lm_mods.tex"}
+
+The effects of data structure on estimation for Normally distributed variables with linear regression are well-known and the results in Table X are, as a result, consistent with extant research in showing that these data tended to recover the correct parameter estimates.
+
+...
+
+data generated were a rather large population size (100,000) and our model was correctly specified.  
+
+Hence, it is not a surprise that the known model parameters were recovered very well from the data across all four data structures and models.
+
+Recall that the true parameters were .2 for $X_1$, .15 for $X_2$, .125 for $X_3$, and .1 for $X_4$.  
+Also recall that these linear regression equations underlie the generation of both the Poisson and negative Binomial DVs.  
+I expect then that the linear regression results will serve as a useful comparison point for the CRM parameter estimation results.
+
+\input{"./includes/pois_mods.tex"}
+
+Numerically, the Poisson results look rather similar to the linear regression results as was intended.  
+Indeed, the linear regression prediction equation (with error) was used to generate the underlying Poisson distributed variable and both had the same underlying variance of 1.
+A further similarity between the linear and Poisson results is that the coefficients obtained across data structures were nearly identical with the exception of the intercept.
+
+\input{"./includes/nb_mods.tex"}
+
+The negative Binomial regression results, by contrast to the Poisson, were numerically less similar to the linear regression and more noticeably sensitive to data conditions during model estimation.
+For instance, the negative Binomial results tended to produce larger coefficients when the variables were both correlated and had unequal variances.
+The next section shifts to focus on the effect of the model, data structure, and fit metric chosen have on the determination of relative importance.
+
+\subsubsection{Offset Models}
+
+\subsubsection{Zero-inflated Models}
 
 
 \bibliography{CountDominance.bib}

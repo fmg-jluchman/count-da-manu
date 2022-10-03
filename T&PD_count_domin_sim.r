@@ -1,5 +1,6 @@
 setwd("/home/josephluchman/github_misc/count-da-manu/count-da-manu/")
 
+library(gt)
 library(knitr)
 library(kableExtra)
 library(MASS)
@@ -116,11 +117,12 @@ lms <-
         data = eval(.)))
 
 compare_parameters(lms) 
-sink("./includes/lm_mods.tex")
-compare_parameters(lms) %>% 
-  #select(-Component, -matches("CI")) %>%
-  kbl("latex", booktabs = TRUE, digits = 5)
-sink()
+
+# compare_parameters(lms) %>% # '(Intercept)' as value in cell needs LaTeX formatting
+#   as_tibble() %>% 
+#   select(-c(starts_with("CI"), starts_with("df"), Component)) %>%
+#   gt() %>% 
+#   gtsave(filename = "lm_mods.tex", path = "./includes/")
 
 lpois <- 
   map(data_list, 
@@ -128,12 +130,12 @@ lpois <-
         reformulate(str_c("V", 1:4), response = "dv_pois"),
         data = eval(.), family = poisson()))
 
-compare_parameters(pois)
-sink("./includes/pois_mods.tex")
-compare_parameters(pois) %>% 
-  #select(-Component, -matches("CI")) %>%
-  kbl("latex", booktabs = TRUE, digits = 5)
-sink()
+# compare_parameters(pois)
+# sink("./includes/pois_mods.tex")
+# compare_parameters(pois) %>% 
+#   #select(-Component, -matches("CI")) %>%
+#   kbl("latex", booktabs = TRUE, digits = 5)
+# sink()
 
 nb <- 
   map(data_list, 
@@ -141,12 +143,12 @@ nb <-
         reformulate(str_c("V", 1:4), response = "dv_nb"),
         data = eval(.)))
 
-compare_parameters(nb)
-sink("./includes/nb_mods.tex")
-compare_parameters(nb) %>% 
-  #select(-Component, -matches("CI")) %>%
-  kbl("latex", booktabs = TRUE, digits = 5)
-sink()
+# compare_parameters(nb)
+# sink("./includes/nb_mods.tex")
+# compare_parameters(nb) %>% 
+#   #select(-Component, -matches("CI")) %>%
+#   kbl("latex", booktabs = TRUE, digits = 5)
+# sink()
   
 
 # lm(dv_cont ~ V1 + V2 + V3 + V4, data = eq_v_uncor) %>% summary()
@@ -202,39 +204,43 @@ sapply(nb_ri, \(x) x$Value)
 sapply(nb_ri, \(x) x$Standardized)
 
   ## wrong metric ----
-poi_lmr2_ri <- 
-  map(data_list, 
-      ~ domir(
-        reformulate(str_c("V", 1:4), response = "dv_pois"),
-        \(fml, data) glm(fml, data = data, family = poisson()) %>%
-          predict(type = "response") %>%
-          bind_cols(data %>% select(dv_pois)) %>%
-          cor %>% 
-          extract(2,1) %>%
-          raise_to_power(2),
-        data = eval(.)))
+# poi_lmr2_ri <- 
+#   map(data_list, 
+#       ~ domir(
+#         reformulate(str_c("V", 1:4), response = "dv_pois"),
+#         \(fml, data) glm(fml, data = data, family = poisson()) %>%
+#           predict(type = "response") %>%
+#           bind_cols(data %>% select(dv_pois)) %>%
+#           cor %>% 
+#           extract(2,1) %>%
+#           raise_to_power(2),
+#         data = eval(.)))
+# 
+# sapply(poi_lmr2_ri, \(x) x$General_Dominance)
+# sapply(poi_lmr2_ri, \(x) x$Value)
+# sapply(poi_lmr2_ri, \(x) x$Standardized)
 
-sapply(poi_lmr2_ri, \(x) x$General_Dominance)
-sapply(poi_lmr2_ri, \(x) x$Value)
-sapply(poi_lmr2_ri, \(x) x$Standardized)
+# nb_lmr2_ri <- 
+#   map(data_list, 
+#       ~ domir(
+#         reformulate(str_c("V", 1:4), response = "dv_nb"),
+#         \(fml, data) glm(fml, data = data, family = poisson()) %>%
+#           predict(type = "response") %>%
+#           bind_cols(data %>% select(dv_nb)) %>%
+#           cor %>% 
+#           extract(2,1) %>%
+#           raise_to_power(2),
+#         data = eval(.)))
+# 
+# sapply(nb_lmr2_ri, \(x) x$General_Dominance)
+# sapply(nb_lmr2_ri, \(x) x$Value)
+# sapply(nb_lmr2_ri, \(x) x$Standardized)
 
-nb_lmr2_ri <- 
-  map(data_list, 
-      ~ domir(
-        reformulate(str_c("V", 1:4), response = "dv_nb"),
-        \(fml, data) glm(fml, data = data, family = poisson()) %>%
-          predict(type = "response") %>%
-          bind_cols(data %>% select(dv_nb)) %>%
-          cor %>% 
-          extract(2,1) %>%
-          raise_to_power(2),
-        data = eval(.)))
 
-sapply(nb_lmr2_ri, \(x) x$General_Dominance)
-sapply(nb_lmr2_ri, \(x) x$Value)
-sapply(nb_lmr2_ri, \(x) x$Standardized)
+    ### save stuff ----
+#save.image("./Data_Results/count_domin_manu.R")
 
-save.image("./Data_Results/count_domin_manu.R")
+load("./Data_Results/count_domin_manu.R")
 
 # Kable results ----
 fit_met_ri <-
