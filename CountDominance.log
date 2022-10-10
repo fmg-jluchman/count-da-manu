@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022 - Flatpak) (preloaded format=pdflatex 2022.9.25)  2 OCT 2022 09:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022 - Flatpak) (preloaded format=pdflatex 2022.9.25)  10 OCT 2022 16:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -388,65 +388,69 @@ LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 
 {/app/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 67.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 56.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 67.
+(Font)              scaled to size 9.49997pt on input line 56.
  [2] [3]
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 131.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 118.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 11.39996pt on input line 131.
+(Font)              scaled to size 11.39996pt on input line 118.
  [4] [5] [6] [7]
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 26
-2.
+0.
 
 (/app/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 ) [8] (./includes/ri_fits.tex)
-Overfull \hbox (32.35728pt too wide) in paragraph at lines 2--278
+Overfull \hbox (32.35728pt too wide) in paragraph at lines 2--276
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2--278
+Underfull \hbox (badness 10000) in paragraph at lines 2--276
 
  []
 
-[9] [10] [11] [12] (./includes/lm_mods.tex
+[9]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [10]
+[11] [12] [13] [14] [15] (./includes/lm_mods.tex
 Overfull \hbox (821.2122pt too wide) in alignment at lines 1--11
  [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
-[13]) (./includes/pois_mods.tex)
-Overfull \hbox (1988.13762pt too wide) in paragraph at lines 2--477
+) (./includes/pois_mods.tex)
+Overfull \hbox (1988.13762pt too wide) in paragraph at lines 2--542
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2--477
+Underfull \hbox (badness 10000) in paragraph at lines 2--542
 
  []
 
 (./includes/nb_mods.tex)
-Overfull \hbox (1988.13762pt too wide) in paragraph at lines 2--483
+Overfull \hbox (1988.13762pt too wide) in paragraph at lines 2--548
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2--483
+Underfull \hbox (badness 10000) in paragraph at lines 2--548
 
  []
 
-(./CountDominance.bbl [14]) [15] (./CountDominance.aux) )
+[16] (./CountDominance.bbl) [17] (./CountDominance.aux) )
 (\end occurred when \ifx on line 3 was incomplete) 
 Here is how much of TeX's memory you used:
- 5267 strings out of 478268
- 85026 string characters out of 5847840
- 398490 words of memory out of 5000000
- 23351 multiletter control sequences out of 15000+600000
+ 5270 strings out of 478268
+ 85095 string characters out of 5847840
+ 398605 words of memory out of 5000000
+ 23354 multiletter control sequences out of 15000+600000
  527248 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,9n,77p,1308b,348s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 70i,9n,77p,1308b,324s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/app/texlive/texmf-dist/font
 s/enc/dvips/base/8r.enc}</app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmex10.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
@@ -461,10 +465,10 @@ ype1/urw/helvetic/uhvb8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helvetic/
 uhvr8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></app/
 texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></app/texlive/texmf-dist/fo
 nts/type1/urw/times/utmri8a.pfb>
-Output written on CountDominance.pdf (15 pages, 210145 bytes).
+Output written on CountDominance.pdf (17 pages, 221700 bytes).
 PDF statistics:
- 129 PDF objects out of 1000 (max. 8388607)
- 81 compressed objects within 1 object stream
+ 135 PDF objects out of 1000 (max. 8388607)
+ 85 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

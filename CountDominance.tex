@@ -25,46 +25,53 @@
 
 \section{Introduction}
 
-	Organizational scientists conduct research on work-related problems that focus on many different specific topics including job performance, employee wellness, and effective task staffing.  
-	Quantifying topics such as job performance often requires that researchers use data that are in the form of discrete, sometimes infrequent, events such as number of contracts won in a year, number of complaints received in a month, or number of days absent for illness in a business quarter. % use actual examples here?
-	Discrete, infrequent event data, called \textit{count dependent variable models}/(\textit{CDMs}) in this paper, are useful representations of many concepts in organizational science but can present additional complications for analysis.
-	One such complication is that count data can diverge from the statistical assumptions made of the Normal or Gaussian distributed linear regression model---by far one of the most common predictive models applied in organizational science \cite{}.
+	Organizational scientists conduct research on work-related problems across many topics including job performance, employee wellness, and effective work staffing.  
+	Quantitative research on these topics often requires that researchers use data that are in the form of discrete, sometimes infrequent, events such as number of contracts won in a year, number of complaints received in a month, or number of days absent for illness in a business quarter. % use actual examples here?
+	Discrete, infrequent events are modeled using \textit{count regression models/CRMs} and are commonly applied in organizational science but can present additional complexities for the interpretation of analysis results.
+	The most significant complication is that CRMs diverge in important ways from the statistical assumptions made of the Normal or Gaussian distributed linear regression model/LRM---by far the most common predictive model applied in organizational science \cite{}.
 	
+	CRMs diverge from LRM as the discrete events used as dependent variables have truncated distributions that cannot range lower than 0 and tend to increase and decrease non-linearly.  
+	For example, \textit{Poisson regression/PR} as well as \textit{negative Binomial regression/NBR} are two commonly used CRMs in the organizational sciences \cite{}. 
+	Both PR and NBR are log-linear models (i.e., have the form $e^{\beta}$) to adapt their predictions to the non-negative range of real numbers and follow probability distributions that require non-negative integer values. % are non-negative integers 'required' or just work better?
+	PR and NBR are then both conceptually more applicable to count data but also are far more complex to interpret than LRM as they are log-linear.
+	In addition, count data are often generated as aggregations of events over a specific time period such as a firm over a month's time or across a collective of conceptually related sub-units such as individual team members in a team.
+	CRMs used to model these aggregated events then require the application of additional considerations to establish parity across observations when time windows or collective sizes differ---an issue that tends to be less applicable in LRM.
 	
-	CDVs are often modeled using generalized linear models adapted to the structure of infrequent events.
-	Poisson or negative Binomial regressions \cite{} are commonly applied to CDMs as they tend to fit better with positive integer-valued data than do Normal/Gaussian distributions.  
-	Although models such as the Poisson regression fit better to CDVs, Poisson and similar regressions are more complex to interpret than linear regression as they are intrinsically non-linear.
-	In addition, CDVs' discrete, event-oriented nature requires additional considerations that tend not to apply to continuous, Normally-distributed data.
+	The complexities of CRM estimation and interpretation is further compounded when considering how to determine the relative importance of independent variables/IVs from CRMs.
+	Relative importance analysis is a useful interpretation tool that adds detail to the estimation of parameter estimates \cite{tonidandel2011relative} and can provide practically useful information about IV predictive utility \cite{}.  
+	Among relative importance analysis methods, \textit{dominance analysis/DA} \cite{} is most often recommended as a method that has the strongest conceptual foundation \cite{} and most flexible implementation in terms of extensibility \cite{luchman2021determining}.
+	Published methodological work on DA has discussed multiple intrinsically non-linear models including binary \cite{azen2009using}, ordered, and multinomial logit \cite{luchman2014relative} models but has not provided an extensive discussion of how to implement and interpret DA with CRMs. 
+	As a consequence, despite the conceptual applicability of DA to CRMs, there have been no published research that applies DA to CRMs to the knowledge of the author.
 	
+	% go on here to outline how this article is intended to remediate this and offer suggestions to apply
 	
-	Decision makers in industry, government, and non-profit organizations look to organizational scientists to estimate and interpret CDV models when required given the research question. 
-	In linear regression models, a commonly used tool to assist in the interpretation of statistical modeling is to evaluate and compare the relative importance of the independent variables \cite{}. 
-	Comparing independent variables and determining their importance relative to one another is most often accomplished using the dominance analysis/(DA) \cite{} approach. 
-	Published methodological work on DA has discussed multiple intrinsically non-linear models including binary \cite{}, ordered, and multinomial logit \cite{} models but has not provided an extensive discussion of how to implement and interpret DA with CDVs.  
-	Moreover, CDVs can require adjustments to modeling such as the consideration of \textit{exposure} that can affect a DA's relative importance determination results.
+	This manuscript extends the literature on CRMs and DA in three ways.
+	First, this work provides a discussion of and recommendations for DA as applied to CRMs commonly used in organizational science.
+	In discussing how to extend DA do CRMs, a focus will be on recommending the use of a model fit metric that is comparable to those available for LRM.
+	Additionally, I will focus on highlighting the similarities between DA results with the well-understood LRM and those obtained with CRMs given an identical structure of the underlying data.
+	The similarities between these results are intended to empirically demonstrate the idea that DA can be extended to CRMs and reinforce that the DA methodology is a model agnostic-model free decomposition and importance approach.
+	Second, this work focuses on the use of DA for the interpretation of CRMs.  
+	In this way, this paper can also be seen as an extension of Blevins, Tsang, and Spain's \cite{blevins2015count} article focused on a conceptual discussion of CRMs and which to choose, to this paper's goal of recommending post-modeling methods to assist in adding context and detail to the model results. %context = variance, detail = extensive comparisons
+	Finally, this work discusses several issues that are unique to CRMs and that could influence the results of DA: the concept of observation exposure and the concept of zero-inflation.
 	
-	
-	The goal of this work is to extend on Blevins, Tsang, and Spain \cite{blevins2015count} in extending considerations regarding CDV models to assessing relative importance using DA...
-	
-	 and then offer recommended practice for applying DA to CDV models.
-	This paper is organized into ... sections.  
-	The first section reviews DA
-	The se
+	The paper to come is organized into ... sections.  
+	The first section will review DA...
+	The second section will segue into recommendations for fit metrics as well as an %do the first result here?
+	The third section % focus on exposure here?
+	The fourth % ZIP?
+	...
 		
 \section{Dominance Analysis}
 	
 	DA is an extension of Shapley value decomposition from Cooperative Game Theory % needs caps?
 	\cite{} which seeks to find a solution to the problem of how to subdivide payoffs to players in a cooperative game based on their relative contributions.
 	
-	
 	The Shapley value decomposition method views the predictive model as a cooperative game where the different independent variables work together to predict the dependent variable.  
 	The payoff from the predictive model is the value of the model fit statistic; usually this payoff is an $R^2$. % more on what the "payoff" means?
-	
 	
 	This methodology can be applied to predictive modeling in a conceptually straightforward way.
 	 Predictive models are, in a sense, a game in which independent variables cooperate to produce a payoff in the form of predicting the dependent variable. 
 	The component of the decomposition/the proportion of the payoff ascribed to each independent variables can then be interpreted as the IVs importance in the context of the model as that is the contribution it makes to predicting the dependent variable.
-	
 	
 	In application, DA determines the relative importance of IVs in a predictive model based on each IV’s contribution to an overall model fit statistic—a value that describes the entire model’s predictions on a dataset at once. 
 	DA’s goal extends beyond just the decomposition of the focal model fit statistic. 
@@ -102,102 +109,93 @@
 	
 	In the section below, I transition to discussing some of the nuances of CDVs for the application of DA.
 	
-\section{Applying Dominance Analysis to Count Dependent Variable Models}
+\section{Applying Dominance Analysis to Count Regression Models}
 
-	As a variant of Shapley Value Decomposition, DA is a generally applicable method for decomposing a fit statistic from a statistical model into components.
-	In discussing how to apply DA to CDV models, there are several key considerations that make CDV models more complex than linear models with continuous DVs.  
-	First, CDVs are generalized linear models and traditionally assume a multiplicative relationship between an IV and the DV such that a one unit change in the IV result in a change in the DV that is the anti-log or exponential function (i.e., $e^{\beta}$) of the coefficient.  
-	Thus, in a CDV model, predicted counts produced by a change in the IV depends on the location of the DV.  
-	For instance, a model coefficient of .5 in a linear model will always add .5 to the DV such that 
+	As a variant of Shapley Value Decomposition, DA is a model agnostic method for decomposing a fit statistic from a statistical model into components that are attributable to IVs.
+	Although DA may be conceptually applicable to CRMs, at current there is no guidance in the literature as to how to implement DA using CRMs.
+	A discussion of how to apply DA to CRMs is useful as CRMs more complex than LRM given their log-linear form.  
 	
-	For a CDV, it is common to interpret the coefficient as an incidence rate ratio 1.65
+	\subsection{Log-linear Form and Multiplicative Effects}
 	
-	will produce a change at a count of 3 that is 1.9 higher (i.e., $e^{3 + .5*1} - e$)
+	The effect of the log-linear link function to the underlying linear model has the effect of resulting in a multiplicative relationship between an IV and the DV % has DV been truncated previous to now?
+	such that a one unit change in the IV results in a change in the DV that is the anti-log or exponential function (i.e., $e^{\beta}$) of the coefficient.  
+	The effect of the log-linear form is that predicted counts from a CRM produced by a change in the IV are sensitive to initial conditions---a the magnitude of change realized from a CRM's coefficient depends on the location of the DV prior to the change.  
 	
-	The multiplicative nature of CDV models complicates fit metric computation in that the standard fit metric, the explained variance $R^2$ assumes that the underlying model seeks to minimize the sum of the squared residuals from the model.  As will be discussed below, CDVs do not meet this criterion.
+	The effect the log-linear model has on changes to predicted values are clearer in the context of an example.
+	Consider first a LRM with the following form: $.2 + .5*x_1 + -.8*x_2$.  
+	Thus, the intercept is .2, $x_1$'s coeffiecient is .5 and $x_2$'s coeffiecient is -.8.  
+	Two observations in the data have values of 4 and 8 for $x_1$ and .2 and -.2 for $x_2$ respectively.  
+	The predicted values for observation one is then $.2 + .5*4 + -.8*.2$ or 2.04 and for observation 2 is $.2 + .5*8 + -.8*-.2$ or 4.36.  
+	If $x_1$ changes by a value of 1 for each observation, the LRM model will produce predicted values of  $.2 + .5*5 + -.8*.2$ or 2.54 for observation 1 is and $.2 + .5*9 + -.8*-.2$ or 4.86 for observation two. 
+	Hence, given the coefficient of .5, a one unit change for both observations on $x_1$ results in .5 change in the DV for both observations.
 	
+	Now consider what occurs if the same equation was applied to a log-linear model.  
+	Before the one unit change on $x_1$, the log-linear model would produce predicted values of $e^{.2 + .5*4 + -.8*.2}$ or $\approx$ 7.69 for observation one and for observation two is $e^{.2 + .5*8 + -.8*-.2}$ or $\approx$ 78.26.  
+	Already the log-linear results produce very different results compared to the LRM even with the same underlying predictive equation.  
+	The differences also extend to changes in IVs.  
+	Assume again a one unit change to $x_1$.  With the log-linear formulation observation one's predicted value is $e^{.2 + .5*5 + -.8*.2}$ or $\approx$ 12.68 and observation two's predicted value is $e^{.2 + .5*9 + -.8*-.2}$ or $\approx$ 129.02. As can be seen, the change to predicted values was not uniform as it was with the LRM. 
+	Observation one's change was $\approx$ 5 whereas observation two's change was $\approx$ 50.
 	
-	A second consideration relevant to CDV models is the use of model offsets.  An offset is a variable that is intended to reflect \emph{exposure} or differences between observations in the capability for that observation to produce a count.  Offset variables are usually factors such as population sizes (cite) or exposure time windows (cite) that will affect the observations' counts and are known about different observations beforehand.  Offsets are included into the model with a coefficient of 1 and serve to make the CDV a rate as they adjust the count such that $e^{y_{i} - offset_{i}} = $
+	As was mentioned at the outset of this section, log-linear models like CRMs have multiplicative effects and the expected magnitude of the predicted value is the anti-log of the prediction equation and, by extension, each coefficient.
+	The expected effect of the .5 coefficient associated with $x_1$ then $e^{.5} \approx 1.65$.  
+	This value, known as the \textit{incidence rate ratio}, describes the percent by which the effect is multiplied for each one unit increase in the IV.  
+	This value can be recovered by comparing the rates of change for both observation one ($\frac{12.68}{7.69} \approx 1.65$) and observation two ($\frac{129.02}{78.26} \approx 1.65$).
 	
+	In addition to being more complex to interpret, the multiplicative effects produced by CRMs complicate fit metric computation.
+	The explained variance $R^2$ (i.e., $R^2_{EXP}$) commonly used with LRM assumes that the underlying model seeks to minimize the sum of the squared residuals from the model.  
+	As will be discussed below, CRMs do not which can make the most common model fit metric used in DA, the $R^2_{EXP}$, a poor fit metric choice for determining importance in CRMs.
 	
-	Finally, a common model applied to CDVs are \emph{zero inflated} models that are recommended for use in modeling CDVs in many situations (see Figure 3 of \cite{blevins2015count}).  Zero inflated models offer a great deal of flexibility in evaluating the processes
+	\subsection{Choosing a Fit Metric for Count Regression Model Relative Importance}
 	
-	The flexibility of zero inflated models comes at the cost of greater complexity when considering how to evaluate the contributions IVs have to prediction as there are two predictive equations, the count-producing model and the zero-producing model, which need not have the same set of predictors.  As such, it may be necessary to examine parameter estimate relative importance (PERI; \cite{luchman2020relative}) as opposed to independent variable relative importance (IVRI) when examining 
+	A key consideration for implementing DA in any model is choosing an appropriate fit metric that accurately reflects the models' predictive capability and the form of the DV being predicted.
+	The model fit metric that has received the most attention in past research on DA is $R^2_{EXP}$.
+	The $R^2_{EXP}$ is the squared Pearson correlation between the DV and the predicted values from the model. 
+	Pearson correlations are based on the sums of squared deviations between the two variables' values in the data.  
+	Similarly, the LRM is based on a least-squares criterion that seeks to minimize $\sum (y - \hat{y})^2$ or the residual sums of squares between the predicted values from the LRM and the observed DV.
+	The similarity in minimization goal of LRM and computation of the $R^2_{EXP}$ then makes $R^2_{EXP}$ a useful model fit metric for LRM.
 	
+	By contrast to LRM, the minimization criterion for PR is:
 	
-	In the sections below, each of the three complications regarding CDVs is discussed in greater detail with a focus on how each can affect the determination of relative importance.
-		
+		$$\ln L = \sum{\hat{y}y - \ln (y!) - e^{\hat{y}}}$$
+
+	When considering parameter estimation, the equation can be simplified to $\sum (\hat{y} - y \ln \hat{y})$ \cite{cameron1996r} which shows that PR depends on the sum of deviations from the product of the predicted value from the natural log of the predicted value and the DV.
+	This minimizing criterion can deviate from the least-squares criterion, especially in small samples, and 
+	although an extensive discussion is not presented here, NBR shows similar, if not more, substantial deviations from the least-squares criterion as it is a direct extension of the Poisson (i.e., a mixture of Poisson and Gamma distributions \cite{blevins2015count}).
 	
-	\subsection{Fit Metrics for Count Dependent Variables}
+%	The form of the minimizing value for the Poisson makes it is possible that using a metric like the explained variance $R^2$ that computes the sum of squared deviations will produce negative contributions to the $R^2$.
+%	Specifically, the explained variance $R^2$ rewards smaller total or summed squared deviations from the observations.
+%	By contrast, a model like the Poisson prefers minimizing deviations with a preference toward shrinking to 0; hence, penalizing more for over-prediction than under-prediction.
+%	The differences between these penalty factors mean that a Poisson model might choose a coefficient that shrinks predicted values to such an extent that it appears to reduce fit to the model when applying an explained variance metric.
+%	
 	
-	
-	CDMs are inherently multiplicative in how the underlying prediction model relates to the observed count DV. 
-	The multiplicative nature of CDMs complicates assessing how well the model fits to the data as the way in which residuals are computed for the LRM does not produce useful.
-	Consider the standard explained variance $R^2$.  The $R^2$ is the squared Pearson correlation between the DV and the predicted values from the model. 
-	Pearson correlations, like the LRM, are based on the sums of squared deviations ...  
-	
-	Consider now the simplest of the CDMs, the Poisson regression model. The Poisson regression minimizes the sum of deviations from the product of the DV and the natural log of the predicted value or $\sum (\mu - y \ln \mu)$ \cite{cameron1996r}. The form of the minimizing value for the Poisson makes it is possible that using a metric like the explained variance $R^2$ that computes the sum of squared deviations will produce negative contributions to the $R^2$.
-	Specifically, the explained variance $R^2$ rewards smaller total or summed squared deviations from the observations.
-	By contrast, a model like the Poisson prefers minimizing deviations with a preference toward shrinking to 0; hence, penalizing more for over-prediction than under-prediction.
-	The differences between these penalty factors mean that a Poisson model might choose a coefficient that shrinks predicted values to such an extent that it appears to reduce fit to the model when applying an explained variance metric.
-	The more complex negative Binomial model shows similar properties and, as is noted by Spain et al., is a direct extension of the Poisson (i.e., a mixture of Poisson and Gamma distributions).
-	
-	A similar discussion to the one above is provided by Traxel and Azen \cite{azen2009using} focused on the closely related generalized linear model, Logistic regression.  
-	Azen and Traxel show that likelihood-based pseudo-$R^2$ metrics, in particular the McFadden and Estrella $R^2$s, are useful for DA with logistic regressions as they always increase with the inclusion of more predictors and show several other desirable properties.
-	
-	$R^2$ recommendations specific to CDMs have also been proposed in the literature.  
-	Cameron and Windmeijer \cite{cameron1996r} provide perhaps the most comprehensive review and critique of different fit metrics for CDMs.
-	Cameron and Windmeijer, similar to Azen and Traxel, focus on desirable properties of $R^2$s but conclude that the $R^2$ that best reflects fit to the data for CRMs is the deviance $R^2$ or $R^{2}_{DEV}$.
+	The recommended model fit metric to use for DA of CRMs borrows from the comprehensive review and critique of different fit metrics for CDMs offered by Cameron and Windmeijer \cite{cameron1996r}.
+	Cameron and Windmeijer conclude that the $R^2$ that best reflects fit to the data for CRMs is the deviance $R^2$ or $R^{2}_{DEV}$.
 	The deviance $R^2$ is computed as:
+	
 	$$R^{2}_{DEV} = \frac{D_{model}}{D_{null}}$$
+	
 	Where $D$ is the GLM deviance residual computation.
-	In fact, the McFadden $R^2$ recommended by Axen and Traxel is tantamount to the deviance $R^2$ for the logistic model given the way the model is scaled, but differs for CRMs by a factor of ...
 	
-	In sum, the recommended $R^2$ metric is the deviance $R^2$ which has a number of desirable properties that make it similar to the explained variance $R^2$ across a number of the models discussed by Blevins, Tsang, and Spain \cite{blevins2015count}.  
-	These desirable properties make $R^{2}_{DEV}$ the fit metric that is recommended for use in DA when using CRMs.  
-	Further discussion of fit metrics for modeling and DA in CRMs is continued below as applied to the data analytic examples. 
+	It is also worth noting that the $R^2_{DEV}$ can be applied to other models for which a deviance function can be computed such as the logistic regression model and LRM.  
+	When applied to the logistic regression model, the way the model is scaled is such that it is tantamount to the McFadden $R^2$ recommended by Axen and Traxel \cite{azen2009using} in previous work on DA.
+	Moreover, the $R^2_{DEV}$, when computed on a Gaussian generalized linear model, is tantamount to the $R^2_{EXP}$.
+	Thus, the $R^2_{EXP}$ is a choice of model fit metric for the DA of CRMs that comes the closest to both the well-known $R^2_{EXP}$ and recommendations from allied work focusing on other generalized linear model distribution families.
 	
-	\subsection{Exposure and Offset Terms}
+	The next section extends on the discussion above by providing extensive data analytic examples of DA as applied to the PR and NBR models. 
 	
-	CDMs, as models of counts of discrete events, implicitly assume that the events being counted are comparable.  
-	An observation with a count of 10 is assumed to have had the same chance to get that count of 10 events as any other observation with 10 events.  
-	That is, that the probability of observing events for both observations is equal.
-	By contrast, it is possible two observations with an observed count of 10 arrived at their count with different underlying probabilities of observing events and number of times the events could be realized into a count.  
-	For example, two 10 counts could have resulted from an observation with an event probability of .1 over 100 'trials'.  
-	Another could have arisen from an observation with an event probability of .01 over 1000 'trials'.  
-	In data, such equifinality in counts from different underlying probabilities can arise from observations that are units reflecting populations of different sizes or units reflecting different time periods in which events could occur (i.e., unequal employment tenures).
+	\subsection{Data Analytic Examples of Dominance Analysis}
 	
-	CDMs can control for such unequal \emph{exposure} to the count generating conceptual phenomenon using what is known as an \emph{offset} term.  
-	The offset term is usually assumed to be natural log transformed for a CDM and enters into the CDM with a coefficient of 1.
-	The coefficient of 1 results in the count DV being transformed into a rate out of the offset variable.
-	How the count DV is transformed into a rate with a coefficient of 1 follows from the following algebraic manipulations.
-	First, consider a simple case where an intercept only model is fit with an offset such as $y = e^{offset + \beta}$.
-	Recall that the offset term is the natural log of a variable, say, $o$.  
-	Applying the natural log, the prior equation can be written as $\ln y = \ln o + \beta$.
-	Re-arranging the $\ln o$ term results in $\ln y - \ln o = \beta$ which, given the properties of logarithms, is tantamount to $\ln \frac{y}{o} = \beta$.
-	Therefore, the inclusion of a natural log transformed offset variable results in the count DV transforming into a rate.
-	This offset transformation corrects for the issue discussed above as the 10 counts result in the correct underlying rate of .1 versus .01 for each observation.
+	Throughout this manuscript I have highlighted similarities and differences between LRM and CRMs in terms of parameter estimation, predicted value generation, and model interpretation.
+	This section intends to show the similarities in terms of the DA process, and indeed the results of the DA process, when applying the appropriate model and fit metric to the data across LRM and CRMs.
+	A goal of this section is then to obtain data for three different DVs---a Gaussian, a Poisson, and a negative Binomial---that are as similar as possible save for their distribution form.
+	The purpose of this exercise is both to walk through an example DA with these data but also to highlight the similarities in computation and results when LRM and CRMs have ideally similar forms.
+	The data for use in this exercise, described in the next section, are simulated in order to assure that the DVs produced across models share as many features as is possible.
 	
-	In large part, an offset adjustment serves to re-scale specific observations' predictions and has the biggest effect on CDM's intercept value; adjusting it back to reflect the correct average rate across observations.
-	The offset can, however, affect the magnitude of estimated coefficients if the offset is correlated with an IV.  
-	When the offset is correlated with an IV, then the IV may be both related to exposure to the count generating phenomenon as well as the rate of count generation broadly.
-	Not including the offset can then bias the CDM and can have a notable impact on IV relative importance.
-	How offsets affect CRM modeling and importance determination will also be explored further in the empirical examples below.
+	% more on why this is useful?  Maybe note that an empirical example makes this case in a more compelling way for most than an alternative approach?
 	
-	% on to examples?
+	... ended here ...
 	
-	\subsection{Multiple Equations}
-	
-	... Poisson vs alternatives ...
-	
-\section{Data Analytic Examples}
-	
-	The purpose of this manuscript is to recommend approaches for addressing three key considerations that I argue are impactful for determining the relative importance of IVs in CRMs using DA.
-	This section extends on the conceptual discussion of each consideration above by demonstrating exactly how each can affect relative importance determination using a series of data analytic examples. 
-	The data analytic examples outlined below are based on computer simulated data and have been designed to illustrate the impact of the selected considerations discussed above as applied to both parameter estimation and importance determination.
-	The section below describes the data simulation process and provides rationale for how the data were generated.
-	
-	\subsection{Data Generation}
+		\subsubsection{Data Generation}
 	
 	All the simulated data for the data analytic examples in this manuscript were generated from series of four underlying data structures.
 	The four data structures designed for this manuscript were intended to highlight the impact of IV variance as well as inter-IV covariance on both parameter estimation as well as relative importance determination.
@@ -227,20 +225,20 @@
 	These differences in variance were intended to increasingly enhance the relative importance of IVs with larger numeric labels as balanced with each variables' effect on the DV to be discussed below.  
 	The EC and UC data structures shared a single underlying correlation matrix reported below in Table X.
 	
-	\medskip
+	\smallskip
 	
 	\begin{center}
-	\begin{tabular}[5]{r|llll}
-		& $V_1$ & $V_2$ & $V_3$ & $V_4$ \\
-		\toprule
-		$V_1$ & 1.0 & 0.5 & 0.25 & 0.125 \\
-		$V_2$ & 0.5 & 1.0 & 0.125 & 0.25 \\
-		$V_3$ & 0.25 & 0.125 & 1.0 & 0.5 \\
-		$V_4$ & 0.125 & 0.25 & 0.5 & 1.0
-	\end{tabular}
+		\begin{tabular}[5]{r|llll}
+			& $V_1$ & $V_2$ & $V_3$ & $V_4$ \\
+			\toprule
+			$V_1$ & 1.0 & 0.5 & 0.25 & 0.125 \\
+			$V_2$ & 0.5 & 1.0 & 0.125 & 0.25 \\
+			$V_3$ & 0.25 & 0.125 & 1.0 & 0.5 \\
+			$V_4$ & 0.125 & 0.25 & 0.5 & 1.0
+		\end{tabular}
 	\end{center}
 	
-	\medskip
+	\smallskip
 	
 	The correlation matrix in Table X produces a realistic correlations that emphasize the relationship between $V_1$ and $V_2$ as well as the relationship between $V_3$ and $V_4$.  
 	The balance of the correlations in Table X also does not result in one variable being more redundant than others; all IVs have equal redundancies as others, but are more or less redundant with different other IVs.	The means for all variables were set to 0.
@@ -277,6 +275,7 @@
 	\input{"./includes/ri_fits.tex"}
 	
 		\subsubsection{Linear Model}
+	
 	The results from the linear model-based DA is, as noted above, most useful in this table as a comparison point for the other results computed from the CRMs.
 	The linear model is used as a comparison point as it is a better known model than most CRMs and is easier to work with mathematically.
 	The EU data structure is also intended to be a comparison point data structure representing idealized, if unrealistic, data conditions for estimation.
@@ -298,14 +297,32 @@
 	% emphasize the variance and intercorrelations piece more above?  Maybe sufficient - just revisit
 	
 	The EC results for the linear model also vary from those obtained from the EU model by both increasing the total $R^2$ values obtained for each IV, in particular $V_3$ and $V_4$, but also by decreasing the relative differences between the IVs.
+	The increases in the values obtained by $V_3$ and $V_4$, despite their variance and known effect on $Y_{cont}$ being identical to EU, occur as a result of the intercorrelations between each IV.  
+	The introduction of the non-zero intercorrelations makes between IVs results in ambiguity about how the $R^2$ should be decomposed as the large effect $V_1$ is known to have on $Y_{cont}$ is now associated with the effects of the other three IVs when considering predicted values.  
+	That is, a change in $V_1$ is usually also associated with a change in $V_2$ (as they are correlated at .5 or share 25\% of their variance) and, to a lesser extent, also $V_3$ and $V_4$.
+	As a result of this correlation, predicted values on $Y_{cont}$ tend to move up or down together.
+	This shared change in predicted values makes it more difficult to tease apart to which variable should the change in predicted values, and thus improvement to explained variability when prediction improves, be attributed.
+	Previously less important IVs are then ascribed higher shares of the $R^2$ as the DA algorithm tends to resolve the ascription ambiguity by ascribing $R^2$ value to IVs based on weighted a weighted average of their $\Delta R^2$ across numbers of IVs in a sub-model (see equation ...).  
+	Ultimately, \emph{some} of the effect of an IV with a stronger effect on $Y_{cont}$ will be ascribed to those with less strong effects as is observed in Table X's EC results by contrast with EU given the ambiguity in ascription.
+	In addition, the total/model $R^2$ has increased given the intercorrelations ... reasons - artifact of way I made these? ...
+	Although the intercorrelations have increased the share of the $R^2$ ascribed to $V_3$ and $V_4$, it is important to note that, in this case, the rank order of the IVs does not change relative to the rank order in EU.
+	The results from the EC condition then emphasize that the intercorrelations between IVs increase the difficulty in ascribing $R^2$ to IVs which tends to benefit IVs with weaker relationships with the DV and penalize IVs with stronger relationships with the DV.	
 	
-	Finally, the UC results combine...
+	Finally, the UC results combine both the difficulty in ascribing $R^2$ to IVs of the EC condition with the unequal variances of the UU condition to produce a result that both substantially increased the total $R^2$ values attributed to each IV but also changed the rank order of the IVs such that $V_4$ generally dominates each other IV.
+	Overall, the results from the UC condition are similar to those obtained from the UU condition in that $V_1$ and $V_4$ are most important overall but, like the results from EC, the relative differences between the IVs' general dominance statistics have shrunk.
+	The UC condition is arguably the most realistic condition of the four data structures as variance differences and non-zero IV intercorrelations are common in collected data.
+	The UC condition is thus intended as a condition to show reflect the effect of realistic, but non-ideal, data conditions on DA results.
 	
+	The sections below transition to evaluating these same four data structures among DA results for the Poisson CRM with the recommended deviance $R^2$.  
+	A focus of the discussion will be on similarities and differences across models that are based on the same underlying data structures and DV predictive model.
 	
+	\subsubsection{Poisson Model}
 	
-		\subsubsection{Poisson Model}
-		
-	The DA results from the Poisson model/DV show a similar pattern to those of the linear model of which they are an extension.
+	Before discussing the results from the Poisson model/$Y_{pois}$ DV, it is important to recall that $Y_{pois}$ is based on the save data structure as all the results based on $Y_{cont}$ and, in addition, is a direct translation of $Y_{cont}$ into a Poisson distributed variable. 
+	Thus, the results are intended to be as identical as possible across models to assist in comparability.
+	It is then not surprising to note that the Poisson model DA results show a similar pattern to those of the linear model of which they are an extension.
+	
+	...
 	
 	can be compared to the linear model results and reveal the same pattern
 	
@@ -323,19 +340,63 @@
 	Moreover, the dominance determinations did not differ across metrics within a model.
 	$IV_1$ completely dominated all other...
 	
-		\subsubsection{Negative Binomial Model}
+	\subsubsection{Negative Binomial Model}
 	
-		\subsubsection{Section Summary}
-		
+	\subsubsection{Section Summary}
+	
 	The base relative importance section reported on the results of the linear, Poisson, and negative Binomial
 	
-%	One way to interpret the results presented above is to suggest that relative importance determination for CRMs is insensitive to fit metric choice. 
-%	Despite their similarities however, the explained variance $R^2$ values are consistently discrepant from the deviance $R^2$ values with the Poisson model producing values that were too high and the negative Binomial producing values that were too low. 
-%	This result then suggests that the primary risk of using the explained variance $R^2$ as opposed to the deviance $R^2$ is in mis-characterizing the extent of predictive usefulness of the model as a whole, which affects the the numeric magnitudes or results obtained by the DA, but metric choice does not, itself, affect relative importance determinations.
-
+	%	One way to interpret the results presented above is to suggest that relative importance determination for CRMs is insensitive to fit metric choice. 
+	%	Despite their similarities however, the explained variance $R^2$ values are consistently discrepant from the deviance $R^2$ values with the Poisson model producing values that were too high and the negative Binomial producing values that were too low. 
+	%	This result then suggests that the primary risk of using the explained variance $R^2$ as opposed to the deviance $R^2$ is in mis-characterizing the extent of predictive usefulness of the model as a whole, which affects the the numeric magnitudes or results obtained by the DA, but metric choice does not, itself, affect relative importance determinations.
+	
 	In the section below the focus moves to determining relative importance among CRMs with specific attention to cases where the DVs have unequal exposures to the count generating process.
 	
 	
+	
+\section{Exposure and Offset Terms}
+	
+	CDMs, as models of counts of discrete events, implicitly assume that the events being counted are comparable.  
+	An observation with a count of 10 is assumed to have had the same chance to get that count of 10 events as any other observation with 10 events.  
+	That is, that the probability of observing events for both observations is equal.
+	By contrast, it is possible two observations with an observed count of 10 arrived at their count with different underlying probabilities of observing events and number of times the events could be realized into a count.  
+	For example, two 10 counts could have resulted from an observation with an event probability of .1 over 100 'trials'.  
+	Another could have arisen from an observation with an event probability of .01 over 1000 'trials'.  
+	In data, such equifinality in counts from different underlying probabilities can arise from observations that are units reflecting populations of different sizes or units reflecting different time periods in which events could occur (i.e., unequal employment tenures).
+	
+	CDMs can control for such unequal \emph{exposure} to the count generating conceptual phenomenon using what is known as an \emph{offset} term.  
+	The offset term is usually assumed to be natural log transformed for a CDM and enters into the CDM with a coefficient of 1.
+	The coefficient of 1 results in the count DV being transformed into a rate out of the offset variable.
+	How the count DV is transformed into a rate with a coefficient of 1 follows from the following algebraic manipulations.
+	First, consider a simple case where an intercept only model is fit with an offset such as $y = e^{offset + \beta}$.
+	Recall that the offset term is the natural log of a variable, say, $o$.  
+	Applying the natural log, the prior equation can be written as $\ln y = \ln o + \beta$.
+	Re-arranging the $\ln o$ term results in $\ln y - \ln o = \beta$ which, given the properties of logarithms, is tantamount to $\ln \frac{y}{o} = \beta$.
+	Therefore, the inclusion of a natural log transformed offset variable results in the count DV transforming into a rate.
+	This offset transformation corrects for the issue discussed above as the 10 counts result in the correct underlying rate of .1 versus .01 for each observation.
+	
+	In large part, an offset adjustment serves to re-scale specific observations' predictions and has the biggest effect on CDM's intercept value; adjusting it back to reflect the correct average rate across observations.
+	The offset can, however, affect the magnitude of estimated coefficients if the offset is correlated with an IV.  
+	When the offset is correlated with an IV, then the IV may be both related to exposure to the count generating phenomenon as well as the rate of count generation broadly.
+	Not including the offset can then bias the CDM and can have a notable impact on IV relative importance.
+	How offsets affect CRM modeling and importance determination will also be explored further in the empirical examples below.
+	
+	% on to examples?
+	
+	A second consideration relevant to CDV models is the use of model offsets.  An offset is a variable that is intended to reflect \emph{exposure} or differences between observations in the capability for that observation to produce a count.  Offset variables are usually factors such as population sizes (cite) or exposure time windows (cite) that will affect the observations' counts and are known about different observations beforehand.  Offsets are included into the model with a coefficient of 1 and serve to make the CDV a rate as they adjust the count such that $e^{y_{i} - offset_{i}} = $
+	
+	
+	
+	In the sections below, each of the three complications regarding CDVs is discussed in greater detail with a focus on how each can affect the determination of relative importance.
+	
+\section{Multiple Equations}
+	
+	... Poisson vs alternatives ...
+		
+	Finally, a common model applied to CDVs are \emph{zero inflated} models that are recommended for use in modeling CDVs in many situations (see Figure 3 of \cite{blevins2015count}).  Zero inflated models offer a great deal of flexibility in evaluating the processes
+	
+	The flexibility of zero inflated models comes at the cost of greater complexity when considering how to evaluate the contributions IVs have to prediction as there are two predictive equations, the count-producing model and the zero-producing model, which need not have the same set of predictors.  As such, it may be necessary to examine parameter estimate relative importance (PERI; \cite{luchman2020relative}) as opposed to independent variable relative importance (IVRI) when examining 
+
 	\subsection{Modeling with Exposure}
 	
 	...
