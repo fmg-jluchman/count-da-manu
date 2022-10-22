@@ -186,67 +186,86 @@
 	\subsection{Data Analytic Examples of Dominance Analysis}
 	
 	Throughout this manuscript I have highlighted similarities and differences between LRM and CRMs in terms of parameter estimation, predicted value generation, and model interpretation.
-	This section intends to show the similarities in terms of the DA process, and indeed the results of the DA process, when applying the appropriate model and fit metric to the data across LRM and CRMs.
-	A goal of this section is then to obtain data for three different DVs---a Gaussian, a Poisson, and a negative Binomial---that are as similar as possible save for their distribution form.
-	The purpose of this exercise is both to walk through an example DA with these data but also to highlight the similarities in computation and results when LRM and CRMs have ideally similar forms.
-	The data for use in this exercise, described in the next section, are simulated in order to assure that the DVs produced across models share as many features as is possible.
+	Despite their estimation and interpretation differences, the process for determining importance using DA for LRM and CRMs is identical.
+	This section provides an extensive and illustrative example of the process for determining importance for both the familiar and well-examined LRM and for two extensions to novel DA computations using PR and NBR models.
 	
-	% more on why this is useful?  Maybe note that an empirical example makes this case in a more compelling way for most than an alternative approach?
+	The intention of showing how to determine importance for each model is to highlight their similarities in terms of the underlying computational process and to provide an example of how to interpret DA with the recommended CRM $R^2_{DEV}$ fit metric.
+	For these examples, I generate data for a Gaussian, a Poisson, and a negative Binomial DV in the section below.
+	These three DVs are generated in such a way as to make them as similar as possible to one another save for their distribution form.
+	In making these three DVs maximally similar to one another, the reader will more clearly be able see how DA with the LRM corresponds with DA as applied to an analogous version of the analysis in PR and NBR.
 	
-	... ended here ...
+	The data generation process for this data analytic example is described in the next section.
 	
 		\subsubsection{Data Generation}
+		
+	The 100,000 simulated observations in this manuscript was generated from a data structure with four IVs that have differing relationships with the DV, differing relationships with one another, and differing variances.
+	The four IVs created were based on the correlation matrix in Table X.
 	
-	All the simulated data for the data analytic examples in this manuscript were generated from series of four underlying data structures.
-	The four data structures designed for this manuscript were intended to highlight the impact of IV variance as well as inter-IV covariance on both parameter estimation as well as relative importance determination.
-	I expected that these four designs would also produce useful comparisons across CRMs in terms of how each is affected by IV (co-)variances.
+%	All the simulated data for the data analytic examples in this manuscript were generated from series of four underlying data structures.
+%	The four data structures designed for this manuscript were intended to highlight the impact of IV variance as well as inter-IV covariance on both parameter estimation as well as relative importance determination.
+%	I expected that these four designs would also produce useful comparisons across CRMs in terms of how each is affected by IV (co-)variances.
+%	
+%	The first data structure generated all IVs with equal variances and no/zero covariances.  
+%	This data structure, referred to as EU (i.e., \emph{E}qual and \emph{U}ncorrelated), does not reflect "real" data but is a commonly simulated and useful data structure to show the effect of a model's parameter estimation and relative importance determination results under what could be considered "ideal" estimation conditions when the causal effects of IVs are easiest to identify given they do not overlap.  
+%	The EU data structure is then most useful as a comparison point for the other, more realistic data structures to more clearly assess the impact of differences in (co-)variances.
+%	
+%	The second data structure designed was similar to the first in that all IVs were generated with equal variances but were also generated such that the IVs had non-zero covariances. 
+%	This data structure, referred to as EC (i.e., \emph{E}qual and \emph{C}orrelated), is intended to show the effect of IV intercorrelations on both parameter estimation and relative importance determination as compared to EU.  
+%	I expect that the intercorrelations imposed in this data structure would be most impactful for relative importance determination which attempts to isolate variance explained by each IV irrespective of its association with other IVs.
+%	The EC data structure is then useful as a condition to evaluate the effects of IV intercorrelations on parameter estimates and relative importance independent of the underlying IV variances.
+%	
+%	The third data structure was designed such that all IVs were uncorrelated like the EU structure but changed the variances of the IVs to be different from one another.  
+%	The third data structure, referred to as UU (i.e., \emph{U}nequal and \emph{U}ncorrelated), is intended to show the effect of IV variance on both parameter estimation and relative importance determination as compared to EU and EC.
+%	Like EC, I expect that the UU data structure will be most impactful for determining relative importance given that methods such as DA reflect explained variance(?information?fit?), which is affected by IV variance. 
+%	The UU data structure is then also useful as a condition to evaluate the effects of IV variances on parameter estimates and relative importance independent of the underlying IV intercorrelations.
 	
-	The first data structure generated all IVs with equal variances and no/zero covariances.  
-	This data structure, referred to as EU (i.e., \emph{E}qual and \emph{U}ncorrelated), does not reflect "real" data but is a commonly simulated and useful data structure to show the effect of a model's parameter estimation and relative importance determination results under what could be considered "ideal" estimation conditions when the causal effects of IVs are easiest to identify given they do not overlap.  
-	The EU data structure is then most useful as a comparison point for the other, more realistic data structures to more clearly assess the impact of differences in (co-)variances.
-	
-	The second data structure designed was similar to the first in that all IVs were generated with equal variances but were also generated such that the IVs had non-zero covariances. 
-	This data structure, referred to as EC (i.e., \emph{E}qual and \emph{C}orrelated), is intended to show the effect of IV intercorrelations on both parameter estimation and relative importance determination as compared to EU.  
-	I expect that the intercorrelations imposed in this data structure would be most impactful for relative importance determination which attempts to isolate variance explained by each IV irrespective of its association with other IVs.
-	The EC data structure is then useful as a condition to evaluate the effects of IV intercorrelations on parameter estimates and relative importance independent of the underlying IV variances.
-	
-	The third data structure was designed such that all IVs were uncorrelated like the EU structure but changed the variances of the IVs to be different from one another.  
-	The third data structure, referred to as UU (i.e., \emph{U}nequal and \emph{U}ncorrelated), is intended to show the effect of IV variance on both parameter estimation and relative importance determination as compared to EU and EC.
-	Like EC, I expect that the UU data structure will be most impactful for determining relative importance given that methods such as DA reflect explained variance(?information?fit?), which is affected by IV variance. 
-	The UU data structure is then also useful as a condition to evaluate the effects of IV variances on parameter estimates and relative importance independent of the underlying IV intercorrelations.
-	
-	The fourth and final data structure designed combined both unequal IV variances as well as IV non-0 IV intercorrelations.
-	The fourth data structure, referred to as UC (i.e., \emph{U}nequal and \emph{C}orrelated), is intended to show the joint effect of IV variance and correlation on both parameter estimation and relative importance determination as compared to the other three data structures.
-	This data structure is the most realistic of the four in that much empirical data have non-0 correlations and differences in variance.  
-	As such, this data structure is intended to show what results may be expected to look like under more normal conditions (?).  
-	
-	For each of the four data structures, a single dataset with 100,000 observations and four IVs was generated based on the theoretical data structure.  
-	For the EU and EC data structures, all variances were set to 1. For the UU and UC data structures, the variance for $V_{1}$ was set to 1, for $V_2$ was set to 1.5, for $V_3$ was set to 2, and for $V_4$ was set to 4. 
-	These differences in variance were intended to increasingly enhance the relative importance of IVs with larger numeric labels as balanced with each variables' effect on the DV to be discussed below.  
-	The EC and UC data structures shared a single underlying correlation matrix reported below in Table X.
+%	The fourth and final data structure designed combined both unequal IV variances as well as IV non-0 IV intercorrelations.
+%	The fourth data structure, referred to as UC (i.e., \emph{U}nequal and \emph{C}orrelated), is intended to show the joint effect of IV variance and correlation on both parameter estimation and relative importance determination as compared to the other three data structures.
+%	This data structure is the most realistic of the four in that much empirical data have non-0 correlations and differences in variance.  
+%	As such, this data structure is intended to show what results may be expected to look like under more normal conditions (?).  
+%	
+%	For each of the four data structures, a single dataset with 100,000 observations and four IVs was generated based on the theoretical data structure.  
+%	For the EU and EC data structures, all variances were set to 1. For the UU and UC data structures, the variance for $V_{1}$ was set to 1, for $V_2$ was set to 1.5, for $V_3$ was set to 2, and for $V_4$ was set to 4. 
+%	These differences in variance were intended to increasingly enhance the relative importance of IVs with larger numeric labels as balanced with each variables' effect on the DV to be discussed below.  
+%	The EC and UC data structures shared a single underlying correlation matrix reported below in Table X.
 	
 	\smallskip
 	
 	\begin{center}
 		\begin{tabular}[5]{r|llll}
-			& $V_1$ & $V_2$ & $V_3$ & $V_4$ \\
+			& $IV_1$ & $IV_2$ & $IV_3$ & $IV_4$ \\
 			\toprule
-			$V_1$ & 1.0 & 0.5 & 0.25 & 0.125 \\
-			$V_2$ & 0.5 & 1.0 & 0.125 & 0.25 \\
-			$V_3$ & 0.25 & 0.125 & 1.0 & 0.5 \\
-			$V_4$ & 0.125 & 0.25 & 0.5 & 1.0
+			$IV_1$ & 1.0 & 0.5 & 0.25 & 0.125 \\
+			$IV_2$ & 0.5 & 1.0 & 0.125 & 0.25 \\
+			$IV_3$ & 0.25 & 0.125 & 1.0 & 0.5 \\
+			$IV_4$ & 0.125 & 0.25 & 0.5 & 1.0
 		\end{tabular}
 	\end{center}
 	
 	\smallskip
 	
-	The correlation matrix in Table X produces a realistic correlations that emphasize the relationship between $V_1$ and $V_2$ as well as the relationship between $V_3$ and $V_4$.  
-	The balance of the correlations in Table X also does not result in one variable being more redundant than others; all IVs have equal redundancies as others, but are more or less redundant with different other IVs.	The means for all variables were set to 0.
+	The correlation matrix in Table X was designed to produce a realistic set of IV intercorrelations that could plausibly be uncovered in real data.  
+	Table X's intercorrelations was also designed balance extent of redundancy between the four IVs.  
+	That is, the correlations in Table X do not result in one or two IVs being more redundant than other IVs overall; all IVs have equivalent total redundancies as other IVs.  
+	Stated differently, all the IVs overlap with other IVs to the same extent and thus will not have differential extents of multicollinearity.
 	
-	Each data structure's dataset was also used to generate all DVs.  An initial Gaussian/Normally distributed DV was generated for each dataset using the following equation: $Y_{cont} = V_1*.2 + V_2*.15 + V_3*.125 + V_4*.1$.  A residual residual variance for $Y_{cont}$ was generated for each dataset as $1 - \sigma_{Y_{cont}}$; hence, $Y_{cont}$ had a variance of 1 and a mean of 0.  
-	The Normal distributed variable was generated both as a point of comparison for the CRM results as a well as to serve as the basis for generating each count DV discussed further below.
+	The means for all four IVs were set to 0.  
+	The variances for each IV differed. $V_1$ was set to 1, $V_2$ was set to 1.8, $V_3$ was set to 2.8, and $V_4$ was set to 4.
+	The differences between the variances were in equal intervals on the square root scale between 1 and 2 (i.e., $1.8 \approx 1.33^2$ and $2.8 \approx 1.67^2$).
+	The differences between IV variances were designed to show the effect of IV variance on dominance statistic computation.
 	
-	A Poisson distributed version of $Y_{cont}$, $Y_{pois}$, was also generated by obtaining the cumulative probability of each observations's $Y_{cont}$ score given the standard Gaussian/Normal distribution (i.e., $N(0,1)$) and translating that value into a count value using the Poisson quantile function assuming an underlying mean and variance of 1.  
+	The simulated IV values were used to generate the three DVs.  
+	The Gaussian/Normally distributed DV was generated first. 
+	The equation to generate the continuous, Normally distributed DV, $Y_{Normal}$, was: $Y_{Normal} = V_1*.2 + V_2*.17 + V_3*.14 + V_4*.1$.  
+	The true coefficients ascribed to each IV were in equal intervals between .04 and .01 on the exponential scale with a power of two (i.e., $.14 \approx \sqrt{.02}$ and $.17 \approx \sqrt{.03}$).
+	A residual variance for $Y_{Normal}$ was generated for each dataset as $1 - \sigma_{Y_{Normal}}$; hence, $Y_{Normal}$ had a variance of 1 and a mean of 0. 
+	
+	$Y_{Normal}$ was used as a basis for computing the Poisson distributed DV, $Y_{Poisson}$ to ensure that they were as similar and comparable as possible.
+	
+	... ended here - note the update to the corr matrix and coefficient generation - ...
+	
+	
+	A Poisson distributed version of $Y_{cont}$, $Y_{pois}$, was also generated by obtaining the cumulative probability of each observation's $Y_{cont}$ score given the standard Gaussian/Normal distribution (i.e., $N(0,1)$) and translating that value into a count value using the Poisson quantile function assuming an underlying mean and variance of 1.  
 	The mean of 1 value was chosen to make the Poisson distributed result as close to the Normally distributed result as possible as both have variances of 1.	
 	
 	A negative Binomial version, $Y_{nb}$, was created similarly by translating $Y_{cont}$'s cumulative probability for each observation into a count variable using the negative Binomial quantile function assuming a Gamma shape parameter of .5 and scale parameter of .33; these factors result in a mean of 1 and variance of 3 for the negative Binomial distribution.  
