@@ -3,8 +3,14 @@ title: Count Regression Model Dominance Analysis
 subtitle: Documentation
 author: Joseph Luchman
 output: html_notebook
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
+Documentation begins with setting the R environment.
+
+A component of this environment is the random seed to reproduce the data.
 
 ```{r set-up, results='hide'}
 library(gt)
@@ -18,13 +24,24 @@ library(domir)
 library(performance)
 library(parameters)
 library(datawizard)
+library(MCMCpack)
+
+set.seed(84490856)
 ```
+
+# Data Generation
+
+This section describes the data generation component of the count dominance analysis manuscript.
 
 ## Generate IV matrix
 
-```{r}
-set.seed(84490856)
+Data generation is founded on the initial covariance matrix on which all subsequent data is based.
 
+The covariance matrix developed for use in this manuscript is reported on below.  
+
+
+
+```{r gen-iv-mat}
 # Covariance_Matrix <- 
 #   c(1, .5^(1:3)*sqrt(1*c(1.8, 2.8, 4))*sqrt(1), 
 #     .5*sqrt(1)*sqrt(1*1.8), 1.8, .5^(3:2)*sqrt(1*1.8)*sqrt(1*c(2.8, 4)), 
@@ -42,18 +59,48 @@ Covariance_Matrix <-
 Covariance_Matrix %>% kable()
 
 Covariance_Matrix %>% cov2cor() %>% kable()
+```
 
+The covariance matrix developed doesn't 'feel' like real data.  As such, instead of using it directly, it is used as a parameter in a random draw from an inverse Wishart distribution.
+
+```{r sample-iv-mat}
 Covariance_Matrix_Use <- 
-  MCMCpack::riwish(5, Covariance_Matrix)
+  riwish(5, Covariance_Matrix)
 
 Covariance_Matrix_Use %>% kable()
 
 Covariance_Matrix_Use %>% cov2cor() %>% kable()
 ```
 
-# Generate IV Data
+The section below produces the combined correlation matrix tables for display in the manuscript.
 
 ```{r}
+Covariance_Matrix %>% 
+  as.data.frame %>%
+  set_names(str_c("IV", 1:4)) %>%
+  bind_cols(tibble(name = str_c("IV",1:4))) %>%
+  bind_rows(
+    Covariance_Matrix_Use %>% as.data.frame() %>% 
+      set_names(str_c("IV", 1:4)) %>%
+      bind_cols(tibble(name = str_c("IV",1:4)))
+  ) %>%
+  gt(rowname_col = "name") %>%
+  # tab_style(
+  #   style = 
+  #     cell_borders(sides = "bottom"),
+  #   locations = cells_body(rows = 4)
+  # ) %>%
+  tab_row_group(label = "Sampled", rows = 5:8) %>% 
+  tab_row_group(label = "Parameter", rows = 1:4) %T>%
+  print %>%
+  gtsave(filename = "corrs.tex", path = "./includes/")
+
+
+```
+
+## Generate IV Data
+
+```{r gen-iv-data}
 Data_Frame <- 
   mvrnorm(n = 100000, 
           mu = rep(0, times = 4), 
@@ -76,11 +123,11 @@ Data_Frame %>%
   kable
 ```
 
-# Generate Normal Gaussian Dependent Variable
+## Generate Normal Gaussian Dependent Variable
 
-```{r}
+```{r gen-y-normal}
 Coefficient_Vector <- 
-  runif(4)*2 - 1
+  rnorm(4, 0, .2)
 
 Coefficient_Vector %>% kable
 
@@ -107,9 +154,9 @@ Data_Frame %>%
   kable
 ```
 
-# Generate Poisson Dependent Variable
+## Generate Poisson Dependent Variable
 
-```{r}
+```{r gen-y-poisson}
 Data_Frame %<>%
   mutate(
     Y_Poisson = qpois(pnorm(Y_Normal, log.p = TRUE), 1, log.p = TRUE)
@@ -130,9 +177,9 @@ Data_Frame %>%
   kable
 ```
 
-# Generate Negative Binomial Dependent Variable
+## Generate Negative Binomial Dependent Variable
 
-```{r}
+```{r gen-y-neg-bin}
 Data_Frame %<>%
   mutate(
     Y_NegativeBinomial = qnbinom(pnorm(Y_Normal, log.p = TRUE), size = .5, mu = 1, log.p = TRUE),
@@ -140,359 +187,358 @@ Data_Frame %<>%
 
 ```
 
+## Offset
 
-# 
+Work with Poisson and assume $np = \lambda$ or $10*.1 = 1$
+
+Sample 1 to the full 10 of obs.
 
 ```{r}
-#domin(Y_Poisson ~ IV1 + IV2 + IV3 + IV4, glm, list(r2, "R2_Nagelkerke"), data = Data_Frame, family = poisson())
 
-lm(Y_Normal ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame) 
+Offset_Vector <- 
+  rnorm(4, 0, .2)
 
-lm(Y_Normal ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame) %>% standardise_parameters(method = "basic")
+Offset_Vector %>% kable
 
-lm(Y_Normal ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame) %>%
+Data_Frame %<>%
+  mutate(
+    Number_Observed = sample(1:10, 100000, replace = TRUE),
+    Censoring =
+      IV1*Offset_Vector[[1]] + IV2*Offset_Vector[[2]] + 
+      IV3*Offset_Vector[[3]] + IV4*Offset_Vector[[4]],
+    Censoring = Censoring + rnorm(100000, 0, sqrt(1 - var(Censoring)))
+  )
+
+Data_Frame %>% select(Number_Observed) %>% 
+  ggplot(aes(Number_Observed)) + stat_bin()
+
+Data_Frame %<>%
+  mutate(
+    Y_Poisson_Offset = 
+      qbinom(
+        pnorm(Y_Normal, log.p = TRUE),
+             Number_Observed, .1, log.p = TRUE
+        )
+  )
+
+Data_Frame %>%
+  select(Y_Poisson_Offset) %>%
+  ggplot(aes(Y_Poisson_Offset)) + stat_bin()
+
+Data_Frame %<>%
+  mutate(
+    N_obs_censor =
+      qunif(
+        pnorm(Censoring, log.p = TRUE), 
+        1, 10, log.p = TRUE) %>% ceiling(),
+    Y_Poisson_Censored = 
+      qbinom(
+        pnorm(Y_Normal, log.p = TRUE),
+             N_obs_censor, .1, log.p = TRUE
+        )
+  )
+
+Data_Frame %>% select(N_obs_censor) %>% 
+  ggplot(aes(N_obs_censor)) + stat_bin()
+
+Data_Frame %>%
+  select(Y_Poisson_Censored) %>%
+  ggplot(aes(Y_Poisson_Censored)) + stat_bin()
+
+```
+
+## Zero-inflated
+
+
+```{r}
+Data_Frame %<>%
+  mutate(
+    Y_ZIP = 
+      Y_Poisson * 
+      qbinom(
+        pnorm(Censoring, log.p = TRUE),
+        1, .9, log.p = TRUE)
+  )
+
+Data_Frame %>%
+  select(Y_ZIP) %>%
+  ggplot(aes(Y_ZIP)) + stat_bin()
+```
+
+# Primary Modeling
+
+## Linear Regressions
+
+```{r lm-results}
+lm_result <- 
+  lm(Y_Normal ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame) 
+
+lm_result %>% parameters()
+
+lm_result %>% standardise_parameters(method = "basic")
+
+lm_result %>%
   dominance_analysis()
 ```
 
 
-```
-    ### var = + uncor ----
-eq_v_uncor <- 
-  mvrnorm(n = 100000, 
-          mu = rep(0, times = 4), 
-          Sigma = diag(1, 4, 4)) |> 
-  as.data.frame() %>% 
-  mutate(
-    dv_cont = V1*.2 + V2*.15 + V3*.125 + V4*.1, 
-    dv_cont = dv_cont + rnorm(100000, 0, sqrt(1 - var(dv_cont))), 
-    dv_pois = qpois(pnorm(dv_cont, log.p = TRUE), 1, log.p = TRUE),
-    dv_nb = qnbinom(pnorm(dv_cont, log.p = TRUE), size = .5, mu = 1, log.p = TRUE),
-  )
 
-    ### var = + cor ----
-eq_cov <-
-  c(1, .5^(1:3), 
-    .5, 1, .5^(3:2), 
-    .5^(2:3), 1, .5, 
-    .5^(3:1), 1) |> 
-  matrix(nrow=4, byrow = TRUE) 
-
-eq_v_pw_lw <- 
-  mvrnorm(n = 100000, 
-          mu = rep(0, times = 4), 
-          Sigma = eq_cov) |> 
-  as.data.frame() %>% 
-  mutate(
-    dv_cont = V1*.2 + V2*.15 + V3*.125 + V4*.1,  
-    dv_cont = dv_cont + rnorm(100000, 0, sqrt(1 - var(dv_cont))), 
-    dv_pois = qpois(pnorm(dv_cont, log.p = TRUE), 1, log.p = TRUE),
-    dv_nb = qnbinom(pnorm(dv_cont, log.p = TRUE), size = .5, mu = 1, log.p = TRUE),
-  )
-
-    ### var \= + uncor ----
-pw_lw_v_uncor <- 
-  mvrnorm(n = 100000, 
-          mu = rep(0, times = 4), 
-          Sigma = diag(1, 4, 4)*c(1, 1.5, 2, 4)) |> 
-  as.data.frame() %>% 
-  mutate(
-    dv_cont = V1*.2 + V2*.15 + V3*.125 + V4*.1,  
-    dv_cont = dv_cont + rnorm(100000, 0, sqrt(1 - var(dv_cont))), 
-    dv_pois = qpois(pnorm(dv_cont, log.p = TRUE), 1, log.p = TRUE),
-    dv_nb = qnbinom(pnorm(dv_cont, log.p = TRUE), size = .5, mu = 1, log.p = TRUE),
-  )
-
-      ### var \= + cor ----
-
-
-  ## modeling setup ----
-data_list <- 
-  list(
-    quote(eq_v_uncor),
-    quote(eq_v_pw_lw),
-    quote(pw_lw_v_uncor),
-    quote(pw_lw_v_pw_lw)
-  )
-  
-  ## dev R2 ----
-devR2 <- 
-  function(model) {
-    
-    mod_sum <- model |> summary()
-    
-    return(1 - (mod_sum$deviance/mod_sum$null.deviance))
-    
+```{r all-subsets-lm}
+lm_capture <- 
+  function(formula, ...) { # wrapper program that accepts formula and ellipsis arguments
+    count <<- count + 1 # increment counter in enclosing environment
+    lm_obj <- lm(formula, ...) # estimate 'lm' model and save object
+    DA_lm_results[count, "formula"] <<- 
+      deparse(formula) # record string version of formula passed in 'DA_results' in enclosing environment
+    DA_lm_results[count, "R^2"] <<- 
+      summary(lm_obj)[["r.squared"]] # record R^2 in 'DA_results' in enclosing environment
+    return(lm_obj) # return 'lm' class-ed object
   }
 
-# Describe ----
-# 
-# 
+count <- 0 # initialize the count indicating the row in which the results will fill-in
 
-# Model ----
-lms <- 
-  map(data_list, 
-      ~ lm(
-        reformulate(str_c("V", 1:4), response = "dv_cont"),
-        data = eval(.)))
+DA_lm_results <- # container data frame in which to record results
+  data.frame(formula = rep("", times = 2^3-1), 
+             `R^2` = rep(NA, times = 2^3-1), 
+             check.names = FALSE)
 
-compare_parameters(lms) 
+lm_da <- domin(Y_Normal ~ IV1 + IV2 + IV3 + IV4, # implement the DA with the wrapper
+               lm_capture, 
+               list(summary, "r.squared"), 
+               data = Data_Frame)
 
-# compare_parameters(lms) %>% # '(Intercept)' as value in cell needs LaTeX formatting
-#   as_tibble() %>% 
-#   select(-c(starts_with("CI"), starts_with("df"), Component)) %>%
-#   gt() %>% 
-#   gtsave(filename = "lm_mods.tex", path = "./includes/")
+DA_lm_results
+```
 
-lpois <- 
-  map(data_list, 
-      ~ glm(
-        reformulate(str_c("V", 1:4), response = "dv_pois"),
-        data = eval(.), family = poisson()))
+## Poisson Regressions
 
-# compare_parameters(pois)
-# sink("./includes/pois_mods.tex")
-# compare_parameters(pois) %>% 
-#   #select(-Component, -matches("CI")) %>%
-#   kbl("latex", booktabs = TRUE, digits = 5)
-# sink()
+```{r poisson-result}
+poisson_result <- 
+  glm(Y_Poisson ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame, family = poisson()) 
 
-nb <- 
-  map(data_list, 
-      ~ glm.nb(
-        reformulate(str_c("V", 1:4), response = "dv_nb"),
-        data = eval(.)))
+poisson_result %>% 
+  parameters()
 
-# compare_parameters(nb)
-# sink("./includes/nb_mods.tex")
-# compare_parameters(nb) %>% 
-#   #select(-Component, -matches("CI")) %>%
-#   kbl("latex", booktabs = TRUE, digits = 5)
-# sink()
-  
+poisson_result %>%
+  standardise_parameters(method = "basic")
 
-# lm(dv_cont ~ V1 + V2 + V3 + V4, data = eq_v_uncor) %>% summary()
-# lm(dv_cont ~ V1 + V2 + V3 + V4, data = eq_v_pw_lw) %>% summary()
-# lm(dv_cont ~ V1 + V2 + V3 + V4, data = pw_lw_v_uncor) %>% summary()
-# lm(dv_cont ~ V1 + V2 + V3 + V4, data = pw_lw_v_pw_lw) %>% summary()
-# 
-# glm(dv_pois ~ V1 + V2 + V3 + V4, data = eq_v_uncor, family = poisson()) %>% summary()
-# glm(dv_pois ~ V1 + V2 + V3 + V4, data = eq_v_pw_lw, family = poisson()) %>% summary()
-# glm(dv_pois ~ V1 + V2 + V3 + V4, data = pw_lw_v_uncor, family = poisson()) %>% summary()
-# glm(dv_pois ~ V1 + V2 + V3 + V4, data = pw_lw_v_pw_lw, family = poisson()) %>% summary()
+poisson_result %>%
+  dominance_analysis()
 
+```
 
+```{r poisson-all-subsets}
+ps_capture <- 
+  function(formula, ...) { # wrapper program that accepts formula and ellipsis arguments
+    count <<- count + 1 # increment counter in enclosing environment
+    ps_obj <- glm(formula, ...) # estimate 'glm' model and save object
+    DA_ps_results[count, "formula"] <<- 
+      deparse(formula) # record string version of formula passed in 'DA_results' in enclosing environment
+    DA_ps_results[count, "R^2"] <<- 
+      r2(ps_obj)[["R2_Nagelkerke"]] # record R^2 in 'DA_results' in enclosing environment
+    return(ps_obj) # return 'lm' class-ed object
+  }
 
+count <- 0 # initialize the count indicating the row in which the results will fill-in
 
-# DA ----
+DA_ps_results <- # container data frame in which to record results
+  data.frame(formula = rep("", times = 2^3-1), 
+             `R^2` = rep(NA, times = 2^3-1), 
+             check.names = FALSE)
 
-  ## comparison mods ----
-lms_ri <- 
-  map(data_list, 
-      ~ domir(
-        reformulate(str_c("V", 1:4), response = "dv_cont"),
-        \(fml, data) lm(fml, data = data) %>%
-          r2 %>% pluck(1),
-        data = eval(.)))
+ps_da <- domin(Y_Poisson ~ IV1 + IV2 + IV3 + IV4, # implement the DA with the wrapper
+               ps_capture, 
+               list(r2, "R2_Nagelkerke"), 
+               data = Data_Frame, family = poisson())
 
-sapply(lms_ri, \(x) x$General_Dominance)
-sapply(lms_ri, \(x) x$Value)
-sapply(lms_ri, \(x) x$Standardized)
+DA_ps_results
+```
 
-poi_ri <- 
-  map(data_list, 
-      ~ domir(
-        reformulate(str_c("V", 1:4), response = "dv_pois"),
-        \(fml, data) glm(fml, data = data, family = poisson()) %>%
-          devR2(),
-        data = eval(.)))
+## Negative Binomial Regressions
 
-sapply(poi_ri, \(x) x$General_Dominance)
-sapply(poi_ri, \(x) x$Value)
-sapply(poi_ri, \(x) x$Standardized)
+```{r NB-result}
+nb_result <- 
+  glm.nb(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame) 
 
-nb_ri <- 
-  map(data_list, 
-      ~ domir(
-        reformulate(str_c("V", 1:4), response = "dv_nb"),
-        \(fml, data) glm.nb(fml, data = data) %>%
-          devR2(),
-        data = eval(.)))
+nb_result %>% 
+  parameters()
 
-sapply(nb_ri, \(x) x$General_Dominance)
-sapply(nb_ri, \(x) x$Value)
-sapply(nb_ri, \(x) x$Standardized)
+nb_result %>%
+  standardise_parameters(method = "basic")
 
-  ## wrong metric ----
-# poi_lmr2_ri <- 
-#   map(data_list, 
-#       ~ domir(
-#         reformulate(str_c("V", 1:4), response = "dv_pois"),
-#         \(fml, data) glm(fml, data = data, family = poisson()) %>%
-#           predict(type = "response") %>%
-#           bind_cols(data %>% select(dv_pois)) %>%
-#           cor %>% 
-#           extract(2,1) %>%
-#           raise_to_power(2),
-#         data = eval(.)))
-# 
-# sapply(poi_lmr2_ri, \(x) x$General_Dominance)
-# sapply(poi_lmr2_ri, \(x) x$Value)
-# sapply(poi_lmr2_ri, \(x) x$Standardized)
-
-# nb_lmr2_ri <- 
-#   map(data_list, 
-#       ~ domir(
-#         reformulate(str_c("V", 1:4), response = "dv_nb"),
-#         \(fml, data) glm(fml, data = data, family = poisson()) %>%
-#           predict(type = "response") %>%
-#           bind_cols(data %>% select(dv_nb)) %>%
-#           cor %>% 
-#           extract(2,1) %>%
-#           raise_to_power(2),
-#         data = eval(.)))
-# 
-# sapply(nb_lmr2_ri, \(x) x$General_Dominance)
-# sapply(nb_lmr2_ri, \(x) x$Value)
-# sapply(nb_lmr2_ri, \(x) x$Standardized)
+# ~~~ NB regs don't work with dominance_analysis() - method dispatch issue?
+# ~~~ they have r2() method but DA doesn't recognze it
+# nb_result %>%
+#   dominance_analysis()
+domir(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4, 
+      \(fml,...) {
+        res <- glm.nb(fml, ...) 
+        ret <- r2(res)[[1]]
+      }
+      ,
+      data = Data_Frame) 
+```
 
 
-    ### save stuff ----
-#save.image("./Data_Results/count_domin_manu.R")
 
-load("./Data_Results/count_domin_manu.R")
+```{r NB-all-subsets}
+nb_capture <- 
+  function(formula, ...) { # wrapper program that accepts formula and ellipsis arguments
+    count <<- count + 1 # increment counter in enclosing environment
+    nb_obj <- glm.nb(formula, ...) # estimate 'glm' model and save object
+    DA_nb_results[count, "formula"] <<- 
+      deparse(formula) # record string version of formula passed in 'DA_results' in enclosing environment
+    DA_nb_results[count, "R^2"] <<- 
+      r2(nb_obj)[["R2_Nagelkerke"]] # record R^2 in 'DA_results' in enclosing environment
+    return(nb_obj) # return 'lm' class-ed object
+  }
 
-# Kable results ----
-fit_met_ri <-
-  data.frame( 
-    vars = 1:4,
-    bind_cols(
-      map(lms_ri, pluck, "General_Dominance")
-    ) %>% set_names(str_c("Linear Model ", 1:4)), 
-    bind_cols(
-      map(poi_ri, pluck, "General_Dominance")
-    ) %>% set_names(str_c("Poisson Model A ", 1:4)),
-    bind_cols(
-      map(poi_lmr2_ri, pluck, "General_Dominance")
-    ) %>% set_names(str_c("Poisson Model B ", 1:4)),
-    bind_cols(
-      map(nb_ri, pluck, "General_Dominance")
-    ) %>% set_names(str_c("Negative Binomial Model A ", 1:4)),
-    bind_cols(
-      map(nb_lmr2_ri, pluck, "General_Dominance")
-    )%>% set_names(str_c("Negative Binomial Model B ", 1:4)),
-    check.names = FALSE
-  ) %>% 
-  pivot_longer(matches("[1-4]$"), names_to = c(".value", "data"), names_pattern = "(.+) (.)$") %>%
-  mutate(data = 
-              case_when(data == 1 ~ "EU", 
-                        data == 2 ~ "EC", 
-                        data == 3 ~ "UU", 
-                        data == 4 ~ "UC")) %>%
-  arrange(data, vars)
+count <- 0 # initialize the count indicating the row in which the results will fill-in
 
-# ~~ can I get the names to have linebreaks to squeeze the table down?
-# %>% rename_with(~{ str_replace(., " Model", "\nModel")})
+DA_nb_results <- # container data frame in which to record results
+  data.frame(formula = rep("", times = 2^3-1), 
+             `R^2` = rep(NA, times = 2^3-1), 
+             check.names = FALSE)
 
-sink("./includes/ri_fits.tex")
-fit_met_ri %>%
-  kbl("latex", booktabs = TRUE, digits = 5)
-sink()
+nb_da <- domin(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4, # implement the DA with the wrapper
+               nb_capture, 
+               list(r2, "R2_Nagelkerke"), 
+               data = Data_Frame)
+
+DA_nb_results
+```
 
 
-# 
-# 
-# 
-# 84490856
-#Min: 1, Max: 99999999
-#2022-08-14 14:50:02 UTC
-#Random.org
-#
-#
-#
-## # direct approach ---
-# 
-# dat <- mvrnorm(n = 1000, rep(0, times = 4), Sigma = diag(1, 4, 4)) |> 
-#   as.data.frame()
-# 
-# dat %<>% 
-#   mutate(
-#     dv_cont = V1*.2 + V2*.1 + V3*.02 + V4*-.02 + rnorm(1000, 0, sqrt(0.9492)),
-#     dv_pois = qpois(pnorm(dv_cont, log.p = TRUE), 1, log.p = TRUE),
-#     dv_nb = qnbinom(pnorm(dv_cont, log.p = TRUE), size = .5, mu = 1, log.p = TRUE),
-#   )
-# 
-# 
-#   ## model ---
-# glm(dv_pois ~ V1 + V2 + V3 + V4, data = dat, family = poisson()) %>% summary()
-# 
-# glm.nb(dv_nb ~ V1 + V2 + V3 + V4, data = dat) %>% summary()
-# 
-# glm(dv_nb ~ V1 + V2 + V3 + V4, data = dat, family = poisson()) %>% summary()
-# 
-# lm(dv_cont ~ V1 + V2 + V3 + V4, data = dat) %>% summary()
-# 
-#   ## domir w/metrics ---
-# domir(dv_pois ~ V1 + V2 + V3 + V4, 
-#       \(fml) {
-#         glm(fml, data = dat, family = poisson()) |> 
-#           predict(type = "response") |>
-#           cor(dat$dv_pois) |> (\(x) x**2)()
-#       }
-# )
-# 
-# # will have to make my own dev R2 function
-# domir(dv_pois ~ V1 + V2 + V3 + V4, 
-#       \(fml) {
-#         glm(fml, data = dat, family = poisson()) |> 
-#           performance::r2() |> pluck(1)
-#       }
-# )
-# 
-# domir(dv_nb ~ V1 + V2 + V3 + V4, 
-#       \(fml) {
-#         glm(fml, data = dat, family = poisson()) |> 
-#           performance::r2() |> pluck(1)
-#       }
-# )
-# 
-# domir(dv_nb ~ V1 + V2 + V3 + V4, 
-#       \(fml) {
-#         glm.nb(fml, data = dat) |> 
-#           performance::r2() |> pluck(1)
-#       }
-# )
-# 
-# 
-# # aggregation approach ---
-# 
-# dat2 <- mvrnorm(n = 1000, rep(0, times = 4), Sigma = diag(1, 4, 4)) |> 
-#   as.data.frame()
-# 
-# dat2 %<>% 
-#   mutate(
-#     obsvd = sample(5:10, 1000, replace = TRUE), # the offset - uncorr'd
-#     obsvd2 = qbinom(pnorm(V1*.5 + rnorm(1000, 0, sqrt(1-.5^2)), log.p = TRUE), 10, .7, log.p = TRUE), # offset - corr'd w/ V1
-#     dv_cont = V1*.2 + V2*.1 + V3*.02 + V4*-.02 + rnorm(1000, 0, sqrt(0.9492)),
-#     dv_pois = qbinom(pnorm(dv_cont, log.p = TRUE), 10, .1, log.p = TRUE),
-#     dv_pois_red = qbinom(pnorm(dv_cont, log.p = TRUE), obsvd, .1, log.p = TRUE), # w/ uncorr'd offset
-#     dv_pois_red2 = qbinom(pnorm(dv_cont, log.p = TRUE), obsvd2, .1, log.p = TRUE) # w/ corr'd offset
-#   )
-# 
-#   ## model w/ offsets ---
-# glm(dv_pois ~ V1 + V2 + V3 + V4, data = dat2, family = poisson()) %>% summary()
-# 
-# glm(dv_pois_red ~ V1 + V2 + V3 + V4, data = dat2, family = poisson()) %>% summary()
-# 
-# glm(dv_pois_red ~ V1 + V2 + V3 + V4 + offset(log(obsvd)), 
-#     data = dat2, family = poisson()) %>% 
-#   summary()  
-# 
-# glm(dv_pois_red2 ~ V1 + V2 + V3 + V4, 
-#     data = dat2, family = poisson()) %>% 
-#   summary()  
-# 
-# glm(dv_pois_red2 ~ V1 + V2 + V3 + V4 + offset(log(obsvd2)), 
-#     data = dat2, family = poisson()) %>% 
-#   summary()  
-#   
-# 
+# Offset Modeling
+
+## Wrong Poisson
+
+```{r}
+poisson_result_offset_wrong <- 
+  glm(Y_Poisson_Offset ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame, 
+      family = poisson())
+
+poisson_result_offset_wrong %>% 
+  parameters()
+
+poisson_result_offset_wrong %>%
+  standardise_parameters(method = "basic")
+
+domir(Y_Poisson_Offset ~ IV1 + IV2 + IV3 + IV4, 
+      \(fml,...) {
+        res <- glm(fml, ...) 
+        ret <- r2(res)[[1]]
+      }
+      ,
+      data = Data_Frame, family = poisson()) 
+```
+
+## Right Poisson
+
+```{r}
+poisson_result_offset_right <- 
+  glm(Y_Poisson_Offset ~IV1 + IV2 + IV3 + IV4 + offset(log(Number_Observed)), data = Data_Frame, 
+      family = poisson())
+
+poisson_result_offset_right %>% 
+  parameters()
+
+poisson_result_offset_right %>%
+  standardise_parameters(method = "basic")
+
+domir(Y_Poisson_Offset ~ IV1 + IV2 + IV3 + IV4, 
+      \(fml,...) {
+        fml2 <- update(fml, . ~ . + offset(log(Number_Observed)))
+        res <- glm(fml2, ...) 
+        ret <- r2(res)[[1]]
+      }
+      ,
+      data = Data_Frame, family = poisson()) 
+```
+
+
+
+## Wrong Poisson C
+
+```{r}
+poisson_result_cens_wrong <- 
+  glm(Y_Poisson_Censored ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame, 
+      family = poisson())
+
+poisson_result_cens_wrong %>% 
+  parameters()
+
+poisson_result_cens_wrong %>%
+  standardise_parameters(method = "basic")
+
+domir(Y_Poisson_Censored ~ IV1 + IV2 + IV3 + IV4, 
+      \(fml,...) {
+        res <- glm(fml, ...) 
+        ret <- r2(res)[[1]]
+      }
+      ,
+      data = Data_Frame, family = poisson()) 
+```
+
+## Right Poisson C
+
+```{r}
+poisson_result_cens_right <- 
+  glm(Y_Poisson_Censored ~IV1 + IV2 + IV3 + IV4 + offset(log(N_obs_censor)), data = Data_Frame, 
+      family = poisson())
+
+poisson_result_cens_right %>% 
+  parameters()
+
+poisson_result_cens_right %>%
+  standardise_parameters(method = "basic")
+
+domir(Y_Poisson_Censored ~ IV1 + IV2 + IV3 + IV4, 
+      \(fml,...) {
+        fml2 <- update(fml, . ~ . + offset(log(N_obs_censor)))
+        res <- glm(fml2, ...) 
+        ret <- r2(res)[[1]]
+      }
+      ,
+      data = Data_Frame, family = poisson()) 
+```
+
+# Zero-Inflation
+
+```{r}
+zip_result <- 
+  zeroinfl(Y_ZIP ~ IV1 + IV2 + IV3 + IV4 | IV1 + IV2 + IV3 + IV4, 
+           data = Data_Frame)
+
+zip_result %>% 
+  parameters()
+
+zip_result %>%
+  standardise_parameters(method = "basic")
+```
+
+## IV DA
+
+```{r}
+domir(Y_ZIP ~ IV1 + IV2 + IV3 + IV4, 
+      \(fml,...) {
+        fml2 <- update(fml, . ~ .)
+        res <- zeroinfl(fml2, ...) 
+        ret <- r2(res)[[1]]
+      }
+      ,
+      data = Data_Frame) 
+```
+
+# Records and Reproducibility
+
+```{r}
+sessionInfo()
+```
+
+The random seed information used in this session:
+
+    84490856
+    Min: 1, Max: 99999999
+    2022-08-14 14:50:02 UTC
+    Random.org
