@@ -39,8 +39,6 @@ Data generation is founded on the initial covariance matrix on which all subsequ
 
 The covariance matrix developed for use in this manuscript is reported on below.  
 
-
-
 ```{r gen-iv-mat}
 # Covariance_Matrix <- 
 #   c(1, .5^(1:3)*sqrt(1*c(1.8, 2.8, 4))*sqrt(1), 
@@ -65,7 +63,7 @@ The covariance matrix developed doesn't 'feel' like real data.  As such, instead
 
 ```{r sample-iv-mat}
 Covariance_Matrix_Use <- 
-  riwish(5, Covariance_Matrix)
+  riwish(7, Covariance_Matrix)
 
 Covariance_Matrix_Use %>% kable()
 
@@ -74,7 +72,7 @@ Covariance_Matrix_Use %>% cov2cor() %>% kable()
 
 The section below produces the combined correlation matrix tables for display in the manuscript.
 
-```{r}
+```{r display-covmat}
 Covariance_Matrix %>% 
   as.data.frame %>%
   set_names(str_c("IV", 1:4)) %>%
@@ -85,20 +83,15 @@ Covariance_Matrix %>%
       bind_cols(tibble(name = str_c("IV",1:4)))
   ) %>%
   gt(rowname_col = "name") %>%
-  # tab_style(
-  #   style = 
-  #     cell_borders(sides = "bottom"),
-  #   locations = cells_body(rows = 4)
-  # ) %>%
   tab_row_group(label = "Sampled", rows = 5:8) %>% 
   tab_row_group(label = "Parameter", rows = 1:4) %T>%
   print %>%
   gtsave(filename = "corrs.tex", path = "./includes/")
-
-
 ```
 
 ## Generate IV Data
+
+One hundred thousand observations in four independent variables are created using a multivariate Normal distribution that derive from the inverse Wishart sampled covariance matrix.  The means of each independent variable are set to be zero.
 
 ```{r gen-iv-data}
 Data_Frame <- 
@@ -125,9 +118,13 @@ Data_Frame %>%
 
 ## Generate Normal Gaussian Dependent Variable
 
+The independent variable data are used to generate the dependent variables starting with the comparison Normally or Gaussian distributed variable.
+
+Similar to the generation of the independent variables, the coefficients for the Normally distributed variable was generated randomly using four draws from a Normal distribution with a means of .2, .15, .125, and .1 and standard deviation of .05.
+
 ```{r gen-y-normal}
 Coefficient_Vector <- 
-  rnorm(4, 0, .2)
+  rnorm(4, c(.2, .15, .12, .1), .2)
 
 Coefficient_Vector %>% kable
 
@@ -156,6 +153,8 @@ Data_Frame %>%
 
 ## Generate Poisson Dependent Variable
 
+The Poisson distributed dependent variable is derived directly from the Normal variable by translating the Normal values to Poisson values by first translating the Normal values to cumulative probabilities and, subsequently, translating those cumulative probabilities to Poisson quantiles assuming a mean of 1.
+
 ```{r gen-y-poisson}
 Data_Frame %<>%
   mutate(
@@ -179,34 +178,75 @@ Data_Frame %>%
 
 ## Generate Negative Binomial Dependent Variable
 
+The generation of the negative Binomial dependent variable followed the same procedure as that to create the Poisson variable as it is created from the cumulative probability derived from the Normally distributed variable translated into negative Binomial quantiles assuming a _size_ of .5 and _mu_ parameter of 1.
+
+The _size_ and _mu_ parameters were chosen to obtain a mean (i.e., the _mu_/$\mu$ value) of 1 to mirror the Poisson distribution but a variance that substantially exceeded 1; in this case  or a value of 3 as $\sigma^{2} = \mu + \frac{\mu^2}{size}$.  
+
 ```{r gen-y-neg-bin}
 Data_Frame %<>%
   mutate(
     Y_NegativeBinomial = qnbinom(pnorm(Y_Normal, log.p = TRUE), size = .5, mu = 1, log.p = TRUE),
   )
 
+Data_Frame %>%
+  summarise(
+    across(.fns = mean),
+    ) 
+
+Data_Frame %>%
+  summarise(
+    across(.fns = sd),
+    ) 
+
+Data_Frame %>% 
+  cor %>% 
+  kable
+
 ```
 
-## Offset
+... display later maybe? ...
 
-Work with Poisson and assume $np = \lambda$ or $10*.1 = 1$
+```{r display-observed-descriptives}
+Data_Frame %>%
+  {
+    cbind(
+      summarise(.,
+        across(.fns = mean)
+      ) %>% t(),
+      summarise(.,
+        across(.fns = sd)
+      ) %>% t(),
+      cor(.) %>% as.data.frame()
+      
+    )
+  } %>% 
+  set_names(c("Means", "SDs", str_c("IV", 1:4), "Y_Normal", "Y_Poisson", "Y_NegativeBinomial")) %>%
+  as_tibble(rownames = "IVs") %>%
+  gt(rowname_col = "IVs") %>%
+  tab_style(
+    style = cell_borders(sides = "right"),
+    locations = cells_body(columns = "SDs")
+  ) %T>%
+  print %>%
+  gtsave(filename = "descrips_initial.tex", path = "./includes/")
+```
 
-Sample 1 to the full 10 of obs.
+## Poisson with Offset Dependent Variables
 
-```{r}
+The dependent variables with an offset were generated assuming a Poisson distribution and two different versions of the Poisson-with-offset variables were created.
 
-Offset_Vector <- 
-  rnorm(4, 0, .2)
+### Uncorrelated Offset
 
-Offset_Vector %>% kable
+The Poisson variable with an offset is generated from a binomial distribution with the idea that the Poisson rate/mean parameter can be derived as $np = \lambda$.  In this case, the _n_ is 10 and the _p_ is .1 to obtain the mean of 1 (i.e., $10*.1 = 1$).
 
+Given there are up to 10 trials, the offset is implemented as the number of trials actually realized for an observation.  This number of trials is obtained as an integer vector from 1 to 10 sampled randomly for all observations.
+
+The number of 'successes' (i.e., the Poisson variable) is then implemented, as before, using the cumulative probability from the Normal variable as translated to a binomial quantile using the number of realized trials for each observation and a fixed probability of .1).
+
+```{r offset-uncorrelated}
 Data_Frame %<>%
   mutate(
-    Number_Observed = sample(1:10, 100000, replace = TRUE),
-    Censoring =
-      IV1*Offset_Vector[[1]] + IV2*Offset_Vector[[2]] + 
-      IV3*Offset_Vector[[3]] + IV4*Offset_Vector[[4]],
-    Censoring = Censoring + rnorm(100000, 0, sqrt(1 - var(Censoring)))
+    Number_Observed = sample(1:10, 100000, replace = TRUE)
   )
 
 Data_Frame %>% select(Number_Observed) %>% 
@@ -224,6 +264,44 @@ Data_Frame %<>%
 Data_Frame %>%
   select(Y_Poisson_Offset) %>%
   ggplot(aes(Y_Poisson_Offset)) + stat_bin()
+
+Data_Frame %>%
+  summarise(
+    across(.fns = mean),
+    ) 
+
+Data_Frame %>%
+  summarise(
+    across(.fns = sd),
+    ) 
+
+Data_Frame %>% 
+  cor %>% 
+  kable
+
+```
+
+### Correlated Offset
+
+The correlated offset variable is implemented in a way similar to the uncorrelated offset variable save for the way in which the number of realized trials was implemented for each observation.  
+
+The number of realized trials was obtained by randomly sampling coefficients in the same way as for the development of the Normally distributed variable (4 draws from Normal distribution with the same set of means as the Normally distributed variable but randomized in order and negative and a standard deviation of .05) and generating a Normally distributed variable with a standard deviation of 1.  The newly generated Normally distributed variable is then translated into a cumulative probability and uniform distribution quantile with a minimum of 1 and maximum of 10.  
+
+This new 1 to 10 count variable is then used as the number of realized trials in the same process used to generate an offset as was implemented above.
+
+```{r correlated-offset}
+Offset_Vector <- 
+  rnorm(4, sample(c(.2, .15, .12, .1))*-1, .2)
+
+Offset_Vector %>% kable
+
+Data_Frame %<>%
+  mutate(
+    Censoring =
+      IV1*Offset_Vector[[1]] + IV2*Offset_Vector[[2]] + 
+      IV3*Offset_Vector[[3]] + IV4*Offset_Vector[[4]],
+    Censoring = Censoring + rnorm(100000, 0, sqrt(1 - var(Censoring)))
+  )
 
 Data_Frame %<>%
   mutate(
@@ -245,12 +323,27 @@ Data_Frame %>%
   select(Y_Poisson_Censored) %>%
   ggplot(aes(Y_Poisson_Censored)) + stat_bin()
 
+Data_Frame %>%
+  summarise(
+    across(.fns = mean),
+    ) 
+
+Data_Frame %>%
+  summarise(
+    across(.fns = sd),
+    ) 
+
+Data_Frame %>% 
+  cor %>% 
+  kable
 ```
 
-## Zero-inflated
+## Zero-inflated Poisson Dependent Variable
+
+The zero-inflated Poisson dependent variable uses the Poisson variable as well as the Normally distributed variable created to produce the correlated offset (negative, randomized Normal variable coefficients).  The correlated offset variable is translated through a cumulative Normal probability to a binomial quantile function with 1 draw and a probability of .9. 
 
 
-```{r}
+```{r zero-inflate}
 Data_Frame %<>%
   mutate(
     Y_ZIP = 
@@ -263,7 +356,24 @@ Data_Frame %<>%
 Data_Frame %>%
   select(Y_ZIP) %>%
   ggplot(aes(Y_ZIP)) + stat_bin()
+
+Data_Frame %>%
+  summarise(
+    across(.fns = mean),
+    ) 
+
+Data_Frame %>%
+  summarise(
+    across(.fns = sd),
+    ) 
+
+Data_Frame %>% 
+  cor %>% 
+  kable
+
 ```
+
+
 
 # Primary Modeling
 
@@ -367,7 +477,7 @@ nb_result %>%
   standardise_parameters(method = "basic")
 
 # ~~~ NB regs don't work with dominance_analysis() - method dispatch issue?
-# ~~~ they have r2() method but DA doesn't recognze it
+# ~~~ they have r2() method but DA doesn't recognize it
 # nb_result %>%
 #   dominance_analysis()
 domir(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4, 

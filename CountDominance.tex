@@ -198,8 +198,24 @@
 	
 		\subsubsection{Data Generation}
 		
-	The 100,000 simulated observations in this manuscript was generated from a data structure with four IVs that have differing relationships with the DV, differing relationships with one another, and differing variances.
-	The four IVs created were based on the correlation matrix in Table X.
+	One hundred thousand simulated observations in this manuscript was generated from a data structure with four IVs and a single relationship to a DV.
+	The simulated data for the four IVs was generated using a single set of draws from a random data generators with pre-specified population parameters.
+	In developing a dataset for this illustration, I approached the specification of population parameters in a way that did not intentionally provide advantages to any single IV.  
+	Any advantage in terms of explaining variance was intended to be introduced by the random number generator.
+	Using the random number generator to introduce advantages for different IVs is intended to make the data used in this illustration more like real data and yet reproducible and with a known structure.
+	
+	The population parameter set used to generate the 100,000 simulated observations produced a set of IV variance and IV-DV regression slope parameters that produced the same $R^2$ value assuming the IVs were not correlated.  The four sets of variance-slope values were: $\sigma^2_{IV_1} = 1$, $\beta_{IV_1} =.2$, $\sigma^2_{IV_2} = 1.8$, $\beta_{IV_2} =.15$, $\sigma^2_{IV_3} = 2.8$, $\beta_{IV_3} =.12$, and $\sigma^2_{IV_4} = 4$, $\beta_{IV_4} =.1$. 
+	Given that the variance explained for a LRM with no intercorrrelaions can be computed as $R^2_{IV} = \sigma^2_{IV}\beta^2_{IV}$ or the product of the IV's variance and the squared slope, all four IVs have an $R^2$ of .04.
+	
+	Correlations were also added between the IVs as there is little advantage to using DA in cases where IVs are uncorrelated and most data collected in real studies are intercorrelated to some degree.  
+	The population parameter correlations added between the IVs intended, again, to not unduly give advantage to any one IV.  
+	All IV interrelationships took one of three values .5, .25, and .125 and all IV pairs had one value.  The six different correlations specified were: $r_{IV_1 IV_2} = .5$, $r_{IV_1 IV_3} = .25$, $r_{IV_1 IV_4} = .125$, $r_{IV_2 IV_3} = .125$, $r_{IV_2 IV_4} = .25$, and $r_{IV_3 IV_4} = .5$.  
+	These six intercorrelations are balanced such that no one IV overlaps more or less with other IVs.
+
+	The combination of variances and correlations were combined into a single matrix denoted as the \emph{Parameter} matrix in Table X.
+	The Parameter matrix was used, along with a degree of freedom parameter of 7, as a scale matrix in a draw from a random inverse Wishart distribution.  
+	A value of 7 was chosen as the degrees of freedom for the sample covariance matrix to allow for a rather wide sampling of covariances values to make the process less deterministic but somewhat less wildly varying than the maximum variability (a value of 4 or the dimension of the scale matrix).  As the degrees of freedom increases from the minimum of 4, the values sampled from an inverse Wishart distribution converge more closely with the scale matrix between draws.
+	The sampled covariance matrix obtained is reported in Table X1 denoted as \emph{Sampled}.
 	
 %	All the simulated data for the data analytic examples in this manuscript were generated from series of four underlying data structures.
 %	The four data structures designed for this manuscript were intended to highlight the impact of IV variance as well as inter-IV covariance on both parameter estimation as well as relative importance determination.
@@ -232,53 +248,139 @@
 	\smallskip
 	
 	\begin{longtable}{l|rrrr}
-	\toprule
-	\multicolumn{1}{l}{} & IV1 & IV2 & IV3 & IV4 \\ 
-	\midrule
-	\multicolumn{5}{l}{Parameter} \\ 
-	\midrule
-	IV1 & 1.00000000 & 0.67082039 & 0.41833001 & 0.25000000 \\ 
-	IV2 & 0.67082039 & 1.80000000 & 0.28062430 & 0.67082039 \\ 
-	IV3 & 0.41833001 & 0.28062430 & 2.80000000 & 1.67332005 \\ 
-	IV4 & 0.25000000 & 0.67082039 & 1.67332005 & 4.00000000 \\ 
-	\midrule
-	\multicolumn{5}{l}{Sampled} \\ 
-	\midrule
-	IV1 & 0.13580061 & 0.08195510 & -0.16607185 & 0.09640778 \\ 
-	IV2 & 0.08195510 & 0.64261656 & -0.04569956 & -1.11854957 \\ 
-	IV3 & -0.16607185 & -0.04569956 & 2.05240296 & -1.27216522 \\ 
-	IV4 & 0.09640778 & -1.11854957 & -1.27216522 & 3.88941540 \\ 
-	\bottomrule
+		\toprule
+		\multicolumn{1}{l}{} & IV1 & IV2 & IV3 & IV4 \\ 
+		\midrule
+		\multicolumn{5}{l}{Parameter} \\ 
+		\midrule
+		IV1 & 1.000000000 & 0.67082039 & 0.41833001 & 0.250000000 \\ 
+		IV2 & 0.670820393 & 1.80000000 & 0.28062430 & 0.670820393 \\ 
+		IV3 & 0.418330013 & 0.28062430 & 2.80000000 & 1.673320053 \\ 
+		IV4 & 0.250000000 & 0.67082039 & 1.67332005 & 4.000000000 \\ 
+		\midrule
+		\multicolumn{5}{l}{Sampled} \\ 
+		\midrule
+		IV1 & 0.091590095 & 0.06153029 & -0.03506662 & 0.002963387 \\ 
+		IV2 & 0.061530289 & 0.28517891 & -0.12537445 & -0.356761781 \\ 
+		IV3 & -0.035066620 & -0.12537445 & 0.71795109 & -0.095787710 \\ 
+		IV4 & 0.002963387 & -0.35676178 & -0.09578771 & 1.311862465 \\ 
+		\bottomrule
 	\end{longtable}
 	
 	\smallskip
 	
-	The correlation matrix in Table X was designed to produce a realistic set of IV intercorrelations that could plausibly be uncovered in real data.  
-	Table X's intercorrelations was also designed balance extent of redundancy between the four IVs.  
-	That is, the correlations in Table X do not result in one or two IVs being more redundant than other IVs overall; all IVs have equivalent total redundancies as other IVs.  
-	Stated differently, all the IVs overlap with other IVs to the same extent and thus will not have differential extents of multicollinearity.
+	The sampled covariance matrix in Table X1 was used as the covariance matrix, with a vector of 0 means, in a  multivariate Normal distribution obtaining 100,000 draws.
 	
-	The means for all four IVs were set to 0.  
-	The variances for each IV differed. $V_1$ was set to 1, $V_2$ was set to 1.8, $V_3$ was set to 2.8, and $V_4$ was set to 4.
-	The differences between the variances were in equal intervals on the square root scale between 1 and 2 (i.e., $1.8 \approx 1.33^2$ and $2.8 \approx 1.67^2$).
-	The differences between IV variances were designed to show the effect of IV variance on dominance statistic computation.
+	%plug in descriptive table?
+	
+	
+	
+%	The correlation matrix in Table X was designed to produce a realistic set of IV intercorrelations that could plausibly be uncovered in real data.  
+%	Table X's intercorrelations was also designed balance extent of redundancy between the four IVs.  
+%	That is, the correlations in Table X do not result in one or two IVs being more redundant than other IVs overall; all IVs have equivalent total redundancies as other IVs.  
+%	Stated differently, all the IVs overlap with other IVs to the same extent and thus will not have differential extents of multicollinearity.
+%	
+%	The means for all four IVs were set to 0.  
+%	The variances for each IV differed. $V_1$ was set to 1, $V_2$ was set to 1.8, $V_3$ was set to 2.8, and $V_4$ was set to 4.
+%	The differences between the variances were in equal intervals on the square root scale between 1 and 2 (i.e., $1.8 \approx 1.33^2$ and $2.8 \approx 1.67^2$).
+%	The differences between IV variances were designed to show the effect of IV variance on dominance statistic computation.
 	
 	The simulated IV values were used to generate the three DVs.  
 	The Gaussian/Normally distributed DV was generated first. 
-	The equation to generate the continuous, Normally distributed DV, $Y_{Normal}$, was: $Y_{Normal} = V_1*.2 + V_2*.17 + V_3*.14 + V_4*.1$.  
-	The true coefficients ascribed to each IV were in equal intervals between .04 and .01 on the exponential scale with a power of two (i.e., $.14 \approx \sqrt{.02}$ and $.17 \approx \sqrt{.03}$).
-	A residual variance for $Y_{Normal}$ was generated for each dataset as $1 - \sigma_{Y_{Normal}}$; hence, $Y_{Normal}$ had a variance of 1 and a mean of 0. 
-	
-	$Y_{Normal}$ was used as a basis for computing the Poisson distributed DV, $Y_{Poisson}$ to ensure that they were as similar and comparable as possible.
-	
-	... ended here - note the update to the corr matrix and coefficient generation - ...
+	The coefficient vector implied above was entered as means, into a Normal distribution with a standard deviation of .2 from which a single draw from each mean was obtained.  
+	The standard deviation of .2 was intended to make the process of generating coefficients for the DVs less deterministic.  
+	The vector of coefficient draws resulted in the following set of values: $\beta_{IV_1} = 0.259$, $\beta_{IV_2} = 0.042$, $\beta_{IV_3} = 0.112$, $\beta_{IV_4} = 0.293$.
+	These four values were multiplied by their IV to generate an initial set of Normally distributed DV values.  
+	The Normally distributed DV $Y_{Normal}$ was completed by adding a draw from a Normal distribution with a mean of 0 and a standard deviation that was computed as $\sqrt{1 - \sigma^2_{Y_{NormalNoError}}}$ using the initial Normally distributed variable without error.
 	
 	
-	A Poisson distributed version of $Y_{cont}$, $Y_{pois}$, was also generated by obtaining the cumulative probability of each observation's $Y_{cont}$ score given the standard Gaussian/Normal distribution (i.e., $N(0,1)$) and translating that value into a count value using the Poisson quantile function assuming an underlying mean and variance of 1.  
+	
+%	The equation to generate the continuous, Normally distributed DV, $Y_{Normal}$, was: $Y_{Normal} = V_1*.2 + V_2*.17 + V_3*.14 + V_4*.1$.  
+%	The true coefficients ascribed to each IV were in equal intervals between .04 and .01 on the exponential scale with a power of two (i.e., $.14 \approx \sqrt{.02}$ and $.17 \approx \sqrt{.03}$).
+%	A residual variance for $Y_{Normal}$ was generated for each dataset as $1 - \sigma_{Y_{Normal}}$; hence, $Y_{Normal}$ had a variance of 1 and a mean of 0. 
+%	
+%	$Y_{Normal}$ was used as a basis for computing the Poisson distributed DV, $Y_{Poisson}$ to ensure that they were as similar and comparable as possible.
+	
+	A Poisson distributed version of $Y_{Normal}$, $Y_{Poisson}$, was generated by obtaining the cumulative probability of each observation's $Y_{Normal}$ score given the standard Gaussian/Normal distribution (i.e., $N(0,1)$) and translating that value into a count value using the Poisson quantile function assuming an underlying mean and variance of 1.  
 	The mean of 1 value was chosen to make the Poisson distributed result as close to the Normally distributed result as possible as both have variances of 1.	
 	
-	A negative Binomial version, $Y_{nb}$, was created similarly by translating $Y_{cont}$'s cumulative probability for each observation into a count variable using the negative Binomial quantile function assuming a Gamma shape parameter of .5 and scale parameter of .33; these factors result in a mean of 1 and variance of 3 for the negative Binomial distribution.  
+	A negative Binomial version, $Y_{NegativeBinomial}$, was created similarly by translating $Y_{Normal}$'s cumulative probability for each observation into a count variable using the negative Binomial quantile function assuming a Gamma shape parameter of .5 and scale parameter of .33; these factors result in a mean of 1 and variance of 3 for the negative Binomial distribution.  
 	The negative Binomial parameters obtaining a mean of 1 and variance of 3 were chosen to maintain similarities to the Poisson version of the variable (i.e., their means are identical) but to emphasize the unique feature of the negative Binomial distribution (i.e., the capability to model over-dispersion).  
+	
+	The means, standard deviations, and correlations between all four IVs and three DVs is reported below in Table X2.
+	
+	\begin{longtable}{l|rr|rrrrrrr}
+		\toprule
+		\multicolumn{1}{l}{} & Means & SDs & IV1 & IV2 & IV3 & IV4 & Y\_Normal & Y\_Poisson & Y\_NegativeBinomial \\ 
+		\midrule
+		IV1 & 0.001330068 & 0.3039554 & 1.000000000 & 0.3809086 & -0.13690020 & 0.005635913 & 0.07803106 & 0.07067855 & 0.06045060 \\ 
+		IV2 & -0.001447403 & 0.5344685  & 0.380908600 & 1.0000000 & -0.27832116 & -0.585105979 & -0.16860563 & -0.15336969 & -0.13271529 \\ 
+		IV3 & 0.003514622 & 0.8471215 & -0.136900200 & -0.2783212 & 1.00000000 & -0.094324027 & 0.04828792 & 0.04471122 & 0.03636093 \\ 
+		IV4 & 0.007954359 & 1.1458255 & 0.005635913 & -0.5851060 & -0.09432403 & 1.000000000 & 0.31371935 & 0.28567272 & 0.24965602 \\ 
+		Y\_Normal & 0.002088013 & 0.9984605 & 0.078031061 & -0.1686056 & 0.04828792 & 0.313719350 & 1.00000000 & 0.91270742 & 0.79414306 \\ 
+		Y\_Poisson & 1.000140000 & 0.9999350 & 0.070678555 & -0.1533697 & 0.04471122 & 0.285672719 & 0.91270742 & 1.00000000 & 0.87752847 \\ 
+		Y\_NegativeBinomial & 1.001480000 & 1.7282557 & 0.060450598 & -0.1327153 & 0.03636093 & 0.249656016 & 0.79414306 & 0.87752847 & 1.00000000 \\ 
+		\bottomrule
+	\end{longtable}
+
+	There are a few points of note about the descriptive results from Table X2.  
+	Note the wide variability in the sampled intercorrelations among the four IVs which, in a number of cases for $IV_3$ and $IV_4$ are negative as sampled despite being based on positive correlations in the population.  
+	The standard deviations for the four IVs also show variability from their population values though generally maintain a pattern of $\sigma_{IV_4} > \sigma_{IV_3} > \sigma_{IV_2} > \sigma_{IV_1}$.
+	In addition, the magintude and direction of several of the correlations may be surprising to the reader given the known coefficient values that produced them.  
+	For example, the correlations between $IV_2$ and all three DVs is negative despite $IV_2$'s known positive coefficient.
+	The negative correlation is due to $IV_2$'s strong, negative correlations with $IV_3$ and $IV_4$ which both have stronger relationships with the DVs.
+	Correlations reflect a form of \emph{total effect} of an IV on a DV (cite??) and, as will be seen, the biased effect of the correlation does not persist when the model is estimated on the data.
+	
+	The data for use in the DA illustrations are now generated and ready for use in analysis.
+	DA is a method for extracting additional information from a statistical model such as an LRM.
+	As such, it should be interpreted in light of the model on which it is based.
+	The section below estimates the LRM, as well as PR and NBR, CRMs on their respective DVs using all four IVs.
+
+		\subsubsection{Regression Results}
+		
+	The results for $Y_{Normal}$ are reported in Table X3.
+	
+	.. Table X3 placeholder ..
+	
+	The LRM in Table X3 is correctly specified and, as such, the correct, known parameter estimates for each of the IVs is recovered.
+	The results in Table X3 report that $IV_4$ shows the highest coefficient value, followed by $IV_1$, then $IV_3$, and lastly $IV_2$.
+	The unstandardized coefficients in Table X3 are useful for understanding how predicted values are generated but are poor reflections of importance as the variances of the IVs are different which makes the coefficients hard to compare.
+	The standardized coefficients reported in Table X3 avoid this issue by making each coefficient interpretable as the standard deviation change in the DV for each standard deviation change in the IV.	
+	The standardized coefficients' ordering changes which IVs are ranked second ($IV_3$) and third ($IV_1$).  The results for $Y_{Poisson}$ are presented next.
+	
+	The CRM results for $Y_{Poisson}$ are reported in Table X4.
+	
+	.. Placeholder for Table X4 ..
+	
+	$Y_{Poisson}$'s PR results are, as intended, similar to those obtained from the results for $Y_{Normal}$ LRM.
+	In fact, the values obtained for each of the coefficients are numerically similar despite being log-linear and multiplicative.
+	The most noteworthy difference between the PR and LRMs is the non-zero intercept value for the PR model which reflect the baseline incidence rate of $e^{-.05}$ or $\approx .95$. 
+	Because the baseline incidence rate is the incidence rate when each of the IVs is 0, it reflects the value at the means of each of the IVs; the value of nearly 1 indicates that the known mean of $Y_{Poisson}$ is achieved, as expected, when all IVs are at their means.
+	
+	The standardized PR coefficients mirror those obtained by the LRM (discuss or footnote how generated?)...
+	
+	..Negative binomial..
+	
+	
+		\subsubsection{Dominance Analysis Results}
+		
+	.. got to these too early - complete the regression results above before getting here ..
+	
+	
+	Standardized coefficients are more comparable than unstandardized coefficients, but also suffer from distinct limitations as reflections of relative importance.
+	In the next section, the DA results for the $Y_{Normal}$ are reported.
+	
+	The DA results for $Y_{Normal}$ are reported in Table Xy.
+	
+	... Placeholder for Table Xy ...
+	
+	... discuss DA ...
+	
+	The LRM results for $Y_{Normal}$ reported in Tables Xy and Xz provide a useful comparison point for the CRM results for $Y_{Poisson}$ and $Y_{NegativeBinomial}$ results that are designed to be as similar as possible to those from $Y_{Normal}$.  
+	
+	
+	
+	... extend from here to ...
 	
 	... offets ...
 	

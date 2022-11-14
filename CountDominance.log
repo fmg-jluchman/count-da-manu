@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022 - Flatpak) (preloaded format=pdflatex 2022.10.15)  30 OCT 2022 19:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022 - Flatpak) (preloaded format=pdflatex 2022.10.15)  13 NOV 2022 19:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -397,22 +397,30 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 11.39996pt on input line 118.
  [4] [5] [6] [7]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 28
-8.
+Overfull \hbox (353.20831pt too wide) in alignment at lines 312--324
+ [] [] [] [] [] [] [] [] [] [] 
+ []
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+[8] [9]
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 38
+6.
+ (/app/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [8] [9] [10] [11] [12]
-[13] [14] (./CountDominance.bbl [15]) [16] (./CountDominance.aux) )
+) [10]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11]
+[12] [13] [14] [15] [16] (./CountDominance.bbl [17]) [18] (./CountDominance.aux
+) )
 (\end occurred when \ifx on line 3 was incomplete) 
 Here is how much of TeX's memory you used:
- 5245 strings out of 478268
- 84500 string characters out of 5847839
- 373413 words of memory out of 5000000
- 23342 multiletter control sequences out of 15000+600000
+ 5246 strings out of 478268
+ 84505 string characters out of 5847839
+ 377575 words of memory out of 5000000
+ 23343 multiletter control sequences out of 15000+600000
  527248 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,9n,77p,1308b,324s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 70i,9n,77p,1308b,350s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/app/texlive/texmf-dist/font
 s/enc/dvips/base/8r.enc}</app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmex10.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
@@ -427,10 +435,10 @@ ype1/urw/helvetic/uhvb8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helvetic/
 uhvr8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></app/
 texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></app/texlive/texmf-dist/fo
 nts/type1/urw/times/utmri8a.pfb>
-Output written on CountDominance.pdf (16 pages, 217454 bytes).
+Output written on CountDominance.pdf (18 pages, 225697 bytes).
 PDF statistics:
- 132 PDF objects out of 1000 (max. 8388607)
- 83 compressed objects within 1 object stream
+ 138 PDF objects out of 1000 (max. 8388607)
+ 87 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
