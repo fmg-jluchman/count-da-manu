@@ -1,5 +1,12 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\citeauthoryear{Azen \& Budescu}{Azen \&
+  Budescu}{2003}{}]{azen2003dominance}
+Azen, R. \& Budescu, D.~V. (2003).
+\newblock The dominance analysis approach for comparing predictors in multiple
+  regression.
+\newblock {\em Psychological methods}, {\em 8(2)}, 129.
+
 \bibitem[\protect\citeauthoryear{Azen \& Traxel}{Azen \&
   Traxel}{2009}{}]{azen2009using}
 Azen, R. \& Traxel, N. (2009).
@@ -7,6 +14,12 @@ Azen, R. \& Traxel, N. (2009).
   logistic regression.
 \newblock {\em Journal of Educational and Behavioral Statistics}, {\em 34(3)},
   319--347.
+
+\bibitem[\protect\citeauthoryear{Bettinazzi \& Feldman}{Bettinazzi \&
+  Feldman}{2021}{}]{bettinazzi2021stakeholder}
+Bettinazzi, E.~L. \& Feldman, E.~R. (2021).
+\newblock Stakeholder orientation and divestiture activity.
+\newblock {\em Academy of Management Journal}, {\em 64(4)}, 1078--1096.
 
 \bibitem[\protect\citeauthoryear{Blevins, Tsang \& Spain}{Blevins
   et~al.}{2015}{}]{blevins2015count}
@@ -21,6 +34,18 @@ Cameron, A.~C. \& Windmeijer, F.~A. (1996).
   to health-care utilization.
 \newblock {\em Journal of Business \& Economic Statistics}, {\em 14(2)},
   209--220.
+
+\bibitem[\protect\citeauthoryear{Glerum, Joseph, McKenny \& Fritzsche}{Glerum
+  et~al.}{2021}{}]{glerum2021trainer}
+Glerum, D.~R., Joseph, D.~L., McKenny, A.~F. \& Fritzsche, B.~A. (2021).
+\newblock The trainer matters: Cross-classified models of trainee reactions.
+\newblock {\em Journal of Applied Psychology}, {\em 106(2)}, 281.
+
+\bibitem[\protect\citeauthoryear{Gr{\"o}mping}{Gr{\"o}mping}{2007}{}]{gromping2007estimators}
+Gr{\"o}mping, U. (2007).
+\newblock Estimators of relative importance in linear regression based on
+  variance decomposition.
+\newblock {\em The American Statistician}, {\em 61(2)}, 139--147.
 
 \bibitem[\protect\citeauthoryear{Luchman, Lei \& Kaplan}{Luchman
   et~al.}{2020}{}]{luchman2020relative}
@@ -42,10 +67,24 @@ Luchman, J.~N. (2021).
   domin and domme.
 \newblock {\em The Stata Journal}, {\em 21(2)}, 510--538.
 
+\bibitem[\protect\citeauthoryear{Naumovska, Zajac \& Lee}{Naumovska
+  et~al.}{2021}{}]{naumovska2021strength}
+Naumovska, I., Zajac, E.~J. \& Lee, P.~M. (2021).
+\newblock Strength and weakness in numbers? unpacking the role of prevalence in
+  the diffusion of reverse mergers.
+\newblock {\em Academy of Management Journal}, {\em 64(2)}, 409--434.
+
 \bibitem[\protect\citeauthoryear{{R Core Team}}{{R Core Team}}{2022}{}]{R}
 {R Core Team} (2022).
 \newblock {\em R: A Language and Environment for Statistical Computing}.
 \newblock Vienna, Austria: R Foundation for Statistical Computing.
+
+\bibitem[\protect\citeauthoryear{Soda, Mannucci \& Burt}{Soda
+  et~al.}{2021}{}]{soda2021networks}
+Soda, G., Mannucci, P.~V. \& Burt, R.~S. (2021).
+\newblock Networks, creativity, and time: Staying creative through brokerage
+  and network rejuvenation.
+\newblock {\em Academy of Management Journal}, {\em 64(4)}, 1164--1190.
 
 \bibitem[\protect\citeauthoryear{Tonidandel \& LeBreton}{Tonidandel \&
   LeBreton}{2011}{}]{tonidandel2011relative}

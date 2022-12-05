@@ -182,33 +182,32 @@ Data_Frame %>%
   kable
 ```
 
-<!-- ## Generate Negative Binomial Dependent Variable -->
+## Generate Negative Binomial Dependent Variable
 
-<!-- The generation of the negative Binomial dependent variable followed the same procedure as that to create the Poisson variable as it is created from the cumulative probability derived from the Normally distributed variable translated into negative Binomial quantiles assuming a _size_ of .5 and _mu_ parameter of 1. -->
+The generation of the negative Binomial dependent variable followed the same procedure as that to create the Poisson variable as it is created from the cumulative probability derived from the Normally distributed variable translated into negative Binomial quantiles assuming a _size_ of .5 and _mu_ parameter of 1.
 
-<!-- The _size_ and _mu_ parameters were chosen to obtain a mean (i.e., the _mu_/$\mu$ value) of 1 to mirror the Poisson distribution but a variance that substantially exceeded 1; in this case  or a value of 3 as $\sigma^{2} = \mu + \frac{\mu^2}{size}$.   -->
+The _size_ and _mu_ parameters were chosen to obtain a mean (i.e., the _mu_/$\mu$ value) of 1 to mirror the Poisson distribution but a variance that substantially exceeded 1; in this case  or a value of 3 as $\sigma^{2} = \mu + \frac{\mu^2}{size}$.
 
-<!-- ```{r gen-y-neg-bin} -->
-<!-- Data_Frame %<>% -->
-<!--   mutate( -->
-<!--     Y_NegativeBinomial = qnbinom(pnorm(Y_Normal, log.p = TRUE), size = .5, mu = 1, log.p = TRUE), -->
-<!--   ) -->
+```{r gen-y-neg-bin}
+Data_Frame %<>%
+  mutate(
+    Y_NB = qnbinom(pnorm(Y_Normal, log.p = TRUE), size = .5, mu = 1, log.p = TRUE),
+  )
 
-<!-- Data_Frame %>% -->
-<!--   summarise( -->
-<!--     across(.fns = mean), -->
-<!--     )  -->
+Data_Frame %>%
+  summarise(
+    across(.fns = mean),
+    )
 
-<!-- Data_Frame %>% -->
-<!--   summarise( -->
-<!--     across(.fns = sd), -->
-<!--     )  -->
+Data_Frame %>%
+  summarise(
+    across(.fns = sd),
+    )
 
-<!-- Data_Frame %>%  -->
-<!--   cor %>%  -->
-<!--   kable -->
-
-<!-- ``` -->
+Data_Frame %>%
+  cor %>%
+  kable
+```
 
 ... display later maybe? ...
 
@@ -228,7 +227,7 @@ Data_Frame %>%
       
     )
   } %>% 
-  set_names(c("Means", "SDs", str_c("IV", 1:4), "Y_Normal", "Y_Poisson")) %>%
+  set_names(c("Means", "SDs", str_c("IV", 1:4), "Y_Poisson", "Y_NB")) %>%
   as_tibble(rownames = "IVs") %>%
   gt(rowname_col = "IVs") %>%
   tab_style(
@@ -383,84 +382,6 @@ Data_Frame %>%
 
 # Primary Modeling
 
-## Linear Regressions
-
-### Obtain Modeling Results
-
-```{r lm-results}
-lm_result <- 
-  lm(Y_Normal ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame) 
-
-lm_unstzd_params <- 
-  lm_result %>% parameters() 
-
-lm_stzd_params <-
-  lm_result %>% 
-  standardise_parameters(method = "basic")
-
-lm_da <-
-  lm_result %>%
-  dominance_analysis()
-
-lm_unstzd_params %>% 
-  display(digits = 3)
-
-lm_stzd_params %>% 
-  display(digits = 3)
-
-lm_da %>%
-  print(digits = 3)
-```
-
-### Obtain All Subsets R-square
-
-```{r all-subsets-lm}
-lm_capture <- 
-  function(formula, ...) { # wrapper program that accepts formula and ellipsis arguments
-    count <<- count + 1 # increment counter in enclosing environment
-    lm_obj <- lm(formula, ...) # estimate 'lm' model and save object
-    DA_lm_results[count, "formula"] <<- 
-      deparse(formula) # record string version of formula passed in 'DA_results' in enclosing environment
-    DA_lm_results[count, "R^2"] <<- 
-      summary(lm_obj)[["r.squared"]] # record R^2 in 'DA_results' in enclosing environment
-    return(lm_obj) # return 'lm' class-ed object
-  }
-
-count <- 0 # initialize the count indicating the row in which the results will fill-in
-
-DA_lm_results <- # container data frame in which to record results
-  data.frame(formula = rep("", times = 2^3-1), 
-             `R^2` = rep(NA, times = 2^3-1), 
-             check.names = FALSE)
-
-lm_da <- domin(Y_Normal ~ IV1 + IV2 + IV3 + IV4, # implement the DA with the wrapper
-               lm_capture, 
-               list(summary, "r.squared"), 
-               data = Data_Frame)
-
-DA_lm_results
-```
-
-### Report Coefficients
-
-```{r display-lm-coeffs}
-lm_unstzd_params %>% 
-  select(Parameter, Coefficient, SE, t, p, CI_low, CI_high) %>%
-  left_join(
-    lm_stzd_params %>%
-      select(Parameter, Std_Coefficient),
-    by = "Parameter"
-  ) %>%
-  gt(rowname_col = "Parameter") %>%
-  fmt_number(
-    columns = c("Coefficient", "SE", "t", "p", "CI_low", "CI_high", 
-                "Std_Coefficient"),
-    decimals = 3
-  ) %T>%
-  print %>%
-  gtsave(filename = "lm_coeff.tex", path = "./includes/")
-```
-
 ## Poisson Regressions
 
 ### Obtain Modeling Results
@@ -568,30 +489,62 @@ poisson_unstzd_params %>%
   gtsave(filename = "poisson_coeff.tex", path = "./includes/")
 ```
 
-## Combined All Subsets Reporting
+## Negative Binomial Regressions
 
-```{r all-subsets-display}
-DA_lm_results %>%
-  mutate(
-    formula = str_remove(formula, "_Normal")
-  ) %>%
-  rename(`$R^2_{Y_{Normal}}$` = "R^2") %>%
-  left_join(
-    DA_ps_results %>%
-      mutate(
-        formula = str_remove(formula, "_Poisson")
-      ) %>%
-      rename(`$R^2_{Y_{Poisson}}$` = "R^2"),
-    by = "formula"
-  ) %>%
-  gt(rowname_col = "Parameter") %>%
-  fmt_number(
-    columns = c("$R^2_{Y_{Poisson}}$", "$R^2_{Y_{Normal}}$"),
-    decimals = 4
-  ) %T>%
-  print %>%
-  gtsave(filename = "all_subsets.tex", path = "./includes/")
+### Obtain Modeling Results
+
+```{r NB-result}
+nb_result <-
+  glm.nb(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame)
+
+nb_result %>%
+  parameters()
+
+nb_result %>%
+  standardise_parameters(method = "basic")
+
+# ~~~ NB regs don't work with dominance_analysis() - method dispatch issue?
+# ~~~ they have r2() method but DA doesn't recognize it
+# nb_result %>%
+#   dominance_analysis()
+domir(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4,
+      \(fml,...) {
+        res <- glm.nb(fml, ...)
+        ret <- r2(res)[[1]]
+      }
+      ,
+      data = Data_Frame)
 ```
+
+
+
+```{r NB-all-subsets}
+nb_capture <-
+  function(formula, ...) { # wrapper program that accepts formula and ellipsis arguments
+    count <<- count + 1 # increment counter in enclosing environment
+    nb_obj <- glm.nb(formula, ...) # estimate 'glm' model and save object
+    DA_nb_results[count, "formula"] <<-
+      deparse(formula) # record string version of formula passed in 'DA_results' in enclosing environment
+    DA_nb_results[count, "R^2"] <<-
+      r2(nb_obj)[["R2_Nagelkerke"]] # record R^2 in 'DA_results' in enclosing environment
+    return(nb_obj) # return 'lm' class-ed object
+  }
+
+count <- 0 # initialize the count indicating the row in which the results will fill-in
+
+DA_nb_results <- # container data frame in which to record results
+  data.frame(formula = rep("", times = 2^3-1),
+             `R^2` = rep(NA, times = 2^3-1),
+             check.names = FALSE)
+
+nb_da <- domin(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4, # implement the DA with the wrapper
+               nb_capture,
+               list(r2, "R2_Nagelkerke"),
+               data = Data_Frame)
+
+DA_nb_results
+```
+
 
 ## Combined General Dominance Reporting
 
@@ -659,61 +612,6 @@ lm_da %>%
 ggsave("condit_gph.png", height = 4, width = 6, 
        units = "in", path = "./includes/")
 ```
-
-<!-- ## Negative Binomial Regressions -->
-
-<!-- ```{r NB-result} -->
-<!-- nb_result <-  -->
-<!--   glm.nb(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame)  -->
-
-<!-- nb_result %>%  -->
-<!--   parameters() -->
-
-<!-- nb_result %>% -->
-<!--   standardise_parameters(method = "basic") -->
-
-<!-- # ~~~ NB regs don't work with dominance_analysis() - method dispatch issue? -->
-<!-- # ~~~ they have r2() method but DA doesn't recognize it -->
-<!-- # nb_result %>% -->
-<!-- #   dominance_analysis() -->
-<!-- domir(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4,  -->
-<!--       \(fml,...) { -->
-<!--         res <- glm.nb(fml, ...)  -->
-<!--         ret <- r2(res)[[1]] -->
-<!--       } -->
-<!--       , -->
-<!--       data = Data_Frame)  -->
-<!-- ``` -->
-
-
-
-<!-- ```{r NB-all-subsets} -->
-<!-- nb_capture <-  -->
-<!--   function(formula, ...) { # wrapper program that accepts formula and ellipsis arguments -->
-<!--     count <<- count + 1 # increment counter in enclosing environment -->
-<!--     nb_obj <- glm.nb(formula, ...) # estimate 'glm' model and save object -->
-<!--     DA_nb_results[count, "formula"] <<-  -->
-<!--       deparse(formula) # record string version of formula passed in 'DA_results' in enclosing environment -->
-<!--     DA_nb_results[count, "R^2"] <<-  -->
-<!--       r2(nb_obj)[["R2_Nagelkerke"]] # record R^2 in 'DA_results' in enclosing environment -->
-<!--     return(nb_obj) # return 'lm' class-ed object -->
-<!--   } -->
-
-<!-- count <- 0 # initialize the count indicating the row in which the results will fill-in -->
-
-<!-- DA_nb_results <- # container data frame in which to record results -->
-<!--   data.frame(formula = rep("", times = 2^3-1),  -->
-<!--              `R^2` = rep(NA, times = 2^3-1),  -->
-<!--              check.names = FALSE) -->
-
-<!-- nb_da <- domin(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4, # implement the DA with the wrapper -->
-<!--                nb_capture,  -->
-<!--                list(r2, "R2_Nagelkerke"),  -->
-<!--                data = Data_Frame) -->
-
-<!-- DA_nb_results -->
-<!-- ``` -->
-
 
 # Offset Modeling
 

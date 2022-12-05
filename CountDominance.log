@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022 - Flatpak) (preloaded format=pdflatex 2022.11.15)  20 NOV 2022 19:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022 - Flatpak) (preloaded format=pdflatex 2022.11.15)  4 DEC 2022 19:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -388,83 +388,83 @@ LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 
 {/app/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 56.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 54.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 56.
+(Font)              scaled to size 9.49997pt on input line 54.
  [2] [3]
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 118.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 123.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 11.39996pt on input line 118.
+(Font)              scaled to size 11.39996pt on input line 123.
  [4] [5] [6] [7]
-Overfull \hbox (214.64941pt too wide) in alignment at lines 316--327
+Overfull \hbox (214.64941pt too wide) in alignment at lines 321--332
  [] [] [] [] [] [] [] [] [] 
  []
 
 [8]
-Overfull \hbox (39.03139pt too wide) in alignment at lines 346--356
+Overfull \hbox (39.03139pt too wide) in alignment at lines 351--361
  [] [] [] [] [] [] [] [] 
  []
 
 [9]
-Overfull \hbox (44.0314pt too wide) in alignment at lines 390--400
+Overfull \hbox (44.0314pt too wide) in alignment at lines 395--405
  [] [] [] [] [] [] [] [] 
  []
 
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
-11.
+16.
 (/app/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [10] [11]
-<includes/condit_gph.png, id=52, 433.62pt x 289.08pt>
+<includes/condit_gph.png, id=53, 433.62pt x 289.08pt>
 File: includes/condit_gph.png Graphic file (type png)
 <use includes/condit_gph.png>
-Package pdftex.def Info: includes/condit_gph.png  used on input line 495.
+Package pdftex.def Info: includes/condit_gph.png  used on input line 500.
 (pdftex.def)             Requested size: 433.61894pt x 289.07928pt.
 
-Overfull \hbox (98.61896pt too wide) in paragraph at lines 495--496
+Overfull \hbox (98.61896pt too wide) in paragraph at lines 500--501
 [][] 
  []
 
-
+[12]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [12]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 50
-7.
-
-(/app/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+ [13 <./includes/condit_gph.png>]
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 52
+8.
+ (/app/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [13 <./includes/condit_gph.png>] [14] (./CountDominance.bbl [15]) [16] (./Cou
-ntDominance.aux) )
+)
+[14] [15] (./CountDominance.bbl [16]) [17] (./CountDominance.aux) )
 (\end occurred when \ifx on line 3 was incomplete) 
 Here is how much of TeX's memory you used:
- 5290 strings out of 478268
- 85205 string characters out of 5847839
- 376937 words of memory out of 5000000
- 23378 multiletter control sequences out of 15000+600000
+ 5296 strings out of 478268
+ 85335 string characters out of 5847839
+ 377241 words of memory out of 5000000
+ 23384 multiletter control sequences out of 15000+600000
  529718 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  70i,9n,77p,1308b,350s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/app/texlive/texmf-dist/font
 s/enc/dvips/base/8r.enc}</app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmex10.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-</app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></app/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></app/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr10.pfb></app/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr5.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr7.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-</app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></app/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></app/texlive/texmf-dist/f
-onts/type1/urw/courier/ucrr8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helv
-etic/uhvb8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></
-app/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></app/texlive/texmf
--dist/fonts/type1/urw/times/utmr8a.pfb></app/texlive/texmf-dist/fonts/type1/urw
-/times/utmri8a.pfb>
-Output written on CountDominance.pdf (16 pages, 264582 bytes).
+/cmex10.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.
+pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></app/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></app/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></app/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr10.pfb></app/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr5.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.
+pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></app/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></app/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></app/texlive/texmf-dist/fonts/typ
+e1/urw/courier/ucrr8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helvetic/uhv
+b8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></app/texl
+ive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></app/texlive/texmf-dist/fo
+nts/type1/urw/times/utmr8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/times/u
+tmri8a.pfb>
+Output written on CountDominance.pdf (17 pages, 276309 bytes).
 PDF statistics:
- 139 PDF objects out of 1000 (max. 8388607)
- 86 compressed objects within 1 object stream
+ 147 PDF objects out of 1000 (max. 8388607)
+ 91 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

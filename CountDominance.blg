@@ -4,45 +4,45 @@ The top-level auxiliary file: CountDominance.aux
 The style file: mslapa.bst
 Database file #1: CountDominance.bib
 Warning--I didn't find a database entry for ""
-You've used 9 entries,
+You've used 15 entries,
             2808 wiz_defined-function locations,
-            669 strings with 6248 characters,
-and the built_in function-call counts, 4200 in all, are:
-= -- 415
-> -- 183
-< -- 7
-+ -- 68
-- -- 68
-* -- 363
-:= -- 812
-add.period$ -- 28
-call.type$ -- 9
-change.case$ -- 86
-chr.to.int$ -- 9
-cite$ -- 9
-duplicate$ -- 133
-empty$ -- 277
-format.name$ -- 85
-if$ -- 773
+            705 strings with 7368 characters,
+and the built_in function-call counts, 7339 in all, are:
+= -- 719
+> -- 337
+< -- 10
++ -- 132
+- -- 128
+* -- 652
+:= -- 1412
+add.period$ -- 46
+call.type$ -- 15
+change.case$ -- 152
+chr.to.int$ -- 15
+cite$ -- 15
+duplicate$ -- 223
+empty$ -- 477
+format.name$ -- 155
+if$ -- 1348
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 9
-newline$ -- 49
-num.names$ -- 45
-pop$ -- 64
+missing$ -- 15
+newline$ -- 79
+num.names$ -- 75
+pop$ -- 115
 preamble$ -- 1
-purify$ -- 79
+purify$ -- 139
 quote$ -- 0
-skip$ -- 113
+skip$ -- 186
 stack$ -- 0
-substring$ -- 238
-swap$ -- 9
+substring$ -- 432
+swap$ -- 15
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 78
+type$ -- 132
 warning$ -- 0
-while$ -- 50
+while$ -- 84
 width$ -- 0
-write$ -- 139
+write$ -- 229
 (There was 1 warning)
