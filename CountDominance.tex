@@ -11,7 +11,7 @@
 \begin{document}
 	
 \runninghead{Luchman}
-\title{Dominance analysis for count regression models}
+\title{Relative importance analysis for count regression models}
 \author{Joseph N. Luchman\affilnum{1}}
 \affiliation{\affilnum{1}Fors Marsh}
 
@@ -25,92 +25,107 @@
 
 \section{Introduction}
 
-	Quantitative research on topics such as job performance, employee wellness, and business strategy often require that organizational researchers use data that are in the form of discrete, sometimes infrequent, events such as number of contracts won in a year, number of complaints received in a month, or number of days absent for illness in a business quarter. % use actual examples here?
-	Discrete, infrequent events are commonly encountered as dependent variables in organizational science \cite[e.g.,]{bettinazzi2021stakeholder,naumovska2021strength,soda2021networks} and are modeled using \textit{count regression models/CRMs}   %howto get the 'e.g.,' at the beginning?  Cite Spain et al here?
-	However widely used, CRMs are are complicated to interpret.
-	The primary complication with interpreting CRMs is that their functional form differs from the simpler Normal or Gaussian distributed linear regression model/LRM that tends to be better understood among organizational scientists.  % do I need to support this statement?
-	 
-	\textit{Poisson regression/PR} and \textit{negative Binomial regression/NBR} are CRMs that are based on probability distributions suitable for non-negative integer values but are complicated to interpret as they use log-linear link functions (i.e., have the form $e^{\sum\beta x}$) to adapt their predictions to the non-negative range of real numbers \cite{blevins2015count}.
-	CRMs have additional complexities as they are often generated as aggregations of events over a specific time period.
-	For instance, a count measure might be the number of organizations adopting a specific practice in a time period \cite{naumovska2021strength} or number of divestitures in a year \cite{bettinazzi2021stakeholder}. 
-	When the period of aggregation differs across observations in the data, additional \emph{offset} terms are needed to re-establish parity across observations \cite[see, for an example]{glerum2021trainer}.
-	Furthermore, some count measures suffer from \emph{zero inflation}; a situation in which there are more 0 values than would be expected from a PR or NBR model and can be remedied by a specialized zero-inflation model \cite[again see, for an example]{glerum2021trainer}.
+	Discrete, infrequent events are common dependent variables in Organizational Science \cite[e.g.,]{bettinazzi2021stakeholder,naumovska2021strength,soda2021networks} and are modeled using \textit{count regression models/CRMs} such as \textit{Poisson regression/PR} or \textit{negative Binomial regression/NBR} \cite{blevins2015count}.   %howto get the 'e.g.,' at the beginning?  use actual examples here?
 	
-	The complexities of CRM interpretation and additional considerations such as offset terms also affect model postestimation methods such as relative importance analysis. 
-	To date, published methodological work on discussed how to apply relative importance analysis to similarly complex models such as binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative} but has not provided an extensive discussion relative importance analysis with CRMs. 
-	Relative importance analysis is a widely used model postestimation method used for interpretation that adds detail to the estimation of parameter estimates and can provide practically useful information about independent variable/IV predictive utility \cite{tonidandel2011relative}.  
-	Among relative importance analysis methods, \cite[dominance analysis/DA]{azen2003dominance} is most often recommended as a method that has a strong conceptual foundation \cite{gromping2007estimators} and flexible implementation in terms of extensibility \cite[see]{luchman2021determining}.
+	CRMs differ from the commonly used linear regression model/LRM as their functional forms are exponential or log-linear (i.e., have the form $e^{\sum\beta x}$) to accommodate the necessarily truncated (i.e., non-negative) range of the dependent variable/DV.	
+	The log-linear form of CRMs requires the use of new metrics to accurately interpret model results and changes the language that can be used to describe model predictions.
+	For example, log-linear CRMs' model coefficients are often interpreted in their exponential form as \emph{incidince rate ratios/IRRs} which describes percentage changes in counts for 1 unit increments to the independent variable/IV.
+	In addition, the explained variance $R^2$ does not apply in a straightforward way to log-linear CRMs for describing the quality of model predictions' fit to the data \cite{cameron1996r}.
 	
-	% ended here
+	The way in which count data are constructed also tends to differ from how many continuous, Gaussian distributed variables are constructed that have implications for modeling.
+	Count variables are often constructed as aggregated events over a specific time period such as the number of organizations adopting a specific practice in a week \cite{naumovska2021strength} or number of divestitures in a year \cite{bettinazzi2021stakeholder}. 
+	For some data, the period of aggregation may differ across observations in the data.
+	Such differences might be observed when some observations report outcomes for one year/12 months but some report on outcomes for 9 months.
+	These differences in aggregation window can result in different "exposure" to the count generating process and can result in a confound.
+	In such circumstances, an additional \emph{offset} variable reflecting the amount of exposure the observation had to the count generating process is introduced to re-establish parity across observations \cite[see, for an example]{glerum2021trainer}.
+	In other cases, count data aggregations include observations that "opt out" of the count generating process such as firms choosing not to outsource their patent submissions to a law firm in a year producing 0 patents \cite{somaya2008gone}.
+	Such opting out results in \emph{zero inflation}; a situation in which there are more 0 values than would be expected from a Poisson or negative Binomial distribution.  
+	Zero inflation can be accommodated by using a specialized zero-inflation model \cite[again see, for an example]{glerum2021trainer}. 
 	
-	This manuscript extends the literature on CRMs and DA in three ways.
-	First, this work provides a discussion of and recommendations for DA as applied to CRMs commonly used in organizational science.
-	In discussing how to extend DA do CRMs, a focus will be on recommending the use of a model fit metric that is comparable to those available for LRM.
-	Additionally, I will focus on highlighting the similarities between DA results with the well-understood LRM and those obtained with CRMs given an identical structure of the underlying data.
-	The similarities between these results are intended to empirically demonstrate the idea that DA can be extended to CRMs and reinforce that the DA methodology is a model agnostic-model free decomposition and importance approach.
-	Second, this work focuses on the use of DA for the interpretation of CRMs.  
-	In this way, this paper can also be seen as an extension of Blevins, Tsang, and Spain's \cite{blevins2015count} article focused on a conceptual discussion of CRMs and which to choose, to this paper's goal of recommending post-modeling methods to assist in adding context and detail to the model results. %context = variance, detail = extensive comparisons
-	Finally, this work discusses several issues that are unique to CRMs and that could influence the results of DA: the concept of observation exposure and the concept of zero-inflation.
+	The complexities associated with the use of CRMs as well as those associated with processes used to aggregated count data also extend to considering the use of CRM-based postestimation methods such as relative importance analysis. 
+	Relative importance analysis is a widely used model postestimation method that is applied to assist in the interpretation of model results.  
+	Specifically, relative importance analysis adds detail to the estimation of parameter estimates and can provide practically useful information about IV predictive utility \cite{tonidandel2011relative}.  
+	To date, published methodological work on relative importance analysis has discussed how to apply the method to similarly complex models such as binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative} but has not provided an extensive discussion relative importance analysis with CRMs.
+	As was discussed above, there are multiple estimation and data generation complexities with CRMs that are unique and were not discussed in past work on LRM or logit models.
+	Thus, extending the literature on relative importance analysis to the unique features of CRMs is an important step toward applying the method to these commonly estimated models in Organizational Science.
 	
-	The paper to come is organized into ... sections.  
-	The first section will review DA...
-	The second section will segue into recommendations for fit metrics as well as an %do the first result here?
-	The third section % focus on exposure here?
-	The fourth % ZIP?
-	...
+	The purpose of this work is to provide an extensive discussion of the application of relative importance analysis methods to CRMs.
+	First, this manuscript discusses how to use CRMs in \cite[dominance analysis/DA]{azen2003dominance}, a relative importance method with a strong conceptual foundation \cite{gromping2007estimators} and flexible implementation in terms of extensibility \cite[see]{luchman2021determining}.
+	A focus of this discussion will be to provide recommendations on the model fit metric to use as well as providing a full data analytic example of how to implement the method with CRMs focusing on PR and NBR.
+	Second, this paper provides a detailed discussion of the concepts of exposure and zero inflation with particular attention to issues these two CRM-relevant data generation facets have for computing dominance statistics and determining importance.
+	Finally, this paper extends on the work of Blevins, Tsang, and Spain's \cite{blevins2015count} work by discussing how to apply model postestimation methods to assist in adding context and detail to the model results, using their paper's work to choose the correct model given the structure of the data to be analyzed.
+	
+	In the section below, I begin this work with a detailed discussion of the conceptual background for DA.
+	Below I discuss what DA is, why it applies to the results for CRMs, and how it is used to infer the importance of IVs in a predictive model.
 		
 \section{Dominance Analysis}
+
+	DA is a method that evaluates IV relative importance based on unique contributions to a model fit metric.
+	DA is then a methodology that uses empirical results, in particular those related to expected/predicted versus observed differences, to evaluate IV importance.
+	The use of predicted versus observed differences is a form of variance-based importance and has a long history in Organizational and Behavioral Science as a method for inferring importance \cite[see]{johnson2004history}.
+	What makes DA unique among variance-based importance methods is DA's conceptual foundation as an extension of Shapley value decomposition from Cooperative Game Theory % needs caps?
+	\cite{}.
 	
-	DA is an extension of Shapley value decomposition from Cooperative Game Theory % needs caps?
-	\cite{} which seeks to find a solution to the problem of how to subdivide payoffs to players in a cooperative game based on their relative contributions.
+	\subsection{Shapley Value Decomposition}
 	
-	The Shapley value decomposition method views the predictive model as a cooperative game where the different independent variables work together to predict the dependent variable.  
-	The payoff from the predictive model is the value of the model fit statistic; usually this payoff is an $R^2$. % more on what the "payoff" means?
-	
-	This methodology can be applied to predictive modeling in a conceptually straightforward way.
-	Predictive models are, in a sense, a game in which independent variables cooperate to produce a payoff in the form of predicting the dependent variable. 
-	The component of the decomposition/the proportion of the payoff ascribed to each independent variables can then be interpreted as the IVs importance in the context of the model as that is the contribution it makes to predicting the dependent variable.
-	
-	... begin with SV canonical compu... simplify to DA ...
-	
-	\begin{equation}
-		SV_{X_v} = \frac{\sum_{p}^{i} C^{i}_{X_v}}{p}
-	\end{equation}
-	
-	
-	General dominance is computed as:
+	Cooperative games can be thought of as a structured form of interaction in which the interacting parties are required to work together toward a common goal and share information with one another (cite).
+	This form of interaction is not unlike a team task where the different team members have different pieces of information or different tools and must cooperate to accomplish the task.
+	The Shapley value decomposition methodology then uses the structure of the game to determine the unique value ascribed to each player independent of other players irrespective of potentially overlapping player contributions.
+	Computationally, the Shapley value computation is the average increment to the obtained cooperative value a player obtains across all possible permutations of coalitions. 
+	Formally, player A's ($Pl_a$) Shapley value would be:
 	
 	\begin{equation}
-		C_{X_v} = \frac{\sum_{p}^{i} C^{i}_{X_v}}{p}
+		SV_{Pl_a} = \frac{\sum_{i=1}^{P} V_{O_i \cup Pl_a} - V_{O_i}}{P}
 	\end{equation}
-	%CXv=Σpi=1CiXvp
+
+	Where $P$ refers to the total number of permutations of the $p$ players and $O_i$ is some distinct ordered set (i.e., where the order of inclusion matters) of players not including $Pl_a$ that can include the null set of no players.
 	
-	Where, $C^{i}_{X_v}$ are the conditional dominance statistics for $X_v$ with $i$ IVs. 
-	Hence, the general dominance statistics are the arithmetic average of all the conditional dominance statistics for an IV.
+	Predictive models work in a way similar to cooperative games in that IVs jointly enter into a predictive equation (i.e., must interact) and are adjusted for redundancy in terms of prediction of the DV (i.e., share information).
+	Thus, Shapley value decomposition can be applied in a straightforward way to predictive models if the IVs are thought of as players and the fit statistic is thought of as the cooperative goal value.
+	Indeed, the Shapley value methodology has received a great deal of attention recently in the machine learning literature as a general, model agnostic method for understanding complex model predictions \cite[e.g., ]{lundberg2020local}.
+	Moreover, the generality of the Shapley value decomposition methodology means that the approach extends in a natural way to the decomposition of CRM values. 
+	Shapley values are a general method for decomposing values but its extension to DA is the methodology that most clearly defined methods for determining the relative importance of predictive models.
 	
-	In application, DA determines the relative importance of IVs in a predictive model based on each IV’s contribution to an overall model fit statistic—a value that describes the entire model’s predictions on a dataset at once. 
-	DA’s goal extends beyond just the decomposition of the focal model fit statistic. 
+	\subsection{General Dominance Statistics}
+	
+	The \emph{General Dominance Statistic} in the DA approach to relative importance is directly related to the Shapley value computation but is focused on decomposing a model fit metric and simplifies the Shapley value computation given the features of fit metrics.
+	The simplification general dominance statistics apply is based on the acknowledgment that, for a predictive model, the ordering of IV input is usually irrelevant.  That is, the order of inclusion for fit metrics in predictive models tends to produce equal fit statistics (i.e, $R^{2}_{IV_{x}IV_{z}} = R^{2}_{IV_{z}IV_{x}}$).	
+	Computationally, the general dominance statistic for an IV ($IV_x$) is:
+	
+	\begin{equation}
+		GDS_{IV_x} = \sum_{j=1}^{TCb} \frac{ F_{U_j \cup IV_x} - F_{U_j}}{(C_{U_j \cup IV_x}) k}
+	\end{equation}
+	
+	Where $TCb$ refers to the total number of unique combinations not including $IV_x$ (i.e., $2^{k-1}$) of the $k$ IVs, $U_j$ is some distinct unordered set (i.e., where the order of inclusion doesn't matter) of IVs not including $IV_x$ that can include the null set of no IVs, and $C_{U_j \cup IV_x}$ is the number of distinct combinations of IVs with all the IVs in $U_j$ as well as $IV_x$ included in the model.		
+	The general dominance statistics are then generated as a weighted-average increment to the fit metric across all combinations of IVs to which the focal IV is included.
+	The weighted averaging component of the denominator of Equation 2 reflects the idea that there are redundancies in the Shapley value computation that can be rescaled such that they can be reflected by a weighted average.
+	
+	The general dominance statistics are used to determine importance among the IVs by comparing their values.
+	For example, if an $IV_x$ has a larger general dominance statistic than $IV_z$, $IV_x$ is said to \emph{generally dominate}, and is thus more important than, $IV_z$.
+	
+	DA extends on Shapley value composition further in the next section that discusses two other importance designations used in DA to make stronger importance determinations than that which general dominance statistics are capable.
+	
+	\subsection{Other Dominance Computations and Designations}
+	
+	DA also computes a statistic known as a \emph{conditional dominance statistic} that is closely related to the general dominance statistic.  
+	The conditional dominance statistic for an IV ($IV_x$) is:
+	
+	... ended here ... describe the CDS - confirm the \# of combos/computation
+	
+	\begin{equation}
+		CDS_{IV_x} = \sum_{l=1}^{C_{U_l}} \frac{ F_{U_l \cup IV_x} - F_{U_l}}{C_{U_l}}
+	\end{equation}
+	
 	In fact, DA produces three different results that it uses to compare the contribution each IV makes in the predictive model against the contributions attributed to each other IV. 
 	The use of these three results to compare IVs is the reason DA is an extension of Shapley value decomposition.
 	
 	Complete dominance between two IVs is designated by:
 	
 	\begin{equation}
-		X_{v}DX_{z}\ if\ 2^{p-2} = \Sigma{2} %\^{}\{2\^{}\{p-2\}\}\_\{j=1\}\{ \textbackslash{}\{\textbackslash{}begin\{matrix\} if\textbackslash{}, F\_\{X\_v\textbackslash{}; \textbackslash{}cup\textbackslash{};S\_j\}\textbackslash{}, > F\_\{X\_z\textbackslash{}; \textbackslash{}cup\textbackslash{};S\_j\}\textbackslash{}, \textbackslash{},then\textbackslash{}, 1\textbackslash{}, \textbackslash{}\textbackslash{} if\textbackslash{}, F\_\{X\_v\textbackslash{}; \textbackslash{}cup\textbackslash{};S\_j\}\textbackslash{}, \textbackslash{}le F\_\{X\_z\textbackslash{}; \textbackslash{}cup\textbackslash{};S\_j\}\textbackslash{},then\textbackslash{}, \textbackslash{},0\textbackslash{}end\{matrix\} \}
+		X_{v}DX_{z}\ if\ 2^{p-2} = \Sigma{2}
 	\end{equation}
 	
 	Where $X_v$ and $X_z$ are two IVs, $S_j$ is a distinct set of the other IVs in the model not including $X_v$ and $X_z$ which can include the null set (...) with no other IVs, and $F$ is a model fit statistic. Conceptually, this computation implies that when all $2^{p-2}$ comparisons show that $X_v$ is greater than $X_z$, then $X_v$ completely dominates $X_z$.
-	
-	Conditional dominance statistics are computed as:
-	
-	\begin{equation}
-		C^{i}_{X_v} =
-	\end{equation}
-	%CiXv=Σ[p−1i−1]i=1FXv∪Si−FSi[p−1i−1]
-	
-	Where $S_i$ is a subset of IVs not including $X_v$ and [p-1i-1] is the number of distinct combinations produced choosing the number of elements in the bottom value (i-1) given the number of elements in the top value (p-1; i.e., the value produced by choose(p-1, i-1)).
-	
-	In effect, the formula above amounts to an average of the differences between each model containing $X_v$ from the comparable model not containing it by the number of IVs in the model total.
 	
 	In the section below, I transition to discussing some of the nuances of CDVs for the application of DA.
 	

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022 - Flatpak) (preloaded format=pdflatex 2022.11.15)  4 DEC 2022 19:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022 - Flatpak) (preloaded format=pdflatex 2022.11.15)  11 DEC 2022 19:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -381,67 +381,65 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 4.74998pt on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 32.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 34.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 6.64998pt on input line 32.
+(Font)              scaled to size 6.64998pt on input line 34.
  [1
 
 {/app/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 54.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 51.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 54.
- [2] [3]
+(Font)              scaled to size 9.49997pt on input line 51.
+ [2]
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <12> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 123.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 69.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 11.39996pt on input line 123.
- [4] [5] [6] [7]
-Overfull \hbox (214.64941pt too wide) in alignment at lines 321--332
+(Font)              scaled to size 11.39996pt on input line 69.
+ [3] [4] [5] [6] [7] [8]
+Overfull \hbox (214.64941pt too wide) in alignment at lines 336--347
  [] [] [] [] [] [] [] [] [] 
  []
 
-[8]
-Overfull \hbox (39.03139pt too wide) in alignment at lines 351--361
+[9]
+Overfull \hbox (39.03139pt too wide) in alignment at lines 366--376
  [] [] [] [] [] [] [] [] 
  []
 
-[9]
-Overfull \hbox (44.0314pt too wide) in alignment at lines 395--405
+[10]
+Overfull \hbox (44.0314pt too wide) in alignment at lines 410--420
  [] [] [] [] [] [] [] [] 
  []
 
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
-16.
+31.
 (/app/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [10] [11]
-<includes/condit_gph.png, id=53, 433.62pt x 289.08pt>
+) [11] [12] [13]
+<includes/condit_gph.png, id=60, 433.62pt x 289.08pt>
 File: includes/condit_gph.png Graphic file (type png)
 <use includes/condit_gph.png>
-Package pdftex.def Info: includes/condit_gph.png  used on input line 500.
+Package pdftex.def Info: includes/condit_gph.png  used on input line 515.
 (pdftex.def)             Requested size: 433.61894pt x 289.07928pt.
 
-Overfull \hbox (98.61896pt too wide) in paragraph at lines 500--501
+Overfull \hbox (98.61896pt too wide) in paragraph at lines 515--516
 [][] 
  []
 
-[12]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[14 <./includes/condit_gph.png>]
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 54
+3.
 
- [13 <./includes/condit_gph.png>]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 52
-8.
- (/app/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+(/app/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-[14] [15] (./CountDominance.bbl [16]) [17] (./CountDominance.aux) )
+) [15] [16]
+(./CountDominance.bbl [17]) [18] (./CountDominance.aux) )
 (\end occurred when \ifx on line 3 was incomplete) 
 Here is how much of TeX's memory you used:
- 5296 strings out of 478268
- 85335 string characters out of 5847839
- 377241 words of memory out of 5000000
- 23384 multiletter control sequences out of 15000+600000
+ 5299 strings out of 478268
+ 85390 string characters out of 5847839
+ 377461 words of memory out of 5000000
+ 23387 multiletter control sequences out of 15000+600000
  529718 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  70i,9n,77p,1308b,350s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -461,10 +459,10 @@ b8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></app/texl
 ive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb></app/texlive/texmf-dist/fo
 nts/type1/urw/times/utmr8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/times/u
 tmri8a.pfb>
-Output written on CountDominance.pdf (17 pages, 276309 bytes).
+Output written on CountDominance.pdf (18 pages, 286334 bytes).
 PDF statistics:
- 147 PDF objects out of 1000 (max. 8388607)
- 91 compressed objects within 1 object stream
+ 150 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
