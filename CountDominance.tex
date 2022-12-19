@@ -101,237 +101,121 @@
 	The weighted averaging component of the denominator of Equation 2 reflects the idea that there are redundancies in the Shapley value computation that can be rescaled such that they can be reflected by a weighted average.
 	
 	The general dominance statistics are used to determine importance among the IVs by comparing their values.
-	For example, if an $IV_x$ has a larger general dominance statistic than $IV_z$, $IV_x$ is said to \emph{generally dominate}, and is thus more important than, $IV_z$.
+	For example, if $IV_x$ has a larger general dominance statistic than $IV_z$, $IV_x$ is said to \emph{generally dominate}, and is thus more important than, $IV_z$.
 	
 	DA extends on Shapley value composition further in the next section that discusses two other importance designations used in DA to make stronger importance determinations than that which general dominance statistics are capable.
 	
 	\subsection{Other Dominance Computations and Designations}
 	
-	DA also computes a statistic known as a \emph{conditional dominance statistic} that is closely related to the general dominance statistic.  
-	The conditional dominance statistic for an IV ($IV_x$) is:
-	
-	... ended here ... describe the CDS - confirm the \# of combos/computation
-	
-	\begin{equation}
-		CDS_{IV_x} = \sum_{l=1}^{C_{U_l}} \frac{ F_{U_l \cup IV_x} - F_{U_l}}{C_{U_l}}
-	\end{equation}
-	
-	In fact, DA produces three different results that it uses to compare the contribution each IV makes in the predictive model against the contributions attributed to each other IV. 
-	The use of these three results to compare IVs is the reason DA is an extension of Shapley value decomposition.
-	
-	Complete dominance between two IVs is designated by:
+	DA also computes statistics known as a \emph{conditional dominance statistic} that is closely related to the general dominance statistic.  
+	The conditional differs from the general dominance statistic as it is computed by a specified number of IVs included in the model.
+	Thus, each IV has $k$ conditional dominance statistics.
+	The conditional dominance statistic for an IV ($IV_x$) with a set number of IVs in the model ($s$) is computed:
 	
 	\begin{equation}
-		X_{v}DX_{z}\ if\ 2^{p-2} = \Sigma{2}
+		CDS_{IV_x}^{s} = \sum_{l=1}^{C_{U_l \cup IV_x}} \frac{ F_{U_l \cup IV_x} - F_{U_l}}{C_{U_l \cup IV_x}}
 	\end{equation}
+
+	Where $U_l$ is some distinct unordered set of $s-1$ IVs not including $IV_x$ that can include the null set of no IVs, and $C_{U_l \cup IV_x}$ is the number of distinct combinations of the $s$ IVs with all the IVs in $U_l$ as well as $IV_x$ included in the model.
 	
-	Where $X_v$ and $X_z$ are two IVs, $S_j$ is a distinct set of the other IVs in the model not including $X_v$ and $X_z$ which can include the null set (...) with no other IVs, and $F$ is a model fit statistic. Conceptually, this computation implies that when all $2^{p-2}$ comparisons show that $X_v$ is greater than $X_z$, then $X_v$ completely dominates $X_z$.
+	Conditional dominance statistics computed using Equation 3 are a subset of the computations in the general dominance statistic in Equation 2 and can be averaged to obtain the general dominance statistic.  
+	That is, $GDS_{IV_x} = \sum_{g=1}^{k} \frac{CDS_{IV_x}^{g}}{k}$.
 	
-	In the section below, I transition to discussing some of the nuances of CDVs for the application of DA.
+	The conditional dominance statistics generated for each IV are also used to determine importance among the IVs but the procedure for doing so requires a different approach than that applied to general dominance statistics.
+	For conditional dominance statistics, if, within a number of IVs in the model, all of $IV_x$'s values are larger than $IV_z$, $IV_x$ is said to \emph{conditionally dominate}, and is thus more important than, $IV_z$.
+	Another way of thinking about conditional dominance is that, if the conditional dominance statistics for an IV were graphed as a line by the number of IVs in the model, $IV_x$'s value is above $IV_z$ value for the entirety of the trend.	
+	Because conditional dominance statistics are a 'less averaged' version of the general dominance statistics, conditional dominance of one IV over another is a stricter criterion than general dominance and implies a stronger form of IV relative importance.
+	
+	DA also uses a third type of comparison called \emph{complete dominance} that does no averaging at all.
+	In complete dominance, each increment to the fit metric associated with $IV_x$ is compared to an corresponding increment for $IV_z$.
+	More formally, for all sets of IVs $U_q$ that do not include $IV_x$ or $IV_z$ and can include the null set of no IVs, $F_{U_q \cup IV_x} - F_{U_q}$ is always larger than $F_{U_q \cup IV_z} - F_{U_z}$.
+	In such situations, $IV_x$ is said to \emph{completely dominate} $IV_z$.
+	Because there is no averaging involved in the comparisons that produce complete dominance, it is the most stringent importance comparison between two IVs.
+	
+	This section has outlined why Shapley value decomposition and the extension into DA applies to CRMs. 
+	This section has also provided a discussion of how DA statistics and designations are computed and determined.
+	In the section below, I transition from a broad outline of DA to a more targeted discussion of the application of DA to CRMs.
+	The discussion of CRM-based DA begins by considering which fit metric should be used and proceeds to an extensive example applying DA to both PR and NBR.
 	
 \section{Applying Dominance Analysis to Count Regression Models}
 
-	As a variant of Shapley Value Decomposition, DA is a model agnostic method for decomposing a fit statistic from a statistical model into components that are attributable to IVs.
-	Although DA may be conceptually applicable to CRMs, at current there is no guidance in the literature as to how to implement DA using CRMs.
-	A discussion of how to apply DA to CRMs is useful as CRMs more complex than LRM given their log-linear form.  
+	Conceptually, DA can be applied to CRMs as its basis in Shapley values allows the application of the method to any procedure that is similar to a cooperative game.
+	A complication of applying DA to CRMs is that most of the literature on DA has focused on its application to LRM with the residual $R^2$ (i.e., $R^2_{RES}$).
+	CRMs and LRM have many similarities and, given the numerical nature of count DVs and that the output from CRMs is typically in the form of a predicted count/mean value, the $R^2_{RES}$ could be applied to CRM-based DA.
 	
-	\subsection{Log-linear Form and Multiplicative Effects}
+	Although $R^2_{RES}$ could be applied, there are good conceptual reasons to choose another fit metric. 
+	The section below provides a detailed rationale for the choice of a different metric, the deviance $R^2$ (i.e., $R^2_{DEV}$), that better reflects how CRMs fit to data. 
 	
-	The effect of the log-linear link function to the underlying linear model has the effect of resulting in a multiplicative relationship between an IV and the DV % has DV been truncated previous to now?
-	such that a one unit change in the IV results in a change in the DV that is the anti-log or exponential function (i.e., $e^{\beta}$) of the coefficient.  
-	The effect of the log-linear form is that predicted counts from a CRM produced by a change in the IV are sensitive to initial conditions---a the magnitude of change realized from a CRM's coefficient depends on the location of the DV prior to the change.  
+	\subsection{Count Regression Fit Metric: Deviance $R^2$}
 	
-	The effect the log-linear model has on changes to predicted values are clearer in the context of an example.
-	Consider first a LRM with the following form: $.2 + .5*x_1 + -.8*x_2$.  
-	Thus, the intercept is .2, $x_1$'s coeffiecient is .5 and $x_2$'s coeffiecient is -.8.  
-	Two observations in the data have values of 4 and 8 for $x_1$ and .2 and -.2 for $x_2$ respectively.  
-	The predicted values for observation one is then $.2 + .5*4 + -.8*.2$ or 2.04 and for observation 2 is $.2 + .5*8 + -.8*-.2$ or 4.36.  
-	If $x_1$ changes by a value of 1 for each observation, the LRM model will produce predicted values of  $.2 + .5*5 + -.8*.2$ or 2.54 for observation 1 is and $.2 + .5*9 + -.8*-.2$ or 4.86 for observation two. 
-	Hence, given the coefficient of .5, a one unit change for both observations on $x_1$ results in .5 change in the DV for both observations.
+	CRMs are not only log-linear models but also follow probability distributions that differ from the LRM that has been traditionally been the focus of DA.
+	This is important as statistical models are fit using information about the data as applied to a probability distribution to find their most likely parameter values.
+	It is thus important to choose a fit metric that matches the probability distribution's underlying fitting criterion.
 	
-	Now consider what occurs if the same equation was applied to a log-linear model.  
-	Before the one unit change on $x_1$, the log-linear model would produce predicted values of $e^{.2 + .5*4 + -.8*.2}$ or $\approx$ 7.69 for observation one and for observation two is $e^{.2 + .5*8 + -.8*-.2}$ or $\approx$ 78.26.  
-	Already the log-linear results produce very different results compared to the LRM even with the same underlying predictive equation.  
-	The differences also extend to changes in IVs.  
-	Assume again a one unit change to $x_1$.  With the log-linear formulation observation one's predicted value is $e^{.2 + .5*5 + -.8*.2}$ or $\approx$ 12.68 and observation two's predicted value is $e^{.2 + .5*9 + -.8*-.2}$ or $\approx$ 129.02. As can be seen, the change to predicted values was not uniform as it was with the LRM. 
-	Observation one's change was $\approx$ 5 whereas observation two's change was $\approx$ 50.
+	First consider LRM.
+	LRM is based on a Normal or Gaussian probability distribution that can be simplified to the	least-squares criterion which seeks to minimize $\sum (y - \hat{y})^2$ or the sums of squares between the predicted values from the LRM and the observed DV.
+	The $R^2_{RES}$ that has been traditionally applied in LRM-based DA is one less than the ratio of the sum of squares of the observed DV and predicted value to the sum of squares of the observed DV and the mean of the observed DV (i.e., $\sum (y - \bar{y})^2$).
+	Because the $R^2_{RES}$ uses the LRM minimization goal's in computing differences between the observed data and the predictions, the $R^2_{RES}$ is a useful model fit metric for LRM.
 	
-	As was mentioned at the outset of this section, log-linear models like CRMs have multiplicative effects and the expected magnitude of the predicted value is the anti-log of the prediction equation and, by extension, each coefficient.
-	The expected effect of the .5 coefficient associated with $x_1$ then $e^{.5} \approx 1.65$.  
-	This value, known as the \textit{incidence rate ratio}, describes the percent by which the effect is multiplied for each one unit increase in the IV.  
-	This value can be recovered by comparing the rates of change for both observation one ($\frac{12.68}{7.69} \approx 1.65$) and observation two ($\frac{129.02}{78.26} \approx 1.65$).
+	The $(y - \hat{y})^2$ computation used in the computation of the $R^2_{RES}$ is also known as the \emph{unit deviance} for the Normal distribution as it describes how the model's prediction "deviates" from observed values \cite{mccullagh2019generalized}.
+	The value in the numerator of the $R^2_{RES}$ is then a deviance for a Normal distribution.
+	The denominator can be similarly cast as a deviance if considering a null LRM that estimates only an intercept and thus returns the mean.
+	Thus, the the $R^2_{RES}$ can also be thought of as a deviance $R^2$.
 	
-	In addition to being more complex to interpret, the multiplicative effects produced by CRMs complicate fit metric computation.
-	The explained variance $R^2$ (i.e., $R^2_{EXP}$) commonly used with LRM assumes that the underlying model seeks to minimize the sum of the squared residuals from the model.  
-	As will be discussed below, CRMs do not which can make the most common model fit metric used in DA, the $R^2_{EXP}$, a poor fit metric choice for determining importance in CRMs.
-	
-	\subsection{Choosing a Fit Metric for Count Regression Model Relative Importance}
-	
-	A key consideration for implementing DA in any model is choosing an appropriate fit metric that accurately reflects the models' predictive capability and the form of the DV being predicted.
-	The model fit metric that has received the most attention in past research on DA is $R^2_{EXP}$.
-	The $R^2_{EXP}$ is the squared Pearson correlation between the DV and the predicted values from the model. 
-	Pearson correlations are based on the sums of squared deviations between the two variables' values in the data.  
-	Similarly, the LRM is based on a least-squares criterion that seeks to minimize $\sum (y - \hat{y})^2$ or the residual sums of squares between the predicted values from the LRM and the observed DV.
-	The similarity in minimization goal of LRM and computation of the $R^2_{EXP}$ then makes $R^2_{EXP}$ a useful model fit metric for LRM.
-	
-	By contrast to LRM, the minimization criterion for PR is:
-	
-		$$\ln L = \sum{\hat{y}y - \ln (y!) - e^{\hat{y}}}$$
-
-	When considering parameter estimation, the equation can be simplified to $\sum (\hat{y} - y \ln \hat{y})$ \cite{cameron1996r} which shows that PR depends on the sum of deviations from the product of the predicted value from the natural log of the predicted value and the DV.
-	This minimizing criterion can deviate from the least-squares criterion, especially in small samples, and 
-	although an extensive discussion is not presented here, NBR shows similar, if not more, substantial deviations from the least-squares criterion as it is a direct extension of the Poisson (i.e., a mixture of Poisson and Gamma distributions \cite{blevins2015count}).
-	
-%	The form of the minimizing value for the Poisson makes it is possible that using a metric like the explained variance $R^2$ that computes the sum of squared deviations will produce negative contributions to the $R^2$.
-%	Specifically, the explained variance $R^2$ rewards smaller total or summed squared deviations from the observations.
-%	By contrast, a model like the Poisson prefers minimizing deviations with a preference toward shrinking to 0; hence, penalizing more for over-prediction than under-prediction.
-%	The differences between these penalty factors mean that a Poisson model might choose a coefficient that shrinks predicted values to such an extent that it appears to reduce fit to the model when applying an explained variance metric.
-%	
-	
-	The recommended model fit metric to use for DA of CRMs borrows from the comprehensive review and critique of different fit metrics for CRMs offered by Cameron and Windmeijer \cite{cameron1996r}.
-	Cameron and Windmeijer conclude that the $R^2$ that best reflects fit to the data for CRMs is the deviance $R^2$ or $R^{2}_{DEV}$.
+	Cameron and Windmeijer \cite{cameron1996r} first formalize the concept of extending the $R^2_{RES}$ to a version of the metric based on deviance.
 	The deviance $R^2$ is computed as:
 	
-	$$R^{2}_{DEV} = \frac{D_{model}}{D_{null}}$$
+	\begin{equation}
+		R^{2}_{DEV} = 1 - \frac{D_{model}}{D_{null}}
+	\end{equation}
+
+	Where $D_{null}$ is the model deviance associated with a null model describing an intercept- or mean-only model.
+	Thus, when the LRM's deviance computations are substituted in for the $D_{model}$ and $D_{null}$ values, the $R^{2}_{DEV}$ is equivalent to $R^{2}_{RES}$.
 	
-	Where $D$ is the GLM deviance residual computation.
+	An advantage of constructing the $R^{2}_{DEV}$ is that the deviance concept has been generalized from LRM to generalized linear models such as PR and NBR as well.
+	For example, the unit deviance computation for PR and a special case of the NBR\footnote{This special case is the NBR estimated using a quasi-likelihood method. Maximum likelihood methods require a more complex form given the estimation of the $\alpha$ parameter.} is $2(y\ln \frac{y}{\hat{y}} - (y - \hat{y}))$. 
+	This PR-focused deviance value differs notably from the Normal distribution deviance in that it tends to penalize underprediction more than overprediction.
+	The extra penalties assigned to underprediction are consistent with the PR's log-linear nature in that the log distance between 1 and 2 (.69) is larger than between 2 and 3 (.41); on average, lower log-transformed differences get penalized more than higher log-transformed differences.
+	By contrast, Normal distribution deviance penalizes discrepancies from observed values equally in either direction.
 	
-	It is also worth noting that the $R^2_{DEV}$ can be applied to other models for which a deviance function can be computed such as the logistic regression model and LRM.  
-	When applied to the logistic regression model, the way the model is scaled is such that it is tantamount to the McFadden $R^2$ recommended by Axen and Traxel \cite{azen2009using} in previous work on DA.
-	Moreover, the $R^2_{DEV}$, when computed on a Gaussian generalized linear model, is tantamount to the $R^2_{EXP}$.
-	Thus, the $R^2_{EXP}$ is a choice of model fit metric for the DA of CRMs that comes the closest to both the well-known $R^2_{EXP}$ and recommendations from allied work focusing on other generalized linear model distribution families.
+	The $R^{2}_{DEV}$ is then a useful generalization of the $R^{2}_{RES}$ that allows the researcher to apply an residual computation that makes sense for the model in question, as opposed to applying the LRM's deviance criterion to a model that is not based on LRM \cite[.e.g.,]{cameron1996r}.
+	The $R^{2}_{DEV}$ is then the fit metric recommended for use in conducting DA with CRMs.
 	
-	The next section extends on the discussion above by providing extensive data analytic examples of DA as applied to CRMs. 
+	This section has provided a rationale for the choice of a specific fit metric to use when applying DA to CRMs.
+	In the sections to follow, I transition to the description of the methodology for applying DA to CRMs.
+	This discussion briefly outlines the data generated for this purpose, describes the models estimated from the data, and also describes how DA statistics and designations were determined with the results.
 	
-	\subsection{Data Analytic Examples of Dominance Analysis}
+	\subsection{Count Regression Model-based Dominance Analysis: An Analytic Example}
 	
-	Throughout this manuscript I have highlighted similarities and differences between LRM and CRMs in terms of parameter estimation, predicted value generation, and model interpretation.
-	Despite their estimation and interpretation differences, the process for determining importance using DA for LRM and CRMs is identical.
-	This section provides an extensive and illustrative example of the process for determining importance for both the familiar and well-examined LRM and for two extensions to novel DA computations using PR.
-	An example using NBR models is not discussed directly in the manuscript but is included in supplemental materials.
-	I have chosen to not include NBR models as considerations for those models in terms of how to apply DA are identical to PR models.
-	In addition, negative Binomial distributed data is more complex to generate and describe.
-	The focus of all data analytic examples will then be focused on Poisson distributed variables.
+	In this section I describe how I generated data for a both a PR and NBR model.
+	These models are estimated in such a way as they would be were they based on "real" data and follow a procedure similar to that that would be applied to answering a "real" research question with the data.
 	
-	The intention of showing how to determine importance for each model is to highlight their similarities in terms of the underlying computational process and to provide an example of how to interpret DA with the recommended CRM $R^2_{DEV}$ fit metric.
-	For these examples, I generate data for a Gaussian and a Poisson DV in the section below.
-	These two DVs are generated in such a way as to make them as similar as possible to one another save for their distribution form.
-	In making these three DVs maximally similar to one another, the reader will more clearly be able see how DA with the LRM corresponds with DA as applied to an analogous version of the analysis in PR.
-	
-	The data generation process for this data analytic example is described in the next section.
+	The next section provides a high-level overview of how the data were generated and descriptive statistics about the data.
+	Note that a full outline of the data generation and analysis process is available in the online supplement.
 	
 		\subsubsection{Data Generation}
 		
-	One hundred thousand simulated observations in this manuscript was generated from a data structure with four IVs and a single relationship to a DV.
-	The simulated data for the four IVs was generated using a single set of draws from a random data generators with pre-specified population parameters.
-	In developing a dataset for this illustration, I approached the specification of population parameters in a way that did not intentionally provide advantages to any single IV.  
-	Any advantage in terms of explaining variance was intended to be introduced by the random number generator.
-	Using the random number generator to introduce advantages for different IVs is intended to make the data used in this illustration more like real data and yet reproducible and with a known structure.
+	The data for this analysis were generated as opposed to obtained empirically to maintain control over their usefulness in illustrating the key concepts for this manuscript.
+	A goal in generating these data were to make them "realistic" when possible. 
+	That is, to reduce the elements of the data that made them simulated in order to focus on the concepts
 	
-	The population parameter set used to generate the 100,000 simulated observations produced a set of IV variance and IV-DV regression slope parameters that produced the same $R^2$ value assuming the IVs were not correlated.  The four sets of variance-slope values were: $\sigma^2_{IV_1} = 1$, $\beta_{IV_1} =.2$, $\sigma^2_{IV_2} = 1.8$, $\beta_{IV_2} =.15$, $\sigma^2_{IV_3} = 2.8$, $\beta_{IV_3} =.12$, and $\sigma^2_{IV_4} = 4$, $\beta_{IV_4} =.1$. 
-	Given that the variance explained for a LRM with no intercorrrelaions can be computed as $R^2_{IV} = \sigma^2_{IV}\beta^2_{IV}$ or the product of the IV's variance and the squared slope, all four IVs have an $R^2$ of .04.
+	The data simulated in this section were intended to describe the generation of garments from a tailors in a fortnight or two-week period.
+	Data from a total of 
+	?N!? % how many
+	simulated tailors were generated over this period across two different garments/DVs and for four garment generation factors/IVs.
 	
-	Correlations were also added between the IVs as there is little advantage to using DA in cases where IVs are uncorrelated and most data collected in real studies are intercorrelated to some degree.  
-	The population parameter correlations added between the IVs intended, again, to not unduly give advantage to any one IV.  
-	All IV interrelationships took one of three values .5, .25, and .125 and all IV pairs had one value.  The six different correlations specified were: $r_{IV_1 IV_2} = .5$, $r_{IV_1 IV_3} = .25$, $r_{IV_1 IV_4} = .125$, $r_{IV_2 IV_3} = .125$, $r_{IV_2 IV_4} = .25$, and $r_{IV_3 IV_4} = .5$.  
-	These six intercorrelations are balanced such that no one IV overlaps more or less with other IVs.
-
-	The combination of variances and correlations were combined into a single matrix denoted as the \emph{Parameter} matrix in Table X.
-	The Parameter matrix was used, along with a degree of freedom parameter of 7, as a scale matrix in a draw from a random inverse Wishart distribution.  
-	A value of 7 was chosen as the degrees of freedom for the sample covariance matrix to allow for a rather wide sampling of covariances values to make the process less deterministic but somewhat less wildly varying than the maximum variability (a value of 4 or the dimension of the scale matrix).  As the degrees of freedom increases from the minimum of 4, the values sampled from an inverse Wishart distribution converge more closely with the scale matrix between draws.
-	The sampled covariance matrix obtained is reported in Table X1 denoted as \emph{Sampled}.
+	One dependent variable, the number of stock sport coats of a set size made by the tailors, is Poisson distributed. 
+	The second dependent variable, number of made-to-measure sport coats with custom elements made by the tailors, is negative Binomial distributed. 
+	The four garment generation factors include a] equipment reliability, b] assistant staffing levels, c] tailor skill-level, and d] tailor work experience.
+	Each of the four garment generation factors were designed to be unit multivariate Normally distributed with pre-specified relationships with the two forms of garment count DVs.
+	The pre-specified relationships between each of the garment generation factors with both garment count DVs were identical.
+	The only factor that differed between garment generation factors was the distribution of the DV.
+	Both garment count DVs were designed to have mean values of 1.
+	The negative Binomial, made-to-order sport coat count variable was also designed to have a variance of 3.	
 	
-%	All the simulated data for the data analytic examples in this manuscript were generated from series of four underlying data structures.
-%	The four data structures designed for this manuscript were intended to highlight the impact of IV variance as well as inter-IV covariance on both parameter estimation as well as relative importance determination.
-%	I expected that these four designs would also produce useful comparisons across CRMs in terms of how each is affected by IV (co-)variances.
-%	
-%	The first data structure generated all IVs with equal variances and no/zero covariances.  
-%	This data structure, referred to as EU (i.e., \emph{E}qual and \emph{U}ncorrelated), does not reflect "real" data but is a commonly simulated and useful data structure to show the effect of a model's parameter estimation and relative importance determination results under what could be considered "ideal" estimation conditions when the causal effects of IVs are easiest to identify given they do not overlap.  
-%	The EU data structure is then most useful as a comparison point for the other, more realistic data structures to more clearly assess the impact of differences in (co-)variances.
-%	
-%	The second data structure designed was similar to the first in that all IVs were generated with equal variances but were also generated such that the IVs had non-zero covariances. 
-%	This data structure, referred to as EC (i.e., \emph{E}qual and \emph{C}orrelated), is intended to show the effect of IV intercorrelations on both parameter estimation and relative importance determination as compared to EU.  
-%	I expect that the intercorrelations imposed in this data structure would be most impactful for relative importance determination which attempts to isolate variance explained by each IV irrespective of its association with other IVs.
-%	The EC data structure is then useful as a condition to evaluate the effects of IV intercorrelations on parameter estimates and relative importance independent of the underlying IV variances.
-%	
-%	The third data structure was designed such that all IVs were uncorrelated like the EU structure but changed the variances of the IVs to be different from one another.  
-%	The third data structure, referred to as UU (i.e., \emph{U}nequal and \emph{U}ncorrelated), is intended to show the effect of IV variance on both parameter estimation and relative importance determination as compared to EU and EC.
-%	Like EC, I expect that the UU data structure will be most impactful for determining relative importance given that methods such as DA reflect explained variance(?information?fit?), which is affected by IV variance. 
-%	The UU data structure is then also useful as a condition to evaluate the effects of IV variances on parameter estimates and relative importance independent of the underlying IV intercorrelations.
+	The means, standard deviations, and correlations between all four IVs and two DVs is reported below...
 	
-%	The fourth and final data structure designed combined both unequal IV variances as well as IV non-0 IV intercorrelations.
-%	The fourth data structure, referred to as UC (i.e., \emph{U}nequal and \emph{C}orrelated), is intended to show the joint effect of IV variance and correlation on both parameter estimation and relative importance determination as compared to the other three data structures.
-%	This data structure is the most realistic of the four in that much empirical data have non-0 correlations and differences in variance.  
-%	As such, this data structure is intended to show what results may be expected to look like under more normal conditions (?).  
-%	
-%	For each of the four data structures, a single dataset with 100,000 observations and four IVs was generated based on the theoretical data structure.  
-%	For the EU and EC data structures, all variances were set to 1. For the UU and UC data structures, the variance for $V_{1}$ was set to 1, for $V_2$ was set to 1.5, for $V_3$ was set to 2, and for $V_4$ was set to 4. 
-%	These differences in variance were intended to increasingly enhance the relative importance of IVs with larger numeric labels as balanced with each variables' effect on the DV to be discussed below.  
-%	The EC and UC data structures shared a single underlying correlation matrix reported below in Table X.
-	
-	\smallskip
-	
-	\begin{longtable}{l|rrrr}
-		\toprule
-		\multicolumn{1}{l}{} & IV1 & IV2 & IV3 & IV4 \\ 
-		\midrule
-		\multicolumn{5}{l}{Parameter} \\ 
-		\midrule
-		IV1 & 1.000000000 & 0.67082039 & 0.41833001 & 0.250000000 \\ 
-		IV2 & 0.670820393 & 1.80000000 & 0.28062430 & 0.670820393 \\ 
-		IV3 & 0.418330013 & 0.28062430 & 2.80000000 & 1.673320053 \\ 
-		IV4 & 0.250000000 & 0.67082039 & 1.67332005 & 4.000000000 \\ 
-		\midrule
-		\multicolumn{5}{l}{Sampled} \\ 
-		\midrule
-		IV1 & 0.091590095 & 0.06153029 & -0.03506662 & 0.002963387 \\ 
-		IV2 & 0.061530289 & 0.28517891 & -0.12537445 & -0.356761781 \\ 
-		IV3 & -0.035066620 & -0.12537445 & 0.71795109 & -0.095787710 \\ 
-		IV4 & 0.002963387 & -0.35676178 & -0.09578771 & 1.311862465 \\ 
-		\bottomrule
-	\end{longtable}
-	
-	\smallskip
-	
-	The sampled covariance matrix in Table X1 was used as the covariance matrix, with a vector of 0 means, in a  multivariate Normal distribution obtaining 100,000 draws.
-	
-	%plug in descriptive table?
-	
-	
-	
-%	The correlation matrix in Table X was designed to produce a realistic set of IV intercorrelations that could plausibly be uncovered in real data.  
-%	Table X's intercorrelations was also designed balance extent of redundancy between the four IVs.  
-%	That is, the correlations in Table X do not result in one or two IVs being more redundant than other IVs overall; all IVs have equivalent total redundancies as other IVs.  
-%	Stated differently, all the IVs overlap with other IVs to the same extent and thus will not have differential extents of multicollinearity.
-%	
-%	The means for all four IVs were set to 0.  
-%	The variances for each IV differed. $V_1$ was set to 1, $V_2$ was set to 1.8, $V_3$ was set to 2.8, and $V_4$ was set to 4.
-%	The differences between the variances were in equal intervals on the square root scale between 1 and 2 (i.e., $1.8 \approx 1.33^2$ and $2.8 \approx 1.67^2$).
-%	The differences between IV variances were designed to show the effect of IV variance on dominance statistic computation.
-	
-	The simulated IV values were used to generate the three DVs.  
-	The Gaussian/Normally distributed DV was generated first. 
-	The coefficient vector implied above was entered as means, into a Normal distribution with a standard deviation of .2 from which a single draw from each mean was obtained.  
-	The standard deviation of .2 was intended to make the process of generating coefficients for the DVs less deterministic.  
-	The vector of coefficient draws resulted in the following set of values: $\beta_{IV_1} = 0.259$, $\beta_{IV_2} = 0.042$, $\beta_{IV_3} = 0.112$, $\beta_{IV_4} = 0.293$.
-	These four values were multiplied by their IV to generate an initial set of Normally distributed DV values.  
-	The Normally distributed DV $Y_{Normal}$ was completed by adding a draw from a Normal distribution with a mean of 0 and a standard deviation that was computed as $\sqrt{1 - \sigma^2_{Y_{NormalNoError}}}$ using the initial Normally distributed variable without error.
-	
-	
-	
-%	The equation to generate the continuous, Normally distributed DV, $Y_{Normal}$, was: $Y_{Normal} = V_1*.2 + V_2*.17 + V_3*.14 + V_4*.1$.  
-%	The true coefficients ascribed to each IV were in equal intervals between .04 and .01 on the exponential scale with a power of two (i.e., $.14 \approx \sqrt{.02}$ and $.17 \approx \sqrt{.03}$).
-%	A residual variance for $Y_{Normal}$ was generated for each dataset as $1 - \sigma_{Y_{Normal}}$; hence, $Y_{Normal}$ had a variance of 1 and a mean of 0. 
-%	
-%	$Y_{Normal}$ was used as a basis for computing the Poisson distributed DV, $Y_{Poisson}$ to ensure that they were as similar and comparable as possible.
-	
-	A Poisson distributed version of $Y_{Normal}$, $Y_{Poisson}$, was generated by obtaining the cumulative probability of each observation's $Y_{Normal}$ score given the standard Gaussian/Normal distribution (i.e., $N(0,1)$) and translating that value into a count value using the Poisson quantile function assuming an underlying mean and variance of 1.  
-	The mean of 1 value was chosen to make the Poisson distributed result as close to the Normally distributed result as possible as both have variances of 1.	
-	
-%	A negative Binomial version, $Y_{NegativeBinomial}$, was created similarly by translating $Y_{Normal}$'s cumulative probability for each observation into a count variable using the negative Binomial quantile function assuming a Gamma shape parameter of .5 and scale parameter of .33; these factors result in a mean of 1 and variance of 3 for the negative Binomial distribution.  
-%	The negative Binomial parameters obtaining a mean of 1 and variance of 3 were chosen to maintain similarities to the Poisson version of the variable (i.e., their means are identical) but to emphasize the unique feature of the negative Binomial distribution (i.e., the capability to model over-dispersion).  
-	
-	The means, standard deviations, and correlations between all four IVs and two DVs is reported below in Table X2.
+	... basically ended here ... update the table below and make it legible...
 	
 	\begin{longtable}{l|rr|rrrrrr}
 		\toprule
@@ -345,19 +229,6 @@
 		Y\_Poisson & 1.000140000 & 0.9999350 & 0.070678555 & -0.1533697 & 0.04471122 & 0.285672719 & 0.91270742 & 1.00000000 \\ 
 		\bottomrule
 	\end{longtable}
-
-	There are a few points of note about the descriptive results from Table X2.  
-	Note the wide variability in the sampled intercorrelations among the four IVs which, in a number of cases for $IV_3$ and $IV_4$ are negative as sampled despite being based on positive correlations in the population.  
-	The standard deviations for the four IVs also show variability from their population values though generally maintain a pattern of $\sigma_{IV_4} > \sigma_{IV_3} > \sigma_{IV_2} > \sigma_{IV_1}$.
-	In addition, the magnitude and direction of several of the correlations may be surprising to the reader given the known coefficient values that produced them.  
-	For example, the correlations between $IV_2$ and all three DVs is negative despite $IV_2$'s known positive coefficient.
-	The negative correlation is due to $IV_2$'s strong, negative correlations with $IV_3$ and $IV_4$ which both have stronger relationships with the DVs.
-	Correlations reflect a form of \emph{total effect} of an IV on a DV (cite??) and, as will be seen, the biased effect of the correlation does not persist when the model is estimated on the data.
-	
-	The data for use in the DA illustrations are now generated and ready for use in analysis.
-	DA is a method for extracting additional information from a statistical model such as an LRM.
-	As such, it should be interpreted in light of the model on which it is based.
-	The section below estimates the LRM, as well as PR and NBR, CRMs on their respective DVs using all four IVs.
 
 		\subsubsection{Regression Results}
 		

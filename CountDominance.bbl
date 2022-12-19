@@ -82,6 +82,12 @@ Lundberg, S.~M., Erion, G., Chen, H., DeGrave, A., Prutkin, J.~M., Nair, B.,
   for trees.
 \newblock {\em Nature machine intelligence}, {\em 2(1)}, 56--67.
 
+\bibitem[\protect\citeauthoryear{McCullagh \& Nelder}{McCullagh \&
+  Nelder}{2019}{}]{mccullagh2019generalized}
+McCullagh, P. \& Nelder, J.~A. (2019).
+\newblock {\em Generalized linear models}.
+\newblock Routledge.
+
 \bibitem[\protect\citeauthoryear{Naumovska, Zajac \& Lee}{Naumovska
   et~al.}{2021}{}]{naumovska2021strength}
 Naumovska, I., Zajac, E.~J. \& Lee, P.~M. (2021).

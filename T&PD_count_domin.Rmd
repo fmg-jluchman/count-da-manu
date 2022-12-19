@@ -1,16 +1,23 @@
 ---
 title: Count Regression Model Dominance Analysis
 subtitle: Documentation
-author: Joseph Luchman
+#author: Joseph Luchman
+author: Anonymized for review
 output: html_notebook
 editor_options: 
   markdown: 
     wrap: 72
 ---
 
-Documentation begins with setting the R environment.
+This notebook provides documentation for the generation of the data used in the manuscript **Relative Importance Analysis with Count Regression Models**.
 
-A component of this environment is the random seed to reproduce the data.
+The documentation and discussion of approach in this document extends on that provided in the main manuscript as the discussion here focuses more closely on implementation details. These implementation details are are not essential for the reader to understand the manuscript but are essential for understanding the analytic context and for reproducibility.
+
+The code block below initiates the analysis by setting the R environment.
+
+A component of this environment is the random seed to be able to fully reproduce the data. 
+
+Details on the random seed as well as the details of the R environment are available at the end of this notebook.
 
 ```{r set-up, results='hide'}
 library(gt)
@@ -21,7 +28,6 @@ library(pscl)
 library(tidyverse)
 library(magrittr)
 library(domir)
-library(performance)
 library(parameters)
 library(datawizard)
 library(MCMCpack)
@@ -31,81 +37,130 @@ set.seed(84490856)
 
 # Data Generation
 
-This section describes the data generation component of the count dominance analysis manuscript.
+The manuscript describes four independent variables including:
+
+  a. equipment reliability or _ER_
+  b. assistant staffing levels or _AS_
+  c. tailor skill-level or _SL_
+  d. tailor work experience or _WE_
+  
+This section provides details related to the population-level parameters used to generate the data used for analysis.
 
 ## Generate IV matrix
 
+The generation of the four IVs begins with setting up a population-level covariance matrix describing the variances of and interrelationships between the IVs.
+
+The four IVs were designed such that they would have different variances. The variances chosen were four equally spaced values between standard deviation values of 1 and 2. The first IV, _ER_, was then designed to have a $\sigma_{ER} = 1.00$ and $\sigma^2_{ER} = 1.00$.The second IV, _AS_, was designed to have $\sigma_{AS} = 1.33$ and of $\sigma^2_{IV_2} = 1.78$.  _SL_ was designed to have $\sigma_{SL} = 1.67$ and $\sigma^2_{SL} = 2.78$.  Finally, _WE_ was designed to have $\sigma_{WE} = 2.00$ and $\sigma^2_{WE} = 4.00$.
+
+The design of the interrelationships between the IVs was implemented as to give the IVs non-zero overlaps between one another. This was done as DA is most useful, as a methodology for inferring importance, when the IVs overlap. Although the IVs were designed to overlap, I did not want the extent of the overlap between the IVs to be such that some IVs were more redundant with other IVs than other IVs. All six correlations between the four IVs were thus designed to take on one of three values .250, .125, and .063. These three values were "balanced" across IVs such that the total redundancy for any one IV was identical to the others. 
+
+The six different correlations specified were: $r_{ER,AS} = .250$, $r_{ER,SL} = .125$, $r_{ER,WE} = .063$, $r_{AS,SL} = .063$, $r_{AS,WE} = .125$, and $r_{SL,WE} = .250$.
+
+The manuscript notes that a goal for the generation of the data for analytic use in this exercise is to obtain data that are 'realistic.' The balanced correlations that are determined at the population-level fail to 'feel real.' 
+
+In an effort to add more realism to the dataset, the population covariance matrix is filtered through an inverse Wishart distribution using a single draw and large value (i.e., 100) for the degree of freedom parameter.
+
+Sampling from the inverse Wishart distribution will produce a set of correlation values that are based on the balanced approach but appear more 'as though' generate by a real data generating process. The large value for the degrees of freedom has the effect of reducing the variances of the sampled matrix but also stablizes the correlations of the values sampled to be closer to the population values. The variances of all the variables, once generated in the data, are multiplied by 100 to re-adjust them back to near their original values.
+
 ### Population Values
 
-Data generation is founded on the initial covariance matrix on which all subsequent data is based.
-
-The covariance matrix developed for use in this manuscript is reported on below.  
+This section sets the population-level covariance matrix.
 
 ```{r gen-iv-mat}
-# Covariance_Matrix <- 
-#   c(1, .5^(1:3)*sqrt(1*c(1.8, 2.8, 4))*sqrt(1), 
-#     .5*sqrt(1)*sqrt(1*1.8), 1.8, .5^(3:2)*sqrt(1*1.8)*sqrt(1*c(2.8, 4)), 
-#     .5^(2:3)*sqrt(1*2.8)*sqrt(1*c(1, 1.8)), 2.8, .5*sqrt(1*2.8)*sqrt(1*4), 
-#     .5^(3:1)*sqrt(1*4)*sqrt(1*c(1, 1.8, 2.8)), 4) |> 
-#   matrix(nrow=4, byrow = TRUE)
+namelist <- 
+  c("ER", "AS", "SL", "WE")
 
 Covariance_Matrix <- 
-  c(1, .5^(1:3)*sqrt(1*c(1.8, 2.8, 4))*sqrt(1),
-    .5*sqrt(1)*sqrt(1*1.8), 1.8, .5^(3:2)*sqrt(1*1.8)*sqrt(1*c(2.8, 4)),
-    .5^(2:3)*sqrt(1*2.8)*sqrt(1*c(1, 1.8)), 2.8, .5*sqrt(1*2.8)*sqrt(1*4),
-    .5^(3:1)*sqrt(1*4)*sqrt(1*c(1, 1.8, 2.8)), 4) |>
-  matrix(nrow=4, byrow = TRUE)
+  c(1, .5^(2:4)*sqrt(1*c((4/3)^2, (5/3)^2, 4))*sqrt(1),
+    .5^2*sqrt(1)*sqrt(1*(4/3)^2), (4/3)^2, .5^(4:3)*sqrt(1*(4/3)^2)*sqrt(1*c((5/3)^2, 4)),
+    .5^(3:4)*sqrt(1*(5/3)^2)*sqrt(1*c(1, (4/3)^2)), (5/3)^2, .5^2*sqrt(1*(5/3)^2)*sqrt(1*4),
+    .5^(4:2)*sqrt(1*4)*sqrt(1*c(1, (4/3)^2, (5/3)^2)), 4) %>%
+  matrix(nrow = 4, byrow = TRUE)
 
-Covariance_Matrix %>% kable()
+Covariance_Matrix %>% 
+  as.data.frame() %>%
+  set_names(namelist) %>%
+  set_rownames(namelist) %>%
+  gt(rownames_to_stub = TRUE) %>%
+  tab_header("Table S1: Population Covariance Matrix")
 
-Covariance_Matrix %>% cov2cor() %>% kable()
+Covariance_Matrix %>% cov2cor() %>% 
+  as.data.frame() %>%
+  set_names(namelist) %>%  
+  set_rownames(namelist) %>%
+  gt(rownames_to_stub = TRUE) %>%
+  tab_header("Table S2: Population Correlation Matrix")
 ```
+
+Tables S1 and S2 confirm the correct/intended values are in the covariance and correlation matrices.
+
+... ended here ...
 
 ### Sampled Values
 
 The covariance matrix developed doesn't 'feel' like real data.  As such, instead of using it directly, it is used as a parameter in a random draw from an inverse Wishart distribution.
 
+There are a few points of note about the descriptive results from Table X2.  Note the wide variability in the sampled intercorrelations among the four IVs which, in a number of cases for $IV_3$ and $IV_4$ are negative as sampled despite being based on positive correlations in the population.  The standard deviations for the four IVs also show variability from their population values though generally maintain a pattern of $\sigma_{IV_4} > \sigma_{IV_3} > \sigma_{IV_2} > \sigma_{IV_1}$. In addition, the magnitude and direction of several of the correlations may be surprising to the reader given the known coefficient values that produced them.  For example, the correlations between $IV_2$ and all three DVs is negative despite $IV_2$'s known positive coefficient. The negative correlation is due to $IV_2$'s strong, negative correlations with $IV_3$ and $IV_4$ which both have stronger relationships with the DVs.
+Correlations reflect a form of \emph{total effect} of an IV on a DV (cite??) and, as will be seen, the biased effect of the correlation does not persist when the model is estimated on the data.
+	
+The data for use in the DA illustrations are now generated and ready for use in analysis.
+DA is a method for extracting additional information from a statistical model such as an LRM.
+As such, it should be interpreted in light of the model on which it is based.
+The section below estimates the LRM, as well as PR and NBR, CRMs on their respective DVs using all four IVs.
+
 ```{r sample-iv-mat}
 Covariance_Matrix_Use <- 
-  riwish(7, Covariance_Matrix)
+  riwish(100, Covariance_Matrix)
 
-Covariance_Matrix_Use %>% kable()
+Covariance_Matrix_Use %>% 
+  as.data.frame() %>%
+  gt()
 
-Covariance_Matrix_Use %>% cov2cor() %>% kable()
+Covariance_Matrix_Use %>% 
+  cov2cor() %>% 
+  as.data.frame() %>%
+  gt()
 ```
 
-### Report
 
-The section below produces the combined correlation matrix tables for display in the manuscript.
+<!-- ### Report -->
 
-```{r display-covmat}
-Covariance_Matrix %>% 
-  as.data.frame %>%
-  set_names(str_c("IV", 1:4)) %>%
-  bind_cols(tibble(name = str_c("IV",1:4))) %>%
-  bind_rows(
-    Covariance_Matrix_Use %>% as.data.frame() %>% 
-      set_names(str_c("IV", 1:4)) %>%
-      bind_cols(tibble(name = str_c("IV",1:4)))
-  ) %>%
-  gt(rowname_col = "name") %>%
-  tab_row_group(label = "Sampled", rows = 5:8) %>% 
-  tab_row_group(label = "Parameter", rows = 1:4) %T>%
-  print %>%
-  gtsave(filename = "corrs.tex", path = "./includes/")
-```
+<!-- The section below produces the combined correlation matrix tables for display in the manuscript. -->
+
+<!-- ```{r display-covmat} -->
+<!-- Covariance_Matrix %>%  -->
+<!--   as.data.frame %>% -->
+<!--   set_names(str_c("IV", 1:4)) %>% -->
+<!--   bind_cols(tibble(name = str_c("IV",1:4))) %>% -->
+<!--   bind_rows( -->
+<!--     Covariance_Matrix_Use %>% as.data.frame() %>%  -->
+<!--       set_names(str_c("IV", 1:4)) %>% -->
+<!--       bind_cols(tibble(name = str_c("IV",1:4))) -->
+<!--   ) %>% -->
+<!--   gt(rowname_col = "name") %>% -->
+<!--   tab_row_group(label = "Sampled", rows = 5:8) %>%  -->
+<!--   tab_row_group(label = "Parameter", rows = 1:4) %T>% -->
+<!--   print %>% -->
+<!--   gtsave(filename = "corrs.tex", path = "./includes/") -->
+<!-- ``` -->
 
 ## Generate IV Data
 
-One hundred thousand observations in four independent variables are created using a multivariate Normal distribution that derive from the inverse Wishart sampled covariance matrix.  The means of each independent variable are set to be zero.
+... adjust the SDs by 10 (which does variance by 100) once generated here ...
+... discuss N...
+
 
 ```{r gen-iv-data}
+total_n <- 
+  runif(n = 1, min = 5000, max = 10000) %>% round()
+
 Data_Frame <- 
-  mvrnorm(n = 100000, 
+  mvrnorm(n = total_n, 
           mu = rep(0, times = 4), 
           Sigma = Covariance_Matrix_Use) %>% 
   as.data.frame() %>%
-  rename_with(~ str_c("I", .))
+  rename_with(~ str_c("I", .)) %>%
+  multiply_by(10)
 
 Data_Frame %>%
   summarise(
@@ -124,9 +179,21 @@ Data_Frame %>%
 
 ## Generate Normal Gaussian Dependent Variable
 
+$\beta_{IV_1} =.2$,  $\beta_{IV_2} =.15$,  $\beta_{IV_3} =.12$, $\beta_{IV_4} =.1$. 
+
+	Given that the variance explained for a LRM with no intercorrrelaions can be computed as $R^2_{IV} = \sigma^2_{IV}\beta^2_{IV}$ or the product of the IV's variance and the squared slope, all four IVs have an $R^2$ of .04.
+
 The independent variable data are used to generate the dependent variables starting with the comparison Normally or Gaussian distributed variable.
 
 Similar to the generation of the independent variables, the coefficients for the Normally distributed variable was generated randomly using four draws from a Normal distribution with a means of .2, .15, .125, and .1 and standard deviation of .05.
+
+	The simulated IV values were used to generate the three DVs.  
+	The Gaussian/Normally distributed DV was generated first. 
+	The coefficient vector implied above was entered as means, into a Normal distribution with a standard deviation of .2 from which a single draw from each mean was obtained.  
+	The standard deviation of .2 was intended to make the process of generating coefficients for the DVs less deterministic.  
+	The vector of coefficient draws resulted in the following set of values: $\beta_{IV_1} = 0.259$, $\beta_{IV_2} = 0.042$, $\beta_{IV_3} = 0.112$, $\beta_{IV_4} = 0.293$.
+	These four values were multiplied by their IV to generate an initial set of Normally distributed DV values.  
+	The Normally distributed DV $Y_{Normal}$ was completed by adding a draw from a Normal distribution with a mean of 0 and a standard deviation that was computed as $\sqrt{1 - \sigma^2_{Y_{NormalNoError}}}$ using the initial Normally distributed variable without error.
 
 ```{r gen-y-normal}
 Coefficient_Vector <- 
@@ -139,7 +206,7 @@ Data_Frame %<>%
     Y_Normal = 
       IV1*Coefficient_Vector[[1]] + IV2*Coefficient_Vector[[2]] + 
       IV3*Coefficient_Vector[[3]] + IV4*Coefficient_Vector[[4]], 
-    Y_Normal = Y_Normal + rnorm(100000, 0, sqrt(1 - var(Y_Normal)))
+    Y_Normal = Y_Normal + rnorm(total_n, 0, sqrt(1 - var(Y_Normal)))
   )
 
 Data_Frame %>%
@@ -160,6 +227,9 @@ Data_Frame %>%
 ## Generate Poisson Dependent Variable
 
 The Poisson distributed dependent variable is derived directly from the Normal variable by translating the Normal values to Poisson values by first translating the Normal values to cumulative probabilities and, subsequently, translating those cumulative probabilities to Poisson quantiles assuming a mean of 1.
+
+	A Poisson distributed version of $Y_{Normal}$, $Y_{Poisson}$, was generated by obtaining the cumulative probability of each observation's $Y_{Normal}$ score given the standard Gaussian/Normal distribution (i.e., $N(0,1)$) and translating that value into a count value using the Poisson quantile function assuming an underlying mean and variance of 1.  
+	The mean of 1 value was chosen to make the Poisson distributed result as close to the Normally distributed result as possible as both have variances of 1.	
 
 ```{r gen-y-poisson}
 Data_Frame %<>%
@@ -187,6 +257,9 @@ Data_Frame %>%
 The generation of the negative Binomial dependent variable followed the same procedure as that to create the Poisson variable as it is created from the cumulative probability derived from the Normally distributed variable translated into negative Binomial quantiles assuming a _size_ of .5 and _mu_ parameter of 1.
 
 The _size_ and _mu_ parameters were chosen to obtain a mean (i.e., the _mu_/$\mu$ value) of 1 to mirror the Poisson distribution but a variance that substantially exceeded 1; in this case  or a value of 3 as $\sigma^{2} = \mu + \frac{\mu^2}{size}$.
+
+	A negative Binomial version, $Y_{NegativeBinomial}$, was created similarly by translating $Y_{Normal}$'s cumulative probability for each observation into a count variable using the negative Binomial quantile function assuming a Gamma shape parameter of .5 and scale parameter of .33; these factors result in a mean of 1 and variance of 3 for the negative Binomial distribution.  
+	The negative Binomial parameters obtaining a mean of 1 and variance of 3 were chosen to maintain similarities to the Poisson version of the variable (i.e., their means are identical) but to emphasize the unique feature of the negative Binomial distribution (i.e., the capability to model over-dispersion). 
 
 ```{r gen-y-neg-bin}
 Data_Frame %<>%
@@ -253,7 +326,7 @@ The number of 'successes' (i.e., the Poisson variable) is then implemented, as b
 ```{r offset-uncorrelated}
 Data_Frame %<>%
   mutate(
-    Number_Observed = sample(1:10, 100000, replace = TRUE)
+    Number_Observed = sample(1:10, total_n, replace = TRUE)
   )
 
 Data_Frame %>% select(Number_Observed) %>% 
@@ -307,7 +380,7 @@ Data_Frame %<>%
     Censoring =
       IV1*Offset_Vector[[1]] + IV2*Offset_Vector[[2]] + 
       IV3*Offset_Vector[[3]] + IV4*Offset_Vector[[4]],
-    Censoring = Censoring + rnorm(100000, 0, sqrt(1 - var(Censoring)))
+    Censoring = Censoring + rnorm(total_n, 0, sqrt(1 - var(Censoring)))
   )
 
 Data_Frame %<>%
@@ -495,7 +568,7 @@ poisson_unstzd_params %>%
 
 ```{r NB-result}
 nb_result <-
-  glm.nb(Y_NegativeBinomial ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame)
+  glm.nb(Y_NB ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame)
 
 nb_result %>%
   parameters()
