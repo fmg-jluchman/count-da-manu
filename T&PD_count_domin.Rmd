@@ -238,8 +238,8 @@ A linear regression predicting J using the four IVs is also implemented.
 Data_Frame %<>%
   mutate(
     J = 
-      ER*Coefficient_Vector[[1]] + AS*Coefficient_Vector[[2]] + 
-      SL*Coefficient_Vector[[3]] + WE*Coefficient_Vector[[4]], 
+      ER*Coefficient_Vector_Use[[1]] + AS*Coefficient_Vector_Use[[2]] + 
+      SL*Coefficient_Vector_Use[[3]] + WE*Coefficient_Vector_Use[[4]], 
     J = J + rnorm(total_n, 0, sqrt(1 - var(J)))
   )
 
@@ -282,7 +282,7 @@ lm(J ~ ., data = Data_Frame) %>%
   tab_header("Table S9: Underlying Dependent Variable Linear Regression")
 ```
 
-A couple of points to note about the J variable. The standard deviation depicted in Table S8 for J is, as expected, nearly 1. The correlations between the four IVs with J are all similar to one another with values around .4 despite.This too is as expected as the observed correlations between an IV and a DV are a function of a complex set of path analytic parameters combining each IV's known coefficient value (i.e., as observed in Table S2) with its correlation with each other variable as well as each other variable's known coefficient.
+A couple of points to note about the J variable. The standard deviation depicted in Table S8 for J is, as expected, nearly 1. The correlations between the four IVs with J are all similar to one another with values around .4 despite. This too is as expected as the observed correlations between an IV and a DV are a function of a complex set of path analytic parameters combining each IV's known coefficient value (i.e., as observed in Table S2) with its correlation with each other variable as well as each other variable's known coefficient.
 
 The results in Table S9 confirm that the population values in Table S6 were carried through to the data.
 
@@ -417,150 +417,185 @@ Data_Frame %>%
   gtsave(filename = "descrips_initial.tex", path = "./includes/")
 ```
 
-```{r check-point-1-save, results='hide', include=FALSE}
-saveRDS(Data_Frame, "./Data_Results/DF.rds")
-```
-
 ## Poisson with Offset Dependent Variables
 
-The dependent variables with an offset were generated assuming a Poisson distribution and two different versions of the Poisson-with-offset variables were created.
+The manuscript also describes two other variables: x1 and x2.
 
-### Uncorrelated Offset
+These two variables are variants of SJ where part of the time period in generating the count dependent variable is lost or unrecorded.
 
-The Poisson variable with an offset is generated from a binomial distribution with the idea that the Poisson rate/mean parameter can be derived as $np = \lambda$.  In this case, the _n_ is 10 and the _p_ is .1 to obtain the mean of 1 (i.e., $10*.1 = 1$).
+### Uncorrelated Offset Dependent Variable
 
-Given there are up to 10 trials, the offset is implemented as the number of trials actually realized for an observation.  This number of trials is obtained as an integer vector from 1 to 10 sampled randomly for all observations.
+This section describes the process of generating the Poisson distributed, uncorrleated offset dependent variable.
 
-The number of 'successes' (i.e., the Poisson variable) is then implemented, as before, using the cumulative probability from the Normal variable as translated to a binomial quantile using the number of realized trials for each observation and a fixed probability of .1).
+This count variable is generated as multiple trials if a binomial distribution. Repeated trials from a binomial distribution are known to be Poisson distributed with a rate/mean parameter that can be derived as $np = \lambda$ where In this case the _n_ is the number of trials and _p_ is the probability of the event occurring. Thus, to generate a Poisson distribution to approximate SJ, I could set the binomial distibution to have an _n_ of 10 and a _p_ of .1 to obtain the mean of 1 (i.e., $10*.1 = 1$).
+
+Adjusting the SJ-based binomial distribution to incorporate different 'exposure' time is then a matter of adjusting the _n_ parameter for each tailor. For this version of the variable, a random, uniformly distributed integer from 1 to 10 is sampled randomly for all tailors to represent the _n_ value.
+
+Note that z1, the factor by which the Poisson variable is 'offset,' is retained for modeling.
 
 ```{r offset-uncorrelated}
 Data_Frame %<>%
   mutate(
-    Number_Observed = sample(1:10, total_n, replace = TRUE)
-  )
-
-Data_Frame %>% select(Number_Observed) %>% 
-  ggplot(aes(Number_Observed)) + stat_bin()
-
-Data_Frame %<>%
-  mutate(
-    Y_Poisson_Offset = 
-      qbinom(
-        pnorm(Y_Normal, log.p = TRUE),
-             Number_Observed, .1, log.p = TRUE
-        )
+    z1 = sample(1:10, total_n, replace = TRUE),
+    x1 = 
+      J %>% pnorm(log.p = TRUE) %>%
+      qbinom(z1, .1, log.p = TRUE)
   )
 
 Data_Frame %>%
-  select(Y_Poisson_Offset) %>%
-  ggplot(aes(Y_Poisson_Offset)) + stat_bin()
+  summarise("Mean" = mean(x1)) %>% 
+  bind_cols(
+    Data_Frame %>%
+      summarise("Standard Deviation" = sd(x1))
+  ) %>%
+  bind_cols(
+    Data_Frame %>% 
+      cor %>% 
+      as_tibble(rownames = "IV Name") %>%
+      filter(`IV Name` == "x1") %>%
+      select(-SJ, -J, -`IV Name`, -MJ, -x1, -z1)
+  ) %>%
+  gt() %>%
+  tab_header("Table S12: Uncorrelated Offset Poisson Dependent Variable Descriptive Statistics") %>%
+  fmt_number(columns = 1:6, decimals = 4) %>%
+  tab_spanner(columns = c(ER, AS, SL, WE), label = "Correlations") %>%
+  tab_style(
+    style = cell_borders(sides = "right"),
+    locations = cells_body(columns = "Standard Deviation")
+  )
 
 Data_Frame %>%
-  summarise(
-    across(.fns = mean),
-    ) 
+  select(z1) %>%
+  mutate(z1 = as_factor(z1)) %>%
+  ggplot(aes(x = z1)) +
+  stat_count() +
+  ggtitle("Figure Sd: Distribution of the Uncorrelated Offset Variable") +
+  theme_light()
 
 Data_Frame %>%
-  summarise(
-    across(.fns = sd),
-    ) 
-
-Data_Frame %>% 
-  cor %>% 
-  kable
-
+  select(x1) %>%
+  ggplot(aes(x = x1)) +
+  stat_bin() +
+  ggtitle("Figure Se: Distribution of the Uncorrelated Offset Poisson Dependent Variable") +
+  theme_light()
 ```
 
-### Correlated Offset
+The descriptive statistics for x1 are similar to SJ but shrunken given that the conceptal rate parameter/mean is now `r mean(1:10)*.1`.
 
-The correlated offset variable is implemented in a way similar to the uncorrelated offset variable save for the way in which the number of realized trials was implemented for each observation.  
+In addition, all the correlations between x1 and the IVs are shrunken relative to SJ due to the reduced variance observed in x1.
 
-The number of realized trials was obtained by randomly sampling coefficients in the same way as for the development of the Normally distributed variable (4 draws from Normal distribution with the same set of means as the Normally distributed variable but randomized in order and negative and a standard deviation of .05) and generating a Normally distributed variable with a standard deviation of 1.  The newly generated Normally distributed variable is then translated into a cumulative probability and uniform distribution quantile with a minimum of 1 and maximum of 10.  
+### Correlated Offset Depedent Variable
 
-This new 1 to 10 count variable is then used as the number of realized trials in the same process used to generate an offset as was implemented above.
+This section describes the process for generating the correlated offset Poisson distributed dependent variable.
+
+The correlated offset variable is implemented in a way similar to the uncorrelated offset variable except that the set of trials _n_ for each observation will be based on the four IVs instead of randomly sampled.
+
+The process to create the correlated offsets began in a way similar to that of generating the underlying Normal dependent variable by sampling values for each IV as four draws from a Normal distribution with a standard deviation of .05 and the population coefficient vector used to create the underlying Normal dependent variable reflected over 0 (i.e., multipled by -1).
+
+```{r correlated-offset-coef}
+Coefficient_Vector_Offset <- 
+  rnorm(4, Coefficient_Vector*-1, .05)
+
+Coefficient_Vector_Offset %>%
+  data.frame(name = namelist, value = .) %>%
+  pivot_wider(everything()) %>%
+  gt() %>%
+  tab_header("Table S13: Sampled Offset Coefficient Values") %>%
+  fmt_number(columns = 1:4, decimals = 4)
+```
+
+The offset coefficient values were used, like those from the underlying Normal dependent variable, to generate a unit, Normally distributed 'offset' variable. This 'offset' variable was then translated to a uniform distribution between 1 and 10 like the uncorrelated _n_. The translation also followed a similar procedure to how the underlying Normal dependent variable was translated into Poisson and negative Binomial variables---by translating the Normal variable to cumulative probabilities, and then subsequently, translating those probabilities into quantiles of the uniform distribution ranging from 0 to 10 taking the next highest/`ceiling` integer's value.
+
+#... ended here... describing correlated offset...
 
 ```{r correlated-offset}
-Offset_Vector <- 
-  rnorm(4, sample(c(.2, .15, .12, .1))*-1, .2)
-
-Offset_Vector %>% kable
-
 Data_Frame %<>%
   mutate(
-    Censoring =
-      IV1*Offset_Vector[[1]] + IV2*Offset_Vector[[2]] + 
-      IV3*Offset_Vector[[3]] + IV4*Offset_Vector[[4]],
-    Censoring = Censoring + rnorm(total_n, 0, sqrt(1 - var(Censoring)))
+    z2 =
+      ER*Coefficient_Vector_Offset[[1]] + AS*Coefficient_Vector_Offset[[2]] + 
+      SL*Coefficient_Vector_Offset[[3]] + WE*Coefficient_Vector_Offset[[4]],
+    z2 = z2 + rnorm(total_n, 0, sqrt(1 - var(z2))),
+    z2 = z2 %>% pnorm(log.p = TRUE) %>% 
+      qunif(0, 10, log.p = TRUE) %>% ceiling(),
+    x2 = J %>% pnorm(log.p = TRUE) %>% 
+      qbinom(z2, .1, log.p = TRUE)
   )
 
-Data_Frame %<>%
-  mutate(
-    N_obs_censor =
-      qunif(
-        pnorm(Censoring, log.p = TRUE), 
-        1, 10, log.p = TRUE) %>% ceiling(),
-    Y_Poisson_Censored = 
-      qbinom(
-        pnorm(Y_Normal, log.p = TRUE),
-             N_obs_censor, .1, log.p = TRUE
-        )
+Data_Frame %>%
+  summarise("Mean" = mean(x2)) %>% 
+  bind_cols(
+    Data_Frame %>%
+      summarise("Standard Deviation" = sd(x2))
+  ) %>%
+  bind_cols(
+    Data_Frame %>% 
+      cor %>% 
+      as_tibble(rownames = "IV Name") %>%
+      filter(`IV Name` == "x2") %>%
+      select(-SJ, -J, -`IV Name`, -MJ, -x1, -z1, -x2, -z2)
+  ) %>%
+  gt() %>%
+  tab_header("Table S14: Correlated Offset Poisson Dependent Variable Descriptive Statistics") %>%
+  fmt_number(columns = 1:6, decimals = 4) %>%
+  tab_spanner(columns = c(ER, AS, SL, WE), label = "Correlations") %>%
+  tab_style(
+    style = cell_borders(sides = "right"),
+    locations = cells_body(columns = "Standard Deviation")
   )
 
-Data_Frame %>% select(N_obs_censor) %>% 
-  ggplot(aes(N_obs_censor)) + stat_bin()
+Data_Frame %>%
+  select(z2) %>%
+  mutate(z2 = as_factor(z2)) %>%
+  ggplot(aes(x = z2)) +
+  stat_count() +
+  ggtitle("Figure Sf: Distribution of the Correlated Offset Variable") +
+  theme_light()
 
 Data_Frame %>%
-  select(Y_Poisson_Censored) %>%
-  ggplot(aes(Y_Poisson_Censored)) + stat_bin()
-
-Data_Frame %>%
-  summarise(
-    across(.fns = mean),
-    ) 
-
-Data_Frame %>%
-  summarise(
-    across(.fns = sd),
-    ) 
-
-Data_Frame %>% 
-  cor %>% 
-  kable
+  select(x2) %>%
+  ggplot(aes(x = x2)) +
+  stat_bin() +
+  ggtitle("Figure Sg: Distribution of the Correlated Offset Poisson Dependent Variable") +
+  theme_light()
 ```
 
-## Zero-inflated Poisson Dependent Variable
+<!-- ## Zero-inflated Poisson Dependent Variable -->
 
-The zero-inflated Poisson dependent variable uses the Poisson variable as well as the Normally distributed variable created to produce the correlated offset (negative, randomized Normal variable coefficients).  The correlated offset variable is translated through a cumulative Normal probability to a binomial quantile function with 1 draw and a probability of .9. 
+<!-- The zero-inflated Poisson dependent variable uses the Poisson variable as well as the Normally distributed variable created to produce the correlated offset (negative, randomized Normal variable coefficients).  The correlated offset variable is translated through a cumulative Normal probability to a binomial quantile function with 1 draw and a probability of .9.  -->
 
 
-```{r zero-inflate}
-Data_Frame %<>%
-  mutate(
-    Y_ZIP = 
-      Y_Poisson * 
-      qbinom(
-        pnorm(Censoring, log.p = TRUE),
-        1, .9, log.p = TRUE)
-  )
+<!-- ```{r zero-inflate} -->
+<!-- Data_Frame %<>% -->
+<!--   mutate( -->
+<!--     Y_ZIP =  -->
+<!--       Y_Poisson *  -->
+<!--       qbinom( -->
+<!--         pnorm(Censoring, log.p = TRUE), -->
+<!--         1, .9, log.p = TRUE) -->
+<!--   ) -->
 
-Data_Frame %>%
-  select(Y_ZIP) %>%
-  ggplot(aes(Y_ZIP)) + stat_bin()
+<!-- Data_Frame %>% -->
+<!--   select(Y_ZIP) %>% -->
+<!--   ggplot(aes(Y_ZIP)) + stat_bin() -->
 
-Data_Frame %>%
-  summarise(
-    across(.fns = mean),
-    ) 
+<!-- Data_Frame %>% -->
+<!--   summarise( -->
+<!--     across(.fns = mean), -->
+<!--     )  -->
 
-Data_Frame %>%
-  summarise(
-    across(.fns = sd),
-    ) 
+<!-- Data_Frame %>% -->
+<!--   summarise( -->
+<!--     across(.fns = sd), -->
+<!--     )  -->
 
-Data_Frame %>% 
-  cor %>% 
-  kable
+<!-- Data_Frame %>%  -->
+<!--   cor %>%  -->
+<!--   kable -->
 
+<!-- ``` -->
+
+```{r save-data, results='hide', include=FALSE}
+saveRDS(Data_Frame, "./Data_Results/DF.rds")
 ```
 
 ```{r load-data, results='hide', include=FALSE}
@@ -668,7 +703,7 @@ IV_subset_names %>%
   bind_cols(SJ_pois_subsets) %>%
   set_names(c("variable", "SJ")) %>%
   gt(rowname_col = "variable") %>%
-  tab_header("Table S..: All Subsets Deviance R-square Poisson Models") %>%
+  tab_header("Table S15: All Subsets Deviance R-square Poisson Models") %>%
   fmt_number(columns = 2, decimals = 4)
 ```
 
@@ -697,10 +732,32 @@ SJ_pois_DA %>%
             by = "Variable") %>%
   set_names(c("Variable", "General Dominance", "Standardized")) %>%
   gt(rowname_col = "Variable") %>%
-  tab_header("Table S..: Poisson Model General Dominance Statistics") %>%
+  tab_header("Table S16: Poisson Model General Dominance Statistics") %>%
   fmt_number(columns = 2:3, decimals = 4) %>%
   tab_source_note(str_c("Overall Deviance R-square is ", 
-                        SJ_pois_reg %>% dev_r2() %>% format(digits = 4), "."))
+                        SJ_pois_reg %>% dev_r2() %>% 
+                          sprintf("%5.4f", .), "."))
+
+SJ_pois_DA %>% 
+  pluck("Conditional_Dominance") %>%
+  as_tibble(rownames = "Variable") %>%
+  set_names(c("Variable", str_c("Subset Size: ", 1:4))) %>%
+  gt(rowname_col = "Variable") %>%
+  tab_header("Table S17: Poisson Model Conditional Dominance Statistics") %>%
+  fmt_number(columns = 2:5, decimals = 4)
+
+SJ_pois_DA %>% 
+  pluck("Complete_Dominance") %>%
+  as_tibble(rownames = "Dominating Variable") %>%
+  mutate(
+    `Dominating Variable` = str_remove(`Dominating Variable`, "Dmnates_")
+  ) %>%
+  set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
+                                           c("ER", "AS", "SL", "WE")))) %>%
+  gt(rowname_col = "Dominating Variable") %>%
+  tab_header("Table S18: Poisson Model Complete Dominance Statistics") %>%
+  sub_missing() %>% 
+  tab_stubhead("Dominating Variable")
 ```
 
 The PR-based general dominance statistics in Table S.. show that the dominance hierarchy among IVs do not show large differences as all four IVs have relatively similar general dominance statistics. This result is not unexpected given the design of the population-level effects.
@@ -708,6 +765,10 @@ The PR-based general dominance statistics in Table S.. show that the dominance h
 The sampled results' dominance hierarchy show that AS is most important (i.e., generally dominates all others), followed by ER, then SL, and finally WE (i.e., generally dominated by all others).
 
 The standardized values express the general dominance statistics as a proportion of the $R^2$.
+
+The conditional dominance statistics based on the PR model reported in Table S.. add to the general dominance statistics in that AS is shown also to conditionally dominate ER and WE but _not_ SL as the size 4 results for AS and SL reverse. ER, the second most dominant, also only conditionally dominates WE given the size 4 results.  Finally, SL does not conditionally dominate WE either given the pattern change between sizes 2 and 3.
+
+Finally, the complete dominance results in Table S.. show that the only complete dominance designation possible among the IVs is between AS and ER.
 
 ## Negative Binomial Regressions
 
@@ -778,7 +839,7 @@ IV_subset_names %>%
   bind_cols(MJ_nb_subsets) %>%
   set_names(c("variable", "MJ")) %>%
   gt(rowname_col = "variable") %>%
-  tab_header("Table S..: All Subsets Deviance R-square Negative Binomial Models") %>%
+  tab_header("Table S19: All Subsets Deviance R-square Negative Binomial Models") %>%
   fmt_number(columns = 2, decimals = 4)
 ```
 
@@ -794,7 +855,7 @@ MJ_nb_DA <-
         \(fml, ...) {
           res <- 
             glm.nb(fml, ...) 
-          return(dev_r2(res, null))
+          return(dev_r2(res))
         },
         data = Data_Frame)
 
@@ -807,13 +868,37 @@ MJ_nb_DA %>%
             by = "Variable") %>%
   set_names(c("Variable", "General Dominance", "Standardized")) %>%
   gt(rowname_col = "Variable") %>%
-  tab_header("Table S..: Negative Binomial Model General Dominance Statistics") %>%
+  tab_header("Table S20: Negative Binomial Model General Dominance Statistics") %>%
   fmt_number(columns = 2:3, decimals = 4) %>%
   tab_source_note(str_c("Overall Deviance R-square is ", 
-                        MJ_nb_reg %>% dev_r2() %>% format(digits = 4), "."))
+                        MJ_nb_reg %>% dev_r2() %>% 
+                          sprintf("%5.4f", .), "."))
+
+MJ_nb_DA %>% 
+  pluck("Conditional_Dominance") %>%
+  as_tibble(rownames = "Variable") %>%
+  set_names(c("Variable", str_c("Subset Size: ", 1:4))) %>%
+  gt(rowname_col = "Variable") %>%
+  tab_header("Table S21: Negative Binomial Model Conditional Dominance Statistics") %>%
+  fmt_number(columns = 2:5, decimals = 4)
+
+MJ_nb_DA %>% 
+  pluck("Complete_Dominance") %>%
+  as_tibble(rownames = "Dominating Variable") %>%
+  mutate(
+    `Dominating Variable` = str_remove(`Dominating Variable`, "Dmnates_")
+  ) %>%
+  set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
+                                           c("ER", "AS", "SL", "WE")))) %>%
+  gt(rowname_col = "Dominating Variable") %>%
+  tab_header("Table S22: Negative Binomial Model Complete Dominance Statistics") %>%
+  sub_missing() %>% 
+  tab_stubhead("Dominating Variable")
 ```
 
-The NBR-based DA results are quite similar to those obtained for the PR-based results with the exception of the rank order change between SL and WE with WE being more important for the NBR than SL.
+The NBR-based DA results are quite similar to those obtained for the PR-based results. One notable exception is the importance ordering between importance SL and WE. 
+
+In the NBR, WE generally dominates SL. No other dominance designations were possible between these IVs.
 
 <!-- # ~~~ NB regs don't work with dominance_analysis() - method dispatch issue? -->
 <!-- # ~~~ they have r2() method but DA doesn't recognize it -->
@@ -824,7 +909,7 @@ The NBR-based DA results are quite similar to those obtained for the PR-based re
 
 This section captures all PR and NBR subsets
 
-Table 3 in the manuscript is produced in this section.
+Table 4 in the manuscript is produced in this section.
 
 ```{r comb-subsets-display}
 IV_subset_names %>% 
@@ -833,7 +918,7 @@ IV_subset_names %>%
   bind_cols(MJ_nb_subsets) %>%
   set_names(c("variable", "Poisson/SJ", "Negative Binomial/MJ")) %>%
   gt(rowname_col = "variable") %>%
-  tab_header("Table 3: All Subsets Deviance R-square Results Across Models") %>%
+  tab_header("Table 4: All Subsets Deviance R-square Results Across Models") %>%
   fmt_number(columns = 2:3, decimals = 4) %T>%
   print() %>%
   gtsave(filename = "all_subsets.tex", path = "./includes/")
@@ -843,7 +928,7 @@ IV_subset_names %>%
 
 This section captures the general dominance analysis reporting.
 
-Table 4 in the manuscript is generated in this section.
+Table 5 in the manuscript is generated in this section.
 
 ```{r gend-dom-display}
 SJ_pois_DA %>% 
@@ -858,7 +943,7 @@ SJ_pois_DA %>%
                    `Poisson/SJ` = SJ_pois_reg %>% dev_r2(), 
                    `Negative Binomial/MJ` = MJ_nb_reg %>% dev_r2())) %>%
   gt(rowname_col = "Variable") %>%
-  tab_header("Table 4: General Dominance Statistics") %>%
+  tab_header("Table 5: General Dominance Statistics") %>%
   tab_style(
     style = cell_borders(sides = "bottom"),
     locations = cells_body(rows = 4)
@@ -870,82 +955,220 @@ SJ_pois_DA %>%
 
 ## Conditional Dominance Graphic Reporting
 
-```{r condit-domin-display}
-lm_da %>%
-  pluck(2) %>%
-  mutate(Model = "Normal") %>%
+This section captures the conditional dominance analysis reporting.
+
+Figure 1 in the manuscript is generated in this section.
+
+```{r condit-domin-display, fig.height = 3, fig.width = 4.5}
+SJ_pois_DA %>%
+  pluck("Conditional_Dominance") %>%
+  as_tibble(rownames = "IV") %>%
+  mutate(Model = "Poisson/SJ") %>%
   bind_rows(
-    poisson_da$Conditional_Dominance %>%
-      as_tibble(rownames = "Subset") %>%
-      rename_with(
-        .fn = ~ str_replace_all(., "subset_size", "IVs"),
-        .cols = starts_with("subset")
-      ) %>%
-      mutate(Model = "Poisson")
+    MJ_nb_DA %>%
+      pluck("Conditional_Dominance")  %>%
+      as_tibble(rownames = "IV") %>%
+      mutate(Model = "Negative\nBinomial/MJ")
   ) %>%
   pivot_longer(
-    cols = starts_with("IVs"),
-    names_to = "IVs",
-    values_to = "R2",
-    names_prefix = "IVs_"
-    ) %>%
+    cols = starts_with("subset_size"),
+    names_to = "Subset Size",
+    values_to = "Conditional Dominance Statistic",
+    names_prefix = "subset_size_"
+    ) %>% 
+  mutate(
+    Model = fct_relevel(Model, "Poisson/SJ", "Negative\nBinomial/MJ"),
+    IV = fct_relevel(IV, "ER", "AS", "SL", "WE"),
+    `Subset Size` = `Subset Size` %>% as.integer
+  ) %>%
   ggplot(
-    aes(x = IVs, y = R2, group = Subset, linetype = Subset)
+    aes(x = `Subset Size`, y = `Conditional Dominance Statistic`, group = IV, color = IV)
   ) + geom_line() + 
-  facet_grid(rows = vars(Model)) + theme_linedraw()
+  facet_grid(rows = vars(Model)) + theme_linedraw() +
+  labs(linetype = "") + 
+  #scale_linetype_manual(values = c(ER = "solid", AS = "dashed", SL = "dotdash", WE = "dotted")) +
+  coord_trans(xlim = c(.9, 4.1), ylim = c(.023, .195), expand = FALSE, y = "log") + 
+  theme(legend.position = c(.90, .89), legend.box.background = element_rect(color = "black"), 
+        legend.title = element_blank(), legend.text = element_text(size = 7), 
+        legend.key.height = unit(7, "pt"), axis.text.y = element_text(size = 7), 
+        legend.margin = margin(b = .5, l = .5, r = .5)) + 
+  scale_y_continuous(n.breaks = 5) + scale_color_viridis_d()
 
-ggsave("condit_gph.png", height = 4, width = 6, 
+ggsave("condit_gph.png", height = 4*.75, width = 6*.75, 
        units = "in", path = "./includes/")
 ```
 
-# Offset Modeling
+# Exposure Modeling
 
-## Wrong Poisson
+## Uncorrelated Exposure without Offset
 
-```{r}
-poisson_result_offset_wrong <- 
-  glm(Y_Poisson_Offset ~ IV1 + IV2 + IV3 + IV4, data = Data_Frame, 
+### Obtain Modeling Results
+
+```{r x1-reg-no-exp}
+x1_reg_no_exp <- 
+  glm(x1 ~ ER + AS + SL + WE, 
+      data = Data_Frame, 
       family = poisson())
 
-poisson_result_offset_wrong %>% 
-  parameters()
+x1_reg_no_exp_unstd <- 
+  x1_reg_no_exp %>% 
+  parameters() 
 
-poisson_result_offset_wrong %>%
-  standardise_parameters(method = "basic")
-
-domir(Y_Poisson_Offset ~ IV1 + IV2 + IV3 + IV4, 
-      \(fml,...) {
-        res <- glm(fml, ...) 
-        ret <- r2(res)[[1]]
-      }
-      ,
-      data = Data_Frame, family = poisson()) 
+x1_reg_no_exp_unstd %>%
+  select(-df_error, -CI) %>%
+  rename(Low = "CI_low", High = "CI_high") %>%
+  gt(rowname_col = "Parameter") %>%
+  fmt_number(columns = 2:7, decimals = 4) %>%
+  tab_spanner(columns = c(Low, High), label = "Confidence Interval") %>%
+  tab_header("Table S24: Uncorrelated Exposure without Offset")
 ```
 
-## Right Poisson
+### Dominance Analysis Results
 
-```{r}
-poisson_result_offset_right <- 
-  glm(Y_Poisson_Offset ~IV1 + IV2 + IV3 + IV4 + offset(log(Number_Observed)), data = Data_Frame, 
+```{r x1-DA-no-exp}
+x1_no_exp_DA <-
+  domir(x1 ~ ER + AS + SL + WE, 
+        \(fml, ...) {
+          res <- 
+            glm(fml, ...) 
+          return(dev_r2(res))
+        },
+        data = Data_Frame, family = poisson())
+
+x1_no_exp_DA %>% 
+  pluck("General_Dominance") %>%
+  as_tibble(rownames = "Variable") %>%
+  left_join(x1_no_exp_DA %>% 
+              pluck("Standardized") %>%
+              as_tibble(rownames = "Variable"),
+            by = "Variable") %>%
+  set_names(c("Variable", "General Dominance", "Standardized")) %>%
+  gt(rowname_col = "Variable") %>%
+  tab_header("Table S25: Uncorrelated Exposure with No Offset General Dominance Statistics") %>%
+  fmt_number(columns = 2:3, decimals = 4) %>%
+  tab_source_note(str_c("Overall Deviance R-square is ", 
+                        x1_reg_no_exp %>% dev_r2() %>% 
+                          sprintf("%5.4f", .), "."))
+
+x1_no_exp_DA %>% 
+  pluck("Conditional_Dominance") %>%
+  as_tibble(rownames = "Variable") %>%
+  set_names(c("Variable", str_c("Subset Size: ", 1:4))) %>%
+  gt(rowname_col = "Variable") %>%
+  tab_header("Table S26: Uncorrelated Exposure with No Offset Conditional Dominance Statistics") %>%
+  fmt_number(columns = 2:5, decimals = 4)
+
+x1_no_exp_DA %>% 
+  pluck("Complete_Dominance") %>%
+  as_tibble(rownames = "Dominating Variable") %>%
+  mutate(
+    `Dominating Variable` = str_remove(`Dominating Variable`, "Dmnates_")
+  ) %>%
+  set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
+                                           c("ER", "AS", "SL", "WE")))) %>%
+  gt(rowname_col = "Dominating Variable") %>%
+  tab_header("Table S27: Uncorrelated Exposure with No Offset Complete Dominance Statistics") %>%
+  sub_missing() %>% 
+  tab_stubhead("Dominating Variable")
+```
+
+## Uncorrelated Exposure with Offset
+
+### Obtain Modeling Results
+
+```{r x1-reg-exp}
+x1_reg_exp <- 
+  glm(x1 ~ ER + AS + SL + WE + offset(log(z1)), 
+      data = Data_Frame, 
       family = poisson())
 
-poisson_result_offset_right %>% 
-  parameters()
+x1_reg_exp_unstd <- 
+  x1_reg_exp %>% 
+  parameters() 
 
-poisson_result_offset_right %>%
-  standardise_parameters(method = "basic")
-
-domir(Y_Poisson_Offset ~ IV1 + IV2 + IV3 + IV4, 
-      \(fml,...) {
-        fml2 <- update(fml, . ~ . + offset(log(Number_Observed)))
-        res <- glm(fml2, ...) 
-        ret <- r2(res)[[1]]
-      }
-      ,
-      data = Data_Frame, family = poisson()) 
+x1_reg_exp_unstd %>%
+  select(-df_error, -CI) %>%
+  rename(Low = "CI_low", High = "CI_high") %>%
+  gt(rowname_col = "Parameter") %>%
+  fmt_number(columns = 2:7, decimals = 4) %>%
+  tab_spanner(columns = c(Low, High), label = "Confidence Interval") %>%
+  tab_header("Table S27: Uncorrelated Exposure with Offset")
 ```
 
+### Dominance Analysis Results
 
+```{r x1-DA-exp}
+x1_exp_DA <-
+  domir(x1 ~ ER + AS + SL + WE, 
+        \(fml, ...) {
+          res <- 
+            fml %>%
+            update(. ~ . + offset(log(z1))) %>%
+            glm(...) 
+          return(dev_r2(res))
+        },
+        data = Data_Frame, family = poisson())
+
+x1_exp_DA %>% 
+  pluck("General_Dominance") %>%
+  as_tibble(rownames = "Variable") %>%
+  left_join(x1_no_exp_DA %>% 
+              pluck("Standardized") %>%
+              as_tibble(rownames = "Variable"),
+            by = "Variable") %>%
+  set_names(c("Variable", "General Dominance", "Standardized")) %>%
+  gt(rowname_col = "Variable") %>%
+  tab_header("Table S28: Uncorrelated Exposure with Offset General Dominance Statistics") %>%
+  fmt_number(columns = 2:3, decimals = 4) %>%
+  tab_source_note(str_c("Overall Deviance R-square is ", 
+                        x1_reg_exp %>% dev_r2() %>% 
+                          sprintf("%5.4f", .), "."))
+
+x1_exp_DA %>% 
+  pluck("Conditional_Dominance") %>%
+  as_tibble(rownames = "Variable") %>%
+  set_names(c("Variable", str_c("Subset Size: ", 1:4))) %>%
+  gt(rowname_col = "Variable") %>%
+  tab_header("Table S29: Uncorrelated Exposure with Offset Conditional Dominance Statistics") %>%
+  fmt_number(columns = 2:5, decimals = 4)
+
+x1_exp_DA %>% 
+  pluck("Complete_Dominance") %>%
+  as_tibble(rownames = "Dominating Variable") %>%
+  mutate(
+    `Dominating Variable` = str_remove(`Dominating Variable`, "Dmnates_")
+  ) %>%
+  set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
+                                           c("ER", "AS", "SL", "WE")))) %>%
+  gt(rowname_col = "Dominating Variable") %>%
+  tab_header("Table S30: Uncorrelated Exposure with Offset Complete Dominance Statistics") %>%
+  sub_missing() %>% 
+  tab_stubhead("Dominating Variable")
+```
+
+## Combined Uncorrelated Exposure Model Reporting
+
+```{r x1-reg-table}
+x1_reg_no_exp_unstd %>% 
+  select(Parameter, Coefficient) %>%
+  mutate(IRR = exp(Coefficient)) %>%
+  left_join(
+    x1_reg_exp_unstd %>% 
+      select(Parameter, Coefficient) %>%
+      rename(Coefficient_e = "Coefficient") %>%
+      mutate(IRR_e = exp(Coefficient_e)),
+    by = "Parameter") %>%
+  gt(rowname_col = "Parameter") %>%
+  fmt_number(columns = 2:5, decimals = 4) %>%
+  tab_header("Table 6: Uncorrelated Exposure Poisson Regression") %>% 
+  cols_label(Coefficient_e = "Coefficient", IRR_e = "IRR") %>%
+  tab_spanner(columns = c("Coefficient", "IRR"), label = "No Offset") %>%
+  tab_spanner(columns = c("Coefficient_e", "IRR_e"), label = "Offset")
+
+#%T>%
+  print %>%
+  gtsave(filename = "uncorr_exp_coeff.tex", path = "./includes/")
+```
 
 ## Wrong Poisson C
 
@@ -992,32 +1215,32 @@ domir(Y_Poisson_Censored ~ IV1 + IV2 + IV3 + IV4,
       data = Data_Frame, family = poisson()) 
 ```
 
-# Zero-Inflation
+<!-- # Zero-Inflation -->
 
-```{r}
-zip_result <- 
-  zeroinfl(Y_ZIP ~ IV1 + IV2 + IV3 + IV4 | IV1 + IV2 + IV3 + IV4, 
-           data = Data_Frame)
+<!-- ```{r} -->
+<!-- zip_result <-  -->
+<!--   zeroinfl(Y_ZIP ~ IV1 + IV2 + IV3 + IV4 | IV1 + IV2 + IV3 + IV4,  -->
+<!--            data = Data_Frame) -->
 
-zip_result %>% 
-  parameters()
+<!-- zip_result %>%  -->
+<!--   parameters() -->
 
-zip_result %>%
-  standardise_parameters(method = "basic")
-```
+<!-- zip_result %>% -->
+<!--   standardise_parameters(method = "basic") -->
+<!-- ``` -->
 
-## IV DA
+<!-- ## IV DA -->
 
-```{r}
-domir(Y_ZIP ~ IV1 + IV2 + IV3 + IV4, 
-      \(fml,...) {
-        fml2 <- update(fml, . ~ .)
-        res <- zeroinfl(fml2, ...) 
-        ret <- r2(res)[[1]]
-      }
-      ,
-      data = Data_Frame) 
-```
+<!-- ```{r} -->
+<!-- domir(Y_ZIP ~ IV1 + IV2 + IV3 + IV4,  -->
+<!--       \(fml,...) { -->
+<!--         fml2 <- update(fml, . ~ .) -->
+<!--         res <- zeroinfl(fml2, ...)  -->
+<!--         ret <- r2(res)[[1]] -->
+<!--       } -->
+<!--       , -->
+<!--       data = Data_Frame)  -->
+<!-- ``` -->
 
 # Records and Reproducibility
 

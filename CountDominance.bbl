@@ -95,11 +95,6 @@ Naumovska, I., Zajac, E.~J. \& Lee, P.~M. (2021).
   the diffusion of reverse mergers.
 \newblock {\em Academy of Management Journal}, {\em 64(2)}, 409--434.
 
-\bibitem[\protect\citeauthoryear{{R Core Team}}{{R Core Team}}{2022}{}]{R}
-{R Core Team} (2022).
-\newblock {\em R: A Language and Environment for Statistical Computing}.
-\newblock Vienna, Austria: R Foundation for Statistical Computing.
-
 \bibitem[\protect\citeauthoryear{Soda, Mannucci \& Burt}{Soda
   et~al.}{2021}{}]{soda2021networks}
 Soda, G., Mannucci, P.~V. \& Burt, R.~S. (2021).
@@ -120,12 +115,5 @@ Tonidandel, S. \& LeBreton, J.~M. (2011).
 \newblock Relative importance analysis: A useful supplement to regression
   analysis.
 \newblock {\em Journal of Business and Psychology}, {\em 26(1)}, 1--9.
-
-\bibitem[\protect\citeauthoryear{Venables \& Ripley}{Venables \&
-  Ripley}{2002}{}]{MASS}
-Venables, W.~N. \& Ripley, B.~D. (2002).
-\newblock {\em Modern Applied Statistics with S\/} (Fourth Ed.).
-\newblock New York: Springer.
-\newblock ISBN 0-387-95457-0.
 
 \end{thebibliography}

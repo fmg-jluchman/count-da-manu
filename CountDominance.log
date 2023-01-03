@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022 - Flatpak) (preloaded format=pdflatex 2022.11.15)  27 DEC 2022 09:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022 - Flatpak) (preloaded format=pdflatex 2022.11.15)  2 JAN 2023 19:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -411,56 +411,52 @@ Overfull \hbox (37.73204pt too wide) in alignment at lines 216--232
  []
 
 
-Overfull \hbox (96.26543pt too wide) in alignment at lines 245--260
+Overfull \hbox (40.214pt too wide) in alignment at lines 245--260
  [] [] [] [] [] [] [] [] [] 
  []
 
 [8]
-Overfull \hbox (96.26543pt too wide) in alignment at lines 274--289
+Overfull \hbox (40.214pt too wide) in alignment at lines 276--291
  [] [] [] [] [] [] [] [] [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 291--292
+Underfull \hbox (badness 10000) in paragraph at lines 293--294
 
  []
 
 
-Overfull \hbox (10.00002pt too wide) in paragraph at lines 290--293
+Overfull \hbox (10.00002pt too wide) in paragraph at lines 292--295
 []$[]$ 
  []
 
 [9]
-Overfull \hbox (44.0314pt too wide) in alignment at lines 333--343
- [] [] [] [] [] [] [] [] 
+Overfull \vbox (3.27815pt too high) has occurred while \output is active []
+
+
+[10] [11]
+Overfull \hbox (25.73218pt too wide) detected at line 408
+\OML/cmm/m/it/10 SV[] \OT1/cmr/m/n/10 = 24[]\OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 6
+(\OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 ) + 2(\OML/cmm/m/it/10 R[] \OMS/cmsy/m/n/1
+0 ^^@ \OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 ) + 2(\OML/cmm/m/it/10 R[] \OMS/cmsy/
+m/n/10 ^^@ \OML/cmm/m/it/10 R[]\OT1/cmr/m/n/10 )+
  []
 
-[10] [11] [12]
-<includes/condit_gph.png, id=59, 433.62pt x 289.08pt>
+[12]
+<includes/condit_gph.png, id=60, 325.215pt x 216.81pt>
 File: includes/condit_gph.png Graphic file (type png)
 <use includes/condit_gph.png>
-Package pdftex.def Info: includes/condit_gph.png  used on input line 438.
-(pdftex.def)             Requested size: 433.61894pt x 289.07928pt.
-
-Overfull \hbox (98.61896pt too wide) in paragraph at lines 438--439
-[][] 
- []
-
-[13 <./includes/condit_gph.png>]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 46
-6.
-
-(/app/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-) [14] [15]
-(./CountDominance.bbl [16]) [17] (./CountDominance.aux) )
+Package pdftex.def Info: includes/condit_gph.png  used on input line 430.
+(pdftex.def)             Requested size: 325.2142pt x 216.80946pt.
+ [13 <./includes/condit_gph.png (PNG copy)>] [14] [15] [16]
+(./CountDominance.bbl [17]) [18] (./CountDominance.aux) )
 (\end occurred when \ifx on line 3 was incomplete) 
 Here is how much of TeX's memory you used:
- 5309 strings out of 478268
- 85558 string characters out of 5847839
- 380591 words of memory out of 5000000
- 23396 multiletter control sequences out of 15000+600000
- 534252 words of font info for 103 fonts, out of 8000000 for 9000
+ 5274 strings out of 478268
+ 85105 string characters out of 5847839
+ 380372 words of memory out of 5000000
+ 23366 multiletter control sequences out of 15000+600000
+ 533631 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  70i,9n,77p,1308b,480s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/app/texlive/texmf-dist/font
@@ -471,20 +467,20 @@ xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></app/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></app/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmmi7.pfb></app/texlive/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmmi8.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-10.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></app/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></app/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></app/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsy5.pfb></app/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy6.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y7.pfb></app/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></app/texliv
-e/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></app/texlive/texmf-dist/fonts
-/type1/urw/helvetic/uhvr8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/helveti
-c/uhvro8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></app/t
-exlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on CountDominance.pdf (17 pages, 303541 bytes).
+10.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></app/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></app/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr8.pfb></app/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb></app/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsy5.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+6.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></app/t
+exlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></app/texlive/texmf-dist/
+fonts/type1/urw/helvetic/uhvr8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/he
+lvetic/uhvro8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></
+app/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on CountDominance.pdf (18 pages, 413123 bytes).
 PDF statistics:
- 162 PDF objects out of 1000 (max. 8388607)
- 100 compressed objects within 1 object stream
+ 165 PDF objects out of 1000 (max. 8388607)
+ 102 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
