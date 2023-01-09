@@ -509,7 +509,7 @@
 	In this case, the number of customers is a nuisance factor that obscures the underlying probability of occurrence of the sought after event.
 	
 	CRMs can control for such nuisance/unequal exposure to the count generating mechanism using what is known as an \emph{offset} term.  
-	The offset term is usually assumed to be natural log transformed version of the exposure variable and enters into the CRM with a coefficient of 1.
+	The offset term is usually assumed to be a natural log transformed version of the exposure variable and enters into the CRM with a coefficient of 1.
 	The coefficient of 1 results in the count DV being transformed into a rate dependent on values of the exposure variable.
 	How the count DV is transformed into a rate with a coefficient of 1 follows from the following algebraic manipulations.
 	Imagine a simple case where an intercept only model is fit with an offset.
@@ -517,30 +517,135 @@
 	Recall that the offset term is the natural log of a variable, say, $o$.  
 	Applying the natural log and substituting $\ln o$ for $offset$, the prior equation can be written as $\ln y = \ln o + \beta$.
 	Re-arranging the $\ln o$ term results in $\ln y - \ln o = \beta$ which, given the properties of logarithms, is tantamount to $\ln \frac{y}{o} = \beta$.
-	Therefore, the inclusion of a natural log transformed exposure variable turns the count DV into a rate that depends on exposure as reflected by the offset term.
+	Therefore, the inclusion of a natural log transformed exposure variable turns the count DV into a rate that depends on exposure variable forced into the model as an offset term.
 	
-	The re-scaling by the offset term adjusts for differences in trials between observations and better reflects the underlying probability which is desirable for probability-based research questions with CRMs.
+	The re-scaling of the DV by the offset term adjusts for differences in Binomial trials between observations in a count DV and better reflects the underlying probability which is desirable for probability-based research questions with CRMs.
+	The re-scaling process also reduces the extent of unexplainable variation, or deviance, in the count DV as observations with high counts and high exposure values are pulled nearer those with low counts and low exposure values.	
+	As a result, inclusion of an offset term will affect $R^2_{DEV}$ values and DA statistics on which they are based.
+	It is also important to note that the relationships IVs have with the exposure variable can have a substantial impact on the estimated coefficients an DA statistics that can bias results and affect inference for probabilty-oriented count research questions.
 	
-	...ended here...
-	
-	
-	The key role of the offset term is to re-scale the intercept of the CRM to be a rate value given the offset term as opposed to a mean count value.
-	The re-scaling process reduces the extent of unexplainable variation, or deviance, in the count DV as observations with high counts and high exposure values are pulled nearer those with low counts and low exposure values.	
-	As a result, the offset term will affect $R^2_{DEV}$ values and DA statistics on which they are based.
-	An additional important condition to consider is a situation where the exposure variable is causally related to IVs in the model.	
-	
-	The sections below extend on the modeling above by describing the generation of two new variables that have different patterns of exposure to the count generating process. 
-	The modeling process above is then repeated on these new variables to demonstrate the effect that exposure variables have on both modeling as well as DA results.
+	The sections below extend the modeling discussed above by describing the generation of two new variables that have different patterns of exposure to the count generating process. 
+	The modeling process above is then repeated on these new variables to illustrate the effect that exposure variables, and modeling them as offset terms, have on both modeling and DA results.
 	
 	\subsection{Dominance Analysis with Offset Terms: Analytic Examples}
 	
-	The data generation ...
+	This section is an extension of the data analysis section above that discussed the PR and NBR modeling.
+	Here, an additional two Poisson distributed variables are created that have different levels of exposure to the count generating process and different relationships with the IVs.
 	
-\section{Multiple Equations}
+	The next section provides a description of the variables and how they were generated. Full details on data generation are available in the online supplement.
+	
+		\subsubsection{Data Generation}
 		
-	Finally, a common model applied to CDVs are \emph{zero inflated} models that are recommended for use in modeling CDVs in many situations (see Figure 3 of \cite{blevins2015count}).  Zero inflated models offer a great deal of flexibility in evaluating the processes
+	The data described in this section extended on the generated data produced for the analytic examples discussed previously.
+	These data were then generated with the intention to balance their "realism" with built-in properties that illustrate the nature of the exposure effects.
 	
-	The flexibility of zero inflated models comes at the cost of greater complexity when considering how to evaluate the contributions IVs have to prediction as there are two predictive equations, the count-producing model and the zero-producing model, which need not have the same set of predictors.  As such, it may be necessary to examine parameter estimate relative importance (PERI; \cite{luchman2020relative}) as opposed to independent variable relative importance (IVRI) when examining 
+	The data simulated in this section again focused on the 6,780 tailors generating stock jackets in a fortnight.
+	One key difference from the data above is that the period of time in which these data simulated was for two different local holidays.
+	The first stock jacket variable occurred for near a religious holiday (SJ\_RH) that is not celebrated in the same way by all tailors.
+	The observation of this religious holiday produced inconsistent leaves of absence, and thus less exposure, across tailors that were uncorrelated with their IV values.
+	
+	The second stock jacket variable occurred near a common time when tailors take voluntary holidays (SJ\_VH) that depends on tailor workload.
+	Because tailors who produce more jackets are more likely to have their workload sufficiently light to take the holiday, the IVs are inversely related to the likelihood of taking holiday time and thus exposure.
+	The sport jacket variable was otherwise identical to the previous version discussed above. 
+	The exposure days for religous holidays (RH) and voluntary holidays (VH) ranged from a minimum of 1 working day to 10 (i.e., all working days in a fortnight) and were uniformly distributed.
+	
+	The means, standard deviations, and correlations with the IVs and one another are reported in Table 6.
+	
+	\begin{longtable}{lrrrrrr}
+		\caption*{
+			{\large Table 6: Descriptive Statistics}
+		} \\ 
+		\toprule
+		&  &  Standard & \multicolumn{4}{c}{Correlations} \\ 
+		\cmidrule(lr){4-7}
+		Variable & Mean & Deviation & ER & AS & SL & WE \\ 
+		\midrule
+		SJ\_RH & $0.5447$ & $0.7575$ & $0.3455$ & $0.3247$ & $0.2773$ & $0.3174$ \\ 
+		RH & $5.5186$ & $2.8950$ & $-0.0108$ & $-0.0072$ & $-0.0156$ & $-0.0249$ \\ 
+		SJ\_VH & $0.4709$ & $0.6549$ & $0.2332$ & $0.2325$ & $0.1631$ & $0.2405$ \\ 
+		VH & $5.5301$ & $2.8897$ & $-0.3952$ & $-0.3450$ & $-0.3574$ & $-0.3252$ \\ 
+		\bottomrule
+	\end{longtable}
+	
+	Table 6 shows that the means and standard deviations for SJ\_RH and SJ\_VH were effectively identical but had shrunk from the value of SJ in Table 1.
+	This is because SJ implicitly assumes an exposure value of 10 for all observations. 
+	Because the exposures for SJ\_RH and SJ\_VH were both around 5.5 days, their means shrunk proportional to the number of days of exposure.
+	If 10 days produces a mean of 1, then 5.5 average days should produce an average of .55.
+	
+	The pattern of correlations between the SJ-exposed variables and their exposures with the IVs is also of note. 
+	In the case of both SJ\_RH and SJ\_VH, their correlations with the IVs are smaller than SJ as reported in Table 1. 
+	This is due to a restriction in variance from reduced exposure time to the count generating process for these variables.
+	Note also the differences between RH, the exposure variable for SJ\_RH, and VH, the exposure variable for SJ\_VH.
+	RH is, as expected, effectively uncorrelated with the IVs.
+	By contrast, VH shows strong, negative correlations with the IVs.
+	It is these negative correlations that produce an additional suppressing effect on the correlations between SH\_VH and the IVs as the restriction in variance due to exposure is inversely related to counts.
+	These negative correlations are also the reason SJ\_VH's mean is less than  the expected value of .55.
+	
+	In sections to come, the new SJ\_RH and SJ\_VH variables are analyzed in separate PR models.
+	Both models are evaluated with and with out the use of their exposure variable modeled as an offset.
+	The results below are subdivided by the type of exposure variable and begins with SJ\_RH, the uncorrelated exposure variable.
+	
+		\subsubsection{Uncorrelated Exposure Variable}
+		
+	The two models using SJ\_RH, one with and one without the exposure variable modeled with an offset, are reported in Table 7.
+	Only coefficient and IRR values are reported in Table 7 as their values are the focus of this discussion.
+		
+	\begin{longtable}{l|rrrr}
+		\caption*{
+			{\large Table 7: Uncorrelated Exposure Poisson Regression}
+		} \\ 
+		\toprule
+		\multicolumn{1}{l}{} & \multicolumn{2}{c}{No Offset} & \multicolumn{2}{c}{Offset} \\ 
+		\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+		\multicolumn{1}{l}{} & Coefficient & IRR & Coefficient & IRR \\ 
+		\midrule
+		Inter & $-0.8170$ & $0.4418$ & $-2.5276$ & $0.0799$ \\ 
+		ER & $0.2575$ & $1.2937$ & $0.2657$ & $1.3043$ \\ 
+		AS & $0.1521$ & $1.1643$ & $0.1502$ & $1.1621$ \\ 
+		SL & $0.1455$ & $1.1566$ & $0.1515$ & $1.1636$ \\ 
+		WE & $0.1271$ & $1.1355$ & $0.1347$ & $1.1442$ \\ 
+		\bottomrule
+	\end{longtable}
+	
+	Table 7 shows that the coefficients and IRR values for the models with and without an offset term are very similar to one another with the exception of their intercept value.
+	That the exposure variable does not noticeably affect the magnitude of the coefficients, despite the clear impact the exposure variable has on the SJ distribution's mean and variance relative to when there is no exposure effect, may come as a surprise.
+	Indeed, the exposure variable works in a similar way to random/uncorrelated error variance which tends to shrink the magnitude of coefficients in LRM.
+	The key difference between error variance in LRM and 'random' exposure variables in CRMs is the multiplicative nature of the CRM's coefficients.
+	For an LRM, the additional error variance dilutes what a 1 unit change in an IV does in terms of units of change to the DV.
+	For a CRM, the interpretation of the coefficient is that a 1 unit change in an IV does in terms of a percent change to the DV.
+	Here the random variation from an exposure variable would have affect change disproportionately across levels of the DV to shrink the magnitude of the coefficients in the same way as in an LRM.
+	
+	Compared to the coefficients, the intercept across both models does show substantial change with the addition of the offset term.
+	The difference across the offset and no offset models is to re-scale the mean value in a way that reflects the new interpretation of the DV when an offset is estimated.
+	The effect of the re-scaling is clearest when comparing IRR values across models.
+	The IRR value for the no offset model is .4418, which is an IV-adjusted mean based on the .5447 mean value for SJ\_RH.
+	The IRR value for the offsets model is .0799, which is an IV-adjusted rate based on the theoretical underlying rate of .1000.
+	This theoretical rate is obtained from for SJ which is what SJ\_RH would be equivalent to given no exposure differences.
+	In this case, SJ's mean is 1 and implied exposure is 10 working days.
+	The rate of counts for SJ is then $\frac{1}{10}$ or .1000.
+	Thus, the offset term has, as expected, re-scaled the DV from a count to a rate.
+	
+	It is also important to note that the coefficient values obtained for the IVs for both models in Table 7 are, again with the exception of the intercept, similar to the values obtained for the non-exposure affected SJ variable in Table 2.
+	Whereas the effects of differential exposure that are uncorrelated with the IVs has had a minimal effect on the estimated coefficients, the effect of uncorrelated differential exposure is more noticeable among the next set of results; the general dominance statistics for both models reported in Table 8.
+	
+	\begin{longtable}{l|rr}
+		\caption*{
+			{\large Table 8: Uncorrelated Exposure Poisson-based General Dominance Statistics}
+		} \\ 
+		\toprule
+		\multicolumn{1}{l}{} & No Offset & Offset \\ 
+		\midrule
+		ER & $0.0708$ & $0.0863$ \\ 
+		AS & $0.0541$ & $0.0641$ \\ 
+		SL & $0.0437$ & $0.0545$ \\ 
+		WE & $0.0551$ & $0.0698$ \\ 
+		\midrule
+		Overall & $0.2238$ & $0.2748$ \\ 
+		\bottomrule
+	\end{longtable}
+	
+	... ended here ...
+	
 	
 \section{Discussion}
 
