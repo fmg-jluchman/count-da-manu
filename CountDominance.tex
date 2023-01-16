@@ -1,4 +1,3 @@
-%\documentclass[10pt,a4paper]{article}
 \documentclass[ShortAfour,times,sageapa]{sagej}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -644,14 +643,151 @@
 		\bottomrule
 	\end{longtable}
 	
-	... ended here ...
+	Table 8 shows that the general dominance statistics for models with the offset term are all larger than their corresponding values without the offset term. 
+	However ostensibly different, the differences in magnitudes between these results is due to the differences across models in the magnitude of the $R^2_{DEV}$ from which each IV has been partitioned.
+	In fact, the relative proportions of the $R^2_{DEV}$ explained by each of IVs within each model is nearly identical.
+	For example, ER is responsible for approximately 31\% of the $R^2_{DEV}$ for both models (i.e., $\frac{.0708}{.2238} = .3164; \frac{.0863}{.2748} = .3140)$.
+	The reason for the notable difference in explained deviance across models is because of the offset term's role in reducing unexplained variation in the DV for probability-based research questions.
+	As was discussed previously, the exposure effect produces variation in the count DV that is unrelated to the focal probability of the occurrence of an event.
+	The inclusion of the offset term reduces this unexplained variation directly and obtains results that are closer to those that would be obtained if exposure was equal.
+	To this last point, note that the general dominance statistics and $R^2_{DEV}$ for the offset model are much closer to the results of SJ in Table 5 than are the no offset model's results.
 	
+	The section below moves to discussing the results of the use of exposure terms for the SJ\_VH variable in which the IVs are related to exposure.
+	As with the results for SJ\_RH, the models with and without offset terms are reported.
+	
+		\subsubsection{Correlated Exposure Variable}
+		
+	The no offset and offset models using SJ\_VH are reported in Table 9.
+	As before, only the coefficient and IRR values from each model are reported.
+	
+	\begin{longtable}{l|rrrr}
+		\caption*{
+			{\large Table 9: Correlated Exposure Poisson Regression}
+		} \\ 
+		\toprule
+		\multicolumn{1}{l}{} & \multicolumn{2}{c}{No Offset} & \multicolumn{2}{c}{Offset} \\ 
+		\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+		\multicolumn{1}{l}{} & Coefficient & IRR & Coefficient & IRR \\ 
+		\midrule
+		Inter & $-0.8512$ & $0.4269$ & $-2.5182$ & $0.0806$ \\ 
+		ER & $0.1638$ & $1.1780$ & $0.3054$ & $1.3572$ \\ 
+		AS & $0.1145$ & $1.1214$ & $0.1735$ & $1.1895$ \\ 
+		SL & $0.0642$ & $1.0663$ & $0.1668$ & $1.1815$ \\ 
+		WE & $0.1118$ & $1.1182$ & $0.1568$ & $1.1698$ \\ 
+		\bottomrule
+	\end{longtable}
+	
+	As compared to the uncorrelated exposure results in Table 7, the correlated exposure results show different patterns of results across no offset and offset models for all IVs.
+	Whereas the offset model looks relatively similar to the pattern of results from the no offset model in Table 7 as well as the results in Table 2, the no offset model shows a notable shrinkage in the magnitude of the coefficient and IRR for SL and AS relative to other results.
+	The magnitude of SL's coefficient across all models has been between AS and WE whereas for no offset model using SJ\_VH, SL's value is notably lower than all other coefficients.
+	AS' coefficient in the no offset model is also relatively smaller than in all other models to this point; nearly equal in value to WE's coefficient value.
+	... note sim of intercept...
+	
+	The no offset model results in Table 9 show the biasing effect of the correlated exposure variable on coefficient estimates when it is not modeled as an offset.
+	The notable change to coefficients due to the correlated exposure are likely to impact DA results as well.	
+	Table 10 below reports on the general dominance statistics derived from both models in Table 9.
+	
+	\begin{longtable}{l|rr}
+		\caption*{
+			{\large Table 10: Correlated Exposure Poisson-based General Dominance Statistics}
+		} \\ 
+		\toprule
+		\multicolumn{1}{l}{} & No Offset & Offset \\ 
+		\midrule
+		ER & $0.0307$ & $0.0889$ \\ 
+		AS & $0.0280$ & $0.0656$ \\ 
+		SL & $0.0127$ & $0.0512$ \\ 
+		WE & $0.0342$ & $0.0737$ \\ 
+		\midrule
+		Overall & $0.1055$ & $0.2795$ \\ 
+		\bottomrule
+	\end{longtable}
+
+	Table 10's results show, similar to those of Table 9, that the model including an offset is very similar to the results obtained from the offset model in Table 7 as well as SJ's results from Table 5.
+	Thus, the effect of a correlated exposure variable is relatively minimal on DA statistics given that the appropriate offset term is included in the model and reproduces results similar to a model not affected by differential exposure.
+	By contrast, the no offset model shows both a large reduction in the magnitude of the $R^2_{DEV}$ as well as a change in the rank orders of the IVs.
+	The reduction in the magnitude of the $R^2_{DEV}$ was produced, in part, for reasons similar to the uncorrelated exposure models as additional unexplainable variation was added to the count DV. 
+	In the case of the correlated exposure model, the extra variation in counts due to differential exposure also affected coefficient estimates as can be seen in Table 9.
+	In all cases, the estimated magnitude of the IV's coefficients, when affected by differential exposure that was correlated with the IVs, was smaller than expected relative to the models without such differential exposure.
+	The effect of correlated, differential exposure also changed the rank order of top two IVs.
+	In the no offset model, WE obtains the highest general dominance statistic value followed by ER.
+	The correlations in Table 6 reveal the probable reason for this effect in that WE both has the highest relationship with SJ\_VH as well as the lowest correlation with the exposure variable VH.
+	Hence, without the offset term adjustment, WE appears to have the strongest overall impact on SJ\_VH.
+	
+		\subsubsection{Section Summary}
+		
+	This section has discussed the effects of unequal exposure to a count generating process on both estimated coefficients as well as DA statistics.
+	When unequal exposure to the count generating process is uncorrelated with the IVs in the model, the effect of unequal exposure is minimal, mostly changing the total $R^2_{DEV}$ value obtained as well as the model intercept.
+	When unequal exposure to the count generating process is, at least in part, determined by the IVs in the model, the effect of unequal exposure is far more influential.
+	The results in Tables 9 and 10 show that correlated, unequal exposure can bias coefficient estimates as well as explained deviance metrics, as well as change the rank order of IV importance.
+	
+	Although unequal exposure can have notable biasing effects, such biases can be corrected for using the exposure variable as an offset term in the model.
+	Modeled offset terms do not necessarily recover the effect of each IV that would have been obtained had there been no unequal exposure, but do result in notable improvements to the model estimates and DA statistics over the alternative where an offset term is not modeled. 
+	These results then show the importance of considering whether it is possible that observed counts in a CRM could result from different probabilities of the event occurring, different exposure to the count generating probability, or both.
+	If it is the case that both factors might be producing counts and the focus of the research question is on the probability of events, it is important to attempt to model the exposure variable as an offset term to avoid potential bias in the results.
+
 	
 \section{Discussion}
 
-	The purpose of this manuscript was to ...
+	This manuscript provided a rationale for application of a specific methodology when using relative importance analysis with CRMs.
+	I argue that DA, as an extension of Shapley value decomposition, is an applicable method to CRMs and in addition provided a fit metric for use in the relative importance analysis of any CRM.
+	Specifically, I recommend the use of the deviance $R^2$ or $R^2_{DEV}$ as it is directly analogous to the explained variance $R^2$ or $R^2_{EXP}$.
+	Applying the $R^2_{DEV}$ to CRMs then follows directly from the application of $R^2_{EXP}$ to LRM.
 	
+	In addition, this manuscript provides a discussion of one specific data analytic consideration of particular relevance to CRMs; differential exposure to a count generating process.
+	In the discussion of this issue, I outline its relevance to the evaluation of count DV-based research questions and showed examples of how the concept affects both model coefficient estimates as well as DA statistics.
+	The section focusing on differential exposure also showed the extent to which modeling such differential exposure variables as offset terms could correct the biasing effect and produces more accurate estimates of parameters and DA statistics.
 	
+	In combination, the discussion of these issues supplies organizational scientists with the tools necessary to accurately evaluate IV relative importance as applied to a series of widely used CRMs. 
+	It is important when modeling count DVs that the recommendations provided by Blevins et al. \cite{blevins2015count} are considered first as their guidance can point a researcher to the appropriate model to apply to the data. 
+	This article seeks only to pick up where they left off and recommend practices for the evaluation of the selected CRM after estimation. 
+	
+	This article touched on many of the key aspects necessary for extending DA to CRM.
+	Below I discuss additional potential extensions of this work and future directions for the evaluation of IV importance in organizational science.
+	
+	\subsection{Extensions and Future Directions}
+	
+	PR in particular, but also NBR, are instances of the broader class of models known as generalized linear models \cite{mccullagh2019generalized}. 
+	Specifically, PR is a generalized linear model in the Poisson "family" with a natural lograrithm "link" \cite[See implementation of generalized linear models in the R software;]{R}.
+	In extending DA to CRMs, I also effectively make an argument for the applicability of DA using the $R^2_{DEV}$ to \emph{any} generalized linear model using the same approach.
+	That is, given that DA is applicable to CRMs, it is also applicable to any generalized linear model with a different distribution family or link function.
+	This is an important point to note as it is not necessary for researchers to hesitate in applying DA to generalized linear models that have not been explicitly discussed in the literature.
+	Indeed, because this article links Shapley value decompsition to DA and then provides a method for implementing DA with a specific generalized linear model (i.e., CRMs), it is trivial to extend the same approach to a generalized linear model with a different family and link function.
+	Therefore, DA with the $R^2_{DEV}$ approach is applicable to any generalized linear model.
+	
+	It is worth noting before moving on that the $R^2_{McFadden}$, recommended by Azen and Traxel \cite{azen2009using} for use in DA with logistic regression generalized linear model, is equivalent in computation to the $R^2_{DEV}$. 
+	This is because the form of the deviance computation for a logistic regression produces a value that is effectively the same as its log-likelihood
+	...more?...
+	As such, the perspective taken in the paper agrees with that of the 
+	... also note McFadden R2 is probably fine for CRMs?... 
+	
+	...ended here...
+	
+	...feasibility with additional IVs - RWA and Owen decomp...
+	
+	...PERI and zero-inflation...
+	
+	...multilevel or SEM GLMs...
+	
+	\subsection{Limitations}
+	
+	...simulated data...
+	
+	...no attempt to systematically determine effect of offset on bias; just an example...
+	
+	...what if no exposure variable avail?...
+	
+	...std error...
+	
+	\subsection{Conclusion}
+	
+	DA is a useful post-estimation methodology for determining the importance of IVs in statistical models such as CRMs.
+	This manuscript has provided argumentation for how and why DA could extend to CRMs, offered extensive examples focusing on the computation of DA statistics with simulated data, and provided recommendations for how to adjust a CRM-based DA when observations in the count DV may have different levels of exposure to the count generating process.
+	
+	In combination, the content of this manuscript will provide organizational and other behavioral scientists the necessary steps for determining the relative importance of IVs in CRMs they estimate.
+	It is also important to note that several software implementations that can accommodate CRMs are available in different software.
+	For instance, the \texttt{domin} package in Stata \cite{luchman2021determining} as well as the \texttt{domir} package in R \cite{luchman2022package} are both capable of using CRMs with $R^2_{DEV}$. 
+	Thus, combined with this article's recommendations, all the necessary tools for the DA of CRMs are available to researchers to better understand their count DV-based models.
 
 
 \bibliography{CountDominance.bib}

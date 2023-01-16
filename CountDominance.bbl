@@ -54,13 +54,9 @@ Johnson, J.~W. \& LeBreton, J.~M. (2004).
   research.
 \newblock {\em Organizational research methods}, {\em 7(3)}, 238--257.
 
-\bibitem[\protect\citeauthoryear{Luchman, Lei \& Kaplan}{Luchman
-  et~al.}{2020}{}]{luchman2020relative}
-Luchman, J., Lei, X. \& Kaplan, S. (2020).
-\newblock Relative importance analysis with multivariate models: Shifting the
-  focus from independent variables to parameter estimates.
-\newblock {\em Journal of Applied Structural Equation Modeling}, {\em 4(2)},
-  1--20.
+\bibitem[\protect\citeauthoryear{Luchman}{Luchman}{2022}{}]{luchman2022package}
+Luchman, J. (2022).
+\newblock Package ‘domir’.
 
 \bibitem[\protect\citeauthoryear{Luchman}{Luchman}{2014}{}]{luchman2014relative}
 Luchman, J.~N. (2014).
@@ -94,6 +90,11 @@ Naumovska, I., Zajac, E.~J. \& Lee, P.~M. (2021).
 \newblock Strength and weakness in numbers? unpacking the role of prevalence in
   the diffusion of reverse mergers.
 \newblock {\em Academy of Management Journal}, {\em 64(2)}, 409--434.
+
+\bibitem[\protect\citeauthoryear{{R Core Team}}{{R Core Team}}{2022}{}]{R}
+{R Core Team} (2022).
+\newblock {\em R: A Language and Environment for Statistical Computing}.
+\newblock Vienna, Austria: R Foundation for Statistical Computing.
 
 \bibitem[\protect\citeauthoryear{Soda, Mannucci \& Burt}{Soda
   et~al.}{2021}{}]{soda2021networks}

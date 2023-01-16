@@ -1151,7 +1151,7 @@ SJ_RH_exp_DA <-
 SJ_RH_exp_DA %>% 
   pluck("General_Dominance") %>%
   as_tibble(rownames = "Variable") %>%
-  left_join(SJ_RH_no_exp_DA %>% 
+  left_join(SJ_RH_exp_DA %>% 
               pluck("Standardized") %>%
               as_tibble(rownames = "Variable"),
             by = "Variable") %>%
@@ -1239,38 +1239,209 @@ SJ_RH_no_exp_DA %>%
   gtsave(filename = "uncorr_exp_da.tex", path = "./includes/")
 ```
 
+## Correlated Exposure without Offset
 
+### Obtain Modeling Results
 
-<!-- # Zero-Inflation -->
+```{r SJ_VH-reg-no-exp}
+SJ_VH_reg_no_exp <- 
+  glm(SJ_VH ~ ER + AS + SL + WE, 
+      data = Data_Frame, 
+      family = poisson())
 
-<!-- ```{r} -->
-<!-- zip_result <-  -->
-<!--   zeroinfl(Y_ZIP ~ IV1 + IV2 + IV3 + IV4 | IV1 + IV2 + IV3 + IV4,  -->
-<!--            data = Data_Frame) -->
+SJ_VH_reg_no_exp_unstd <- 
+  SJ_VH_reg_no_exp %>% 
+  parameters() 
 
-<!-- zip_result %>%  -->
-<!--   parameters() -->
+SJ_VH_reg_no_exp_unstd %>%
+  select(-df_error, -CI) %>%
+  rename(Low = "CI_low", High = "CI_high") %>%
+  gt(rowname_col = "Parameter") %>%
+  fmt_number(columns = 2:7, decimals = 4) %>%
+  tab_spanner(columns = c(Low, High), label = "Confidence Interval") %>%
+  tab_header("Table S31: Correlated Exposure without Offset")
+```
 
-<!-- zip_result %>% -->
-<!--   standardise_parameters(method = "basic") -->
-<!-- ``` -->
+### Dominance Analysis Results
 
-<!-- ## IV DA -->
+```{r SJ_VH-DA-no-exp}
+SJ_VH_no_exp_DA <-
+  domir(SJ_VH ~ ER + AS + SL + WE, 
+        \(fml, ...) {
+          res <- 
+            glm(fml, ...) 
+          return(dev_r2(res))
+        },
+        data = Data_Frame, family = poisson())
 
-<!-- ```{r} -->
-<!-- domir(Y_ZIP ~ IV1 + IV2 + IV3 + IV4,  -->
-<!--       \(fml,...) { -->
-<!--         fml2 <- update(fml, . ~ .) -->
-<!--         res <- zeroinfl(fml2, ...)  -->
-<!--         ret <- r2(res)[[1]] -->
-<!--       } -->
-<!--       , -->
-<!--       data = Data_Frame)  -->
-<!-- ``` -->
+SJ_VH_no_exp_DA %>% 
+  pluck("General_Dominance") %>%
+  as_tibble(rownames = "Variable") %>%
+  left_join(SJ_VH_no_exp_DA %>% 
+              pluck("Standardized") %>%
+              as_tibble(rownames = "Variable"),
+            by = "Variable") %>%
+  set_names(c("Variable", "General Dominance", "Standardized")) %>%
+  gt(rowname_col = "Variable") %>%
+  tab_header("Table S32: Correlated Exposure with No Offset General Dominance Statistics") %>%
+  fmt_number(columns = 2:3, decimals = 4) %>%
+  tab_source_note(str_c("Overall Deviance R-square is ", 
+                        SJ_VH_reg_no_exp %>% dev_r2() %>% 
+                          sprintf("%5.4f", .), "."))
+
+SJ_VH_no_exp_DA %>% 
+  pluck("Conditional_Dominance") %>%
+  as_tibble(rownames = "Variable") %>%
+  set_names(c("Variable", str_c("Subset Size: ", 1:4))) %>%
+  gt(rowname_col = "Variable") %>%
+  tab_header("Table S33: Correlated Exposure with No Offset Conditional Dominance Statistics") %>%
+  fmt_number(columns = 2:5, decimals = 4)
+
+SJ_VH_no_exp_DA %>% 
+  pluck("Complete_Dominance") %>%
+  as_tibble(rownames = "Dominating Variable") %>%
+  mutate(
+    `Dominating Variable` = str_remove(`Dominating Variable`, "Dmnates_")
+  ) %>%
+  set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
+                                           c("ER", "AS", "SL", "WE")))) %>%
+  gt(rowname_col = "Dominating Variable") %>%
+  tab_header("Table S34: Correlated Exposure with No Offset Complete Dominance Statistics") %>%
+  sub_missing() %>% 
+  tab_stubhead("Dominating Variable")
+```
+
+## Correlated Exposure with Offset
+
+### Obtain Modeling Results
+
+```{r SJ_VH-reg-exp}
+SJ_VH_reg_exp <- 
+  glm(SJ_VH ~ ER + AS + SL + WE + offset(log(VH)), 
+      data = Data_Frame, 
+      family = poisson())
+
+SJ_VH_reg_exp_unstd <- 
+  SJ_VH_reg_exp %>% 
+  parameters() 
+
+SJ_VH_reg_exp_unstd %>%
+  select(-df_error, -CI) %>%
+  rename(Low = "CI_low", High = "CI_high") %>%
+  gt(rowname_col = "Parameter") %>%
+  fmt_number(columns = 2:7, decimals = 4) %>%
+  tab_spanner(columns = c(Low, High), label = "Confidence Interval") %>%
+  tab_header("Table S35: Correlated Exposure with Offset")
+```
+
+### Dominance Analysis Results
+
+```{r SJ_VH-DA-exp}
+SJ_VH_exp_DA <-
+  domir(SJ_VH ~ ER + AS + SL + WE, 
+        \(fml, ...) {
+          res <- 
+            fml %>%
+            update(. ~ . + offset(log(VH))) %>%
+            glm(...) 
+          return(dev_r2(res))
+        },
+        data = Data_Frame, family = poisson())
+
+SJ_VH_exp_DA %>% 
+  pluck("General_Dominance") %>%
+  as_tibble(rownames = "Variable") %>%
+  left_join(SJ_VH_exp_DA %>% 
+              pluck("Standardized") %>%
+              as_tibble(rownames = "Variable"),
+            by = "Variable") %>%
+  set_names(c("Variable", "General Dominance", "Standardized")) %>%
+  gt(rowname_col = "Variable") %>%
+  tab_header("Table S36: Correlated Exposure with Offset General Dominance Statistics") %>%
+  fmt_number(columns = 2:3, decimals = 4) %>%
+  tab_source_note(str_c("Overall Deviance R-square is ", 
+                        SJ_VH_reg_exp %>% dev_r2() %>% 
+                          sprintf("%5.4f", .), "."))
+
+SJ_VH_exp_DA %>% 
+  pluck("Conditional_Dominance") %>%
+  as_tibble(rownames = "Variable") %>%
+  set_names(c("Variable", str_c("Subset Size: ", 1:4))) %>%
+  gt(rowname_col = "Variable") %>%
+  tab_header("Table S37: Correlated Exposure with Offset Conditional Dominance Statistics") %>%
+  fmt_number(columns = 2:5, decimals = 4)
+
+SJ_VH_exp_DA %>% 
+  pluck("Complete_Dominance") %>%
+  as_tibble(rownames = "Dominating Variable") %>%
+  mutate(
+    `Dominating Variable` = str_remove(`Dominating Variable`, "Dmnates_")
+  ) %>%
+  set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
+                                           c("ER", "AS", "SL", "WE")))) %>%
+  gt(rowname_col = "Dominating Variable") %>%
+  tab_header("Table S38: Correlated Exposure with Offset Complete Dominance Statistics") %>%
+  sub_missing() %>% 
+  tab_stubhead("Dominating Variable")
+```
+
+## Combined Correlated Exposure Model Reporting
+
+```{r SJ_VH-reg-table}
+SJ_VH_reg_no_exp_unstd %>% 
+  select(Parameter, Coefficient) %>%
+  mutate(IRR = exp(Coefficient)) %>%
+  left_join(
+    SJ_VH_reg_exp_unstd %>% 
+      select(Parameter, Coefficient) %>%
+      rename(Coefficient_e = "Coefficient") %>%
+      mutate(IRR_e = exp(Coefficient_e)),
+    by = "Parameter") %>%
+  gt(rowname_col = "Parameter") %>%
+  fmt_number(columns = 2:5, decimals = 4) %>%
+  tab_header("Table 9: Correlated Exposure Poisson Regression") %>% 
+  cols_label(Coefficient_e = "Coefficient", IRR_e = "IRR") %>%
+  tab_spanner(columns = c("Coefficient", "IRR"), label = "No Offset") %>%
+  tab_spanner(columns = c("Coefficient_e", "IRR_e"), label = "Offset") %T>%
+  print %>%
+  gtsave(filename = "corr_exp_coeff.tex", path = "./includes/")
+```
+
+## Combined Correlated Exposure Dominance Statistic Reporting
+
+```{r SJ_VH-DA-table}
+SJ_VH_no_exp_DA %>% 
+  pluck("General_Dominance") %>%
+  as_tibble(rownames = "Parameter") %>%
+  bind_rows(
+    tibble("Parameter" = "Overall", 
+           value = SJ_VH_no_exp_DA %>%
+             pluck("General_Dominance") %>%
+             sum)
+  ) %>%
+  left_join(
+    SJ_VH_exp_DA %>% 
+      pluck("General_Dominance") %>%
+      as_tibble(rownames = "Parameter") %>%
+      bind_rows(
+        tibble("Parameter" = "Overall", 
+               value = SJ_VH_exp_DA %>%
+                 pluck("General_Dominance") %>%
+                 sum)
+      ) %>% 
+      rename(value_e = "value"),
+    by = "Parameter") %>%
+  gt(rowname_col = "Parameter") %>%
+  fmt_number(columns = 2:3, decimals = 4) %>%
+  tab_header("Table 10: Correlated Exposure Poisson-based General Dominance Statistics") %>% 
+  cols_label(value = "No Offset", value_e = "Offset") %T>%
+  print %>%
+  gtsave(filename = "corr_exp_da.tex", path = "./includes/")
+```
 
 # Records and Reproducibility
 
-```{r}
+```{r records-repro}
 sessionInfo()
 ```
 
