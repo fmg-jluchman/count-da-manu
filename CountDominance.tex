@@ -756,20 +756,29 @@
 	Therefore, DA with the $R^2_{DEV}$ approach is applicable to any generalized linear model.
 	
 	It is worth noting before moving on that the $R^2_{McFadden}$, recommended by Azen and Traxel \cite{azen2009using} for use in DA with logistic regression generalized linear model, is equivalent in computation to the $R^2_{DEV}$. 
-	This is because the form of the deviance computation for a logistic regression produces a value that is effectively the same as its log-likelihood
-	...more?...
-	As such, the perspective taken in the paper agrees with that of the 
-	... also note McFadden R2 is probably fine for CRMs?... 
+	This is because the form of the deviance computation for a logistic regression produces a value that is  a scalar multiple of its log-likelihood. 
+	As such, the perspective taken in the paper agrees with that of the past research in that recommends the use of $R^2_{McFadden}$. 
+	Additionally, Cameron and Windmeijer \cite{cameron1996r} note that the $R^2_{McFadden}$ differs from the $R^2_{DEV}$ by a scalar multiple and is valid in application to CRMs and, by implication, the computation of DA statistics using CRMs.
 	
-	...ended here...
+	Shapley value decomposition and, by extension, DA are well-known to be computationally expensive methodologies that require averaging of contributions by IVs to a model over a potentially extremely large pool of values (cite).
+	For example, a DA with 20 IVs would require $2^{20} = 1,048,576$ different sub-models in order to collect fit statistics associated with all possible combinations of IVs and compute general dominance statistics.
+	Whereas modern computing power could feasibly accommodate around one million models in a reasonable amount of time, adding additional IVs beyond 20 continues to grow the number of required models geometrically. 
+	An additional 10 IVs results in $2^{30} = 1,073,741,824$ or over one billion model required to obtain dominance statistics; even if each CRM took $\frac{1}{100}$ of a second to estimate, this many models would take nearly 4 months to complete on a single machine.
+	
+	Many approaches have been developed to approximate Shapley values/DA that are far less computationally expensive. 
+	Relative weights analysis (cite) is a commonly applied alternative to DA that approximates the averaging process between all possible models using singular value decomposition.
+	Relative weights analysis has shown some promise in past research (cites), and has been extended to one generalized linear model in published research (i.e., logit regression, cite) but has been subject to sharp criticism (cites) and is not among commonly recommended methods for relative importance (cites). 
+	
+	... ended here...
+	
 	
 	...feasibility with additional IVs - RWA and Owen decomp...
 	
 	...PERI and zero-inflation...
 	
-	...multilevel or SEM GLMs...
-	
 	\subsection{Limitations}
+	
+	This work provides a justification for the DA of CRMs and data analytic examples using simulated data
 	
 	...simulated data...
 	
