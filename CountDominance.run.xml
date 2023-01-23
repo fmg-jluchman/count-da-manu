@@ -78,5 +78,8 @@
     <requires type="dynamic">
       <file>CountDominance.bcf</file>
     </requires>
+    <requires type="editable">
+      <file>CountDominance.bib</file>
+    </requires>
   </external>
 </requests>

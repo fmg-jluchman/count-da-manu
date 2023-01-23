@@ -5,6 +5,8 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{longtable}
+%\usepackage{biblatex}
+%\addbibresource{CountDominance.bib}
 
 
 \begin{document}
@@ -766,27 +768,45 @@
 	An additional 10 IVs results in $2^{30} = 1,073,741,824$ or over one billion model required to obtain dominance statistics; even if each CRM took $\frac{1}{100}$ of a second to estimate, this many models would take nearly 4 months to complete on a single machine.
 	
 	Many approaches have been developed to approximate Shapley values/DA that are far less computationally expensive. 
-	Relative weights analysis (cite) is a commonly applied alternative to DA that approximates the averaging process between all possible models using singular value decomposition.
-	Relative weights analysis has shown some promise in past research (cites), and has been extended to one generalized linear model in published research (i.e., logit regression, cite) but has been subject to sharp criticism (cites) and is not among commonly recommended methods for relative importance (cites). 
+	Relative weights analysis \cite{johnson2000heuristic} is a commonly applied alternative to DA that approximates the averaging process between all possible models using singular value decomposition.
+	Relative weights analysis has shown some promise in past research \cite{lebreton2007multidimensional}, and has been extended to one generalized linear model in published research \cite[i.e., logit regression]{tonidandel2011relative} but has been subject to sharp criticism \cite{thomas2014johnson} and is not among commonly recommended methods for relative importance of linear models \cite{gromping2007estimators}. 
+		
+	Shapley values have also grown in use among methodologists seeking an approach that can provide "interpretable machine learning" results \cite[see]{molnar2020interpretable}.
+	In many cases, such efforts apply Shapley values, or approximations to them, that decompose predicted values for each observation in the data \cite[e.g., ]{lundberg2020local}.
+	Such Shapley decompositions of predicted values can be used, when cross-referenced with a observations' IV values, that, in the aggregate, can be used to get a sense for the nature of the effect of that IV on the DV much like a coefficient in a CRM.
+	Machine learning models often have a great number of IVs which makes the "exact" computation of Shapley values infeasible.
+	Methods to facilitate Shapley value computations in the literature have included sampling permutations \cite{castro2009polynomial} and normal approximations under specific assumptions \cite{fatima2008linear}, among others.
+	In application to machine learning methods, Shapley value approximations have often use a weighted-least squares approximation with sampling and adjustments for dependence \cite[see]{sellereite2020shapr,aas2021explaining}. 
+	Such approximation methods may be useful in application to CRM and other models as an alternative estimator of the DA statistics.
 	
-	... ended here...
-	
-	
-	...feasibility with additional IVs - RWA and Owen decomp...
-	
-	...PERI and zero-inflation...
+	Finally, to the knowledge of the author, there has been relatively little work has considered the value in applying Owen decomposition \cite[e.g.,]{huettner2012axiomatic} to DA broadly.
+	Owen decomposition differs from Shapley in that a grouping structure is applied to IVs in which groups of IVs "negotiate" values jointly between groups but subsequently also "negotiate" values within their group as well. 
+	The result is that each IV obtains a component of the fit metric, and the Owen values are a full decomposition of the fit metric, but a large number of sub-models can be eliminated. 
+	For example, by grouping 8 IVs into 4 groups of 2, the number of sub-models needing estimation goes from $2^8 = 256$ to $2^4 + 2^2*4 = 32$---an eight-fold reduction in the number of sub-models needing estimation.
+	An approach such as this can directly and substantially reduce the size of the pool of sub-models to estimate and retains feasibility for computing dominance designations such as complete dominance.	
 	
 	\subsection{Limitations}
 	
-	This work provides a justification for the DA of CRMs and data analytic examples using simulated data
+	This work provides a justification for the DA of CRMs and data analytic examples using simulated data.
+	The data simulated in this manuscript were designed to have specific properties useful for illustrating key DA concepts in application to CRMs.
+	The use of simulated data is not, in and of itself, a limitation.
+	I do acknowledge that using simulated data does add additional complexity to following along with the methodology in the online supplement.
 	
-	...simulated data...
+	In addition, this manuscript provides two examples of how omitting a relevant offset term can bias DA statistics and designations.
+	The examples provided show how the omission of an offset term affects DA statistics in ways different from, and arguably more serious than, estimated model coefficients.
+	This manuscript makes no attempt to quantify or characterize the extent of bias that can occur when omitting an offset term as doing so is out of scope.
+	The discussion of offset terms was intended to raise awareness of it an issue that can affect DA statistic magnitudes and designations and that mostly affects CRMs.
+	The an extensive evaluation of the extent to which exposure variables affects dominance statistics could be taken on in a way similar to Braun, Converse, and Oswald's \cite{braun2019accuracy} evaluation of measurement reliability on dominance statistics in LRM.
 	
 	...no attempt to systematically determine effect of offset on bias; just an example...
+	
+	... ended here ...
 	
 	...what if no exposure variable avail?...
 	
 	...std error...
+	
+	...PERI and zero-inflation...
 	
 	\subsection{Conclusion}
 	
@@ -801,5 +821,6 @@
 
 \bibliography{CountDominance.bib}
 \bibliographystyle{mslapa}
+%\printbibliography
 	
 \end{document}

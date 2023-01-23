@@ -1,5 +1,12 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\citeauthoryear{Aas, Jullum \& L{\o}land}{Aas
+  et~al.}{2021}{}]{aas2021explaining}
+Aas, K., Jullum, M. \& L{\o}land, A. (2021).
+\newblock Explaining individual predictions when features are dependent: More
+  accurate approximations to shapley values.
+\newblock {\em Artificial Intelligence}, {\em 298}, 103502.
+
 \bibitem[\protect\citeauthoryear{Azen \& Budescu}{Azen \&
   Budescu}{2003}{}]{azen2003dominance}
 Azen, R. \& Budescu, D.~V. (2003).
@@ -27,6 +34,14 @@ Blevins, D.~P., Tsang, E.~W. \& Spain, S.~M. (2015).
 \newblock Count-based research in management: Suggestions for improvement.
 \newblock {\em Organizational Research Methods}, {\em 18(1)}, 47--69.
 
+\bibitem[\protect\citeauthoryear{Braun, Converse \& Oswald}{Braun
+  et~al.}{2019}{}]{braun2019accuracy}
+Braun, M.~T., Converse, P.~D. \& Oswald, F.~L. (2019).
+\newblock The accuracy of dominance analysis as a metric to assess relative
+  importance: The joint impact of sampling error variance and measurement
+  unreliability.
+\newblock {\em Journal of Applied Psychology}, {\em 104(4)}, 593.
+
 \bibitem[\protect\citeauthoryear{Cameron \& Windmeijer}{Cameron \&
   Windmeijer}{1996}{}]{cameron1996r}
 Cameron, A.~C. \& Windmeijer, F.~A. (1996).
@@ -34,6 +49,18 @@ Cameron, A.~C. \& Windmeijer, F.~A. (1996).
   to health-care utilization.
 \newblock {\em Journal of Business \& Economic Statistics}, {\em 14(2)},
   209--220.
+
+\bibitem[\protect\citeauthoryear{Castro, G{\'o}mez \& Tejada}{Castro
+  et~al.}{2009}{}]{castro2009polynomial}
+Castro, J., G{\'o}mez, D. \& Tejada, J. (2009).
+\newblock Polynomial calculation of the shapley value based on sampling.
+\newblock {\em Computers \& Operations Research}, {\em 36(5)}, 1726--1730.
+
+\bibitem[\protect\citeauthoryear{Fatima, Wooldridge \& Jennings}{Fatima
+  et~al.}{2008}{}]{fatima2008linear}
+Fatima, S.~S., Wooldridge, M. \& Jennings, N.~R. (2008).
+\newblock A linear approximation method for the shapley value.
+\newblock {\em Artificial Intelligence}, {\em 172(14)}, 1673--1699.
 
 \bibitem[\protect\citeauthoryear{Glerum, Joseph, McKenny \& Fritzsche}{Glerum
   et~al.}{2021}{}]{glerum2021trainer}
@@ -47,12 +74,33 @@ Gr{\"o}mping, U. (2007).
   variance decomposition.
 \newblock {\em The American Statistician}, {\em 61(2)}, 139--147.
 
+\bibitem[\protect\citeauthoryear{Huettner \& Sunder}{Huettner \&
+  Sunder}{2012}{}]{huettner2012axiomatic}
+Huettner, F. \& Sunder, M. (2012).
+\newblock Axiomatic arguments for decomposing goodness of fit according to
+  shapley and owen values.
+\newblock {\em Electronic Journal of Statistics}, {\em 6}, 1239--1250.
+
+\bibitem[\protect\citeauthoryear{Johnson}{Johnson}{2000}{}]{johnson2000heuristic}
+Johnson, J.~W. (2000).
+\newblock A heuristic method for estimating the relative weight of predictor
+  variables in multiple regression.
+\newblock {\em Multivariate behavioral research}, {\em 35(1)}, 1--19.
+
 \bibitem[\protect\citeauthoryear{Johnson \& LeBreton}{Johnson \&
   LeBreton}{2004}{}]{johnson2004history}
 Johnson, J.~W. \& LeBreton, J.~M. (2004).
 \newblock History and use of relative importance indices in organizational
   research.
 \newblock {\em Organizational research methods}, {\em 7(3)}, 238--257.
+
+\bibitem[\protect\citeauthoryear{LeBreton, Hargis, Griepentrog, Oswald \&
+  Ployhart}{LeBreton et~al.}{2007}{}]{lebreton2007multidimensional}
+LeBreton, J.~M., Hargis, M.~B., Griepentrog, B., Oswald, F.~L. \& Ployhart,
+  R.~E. (2007).
+\newblock A multidimensional approach for evaluating variables in
+  organizational research and practice.
+\newblock {\em Personnel Psychology}, {\em 60(2)}, 475--498.
 
 \bibitem[\protect\citeauthoryear{Luchman}{Luchman}{2022}{}]{luchman2022package}
 Luchman, J. (2022).
@@ -84,6 +132,11 @@ McCullagh, P. \& Nelder, J.~A. (2019).
 \newblock {\em Generalized linear models}.
 \newblock Routledge.
 
+\bibitem[\protect\citeauthoryear{Molnar}{Molnar}{2020}{}]{molnar2020interpretable}
+Molnar, C. (2020).
+\newblock {\em Interpretable machine learning}.
+\newblock Lulu. com.
+
 \bibitem[\protect\citeauthoryear{Naumovska, Zajac \& Lee}{Naumovska
   et~al.}{2021}{}]{naumovska2021strength}
 Naumovska, I., Zajac, E.~J. \& Lee, P.~M. (2021).
@@ -95,6 +148,13 @@ Naumovska, I., Zajac, E.~J. \& Lee, P.~M. (2021).
 {R Core Team} (2022).
 \newblock {\em R: A Language and Environment for Statistical Computing}.
 \newblock Vienna, Austria: R Foundation for Statistical Computing.
+
+\bibitem[\protect\citeauthoryear{Sellereite \& Jullum}{Sellereite \&
+  Jullum}{2020}{}]{sellereite2020shapr}
+Sellereite, N. \& Jullum, M. (2020).
+\newblock shapr: An r-package for explaining machine learning models with
+  dependence-aware shapley values.
+\newblock {\em The Journal of Open Source Software}, {\em 5(46)}, 2027.
 
 \bibitem[\protect\citeauthoryear{Soda, Mannucci \& Burt}{Soda
   et~al.}{2021}{}]{soda2021networks}
@@ -109,6 +169,13 @@ Somaya, D., Williamson, I.~O. \& Lorinkova, N. (2008).
 \newblock Gone but not lost: The different performance impacts of employee
   mobility between cooperators versus competitors.
 \newblock {\em Academy of Management Journal}, {\em 51(5)}, 936--953.
+
+\bibitem[\protect\citeauthoryear{Thomas, Zumbo, Kwan \& Schweitzer}{Thomas
+  et~al.}{2014}{}]{thomas2014johnson}
+Thomas, D.~R., Zumbo, B.~D., Kwan, E. \& Schweitzer, L. (2014).
+\newblock On johnson's (2000) relative weights method for assessing variable
+  importance: A reanalysis.
+\newblock {\em Multivariate behavioral research}, {\em 49(4)}, 329--338.
 
 \bibitem[\protect\citeauthoryear{Tonidandel \& LeBreton}{Tonidandel \&
   LeBreton}{2011}{}]{tonidandel2011relative}

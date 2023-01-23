@@ -2346,23 +2346,52 @@
   <!-- CITATION DATA -->
   <!-- SECTION 0 -->
   <bcf:bibdata section="0">
+    <bcf:datasource type="file" datatype="bibtex" glob="false">CountDominance.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1" intorder="1">bettinazzi2021stakeholder</bcf:citekey>
-    <bcf:citekey order="1" intorder="2">soda2021networks</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">tonidandel2011relative</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">luchman2021determining</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">azen2009using</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">luchman2014relative</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">blevins2015count</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">cameron1996r</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">blevins2015count</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">cameron1996r</bcf:citekey>
+    <bcf:citekey order="1" intorder="2">naumovska2021strength</bcf:citekey>
+    <bcf:citekey order="1" intorder="3">soda2021networks</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">blevins2015count</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">cameron1996r</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">naumovska2021strength</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">bettinazzi2021stakeholder</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">glerum2021trainer</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">somaya2008gone</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">glerum2021trainer</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">tonidandel2011relative</bcf:citekey>
     <bcf:citekey order="10" intorder="1">azen2009using</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">R</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">MASS</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">blevins2015count</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">luchman2020relative</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">luchman2014relative</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">azen2003dominance</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">gromping2007estimators</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">luchman2021determining</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">blevins2015count</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">johnson2004history</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">lundberg2020local</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">mccullagh2019generalized</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">cameron1996r</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">cameron1996r</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">johnson2004history</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">blevins2015count</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">mccullagh2019generalized</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">R</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">azen2009using</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">cameron1996r</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">johnson2000heuristic</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">lebreton2007multidimensional</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">tonidandel2011relative</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">thomas2014johnson</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">gromping2007estimators</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">molnar2020interpretable</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">lundberg2020local</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">castro2009polynomial</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">fatima2008linear</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">sellereite2020shapr</bcf:citekey>
+    <bcf:citekey order="36" intorder="2">aas2021explaining</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">huettner2012axiomatic</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">braun2019accuracy</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">luchman2021determining</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">luchman2022package</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
@@ -2394,4 +2423,13 @@
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="nty/global//global/global"
+                type="entry"
+                sortingtemplatename="nty"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global">
+  </bcf:datalist>
 </bcf:controlfile>
