@@ -3,47 +3,46 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: CountDominance.aux
 The style file: mslapa.bst
 Database file #1: CountDominance.bib
-Warning--I didn't find a database entry for ""
 Warning--empty journal in luchman2022package
-You've used 28 entries,
+You've used 34 entries,
             2808 wiz_defined-function locations,
-            780 strings with 9851 characters,
-and the built_in function-call counts, 14452 in all, are:
-= -- 1392
-> -- 739
-< -- 16
-+ -- 300
-- -- 288
-* -- 1307
-:= -- 2797
-add.period$ -- 83
-call.type$ -- 28
-change.case$ -- 309
-chr.to.int$ -- 28
-cite$ -- 29
-duplicate$ -- 417
-empty$ -- 894
-format.name$ -- 334
-if$ -- 2632
+            818 strings with 10942 characters,
+and the built_in function-call counts, 17495 in all, are:
+= -- 1693
+> -- 875
+< -- 22
++ -- 356
+- -- 340
+* -- 1571
+:= -- 3368
+add.period$ -- 101
+call.type$ -- 34
+change.case$ -- 371
+chr.to.int$ -- 34
+cite$ -- 35
+duplicate$ -- 514
+empty$ -- 1089
+format.name$ -- 400
+if$ -- 3203
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 29
-newline$ -- 142
-num.names$ -- 140
-pop$ -- 247
+missing$ -- 35
+newline$ -- 172
+num.names$ -- 170
+pop$ -- 291
 preamble$ -- 1
-purify$ -- 284
+purify$ -- 340
 quote$ -- 0
-skip$ -- 347
+skip$ -- 434
 stack$ -- 0
-substring$ -- 821
-swap$ -- 28
-text.length$ -- 0
+substring$ -- 1004
+swap$ -- 43
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 246
+type$ -- 300
 warning$ -- 1
-while$ -- 155
+while$ -- 190
 width$ -- 0
-write$ -- 417
-(There were 2 warnings)
+write$ -- 506
+(There was 1 warning)
