@@ -21,10 +21,10 @@ Details on the random seed as well as the details of the R environment are avail
 
 ```{r set-up, results='hide'}
 library(gt)
-library(knitr)
-library(kableExtra)
+#alibrary(knitr)
+#library(kableExtra)
 library(MASS)
-library(pscl)
+#library(pscl)
 library(tidyverse)
 library(magrittr)
 library(domir)

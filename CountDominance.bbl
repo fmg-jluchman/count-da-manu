@@ -42,6 +42,12 @@ Braun, M.~T., Converse, P.~D. \& Oswald, F.~L. (2019).
   unreliability.
 \newblock {\em Journal of Applied Psychology}, {\em 104(4)}, 593.
 
+\bibitem[\protect\citeauthoryear{Budescu}{Budescu}{1993}{}]{budescu1993dominance}
+Budescu, D.~V. (1993).
+\newblock Dominance analysis: a new approach to the problem of relative
+  importance of predictors in multiple regression.
+\newblock {\em Psychological bulletin}, {\em 114(3)}, 542.
+
 \bibitem[\protect\citeauthoryear{Cameron \& Windmeijer}{Cameron \&
   Windmeijer}{1996}{}]{cameron1996r}
 Cameron, A.~C. \& Windmeijer, F.~A. (1996).
@@ -74,12 +80,6 @@ Elkind, E. \& Rothe, J. (2016).
 Fatima, S.~S., Wooldridge, M. \& Jennings, N.~R. (2008).
 \newblock A linear approximation method for the shapley value.
 \newblock {\em Artificial Intelligence}, {\em 172(14)}, 1673--1699.
-
-\bibitem[\protect\citeauthoryear{Glerum, Joseph, McKenny \& Fritzsche}{Glerum
-  et~al.}{2021}{}]{glerum2021trainer}
-Glerum, D.~R., Joseph, D.~L., McKenny, A.~F. \& Fritzsche, B.~A. (2021).
-\newblock The trainer matters: Cross-classified models of trainee reactions.
-\newblock {\em Journal of Applied Psychology}, {\em 106(2)}, 281.
 
 \bibitem[\protect\citeauthoryear{Gr{\"o}mping}{Gr{\"o}mping}{2007}{}]{gromping2007estimators}
 Gr{\"o}mping, U. (2007).
@@ -170,6 +170,12 @@ McCullagh, P. \& Nelder, J.~A. (2019).
 Molnar, C. (2020).
 \newblock {\em Interpretable machine learning}.
 \newblock Lulu. com.
+
+\bibitem[\protect\citeauthoryear{Motowidlo}{Motowidlo}{2003}{}]{motowidlo2003job}
+Motowidlo, S.~J. (2003).
+\newblock Job performance.
+\newblock {\em Handbook of psychology: Industrial and organizational
+  psychology}, {\em 12(4)}, 39--53.
 
 \bibitem[\protect\citeauthoryear{Naumovska, Zajac \& Lee}{Naumovska
   et~al.}{2021}{}]{naumovska2021strength}

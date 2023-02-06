@@ -4,45 +4,45 @@ The top-level auxiliary file: CountDominance.aux
 The style file: mslapa.bst
 Database file #1: CountDominance.bib
 Warning--empty journal in luchman2022package
-You've used 34 entries,
+You've used 35 entries,
             2808 wiz_defined-function locations,
-            818 strings with 10942 characters,
-and the built_in function-call counts, 17495 in all, are:
-= -- 1693
-> -- 875
-< -- 22
-+ -- 356
-- -- 340
-* -- 1571
-:= -- 3368
-add.period$ -- 101
-call.type$ -- 34
-change.case$ -- 371
-chr.to.int$ -- 34
-cite$ -- 35
-duplicate$ -- 514
-empty$ -- 1089
-format.name$ -- 400
-if$ -- 3203
+            826 strings with 11055 characters,
+and the built_in function-call counts, 17717 in all, are:
+= -- 1719
+> -- 862
+< -- 24
++ -- 346
+- -- 332
+* -- 1580
+:= -- 3404
+add.period$ -- 104
+call.type$ -- 35
+change.case$ -- 373
+chr.to.int$ -- 35
+cite$ -- 36
+duplicate$ -- 529
+empty$ -- 1121
+format.name$ -- 393
+if$ -- 3253
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 35
-newline$ -- 172
-num.names$ -- 170
-pop$ -- 291
+missing$ -- 36
+newline$ -- 177
+num.names$ -- 175
+pop$ -- 289
 preamble$ -- 1
-purify$ -- 340
+purify$ -- 341
 quote$ -- 0
-skip$ -- 434
+skip$ -- 448
 stack$ -- 0
-substring$ -- 1004
-swap$ -- 43
+substring$ -- 1031
+swap$ -- 44
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 300
+type$ -- 309
 warning$ -- 1
-while$ -- 190
+while$ -- 196
 width$ -- 0
-write$ -- 506
+write$ -- 521
 (There was 1 warning)

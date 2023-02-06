@@ -24,55 +24,83 @@
 
 \section{Introduction}
 
-	Organizational science often focuses on exhibition of specific behaviors as a key outcome of interest. 
-	These behaviors can be at the organization-level such as the number of organizations adopting a specific practice in a week \cite{naumovska2021strength} or number of divestitures organizations make in a year \cite{bettinazzi2021stakeholder} or at the individual-level such as the number of scientific articles published in a year by an academic \cite{rotolo2013does} or number of errors that resulted in an accident in the last three months among medical doctors \cite{naveh2015active}.
-	Behaviors such as these are of great value to organizational science as they are typically have strong construct validity in representing the intended outcome domain and are commonly used as indications of criterion-oriented validity \cite(e.g.,){cronbach1955construct}.
-	Despite their conceptual utility, behaviors such as these produce counts of discrete, usually infrequent, events that present challenges for data analysis when used as a dependent variable/DV.
-	The challenge introduced for data analysis by using a count DV is that the distribution of such data can show substantial violations of Normality and, consequently, make the application of the linear regression model/LRM inadvisable \cite(e.g.,){blevins2015count}.
+	Organizational science often uses how many times a specific behavior is observed as an outcome of interest to answer research questions. 
+	Behavior counts as outcomes arise at the organization-level such as when measuring the number of organizations adopting a specific practice in a week \cite{naumovska2021strength} or number of divestitures organizations make in a year \cite{bettinazzi2021stakeholder}. Behavior counts as outcomes also arise at the individual-level such as when measuring the number of scientific articles published in a year by an academic \cite{rotolo2013does} or number of errors that resulted in an accident in the last three months among medical doctors \cite{naveh2015active}.
+	Behavior counts such as the above examples are valuable outcomes given that organizational science concepts are often defined terms of behavior \cite(e.g., job performance;){motowidlo2003job} and strategies to validate outcomes often use observable behavior as an outcome \cite(e.g., criterion-oriented validity;){cronbach1955construct}.
+	
+	The conceptual value of behavior counts as outcomes aside, such variables are challenging for data analysis when used as a dependent variable/DV. 
+	Behavior counts are discrete, usually infrequent, numbers of behavior events that show substantial deviation from the Normal distribution. 
+	Consequently, analyzing count DVs with the linear regression model/LRM is inadvisable \cite(e.g.,){blevins2015count}.
 %	are oftentimes useful, informative data when used as an outcome
 %	are commonly used as dependent variables/DVs in organizational science \cite(e.g.,){bettinazzi2021stakeholder,naumovska2021strength,soda2021networks} and are modeled using 
-	When analyzing data with count DVs, it is advisable to use models designed to accommodate the unique features of these count variable distributions. 
-	These, count regression, models/CRMs include Poisson regression/PR and negative Binomial regression/NBR.  
+	
+	A better data analysis strategy with behavior counts uses count regression models/CRMs designed for non-negative integer (i.e., count) distributions.
+	For instance, the Poisson regression/PR and negative Binomial regression/NBR models are CRMs commonly used in the literature and implemented in many analytic software environments.	
+	CRMs such as these are exponential or log-linear (i.e., have the form $e^{\sum\beta x}$) models that are effective for modeling the truncated, non-negative ranges of count DVs.
+	
+	A log-linear CRM coefficient is challenging to interpret directly as it describes logarithmic change to the DV given a 1 unit change to an independent variable/IV. 
+	When translated through an exponential function, a CRM coefficient is known as an incidence rate ratio and describes the percentage change in the count DV per unit change to the IV.
+	Percentage changes associated with CRM coefficients make evaluating model-to-data fit more challenging as well.
+	The explained variance $R^2$, a standard fit metric for LRM, is not as effective a statistic for describing the quality of model predictions' fit to the data with CRMs \cite{cameron1996r}.
+	
+	The ineffectiveness of the explained variance $R^2$ for CRM also implies that standard model post-estimation methods using the fit statistic, including relative importance analysis methods like dominance analysis/DA \cite{azen2003dominance}, do not apply to CRMs as they do with LRM.
+	DA is a widely used relative importance analysis method that is applied to assist in the interpretation of model results \cite{tonidandel2011relative}.  
+	DA was developed for use with LRM and has been extended in published work to generalized linear models including  binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative}.
+	To date, no published work has similarly extended DA to CRMs.
+	
+	This work extends DA to CRMs and makes four contributions to the literature in the process.
+	This paper first contributes to the literature by establishing DA as a method that applies to CRMs through DA's relationship with Shapley value decomposition.
+	DA methods are a simplification and extension of Shapley value decomposition; a method that was developed in game theory to describe how to ascribe payoffs to players in cooperative games.
+	As I will argue, statistical models share many characteristics of cooperative games and, by analogy, methods that apply to cooperative games can be applied to statistical models like CRMs.
+	Hence, DA applies conceptually to any statistical model including CRMs.
+	
+	This work also discusses how to implement DA for CRMs.
+	The implementation details discussed in this work include reviewing the DA methodology as well as interpreting DA results in terms of importance.
+	In addition to discussing the DA methodology, this work recommends a model fit statistic for use in DA that acts like the explained variance $R^2$ in LRM.
+	I also combine the methodology review and fit statistic recommendation in a series of complete data analytic examples of PR- and NBR-based DA using simulated data.
+	
+	Third, this work reviews concept of exposure in count DVs and shows the effect of exposure on the results of CRM-based DA. 
+	Exposure is a quantity that affects number of behaviors that could be observed by an observation.
+	Differential exposure is correctable in the model using an offset term.
+	I will show in this paper that the use of offsets, or rather the failure to use them under differential exposure, can produce underestimated or biased DA statistics and importance inferences.
+	
+	Finally, this paper extends on the work of Blevins, Tsang, and Spain \citeyear{blevins2015count}. 
+	Blevins et al. discuss the extent of CRM use in the organizational science literature, outline details about the PR and NBR models, and provide a useful flowchart that researchers can use to identify which CRM might be best to choose for their data analysis.
+	In this work, I extend on their review to recommend how to apply this useful model post-estimation method that adds context and detail to the CRM coefficient results.
+	In addition, the discussion of exposure extends on Blevins et al.'s conceptual review to cover more of the considerations important for CRM data analysis.
+	
+	This manuscript begins below with a detailed discussion of the conceptual background for the relative importance analysis method reviewed in this work: DA.
+	In the first section below, I discuss what DA is, its relationship to Shapley value decomposition, how it is used to infer the importance of IVs in a predictive model, and why it applies to the results for CRMs.
+	The conceptual discussion is followed by an extensive data analytic example using PR and NBR models.
+	Finally, I turn to discussing the conceptual nature of exposure on count DVs and show what occurs under two different data analytic circumstances to model coefficients as well as DA statistics when exposure effects are present in the data but are ignored.
+		
+\section{Dominance Analysis}
+% reshape this section to discuss DA in descending levels of stringency then tie GDS with Shapley and extend to CRM
+	DA is a relative importance analysis method for LRM developed by Budescu \citeyear{budescu1993dominance} that extended on past methods by defining IV importance in terms of pairwise IV comparisons that involve three different, and increasingly stringent, levels of "dominance."	
+	The strongest of the dominance designations is called \emph{complete dominance}. 
+	Complete dominance is determined between two IVs, for instance $IV_x$ and $IV_z$, by comparing the amount of variance each explains or the $R^2$ associated with each.
 	
 	...ended here...
 	
-	CRMs differ from the commonly used linear regression model/LRM as their functional forms are exponential or log-linear (i.e., have the form $e^{\sum\beta x}$) to accommodate the necessarily truncated (i.e., non-negative) range of the DV.	
-	The log-linear form of CRMs requires the use of new metrics to accurately interpret model results and changes the language that can be used to describe model predictions.
-	For example, log-linear CRMs' model coefficients are often interpreted in their exponential form as \emph{incidince rate ratios/IRRs} which describes percentage changes in counts for 1 unit increments to the independent variable/IV.
-	In addition, the explained variance $R^2$ does not apply in a straightforward way to log-linear CRMs for describing the quality of model predictions' fit to the data \cite{cameron1996r}.
+	statistic and, as will be discussed below, evaluate different ways that an IV might contribute to it controlling for other IVs.
 	
-	The way in which count data are constructed also tends to differ from how many continuous, Gaussian distributed variables are constructed that have implications for modeling.
-	Count variables are often constructed as aggregated events over a specific time period such as the number of organizations adopting a specific practice in a week \cite{naumovska2021strength} or number of divestitures in a year \cite{bettinazzi2021stakeholder}. 
-	For some data, the period of aggregation may differ across observations in the data.
-	Such differences might be observed when some observations report outcomes for one year/12 months but some report on outcomes for 9 months.
-	These differences in aggregation window can result in different "exposure" to the count generating process and can result in a confound.
-	In such circumstances, an additional \emph{offset} variable reflecting the amount of exposure the observation had to the count generating process is introduced to re-establish parity across observations \cite(see)[for an example]{glerum2021trainer}.
-%	In other cases, count data aggregations include observations that "opt out" of the count generating process such as firms choosing not to outsource their patent submissions to a law firm in a year producing 0 patents \cite{somaya2008gone}.
-%	Such opting out results in \emph{zero inflation}; a situation in which there are more 0 values than would be expected from a Poisson or negative Binomial distribution.  
-%	Zero inflation can be accommodated by using a specialized zero-inflation model \cite(again see)[for an example]{glerum2021trainer}. 
+	that does no averaging at all.
+	In complete dominance, each increment to the fit metric associated with $IV_x$ is compared to an corresponding increment for $IV_z$.
+	More formally, for all sets of IVs $U_q$ that do not include $IV_x$ or $IV_z$ and can include the null set of no IVs, $F_{U_q \cup IV_x} - F_{U_q}$ is always larger than $F_{U_q \cup IV_z} - F_{U_z}$.
+	In such situations, $IV_x$ is said to \emph{completely dominate} $IV_z$.
+	Because there is no averaging involved in the comparisons that produce complete dominance, it is the most stringent importance comparison between two IVs.
 	
-	The complexities associated with the use of CRMs as well as those associated with processes used to aggregated count data also extend to considering the use of CRM-based postestimation methods such as relative importance analysis. 
-	Relative importance analysis is a widely used model postestimation method that is applied to assist in the interpretation of model results.  
-	Specifically, relative importance analysis adds detail to the estimation of parameter estimates and can provide practically useful information about IV predictive utility \cite{tonidandel2011relative}.  
-	To date, published methodological work on relative importance analysis has discussed how to apply the method to similarly complex models such as binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative} but has not provided an extensive discussion relative importance analysis with CRMs.
-	As was discussed above, there are multiple estimation and data generation complexities with CRMs that are unique and were not discussed in past work on LRM or logit models.
-	Thus, extending the literature on relative importance analysis to the unique features of CRMs is an important step toward applying the method to these commonly estimated models in organizational science.
 	
-	The purpose of this work is to provide an extensive discussion of the application of relative importance analysis methods to CRMs.
-	First, this manuscript discusses how to use CRMs in \cite(dominance analysis/DA;){azen2003dominance}, a relative importance method with a strong conceptual foundation \cite{gromping2007estimators} and flexible implementation in terms of extensibility \cite(see){luchman2021determining}.
-	A focus of this discussion will be to provide recommendations on the model fit metric to use as well as providing a full data analytic example of how to implement the method with CRMs focusing on PR and NBR.
-	Second, this paper provides a detailed discussion of the concepts of exposure and zero inflation with particular attention to issues these two CRM-relevant data generation facets have for computing dominance statistics and determining importance.
-	Finally, this paper extends on the work of Blevins, Tsang, and Spain's \citeyear{blevins2015count} work by discussing how to apply model postestimation methods to assist in adding context and detail to the model results, using their paper's work to choose the correct model given the structure of the data to be analyzed.
 	
-	In the section below, I begin this work with a detailed discussion of the conceptual background for DA.
-	Below I discuss what DA is, why it applies to the results for CRMs, and how it is used to infer the importance of IVs in a predictive model.
-		
-\section{Dominance Analysis}
-
-	DA is a method that evaluates IV relative importance based on unique contributions to a model fit metric.
-	DA is then a methodology that uses empirical results, in particular those related to expected/predicted versus observed differences, to evaluate IV importance.
-	The use of predicted versus observed differences is a form of variance-based importance and has a long history in organizational and behavioral science as a method for inferring importance \cite{johnson2004history}.
-	What makes DA unique among variance-based importance methods is DA's conceptual foundation as an extension of Shapley value decomposition from cooperative game theory \cite(e.g.,){winter2002shapley}.
+	Although it is a popular method, DA is not the only relative importance methodology to evaluate IV contributions to the explained variance $R^2$ and, indeed, there are a number of similar metrics that have been used in organizational and behavioral science as a method for determining importance \cite(see)[for a review]{johnson2004history}.
+	An additional, and unique, advantage of DA is the extensibility of the methodology given its relationship to a well-known, methodology from game theory for ascribing payoffs in a game to players: Shapley value decomposition \cite(e.g.,){winter2002shapley}.
+	
+	The relationship between DA and Shapley value decomposition is important and infrequently acknowledged in published research \cite(see)[for a rare exception]{gromping2007estimators}.
+	The relationship between these methods is important as Shapley value decomposition has a rigorous conceptual foundation and is a broadly applicable method for ascribing values to players in a cooperative game.
+	Therefore, the analogy between DA and Shapley values can justify DA's extension to new 
+	
+	This is an important and 
+	
 	
 	\subsection{Shapley Value Decomposition}
 	
@@ -134,12 +162,7 @@
 	Another way of thinking about conditional dominance is that, if the conditional dominance statistics for an IV were graphed as a line by the number of IVs in the model, $IV_x$'s value is above $IV_z$ value for the entirety of the trend.	
 	Because conditional dominance statistics are a 'less averaged' version of the general dominance statistics, conditional dominance of one IV over another is a stricter criterion than general dominance and implies a stronger form of IV relative importance.
 	
-	DA also uses a third type of comparison called \emph{complete dominance} that does no averaging at all.
-	In complete dominance, each increment to the fit metric associated with $IV_x$ is compared to an corresponding increment for $IV_z$.
-	More formally, for all sets of IVs $U_q$ that do not include $IV_x$ or $IV_z$ and can include the null set of no IVs, $F_{U_q \cup IV_x} - F_{U_q}$ is always larger than $F_{U_q \cup IV_z} - F_{U_z}$.
-	In such situations, $IV_x$ is said to \emph{completely dominate} $IV_z$.
-	Because there is no averaging involved in the comparisons that produce complete dominance, it is the most stringent importance comparison between two IVs.
-	
+
 	This section has outlined why Shapley value decomposition and the extension into DA applies to CRMs. 
 	This section has also provided a discussion of how DA statistics and designations are computed and determined.
 	In the section below, I transition from a broad outline of DA to a more targeted discussion of the application of DA to CRMs.
