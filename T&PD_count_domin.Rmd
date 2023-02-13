@@ -21,7 +21,7 @@ Details on the random seed as well as the details of the R environment are avail
 
 ```{r set-up, results='hide'}
 library(gt)
-#alibrary(knitr)
+#library(knitr)
 #library(kableExtra)
 library(MASS)
 #library(pscl)

@@ -76,9 +76,75 @@
 		
 \section{Dominance Analysis}
 % reshape this section to discuss DA in descending levels of stringency then tie GDS with Shapley and extend to CRM
-	DA is a relative importance analysis method for LRM developed by Budescu \citeyear{budescu1993dominance} that extended on past methods by defining IV importance in terms of pairwise IV comparisons that involve three different, and increasingly stringent, levels of "dominance."	
-	The strongest of the dominance designations is called \emph{complete dominance}. 
-	Complete dominance is determined between two IVs, for instance $IV_x$ and $IV_z$, by comparing the amount of variance each explains or the $R^2$ associated with each.
+	DA is a relative importance analysis method for LRM developed by Budescu \citeyear{budescu1993dominance} that extended on past methods by defining IV importance in terms of pairwise IV comparisons that involve three different levels of \emph{dominance}.
+	Each level of dominance has a different implied strength or level of stringency. 
+	These stringency levels are based how direct the comparisons between the IVs must be in order to determine that one IV, for example $IV_x$, is dominates another IV, for example $IV_z$.
+	All comparisons between IVs are based on the $R^2$ associated with each IV in different sub-models of the full LRM model including all $p$ IVs (which includes both $IV_x$ and $IV_z$).
+	
+	\subsection{Complete Dominance}
+	
+	The strongest, thus most stringent, of the dominance designations is called complete dominance. 
+	Complete dominance is the most stringent of the dominance designations as it involves direct comparisons between $IV_x$ and $IV_z$ at the level of individual sub-models' $R^2$ values.
+	Specifically, complete dominance makes comparisons between the $R^2$ values associated with $IV_x$ and $IV_z$ across all sub-models where the other $p - 2$ IVs in the model (i.e., not including $IV_x$ and $IV_z$) can be used as controls.
+	For instance, if $IV_x$ and $IV_z$ were in an LRM with $IV_w$ and $IV_v$, then there would be a total of 3 possible comparisons: $R^2_{IV_x, IV_w}$ versus $R^2_{IV_z, IV_w}$; $R^2_{IV_x, IV_v}$ versus $R^2_{IV_z, IV_w}$; and $R^2_{IV_x}$ versus $R^2_{IV_z}$.
+	Note that the $R^2$ values associated with each IV are compared to one another directly and that $IV_x$ and $IV_z$ are always compared to one another holding other IVs in the sub-model constant.
+	
+	...ended here...
+	
+	% formalize this comparison
+	
+	
+	a total of $k = 2^{p - 2}$ sub-models.
+	These $k$ sub-models are those that represent distinct combinations of the $p$ IVs in the model excluding $IV_x$ and $IV_z$.
+	If $U$ represents a subset of the IVs excluding $IV_x$ and $IV_z$, and $q$ is a number from 1 to $k$ representing a distinct combination
+	
+	 for of the $p$ IVs excluding (of which the null set of no other IVs is a member) are 
+			
+	$IV_x$ completely dominates $IV_z$ when $IV_x$ always produces a bigger increment to the $R^2$ compared to $IV_z$ across all comparable sub-models or coalitions of IVs.
+	More formally, imagine a LRM with $p$ IVs including $IV_x$ and $IV_z$.
+	There are a total of 
+	
+	Then, $IV_x$ completely dominates $IV_z$ when for each of the $k$ comparisons $R^2_{U_q, IV_x} > R^2_{U_q, IV_z}$ where $q$ distinct subset of the $k$ different IV combinations.
+	That is, $IV_x$ \emph{always} produces a bigger increment to explained variance when it is in the model compared to $IV_z$ across \emph{all} subsets of other IVs (i.e., all $U_q$) in the model.
+	
+	Complete dominance is the most stringent criterion for an importance methodology known to the author owing to its subset-by-subset comparison approach.
+	As such, if $IV_x$ completely dominates $IV_z$, $IV_x$ is clearly superior to $IV_z$ in terms of explaining the DV as it is associated with better fit in all ways the two IVs could be compared.
+	Complete dominance is a difficult requirement to meet for IV pairs.
+	When a researcher cannot determine complete dominance between pairs IVs, they can attempt other dominance designations between the IVs.
+	
+	\subsection{Conditional Dominance}
+	
+	A less stringent dominance designation between IV pairs than complete dominance is called conditional dominance.
+	Conditional dominance is designated in a way similar to complete dominance in that it involves comparisons of $R^2$ values associated with two IVs such as $IV_x$ or $IV_z$.
+	Conditional dominance is less stringent as it involves the comparison of $p$ $R^2$ values.
+	These $p$ $R^2$ values are averages based on the number of IVs that comprise the subset.
+	
+	The number of subset IV
+	
+	 using conditional dominance sets of conditional dominance statistics
+	
+	
+	DA also computes statistics known as a \emph{conditional dominance statistic} that is closely related to the general dominance statistic.  
+	The conditional differs from the general dominance statistic as it is computed using $R^2$ values
+	
+	 by a specified number of IVs included in the model.
+	Thus, each IV has $p$ conditional dominance statistics.
+	The conditional dominance statistic for an IV ($IV_x$) with a set number of IVs in the model ($s$) is computed:
+	
+	\begin{equation}
+		CDS_{IV_x}^{s} = \sum_{l=1}^{C_{U_l \cup IV_x}} \frac{ F_{U_l \cup IV_x} - F_{U_l}}{C_{U_l \cup IV_x}}
+	\end{equation}
+	
+	Where $U_l$ is some distinct unordered set of $s-1$ IVs not including $IV_x$ that can include the null set of no IVs, and $C_{U_l \cup IV_x}$ is the number of distinct combinations of the $s$ IVs with all the IVs in $U_l$ as well as $IV_x$ included in the model.
+	
+	Conditional dominance statistics computed using Equation 3 are a subset of the computations in the general dominance statistic in Equation 2 and can be averaged to obtain the general dominance statistic.  
+	That is, $GDS_{IV_x} = \sum_{g=1}^{k} \frac{CDS_{IV_x}^{g}}{k}$.
+	
+	The conditional dominance statistics generated for each IV are also used to determine importance among the IVs but the procedure for doing so requires a different approach than that applied to general dominance statistics.
+	For conditional dominance statistics, if, within a number of IVs in the model, all of $IV_x$'s values are larger than $IV_z$, $IV_x$ is said to \emph{conditionally dominate}, and is thus more important than, $IV_z$.
+	Another way of thinking about conditional dominance is that, if the conditional dominance statistics for an IV were graphed as a line by the number of IVs in the model, $IV_x$'s value is above $IV_z$ value for the entirety of the trend.	
+	Because conditional dominance statistics are a 'less averaged' version of the general dominance statistics, conditional dominance of one IV over another is a stricter criterion than general dominance and implies a stronger form of IV relative importance.
+	
 	
 	...ended here...
 	
@@ -86,9 +152,7 @@
 	
 	that does no averaging at all.
 	In complete dominance, each increment to the fit metric associated with $IV_x$ is compared to an corresponding increment for $IV_z$.
-	More formally, for all sets of IVs $U_q$ that do not include $IV_x$ or $IV_z$ and can include the null set of no IVs, $F_{U_q \cup IV_x} - F_{U_q}$ is always larger than $F_{U_q \cup IV_z} - F_{U_z}$.
-	In such situations, $IV_x$ is said to \emph{completely dominate} $IV_z$.
-	Because there is no averaging involved in the comparisons that produce complete dominance, it is the most stringent importance comparison between two IVs.
+	
 	
 	
 	
@@ -143,24 +207,7 @@
 	
 	\subsection{Other Dominance Computations and Designations}
 	
-	DA also computes statistics known as a \emph{conditional dominance statistic} that is closely related to the general dominance statistic.  
-	The conditional differs from the general dominance statistic as it is computed by a specified number of IVs included in the model.
-	Thus, each IV has $k$ conditional dominance statistics.
-	The conditional dominance statistic for an IV ($IV_x$) with a set number of IVs in the model ($s$) is computed:
-	
-	\begin{equation}
-		CDS_{IV_x}^{s} = \sum_{l=1}^{C_{U_l \cup IV_x}} \frac{ F_{U_l \cup IV_x} - F_{U_l}}{C_{U_l \cup IV_x}}
-	\end{equation}
 
-	Where $U_l$ is some distinct unordered set of $s-1$ IVs not including $IV_x$ that can include the null set of no IVs, and $C_{U_l \cup IV_x}$ is the number of distinct combinations of the $s$ IVs with all the IVs in $U_l$ as well as $IV_x$ included in the model.
-	
-	Conditional dominance statistics computed using Equation 3 are a subset of the computations in the general dominance statistic in Equation 2 and can be averaged to obtain the general dominance statistic.  
-	That is, $GDS_{IV_x} = \sum_{g=1}^{k} \frac{CDS_{IV_x}^{g}}{k}$.
-	
-	The conditional dominance statistics generated for each IV are also used to determine importance among the IVs but the procedure for doing so requires a different approach than that applied to general dominance statistics.
-	For conditional dominance statistics, if, within a number of IVs in the model, all of $IV_x$'s values are larger than $IV_z$, $IV_x$ is said to \emph{conditionally dominate}, and is thus more important than, $IV_z$.
-	Another way of thinking about conditional dominance is that, if the conditional dominance statistics for an IV were graphed as a line by the number of IVs in the model, $IV_x$'s value is above $IV_z$ value for the entirety of the trend.	
-	Because conditional dominance statistics are a 'less averaged' version of the general dominance statistics, conditional dominance of one IV over another is a stricter criterion than general dominance and implies a stronger form of IV relative importance.
 	
 
 	This section has outlined why Shapley value decomposition and the extension into DA applies to CRMs. 
