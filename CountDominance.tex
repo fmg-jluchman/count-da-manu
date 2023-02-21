@@ -30,39 +30,38 @@
 	Individual-level behavior counts used in the literature include the number of scientific articles published in a year by an academic \cite{rotolo2013does} or number of errors that resulted in an accident in the last three months among medical doctors \cite{naveh2015active}.
 	Behavior counts such as the above examples are valuable outcomes given that organizational science concepts are often defined terms of behavior \cite(e.g., job performance;){motowidlo2003job} and strategies to validate outcomes often use observable behavior as an outcome \cite(e.g., criterion-oriented validity;){cronbach1955construct}.
 	
-	The conceptual value of behavior counts as outcomes aside, behavior counts introduce new challenges when used in data analysis as a dependent variable/DV. 
-	Despite being ostensibly continuous in nature (i.e., by comparison to Likert-type scales on surveys), behavior counts introduce analytic challenges due to the discrete values and truncated, non-negative (i.e., $\geq$ 0) range on which they take.
-	The discreteness and truncated range taken by typical count DVs tend to result in substantial deviations from the Normal distribution. 
-	When the distribution of count DVs substantially deviates from Normally distributed, using the commonly-applied linear regression model/LRM is inadvisable \cite(e.g.,){blevins2015count}.
+	The conceptual value of behavior counts as outcomes aside, data analysis with behavior counts as a dependent variable/DV require the use of specialized tools.
+	The recommended data analysis strategy with behavior counts uses regression models designed for non-negative integer or count distributions \cite(e.g.,){blevins2015count}.
+	These count regression models/CRMs include the Poisson regression/PR and negative Binomial regression/NBR models.
+	Both PR and NBR are commonly used in the organizational science literature and implemented in many data analytic software environments.
 	
-	A better data analysis strategy with behavior counts uses regression models designed for non-negative integer (i.e., count) distributions.
-	For instance, the Poisson regression/PR and negative Binomial regression/NBR models are count regression models/CRMs commonly used in the literature and implemented in many analytic software environments.	
+	CRMs are generalized linear models that mathematically transform the predictive equation to ensure that predicted values stay in the range of the DV.
+	CRMs use an exponential or log-linear transformation that has the form $y = e^{\beta}$. 
+	Thus the predictive equation represented by $\beta$ requiores back-transformation using a natural logarithm in order to obtain a predicted count value.
+	This log-linear transformation ensures that predicted values from $\beta$ can take on any number in the real number line yet, when back-transformed into predicted counts, will have a lower bound of 0.
 	
-	... revised here...
+	The log-linear predictive equations CRMs estimate are challenging to interpret directly.
+	Log-linear CRM coefficients are challenging to interpret because they describe how the natural logarithm of the DV changes given a 1 unit change to an independent variable/IV. 
+	When back-translated through an exponential function, CRM coefficients are known as incidence rate ratios and describe the percentage change in the DV per unit change to the IV.
+	Importantly, the percentage change described by CRM coefficients makes the count values produced by those changes relative to where they began.
+	For example, a CRM coefficient does not differentiate between a change from 1 predicted behavior to 2 and 5 predicted behaviors to 10 despite the noteworthy difference in the absolute number of behaviors in both examples as each describe a 100\% increase in the count DV value.
+		
+	Model post-estimation methods such as graphing estimated marginal means are useful interpretive tools for log-linear CRMs to better contextualize the logarithmic predicted values they produce.
+	Another increasingly common model post-estimation tool used to contextualize model predictions are relative importance analysis methods \cite{tonidandel2011relative}. 
+	Relative importance analysis methods focus on how different IVs in the model contribute to the $R^2$ as computed by methods such as dominance analysis/DA \cite{azen2003dominance}.
 	
+	To date, published methodological work has extended DA from the linear regression model on which it was originally developed, to generalized linear models including binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative}.	
+	This work extends DA to CRMs and makes four contributions to the literature.
+	This work first reviews DA as a relative importance methodology and is, to the knowledge of the author, the first work to clarify the relationship between DA and Shapley value decomposition.
+	As I will show, DA methods derive directly from and extend on Shapley value decomposition; a method developed in cooperative game theory to distribute game payoffs to players.
+	Statistical models are analogous to cooperative games and, in highlighting the relationship between these two methodologies, this work demonstrates the general applicability of DA to any statistical model and fit statistic that is used describe that model.
 	
-	CRMs such as these are exponential or log-linear (i.e., have the form $e^{\sum\beta x}$) models that are effective for modeling the truncated, non-negative ranges of count DVs.
+	Second, this work recommends using a specific pseudo-$R^2$ statistic for CRM-based DA and implements multiple data analytic examples of DA using that statistic.
+	Despite the applicability of DA to any model fit statistic that could be computed for a CRM, pseudo-$R^2$ values are valuable for DA due to their interpretability. 
+	The recommended pseudo-$R^2$ statistic is a direct generalization of the explained variance $R^2$ in linear regression to generalized linear models based on model deviance.
+	The data analytic examples then use this deviance-based pseudo-$R^2$ as the fit statistic in a series of DA computations with simulated Poisson and negative Binomial distributed data.
 	
-	A log-linear CRM coefficient is challenging to interpret directly as it describes logarithmic change to the DV given a 1 unit change to an independent variable/IV. 
-	When translated through an exponential function, a CRM coefficient is known as an incidence rate ratio and describes the percentage change in the count DV per unit change to the IV.
-	Percentage changes associated with CRM coefficients make evaluating model-to-data fit more challenging as well.
-	The explained variance $R^2$, a standard fit metric for LRM, is not as effective a statistic for describing the quality of model predictions' fit to the data with CRMs \cite{cameron1996r}.
-	
-	The ineffectiveness of the explained variance $R^2$ for CRM also implies that standard model post-estimation methods using the fit statistic, including relative importance analysis methods like dominance analysis/DA \cite{azen2003dominance}, do not apply to CRMs as they do with LRM.
-	DA is a widely used relative importance analysis method that is applied to assist in the interpretation of model results \cite{tonidandel2011relative}.  
-	DA was developed for use with LRM and has been extended in published work to generalized linear models including  binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative}.
-	To date, no published work has similarly extended DA to CRMs.
-	
-	This work extends DA to CRMs and makes four contributions to the literature in the process.
-	This paper first contributes to the literature by establishing DA as a method that applies to CRMs through DA's relationship with Shapley value decomposition.
-	DA methods are a simplification and extension of Shapley value decomposition; a method that was developed in game theory to describe how to ascribe payoffs to players in cooperative games.
-	As I will argue, statistical models share many characteristics of cooperative games and, by analogy, methods that apply to cooperative games can be applied to statistical models like CRMs.
-	Hence, DA applies conceptually to any statistical model including CRMs.
-	
-	This work also discusses how to implement DA for CRMs.
-	The implementation details discussed in this work include reviewing the DA methodology as well as interpreting DA results in terms of importance.
-	In addition to discussing the DA methodology, this work recommends a model fit statistic for use in DA that acts like the explained variance $R^2$ in LRM.
-	I also combine the methodology review and fit statistic recommendation in a series of complete data analytic examples of PR- and NBR-based DA using simulated data.
+		... ended review here ...
 	
 	Third, this work reviews concept of exposure in count DVs and shows the effect of exposure on the results of CRM-based DA. 
 	Exposure is a quantity that affects number of behaviors that could be observed by an observation.
@@ -80,7 +79,7 @@
 	Finally, I turn to discussing the conceptual nature of exposure on count DVs and show what occurs under two different data analytic circumstances to model coefficients as well as DA statistics when exposure effects are present in the data but are ignored.
 		
 \section{Dominance Analysis}
-% reshape this section to discuss DA in descending levels of stringency then tie GDS with Shapley and extend to CRM
+
 	DA is a relative importance analysis method for LRM developed by Budescu \citeyear{budescu1993dominance} that extended on past methods by defining IV importance in terms of pairwise IV comparisons that involve three different levels of \emph{dominance}.
 	Each level of dominance has a different implied strength or level of stringency. 
 	These stringency levels are based how direct the comparisons between the IVs must be in order to determine that one IV, for example $IV_x$, is dominates another IV, for example $IV_z$.
@@ -92,10 +91,10 @@
 	The strongest, thus most stringent, of the dominance designations is called complete dominance. 
 	Complete dominance is the most stringent of the dominance designations as it involves direct comparisons between $IV_x$ and $IV_z$ at the level of individual sub-models' $R^2$ values.
 	Specifically, complete dominance makes comparisons between the $R^2$ values associated with $IV_x$ and $IV_z$ across all sub-models where the other $p - 2$ IVs in the model (i.e., not including $IV_x$ and $IV_z$) can be used as controls.
-	For instance, if $IV_x$ and $IV_z$ were in an LRM with $IV_w$ and $IV_v$, then there would be a total of 3 possible $R^2$ comparisons : $R^2_{IV_x, IV_w}$ versus $R^2_{IV_z, IV_w}$; $R^2_{IV_x, IV_v}$ versus $R^2_{IV_z, IV_w}$; and $R^2_{IV_x}$ versus $R^2_{IV_z}$; where the subscripted IVs indicate which IVs are included in the sub-model.
+	For instance, if $IV_x$ and $IV_z$ were in an LRM with $IV_w$ and $IV_v$, then there would be a total of 3 possible $R^2$ comparisons : $R^2_{IV_x + IV_w}$ versus $R^2_{IV_z + IV_w}$; $R^2_{IV_x + IV_v}$ versus $R^2_{IV_z + IV_w}$; and $R^2_{IV_x}$ versus $R^2_{IV_z}$; where the subscripted IVs indicate which IVs are included in the sub-model.
 	Note that the $R^2$ values associated with each IV are compared to one another directly and that $IV_x$ and $IV_z$ are always compared to one another holding other IVs in the sub-model constant.
 	
-	Complete dominance designation is then the process of making $k = 2^{p - 2}$ comparisons for each IV pair (i.e., between $IV_x$ and $IV_z$) in which $R^2_{E_q, IV_x} > R^2_{E_q, IV_z}$ where $E$ represents a subset of the IVs excluding $IV_x$ and $IV_z$, and $q$ is a number from 1 to $k$ representing a distinct combination of the $p - 2$ IVs.
+	Complete dominance designation is then the process of making $k = 2^{p - 2}$ comparisons for each IV pair (i.e., between $IV_x$ and $IV_z$) in which $R^2_{E_q + IV_x} > R^2_{E_q + IV_z}$ where $E$ represents a subset of the IVs excluding $IV_x$ and $IV_z$, and $q$ is a number from 1 to $k$ representing a distinct combination of the $p - 2$ IVs.
 	Complete dominance is determined for $IV_x$ when $IV_x$ \emph{always} produces a bigger increment to explained variance when it is in a sub-model compared to when it is replaced with $IV_z$ across \emph{all} sub-models of other IVs (i.e., all $k$ IV sets; $E_q$) in the model. 
 	
 	The complete dominance designation process is akin to a multi-round competition between the two competing IVs ($IV_x$, $IV_z$) where both of the competing IVs are required to make coalitions with the other, non-competing IVs (e.g., $IV_w$ and $IV_v$). 
@@ -115,9 +114,6 @@
 	Determining conditional dominance then involves grouping the sub-models by the number of IVs that are included in it and computing the average incremental contributions to the $R^2$ within those groups.
 	
 	The average incremental $R^2$ computed for determining conditional dominance are known as conditional dominance statistics.
-%	\begin{equation}
-%		C_{IV_x}^{s} = \sum_{l=1}^{C_{U_l \cup IV_x}} \frac{ R^2_{U_l \cup IV_x} - R^2_{U_l}}{\pi_{U_l \cup IV_x}}
-%	\end{equation}
 	In the example above, $IV_x$ has four different conditional dominance statistics. 
 	The first conditional dominance statistic is the average increment $IV_x$ makes to the model with one IV included.
 	This value is $R^2_{IV_x} - 0$ as the value of the $R^2$ with no IVs is 0.
