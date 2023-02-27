@@ -40,7 +40,7 @@
 	Thus the predictive equation represented by $\beta$ requiores back-transformation using a natural logarithm in order to obtain a predicted count value.
 	This log-linear transformation ensures that predicted values from $\beta$ can take on any number in the real number line yet, when back-transformed into predicted counts, will have a lower bound of 0.
 	
-	The log-linear predictive equations CRMs estimate are challenging to interpret directly.
+	The log-linear predictive equations and coefficients CRMs estimate are challenging to interpret directly.
 	Log-linear CRM coefficients are challenging to interpret because they describe how the natural logarithm of the DV changes given a 1 unit change to an independent variable/IV. 
 	When back-translated through an exponential function, CRM coefficients are known as incidence rate ratios and describe the percentage change in the DV per unit change to the IV.
 	Importantly, the percentage change described by CRM coefficients makes the count values produced by those changes relative to where they began.
@@ -52,55 +52,121 @@
 	
 	To date, published methodological work has extended DA from the linear regression model on which it was originally developed, to generalized linear models including binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative}.	
 	This work extends DA to CRMs and makes four contributions to the literature.
-	This work first reviews DA as a relative importance methodology and is, to the knowledge of the author, the first work to clarify the relationship between DA and Shapley value decomposition.
+	This work first reviews DA as a relative importance methodology provides an accessible discussion of the relationship between DA and Shapley value decomposition.
 	As I will show, DA methods derive directly from and extend on Shapley value decomposition; a method developed in cooperative game theory to distribute game payoffs to players.
-	Statistical models are analogous to cooperative games and, in highlighting the relationship between these two methodologies, this work demonstrates the general applicability of DA to any statistical model and fit statistic that is used describe that model.
+	Statistical models are analogous to cooperative games and, in highlighting the relationship between these two methodologies, this work demonstrates the applicability of DA to CRMs as well as other statistical models and fit statistics that are used describe those models.
+	In addition, the analogy between statistical models and cooperative games is useful as a way to think about how importance is determined and can make the abstract concepts discussed in this work more concrete.
 	
-	Second, this work recommends using a specific pseudo-$R^2$ statistic for CRM-based DA and implements multiple data analytic examples of DA using that statistic.
+	Second, this work recommends using a specific pseudo-$R^2$ statistic for CRM-based DA and implements multiple data analytic examples of DA with that statistic.
 	Despite the applicability of DA to any model fit statistic that could be computed for a CRM, pseudo-$R^2$ values are valuable for DA due to their interpretability. 
 	The recommended pseudo-$R^2$ statistic is a direct generalization of the explained variance $R^2$ in linear regression to generalized linear models based on model deviance.
 	The data analytic examples then use this deviance-based pseudo-$R^2$ as the fit statistic in a series of DA computations with simulated Poisson and negative Binomial distributed data.
 	
-		... ended review here ...
+	Third, this work discusses data generation mechanisms with count DVs and outlines how research questions with count DVs can, under certain circumstances, be affected by a concept known as differential exposure.
+	Differential exposure is a concept whereby two observations have different numbers of opportunities to produce behavior counts.
+	Oftentimes, such differential exposure is a nuisance factor related to data collection context and not of substantive interest and is correctable in the model using an offset term with a variable measuring differential exposure.
+	As I will show in this work, differential exposure is of particular import for DA statistic computation as it can affect estimates of DA statistics even when model coefficients are relatively unaffected.
 	
-	Third, this work reviews concept of exposure in count DVs and shows the effect of exposure on the results of CRM-based DA. 
-	Exposure is a quantity that affects number of behaviors that could be observed by an observation.
-	Differential exposure is correctable in the model using an offset term.
-	I will show in this paper that the use of offsets, or rather the failure to use them under differential exposure, can produce underestimated or biased DA statistics and importance inferences.
+	Finally, this work extends on that of Blevins, Tsang, and Spain \citeyear{blevins2015count}'s review and recommendations for the use of CRMs in organizational science. 
+	Blevins et al. discuss the extent of CRM use in the organizational science literature, describe model and analytic details about the PR and NBR models, and provide a flowchart that researchers can use to identify which CRM might be best to choose for their data analysis.
+	In this work, I extend on their review to add an in-depth discussion of the DA methodology and its role as a post-estimation methodology.
+	DA extends on the interpretation of coefficients to describe how the coefficients, when applied to the observed data, produce improvements to predicting the count DV.
+	In addition, the discussion of differential exposure extends on Blevins et al.'s conceptual review to cover more of the considerations important for CRM-based data analysis.
 	
-	Finally, this paper extends on the work of Blevins, Tsang, and Spain \citeyear{blevins2015count}. 
-	Blevins et al. discuss the extent of CRM use in the organizational science literature, outline details about the PR and NBR models, and provide a useful flowchart that researchers can use to identify which CRM might be best to choose for their data analysis.
-	In this work, I extend on their review to recommend how to apply this useful model post-estimation method that adds context and detail to the CRM coefficient results.
-	In addition, the discussion of exposure extends on Blevins et al.'s conceptual review to cover more of the considerations important for CRM data analysis.
-	
-	This manuscript begins below with a detailed discussion of the conceptual background for the relative importance analysis method reviewed in this work: DA.
-	In the first section below, I discuss what DA is, its relationship to Shapley value decomposition, how it is used to infer the importance of IVs in a predictive model, and why it applies to the results for CRMs.
-	The conceptual discussion is followed by an extensive data analytic example using PR and NBR models.
-	Finally, I turn to discussing the conceptual nature of exposure on count DVs and show what occurs under two different data analytic circumstances to model coefficients as well as DA statistics when exposure effects are present in the data but are ignored.
+	In this work, I begin with a detailed discussion of the conceptual background of DA--the relative importance analysis method most applicable to CRMs.	
+ 	Here I discuss the different levels of dominance between two IVs as defined by DA, how these levels are determined in the data, and what this level of dominance means in terms of the importance of any IV in the model.
+	I end this first section by outlining DA's relationship to Shapley value decomposition.
+	In discussing DA's relationship with Shapley value decomposition, I more clearly show the broad applicability of DA as a methodology to understand predictions in statistical analysis and the potential applicability of methods from allied literatures to common problems in DA.
+	The conceptual discussion of DA is followed by a more focused discussion where I apply DA to CRMs.
+	The goal of the focused CRM-based DA discussion is to recommend a model fit statistic for use in dominance designations.
+	In the third section, I apply the topics discussed in the previous two sections in a detailed PR- and NBR-based DA using simulated data designed be useful in illustrating key CRM-based DA concepts.
+	In a fourth and final section, I turn to discussing the concept of differential exposure in count DVs, show how it can affect inferences from CRM analysis, and provide the method used to correct for it in analysis.
+	My goal in discussing differential exposure is to outline the effect of this data generation mechanism on DA statistics and designations.
+	I compute and compare CRM-based DA statistics with and without corrections based, again, on simulated data in this section to illustrate the impact of ignoring this issue during analysis.
 		
-\section{Dominance Analysis}
+\section{Dominance Analysis: A Unique Relative Importance Analysis Method}
 
-	DA is a relative importance analysis method for LRM developed by Budescu \citeyear{budescu1993dominance} that extended on past methods by defining IV importance in terms of pairwise IV comparisons that involve three different levels of \emph{dominance}.
-	Each level of dominance has a different implied strength or level of stringency. 
-	These stringency levels are based how direct the comparisons between the IVs must be in order to determine that one IV, for example $IV_x$, is dominates another IV, for example $IV_z$.
-	All comparisons between IVs are based on the $R^2$ associated with each IV in different sub-models of the full LRM model including all $p$ IVs (which includes both $IV_x$ and $IV_z$).
-	The $R^2$ value for each sub-model is also assumed to be obtained from an LRM that has been re-fit to the data.
+	Research methodologists and statisticians have used many methods over the years to determine how important an IV is in linear regression \cite(see reviews in){gromping2007estimators, johnson2004history}.
+	Importance methods have included the correlation between the IV and DV, an IV's standardized regression coefficient, as well as the increment to the $R^2$ makes, an IV makes when predicting the DV.
+	These methods, however informative in specific circumstances, are not considered to be useful as importance metirics as they fail to simultaneously account for the IV's bivariate and multivariate (i.e., controlling for other IV) relationships with the DV \cite{johnson2004history}.
+	Accommodating both bi- and multivariate relationships is important in determining importance as, for most statistical models, the order in which IVs are included is arbitrary yet the order of inclusion of IVs fundamentally affects the inferences made about IV importance.
+	Hence, it is essential to use importance methods that are independent of inclusion order.
+	
+	One importance method that is independent of ordering and has been favorably received in the methodology community, is DA.
+	DA was originally developed as a method for determining IV importance for linear regression by Budescu \citeyear{budescu1993dominance} that extended on past methods by defining importance in terms of pairwise IV comparisons as inferred from the direct comparison of sub-model $R^2$ values.
+	Sub-model $R^2$ are those computed by re-fitting the model to the data with some subset of all the IVs.
+	In a model with $p$ IVs there are a total of $2^p$ sub-models including the full model with all $p$ IVs and the null model with none of the IVs (i.e., an intercept-only model)--which always produces a value of 0 and is often omitted.
+	DA achieves order independence by comparing the two focal IVs' $R^2$ values across sub-models that contain all combinations of the non-focal IVs including the null set of no other non-focal IVs.	
+	In this way, the dominance comparisons produced by DA do not depend on the order of IV inclusion and, indeed, require that an IV obtain a higher value than another IV irrespective of inclusion of other non-focal IVs.
+	
+	As an example of how the dominance comparison is implemented, consider a model with 4 IVs: $IV_x$, $IV_z$, $IV_w$ and $IV_v$.
+	If the dominance comparison was focusing on $IV_x$ versus $IV_z$, there would be a total of 3 possible $R^2$ comparisons: $R^2_{Y \sim IV_x + IV_w}$ versus $R^2_{Y \sim IV_z + IV_w}$; $R^2_{Y \sim IV_x + IV_v}$ versus $R^2_{Y \sim IV_z + IV_w}$; and $R^2_{Y \sim IV_x}$ versus $R^2_{Y \sim IV_z}$; where the subscripted model indicates the form of the linear regression equation in symbolic form (i.e., similar to an R formula interface) and $Y$ is the DV.
+	$IV_x$ dominates $IV_z$ only when all the sub-model $R^2$ values that include $IV_x$ are greater than the sub-model $R^2$ values that include $IV_z$'s values across all three of these sub-models.
+	The dominance comparison described in this section has, more recently, been named complete dominance and has been recognized as the most stringent, or hardest to achieve, dominance designation in a series of three possible designations \cite{azen2003dominance}.	
 	
 	\subsection{Complete Dominance}
 	
-	The strongest, thus most stringent, of the dominance designations is called complete dominance. 
-	Complete dominance is the most stringent of the dominance designations as it involves direct comparisons between $IV_x$ and $IV_z$ at the level of individual sub-models' $R^2$ values.
+	Complete dominance is the most stringent of the dominance designations as it is a difficult designation for an IV to achieve over another.
+	Complete dominance is difficult to achieve as it involves direct comparisons between IVs at the level of individual sub-models' $R^2$ values.
+	The reason this designation is so difficult to achieve is non-compensatory; all sub-model $R^2$ value comparisons must favor one IV over another or the designation will fail to be achieved.
+	I also offer the reader an alternative interpretation of complete domiance that I believe is more intuitive but does require some explanation and a re-thinking of what a statistical model is does.
+	
+	Imagine, if you will, that linear regression is actually a kind of matching game.
+	The objective of the game for the players to work together to devise a set of numbers for themselves and their teammates such that they match their game piece values to the goal pieces' values subject to a specific rule.
+	The goal piece values in this case are those of the DV across all observations.
+	The game piece values for the players are similarly the IVs values across all observations.
+	The specific rule to which the players must adhere is that the numbers divised must have squared deviations from the goal pieces that sum to the smallest possible value.
+	The numbers the players assign to themselves in this case are the linear regression coefficients.
+	
+	... ended review here ...
+	
+	devise a single number for themselves
+	
+	In this matching game, the observations are game pieces, and the  number such that, when this single number is 
+	
+	The IVs in the model are players in this game.
+	The IVs play this game by taking their pieces,
+	
+	
+	columns of a dataset are not IVs but players in a game and the data represented by them in rows are 'information' each knows about the DV
+	
+	omplete dominance can also be interpreted 
+	
+	
+	Complete dominance designation is then the process of making $k = 2^{p - 2}$ comparisons for each IV pair (i.e., between $IV_x$ and $IV_z$) in which $R^2_{E_q + IV_x} > R^2_{E_q + IV_z}$ where $E$ represents a subset of the IVs excluding $IV_x$ and $IV_z$, and $q$ is a number from 1 to $k$ representing a distinct combination of the $p - 2$ IVs.
+		
+	... expand here and tie into complete dominance... ask reader to consider this a competition ...
+	
+	
 	Specifically, complete dominance makes comparisons between the $R^2$ values associated with $IV_x$ and $IV_z$ across all sub-models where the other $p - 2$ IVs in the model (i.e., not including $IV_x$ and $IV_z$) can be used as controls.
 	For instance, if $IV_x$ and $IV_z$ were in an LRM with $IV_w$ and $IV_v$, then there would be a total of 3 possible $R^2$ comparisons : $R^2_{IV_x + IV_w}$ versus $R^2_{IV_z + IV_w}$; $R^2_{IV_x + IV_v}$ versus $R^2_{IV_z + IV_w}$; and $R^2_{IV_x}$ versus $R^2_{IV_z}$; where the subscripted IVs indicate which IVs are included in the sub-model.
 	Note that the $R^2$ values associated with each IV are compared to one another directly and that $IV_x$ and $IV_z$ are always compared to one another holding other IVs in the sub-model constant.
 	
-	Complete dominance designation is then the process of making $k = 2^{p - 2}$ comparisons for each IV pair (i.e., between $IV_x$ and $IV_z$) in which $R^2_{E_q + IV_x} > R^2_{E_q + IV_z}$ where $E$ represents a subset of the IVs excluding $IV_x$ and $IV_z$, and $q$ is a number from 1 to $k$ representing a distinct combination of the $p - 2$ IVs.
+
 	Complete dominance is determined for $IV_x$ when $IV_x$ \emph{always} produces a bigger increment to explained variance when it is in a sub-model compared to when it is replaced with $IV_z$ across \emph{all} sub-models of other IVs (i.e., all $k$ IV sets; $E_q$) in the model. 
 	
 	The complete dominance designation process is akin to a multi-round competition between the two competing IVs ($IV_x$, $IV_z$) where both of the competing IVs are required to make coalitions with the other, non-competing IVs (e.g., $IV_w$ and $IV_v$). 
 	The results of all rounds in the competition are then paired to one another based on the composition of competing IVs' coalitions and their values are compared.
 	If $IV_x$ completely dominates $IV_z$, $IV_x$ has bested $IV_z$ in the competition both by itself and across all possible coalitions with other non-competing IVs. 
 	As such, when $IV_x$ completely dominates $IV_z$, it is clearly better at explaining variance in the model.
+	
+	
+	
+	...
+	
+		
+	These comparisons have been formalized into three different levels of dominance between IVs \cite{azen2003dominance} where each level of dominance has a different implied strength or level of stringency. 
+	I interpret these stringency levels as the extent to which the comparisons between the IVs must be in order to determine that one IV, for example $IV_x$, is dominates another IV, for example $IV_z$.
+	
+	The pairwise comparisons bet
+	
+	At this point I ask the reader to change their frame of mind about what DA is and how it is computed.
+	
+	
+	
+	All comparisons between IVs are based on the $R^2$ associated with each IV in different sub-models of the full LRM model including all $p$ IVs (which includes both $IV_x$ and $IV_z$).
+	The $R^2$ value for each sub-model is also assumed to be obtained from an LRM that has been re-fit to the data.
+	
 	
 	Complete dominance is a difficult requirement to meet for IV pairs as it can only be met when all $k$ comparisons favor one IV over the other.
 	When a researcher cannot determine complete dominance between pairs IVs, they can attempt to make other dominance designations between the IVs that involve averaging the $R^2$ values.
