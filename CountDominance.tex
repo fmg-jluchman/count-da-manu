@@ -50,19 +50,14 @@
 	Another increasingly common model post-estimation tool used to contextualize model predictions are relative importance analysis methods \cite{tonidandel2011relative}. 
 	Relative importance analysis methods focus on how different IVs in the model contribute to the $R^2$ as computed by methods such as dominance analysis/DA \cite{azen2003dominance}.
 	
-	To date, published methodological work has extended DA from the linear regression model on which it was originally developed, to generalized linear models including binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative}.	
-	This work extends DA to CRMs and makes four contributions to the literature.
-	This work first reviews DA as a relative importance methodology and provides an accessible discussion of the relationship between DA and Shapley value decomposition.
-	As I will show, DA methods derive directly from and extend on Shapley value decomposition; a method developed in cooperative game theory to distribute game payoffs to players.
-	Statistical models are analogous to cooperative games and, in highlighting the relationship between these two methodologies, this work demonstrates the applicability of DA to CRMs as well as other statistical models and fit statistics that are used describe those models.
-	%revisit #1 here to be sure I do it as described
-	
-	Second, this work recommends using a specific pseudo-$R^2$ statistic for CRM-based DA and implements multiple data analytic examples of DA with that statistic.
+	To date, published methodological work has extended DA from the linear regression model/LRM on which it was originally developed, to generalized linear models including binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative}.	
+	This work extends DA to CRMs and makes three contributions to the literature.
+	This work first reviews DA as a relative importance methodology and  recommends using a specific pseudo-$R^2$ statistic for CRM-based DA and implements multiple data analytic examples of DA with that statistic.
 	Despite the applicability of DA to any model fit statistic that could be computed for a CRM, pseudo-$R^2$ values are valuable for DA due to their interpretability. 
-	The recommended pseudo-$R^2$ statistic is a direct generalization of the explained variance $R^2$ in linear regression to generalized linear models based on model deviance.
+	The recommended pseudo-$R^2$ statistic is a direct generalization of the explained variance $R^2$ in the LRM to generalized linear models based on model deviance.
 	The data analytic examples then use this deviance-based pseudo-$R^2$ as the fit statistic in a series of DA computations with simulated Poisson and negative Binomial distributed data.
 	
-	Third, this work discusses data generation mechanisms with count DVs and outlines how research questions with count DVs can, under certain circumstances, be affected by a concept known as differential exposure.
+	Second, this work discusses data generation mechanisms with count DVs and outlines how research questions with count DVs can, under certain circumstances, be affected by a concept known as differential exposure.
 	Differential exposure is a concept whereby two observations have different numbers of opportunities to produce behavior counts.
 	Oftentimes, such differential exposure is a nuisance factor related to data collection context and not of substantive interest and is correctable in the model using an offset term with a variable measuring differential exposure.
 	As I will show in this work, differential exposure is of particular import for DA statistic computation as it can affect estimates of DA statistics even when model coefficients are relatively unaffected.
@@ -75,8 +70,6 @@
 	
 	In this work, I begin with a detailed discussion of the conceptual background of DA--the relative importance analysis method most applicable to CRMs.	
  	Here I discuss the different levels of dominance between two IVs as defined by DA, how these levels are determined in the data, and what this level of dominance means in terms of the importance of any IV in the model.
-	I end this first section by outlining DA's relationship to Shapley value decomposition.
-	In discussing DA's relationship with Shapley value decomposition, I more clearly show the broad applicability of DA as a methodology to understand predictions in statistical analysis and the potential applicability of methods from allied literatures to common problems in DA.
 	The conceptual discussion of DA is followed by a more focused discussion where I apply DA to CRMs.
 	The goal of the focused CRM-based DA discussion is to recommend a model fit statistic for use in dominance designations.
 	In the third section, I apply the topics discussed in the previous two sections in a detailed PR- and NBR-based DA using simulated data designed be useful in illustrating key CRM-based DA concepts.
@@ -86,14 +79,14 @@
 		
 \section{Dominance Analysis: A Unique Relative Importance Analysis Method}
 
-	Research methodologists and statisticians have used many methods over the years to determine how important an IV is in linear regression \cite(see reviews in){gromping2007estimators, johnson2004history}.
+	Research methodologists and statisticians have used many methods over the years to determine how important an IV is in a LRM \cite(see reviews in){gromping2007estimators, johnson2004history}.
 	Importance methods have included the correlation between the IV and DV, an IV's standardized regression coefficient, as well as the increment to the $R^2$ makes, an IV makes when predicting the DV.
 	These methods, however informative in specific circumstances, are not considered to be useful as importance metirics as they fail to simultaneously account for the IV's bivariate and multivariate (i.e., controlling for other IV) relationships with the DV \cite{johnson2004history}.
 	Accommodating both bi- and multivariate relationships is important in determining importance as, for most statistical models, the order in which IVs are included is arbitrary yet the order of inclusion of IVs fundamentally affects the inferences made about IV importance.
 	Hence, it is essential to use importance methods that are independent of inclusion order.
 	
 	One importance method that is independent of ordering and has been favorably received in the methodology community, is DA.
-	DA was originally developed as a method for determining IV importance for linear regression by Budescu \citeyear{budescu1993dominance} that extended on past methods by defining importance in terms of pairwise IV comparisons as inferred from the direct comparison of sub-model $R^2$ values.
+	DA was originally developed as a method for determining IV importance for the LRM by Budescu \citeyear{budescu1993dominance} that extended on past methods by defining importance in terms of pairwise IV comparisons as inferred from the direct comparison of sub-model $R^2$ values.
 	Sub-model $R^2$ are those computed by re-fitting the model to the data with some subset of all the IVs.
 	In a model with $p$ IVs there are a total of $2^p$ sub-models including the full model with all $p$ IVs and the null model with none of the IVs (i.e., an intercept-only model)--which always produces a value of 0 and is often omitted.
 	DA achieves order independence by comparing the two focal IVs' $R^2$ values across sub-models that contain all combinations of the non-focal IVs including the null set of no other non-focal IVs.	
@@ -101,7 +94,7 @@
 	
 	As an example of how the dominance comparison is implemented, consider a model with 4 IVs: $IV_x$, $IV_z$, $IV_w$ and $IV_v$ predicting $Y$.
 	If the dominance comparison was focusing on $IV_x$ versus $IV_z$, there would be a total of 3 possible $R^2$ comparisons each of which is outlined below in Table \ref{tab:exdom}.
-	In each comparison, the subscripted model indicates the form of the linear regression equation in symbolic form (i.e., similar to an R formula interface).
+	In each comparison, the subscripted model indicates the form of the LRM equation in symbolic form (i.e., similar to an R formula interface).
 	$IV_x$ dominates $IV_z$ only when all the sub-model $R^2$ values that include $IV_x$ are greater than the sub-model $R^2$ values that include $IV_z$ across all three of these sub-models.
 	The dominance comparison described in this section has, more recently, been named complete dominance and has been recognized as the most stringent, or hardest to achieve, dominance designation in a series of three possible designations \cite{azen2003dominance}.	
 
@@ -127,18 +120,15 @@
 	Complete dominance is difficult to achieve as it involves direct comparisons between IVs at the level of individual sub-models' $R^2$ values.
 	The reason this designation is so difficult to achieve is that it is non-compensatory; all sub-model $R^2$ value comparisons must favor one IV over another or the designation will fail to be achieved.
 	
-	One alternative way of looking at the process of determining complete dominance is to see it as an experiment conducted on the predictive model.
-	Specifically, if the inclusion or exclusion of each IV in the full model is considered a factor in this experiment, conditional dominance is the process of comparing the values simple effects for $IV_x$ to those for $IV_z$ across the full-factorial of levels of the other $p -2$ IVs.	
-	
-	The process for determining complete dominance between two IVs, $IV_x$ and $IV_z$ with an arbitrary number of IVs in the model ($p$) can also be defined symbolically as:
+	The process for determining complete dominance between two IVs, $IV_x$ and $IV_z$ with an arbitrary number of IVs in the model ($p$) can also be defined as:
 	
 	\begin{equation}
-		IV_x D IV_z \iff \forall u \in U_n: R^2_{Y \sim IV_x + \{u\}} > R^2_{Y \sim IV_z + \{u\}}
+		IV_x \, D \, IV_z \quad if \quad k = \sum^k_{j=1} \Biggr\{ \begin{matrix} if \ R^2_{Y \sim IV_x + \{u_j\}} > R^2_{Y \sim IV_z + \{u_j\}} \ then \ 1 \\ else \ 0 \end{matrix}
 		\label{eq:cptdom}
 	\end{equation}
-	% fix symbolic logic here
 	
-	Hence, for all subsets of IVs $u$ in the pool of all possible $2^{p - 2}$ combinations of IVs not including  $IV_x$ and $IV_z$ (i.e., $U_n$), the $R^2$ that includes $IV_x$ must be greater than the $R^2$ that includes $IV_z$.
+	Where the total number of combinations of IVs not including $IV_x$ or $IV_z$ is $k = 2^{p - 2}$ and $u_j$ is a distinct subset of the other $p - 2$ IVs.
+	The braces surrounding $u_j$ indicate that it is a subset of IVs such as those in Table \ref{tab:exdom}.
 	The $D$ in this case is a designation indicating complete dominance of the left hand IV over the right hand IV.
 	
 	Ultimately, if $IV_x$ completely dominates $IV_z$ as is outlined in Equation \ref{eq:cptdom}, $IV_x$ has bested $IV_z$ 
@@ -160,9 +150,9 @@
 	Hence, conditional dominance designations acknowledge that increments to the $R^2$ are best compared in the context of the number of IVs in the model.	
 	
 	The average increments to the $R^2$ computed for determining conditional dominance are known as conditional dominance statistics.
-	Each IV has a conditional dominance statistic for each number of IVs in the model. 
-	Thus, with $p$ IVs, each IV will have $p$ conditional dominance statistics to compare.
-	Extending on Table \ref{tab:exdom}, determining conditional dominance between $IV_x$ and $IV_z$ would involve all four different conditional dominance statistics as it outlined below in Table \ref{tab:excdl}.
+	Each IV has a conditional dominance statistic for each number of IVs in the sub-model. 
+	Thus, with $p$ IVs, each IV will have $p$ conditional dominance statistics to compare to another IV.
+	Extending on Table \ref{tab:exdom}, determining conditional dominance between $IV_x$ and $IV_z$ would involve all four different conditional dominance statistics the computation of which are outlined below in Table \ref{tab:excdl}.
 	
 	\begin{table}[h!]
 		\centering
@@ -172,13 +162,13 @@
 			\hline
 			One IV & $\Delta R^2_{Y \sim IV_x + \{\emptyset\}}$ & $\Delta R^2_{Y \sim IV_z + \{\emptyset\}}$ \\
 			\hline
-			& $(\Delta R^2_{Y \sim IV_x + \{IV_w\}})\frac{1}{3} + $ & $(\Delta R^2_{Y \sim IV_z + \{IV_w\}})\frac{1}{3} + $ \\
-			Two IVs & $(\Delta R^2_{Y \sim IV_x + \{IV_v\}})\frac{1}{3} + $ & $(\Delta R^2_{Y \sim IV_z + \{IV_v\}})\frac{1}{3} + $ \\
-			& $(\Delta R^2_{Y \sim IV_x + \{IV_z\}})\frac{1}{3}$ & $(\Delta R^2_{Y \sim IV_z + \{IV_x\}})\frac{1}{3}$ \\
+			& $(\Delta R^2_{Y \sim IV_x + \{IV_w\}} + $ & $(\Delta R^2_{Y \sim IV_z + \{IV_w\}} + $ \\
+			Two IVs & $\Delta R^2_{Y \sim IV_x + \{IV_v\}} + $ & $\Delta R^2_{Y \sim IV_z + \{IV_v\}} + $ \\
+			& $\Delta R^2_{Y \sim IV_x + \{IV_z\}})\frac{1}{3}$ & $\Delta R^2_{Y \sim IV_z + \{IV_x\}})\frac{1}{3} $ \\
 			\hline
-			& $(\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v\}})\frac{1}{3} + $ & $(\Delta R^2_{Y \sim IV_z + \{IV_w + IV_v\}})\frac{1}{3} + $ \\
-			Three IVs & $(\Delta R^2_{Y \sim IV_x + \{IV_w + IV_z\}})\frac{1}{3} + $ & $(\Delta R^2_{Y \sim IV_z + \{IV_w + IV_x\}})\frac{1}{3} + $ \\
-			& $(\Delta R^2_{Y \sim IV_x - \{IV_v + IV_z\}})\frac{1}{3}$ & $(\Delta R^2_{Y \sim IV_v + \{IV_w + IV_x\}})\frac{1}{3}$ \\
+			& $(\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v\}} + $ & $(\Delta R^2_{Y \sim IV_z + \{IV_w + IV_v\}} + $ \\
+			Three IVs & $\Delta R^2_{Y \sim IV_x + \{IV_w + IV_z\}} + $ & $\Delta R^2_{Y \sim IV_z + \{IV_w + IV_x\}} + $ \\
+			& $\Delta R^2_{Y \sim IV_x - \{IV_v + IV_z\}})\frac{1}{3}$ & $\Delta R^2_{Y \sim IV_v + \{IV_w + IV_x\}})\frac{1}{3}$ \\
 			\hline
 			Four IVs & $\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v + IV_z\}}$ & $\Delta R^2_{Y \sim IV_v + \{IV_w + IV_w + IV_x\}}$ \\
 			\hline
@@ -188,115 +178,99 @@
 	
 	The $\Delta$ indicates that the values in Table \ref{tab:excdl} reflect that the $R^2$ value is an increment made by the first IV beyond the subset of IVs in braces.
 	For the first set of conditional dominance statistics, at one IV, the $\emptyset$ indicates the null set with no IVs--thus, is the $R^2$ with the IV by itself in a subset.
-	Note that, unlike complete dominance designations that exclude $R^2$ subset values that include the IV against which the focal IV is being compared, conditional dominance designations are not IV pair-specific and the computation to produce the complete dominance statistics include all IVs.
+	Note that the conditional dominance statistics are not only averaged but also include all IVs in their computation.
+	Hence, conditional dominance comparisons between two IVs' conditional dominance statistics will include increments from the IV against which they are being compared in their each average.
+	This is a noteworthy difference from complete dominance designations that ignore sub-model $R^2$ values that include the IV against which the focal IV is being compared.
 	
-	... ended here...
-	
-	The computations in Table \ref{tab:excdl} can be generalized
+	The process of computing conditional dominance statistics for $IV_x$ for a number of IVs in the model $i$ can be formalized as in Equation \ref{eq:cdlst} below.
 	
 	\begin{equation}
-		C^{i}_{IV_x} = \frac{\Sigma^{c}_{j} \Delta R^2_{IV_x + \{o_j\}}}{c}
+		C^{i}_{IV_x} = \frac{\sum^{l_i}_{g=1} \Delta R^2_{IV_x + \{o_g\}}}{l_g}
 		\label{eq:cdlst}
 	\end{equation}
 	
-	Conditional dominance designation is then the process of making $p$ comparisons for each IV pair in which $\bar{\Delta R^2_{IV^l_x}} > \bar{\Delta R^2_{IV^l_z}}$ where the $l$ superscript for each IV represents a number between 1 and $p$ indicating the number of IVs in the sub-model (i.e., the grouping factor for the averages) and $\Delta R^2$ indicates an increment to the $R^2$ associated with an IV, and the bar (i.e., $\bar{ }$ ) above the values indicates an arithmetic average. 
-	Conditional dominance is determined for $IV_x$ when $IV_x$ \emph{always} has a larger average incremental $R^2$ value compared to the compared to $IV_z$ across \emph{all} IV number-grouped averages/conditional dominance statistics.
+	Where $l_i$ is the number of combinations of size $i$ given $p$ IVs and $o_g$ is a distict subset of the $p$ IVs of size $i - 1$, not inluding $IV_x$, that are included in the sub-model.
 	
-		\begin{equation}
-		IV_x D_c IV_z \iff \bigcup^p_i C^{i}_{IV_x} > C^{i}_{IV_z}
+	The process for determining conditional dominance between two IVs, $IV_x$ and $IV_z$, can also be defined as in Equation \ref{eq:cdldom}.
+	
+	\begin{equation}
+		IV_x \ D_c \ IV_z \quad if \quad p = \sum^p_{i=1} \Biggl\{ \begin{matrix} if \ C^{i}_{IV_x} > C^{i}_{IV_z} \ then \ 1 \\ else \ 0 \end{matrix}
 		\label{eq:cdldom}
-		\end{equation}
-	% fix symbolic logic here
+	\end{equation}
 	
-	The conditional dominance designation process is similar to complete dominance in that it is also a multi-round competition between the two competing IVs ($IV_x, IV_z$) but the values used in the comparison are differ substantially.  
-	In conditional dominance, the values are based on the increment the competing IV makes to the IV coalition, the competitor IV can be a member of the coalition (i.e., the conditional dominance statistic for $IV_x$ can include $IV_z$ as a coalition member), and the values are averaged over the number of IVs in the coalition.
-	If $IV_x$ conditionally dominates $IV_z$, $IV_x$ tends to contribute more to the value of coalitions of different sizes when explaining the DV than $IV_z$.
-	Conditional dominance means that, conditioning on the number of IVs in the sub-model, $IV_x$ is consistently better than $IV_z$ at explaining variance in the model.
+	The $D_c$ in this case is a designation indicating conditional dominance of the left hand IV over the right hand IV.
 	
-	Note that because conditional dominance process generally makes fewer comparisons than does the complete dominance designation process, achieving conditional dominance between IV pairs is more likely with conditional than with complete dominance designation. 
-	In addition, the values compared in conditional dominance designation are compensatory as they average incremental contributions to the $R^2$ across sub-models.
-	Hence, in situations where an IV performs poorly in the presence of another can be compensated for by better performance in the presence of other IVs. 
-	Conditional dominance can also be difficult to meet for IV pairs in models with a great deal of between-IV overlap.
-	When a researcher cannot determine conditional dominance between pairs IVs, they can attempt yet another dominance designation between the IVs that involves averaging the averages/conditional dominance statistics.
+	When complete dominance is not achieved between two $IV_x$ and $IV_z$, but conditional dominance is, $IV_x$ tends to explain more of $Y$ than does $IV_z$ irrespective of inclusion order.
+	Thus, when achieved, conditional dominance suggests that $IV_x$'s effects are not generally sensitive to the order in which it enters the model compared to $IV_z$ and that it is more important conditional on the number of IVs in the sub-model.
+	
+	Conditional dominance between two IVs is much less stringent than complete dominance but can still be a difficult designation to meet for IV pairs in models with a great deal of between-IV overlap.
+	The final dominance designation involves yet another averaging step to allow reduce the stringency of the comparison and allow for compensation of values over inclusion orders.
 	
 	\subsection{General Dominance}
 	
 	The least stringent dominance designation between IV pairs is called general dominance.
-	General dominance further relaxes the stringency of the comparisons between IV pairs by changing the focus from comparing average increments grouped by IVs in a sub-model to the arithmetic average of these averages.
-	General dominance designations then describe each IV's contribution to the $R^2$ in a single value and compares these single values to one another by IV pair.
+	General dominance further relaxes the stringency of the comparisons between IV pairs by changing the focus from comparing average increments grouped by the number of IVs in a sub-model to the arithmetic average of these averages.
+	By averaging over conditional dominance statistics, general dominance allows higher contributions at specific numbers of IVs in the sub-model to compensate for lower contributions at other numbers of IVs in the sub-model. 
+	The values generated by general dominance almost guarantee that IVs will produce a dominance designation and permits an explicit rank ordering of IV predictive usefulness of each IV in the model.
 	
-	The averaged incremental $R^2$ computed for determining general dominance is known as general dominance statistics. The single general dominance statistic computed for each IV, because it is based on conditional dominance statistics, includes the $R^2$ increments for each sub-model as a weighted average.
-	For example, computing the general dominance for $IV_x$ in the example above would produce $\frac{R^2_{IV_x} - 0}{4}  + \frac{R^2_{IV_x + IV_z} + R^2_{IV_x + IV_w} + R^2_{IV_x + IV_v} - (R^2_{IV_z} + R^2_{IV_w} + R^2_{IV_v})}{12} + \frac{R^2_{IV_x + IV_z + IV_w} + R^2_{IV_x + IV_w + IV_v} + R^2_{IV_x + IV_z + IV_v} - (R^2_{IV_z + IV_w} + R^2_{IV_w + IV_v} + R^2_{IV_z + IV_v})}{12} + \frac{R^2_{IV_x + IV_z + IV_w + IV_v} - R^2_{IV_z + IV_w + IV_v}}{4}$.
-	Note that this value includes \emph{all} of the 16 $\Delta R^2$ values associated with each sub-model.
-	Note also that each of the increments have different weights in the average that differ depending on the number of sub-models that are included in each conditional dominance statistic.
-	Here the sub-model containing only $IV_x$ has a weight of $\frac{1}{4}$ as the general dominance statistic averages all 4 conditional dominance statistics and there is only one sub-model represented in the conditional dominance statistic's value.
-	By contrast, the sub-model containing $IV_x$ and $IV_w$ are a component of an $R^2$ increment that includes 3 other sub-models.
-	Because the 3 models with 2 IVs are averaged first to create the conditional dominance statistic grouped by 2 IVs in the model, the general dominance statistic's additional averaging produce a weight of $\frac{1}{12} = \frac{1}{3*4}$.
+	The averaged conditional dominance statistics computed for determining general dominance are known as general dominance statistics. The single general dominance statistic computed for each IV
+	Extending on Table \ref{tab:excdl}, determining general dominance between $IV_x$ and $IV_z$ would involve both general dominance statistics.
+	Both general dominance statistics are included below in Table \ref{tab:exgen} in their full computational form.
 	
-	General dominance is then the process of making a single comparison for each IV pair in which $\delta_{IV_x} > \delta_{IV_z}$ where $\delta$ is the general dominance statistic.
-	General dominance is determined for $IV_x$ when $IV_x$ has a larger $\delta$ value compared to $IV_z$.
-	
-	In contrast to complete and conditional dominance, the competition between the two competing IVs in the general dominance designation process involves only one comparison.
-	The value compared in general dominance is the average increment to the $R^2$ the IV makes across IV coalitions of different sizes given its average contribution at each coalition size.
-	General dominance means then that averaging across an IV's contribution to with different numbers of IVs in the model, $IV_x$ is generally higher than is $IV_z$ at explaining variance in the model.
-	
-	Given the general dominance designation process involves a single comparison, the IV pair being compared can almost always designate general dominance of one IV over another.
-	Thus, general dominance, as a designation between an IV pair, is likely to be achieved.
-	An additional unique feature of the general dominance statistics used to determine general dominance is that they sum to the value of the $R^2$ across all IVs.
-	Thus, general dominance statistics is the part of the $R^2$ attributable to an IV. 
-	It is this last, part of the whole, interpretation that links general dominance statistics to another well-known methodology 
-	
-	\subsection{Shapley Value Decomposition}
-	
-	DA extends on Shapley value composition further in the next section that discusses two other importance designations used in DA to make stronger importance determinations than that which general dominance statistics are capable.
-	
-	Although it is a popular method, DA is not the only relative importance methodology to evaluate IV contributions to the explained variance $R^2$ and, indeed, there are a number of similar metrics that have been used in organizational and behavioral science as a method for determining importance \cite(see)[for a review]{johnson2004history}.
-	An additional, and unique, advantage of DA is the extensibility of the methodology given its relationship to a well-known, methodology from game theory for ascribing payoffs in a game to players: Shapley value decomposition \cite(e.g.,){winter2002shapley}.
-	
-	The relationship between DA and Shapley value decomposition is important and infrequently acknowledged in published research \cite(see)[for a rare exception]{gromping2007estimators}.
-	The relationship between these methods is important as Shapley value decomposition has a rigorous conceptual foundation and is a broadly applicable method for ascribing values to players in a cooperative game.
-	Therefore, the analogy between DA and Shapley values can justify DA's extension to new 
-	
-	Cooperative games can be thought of as a structured form of interaction in which the interacting parties are required to work together toward a common goal and share information with one another \cite(e.g.,){elkind2016cooperative}.
-	This form of interaction is not unlike a team task where the different team members have different pieces of information or different tools and must cooperate to accomplish the task.
-	The Shapley value decomposition methodology then uses the structure of the game to determine the unique value ascribed to each player independent of other players irrespective of potentially overlapping player contributions.
-	Computationally, the Shapley value computation is the average increment to the obtained cooperative value a player obtains across all possible permutations of coalitions. 
-	Formally, player A's ($Pl_a$) Shapley value would be:
-	
-	$$
-		\delta_{IV_x} = 
-		\frac{\sum_{i=1}^{\pi} R^2_{O_i + IV_x} - R^2_{O_i}}{\pi} = 
-		\frac{\sum_{j=1}^{p} \sum_{l=1}^{\phi_j} R^2_{U_{jl} + IV_x} - R^2_{U_{jl}}}{p*\phi_j}
-	$$
+		\begin{table}[h!]
+		\centering
+		\caption{\centering Example General Dominance}
+		\begin{tabular}{ l l }
+			Average with $IV_x$ & Average with $IV_z$ \\
+			\hline
+			$\Delta R^2_{Y \sim IV_x + \{\emptyset\}}\frac{1}{4} + $ & $\Delta R^2_{Y \sim IV_z + \{\emptyset\}}\frac{1}{4} +$ \\
+			$(\Delta R^2_{Y \sim IV_x + \{IV_w\}} + $ & $(\Delta R^2_{Y \sim IV_z + \{IV_w\}} + $ \\
+			$\Delta R^2_{Y \sim IV_x + \{IV_v\}} + $ & $\Delta R^2_{Y \sim IV_z + \{IV_v\}} + $ \\
+			$\Delta R^2_{Y \sim IV_x + \{IV_z\}})\frac{1}{12} + $ & $\Delta R^2_{Y \sim IV_z + \{IV_x\}})\frac{1}{12} + $ \\
+			$(\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v\}} + $ & $(\Delta R^2_{Y \sim IV_z + \{IV_w + IV_v\}} + $ \\
+			$\Delta R^2_{Y \sim IV_x + \{IV_w + IV_z\}} + $ & $\Delta R^2_{Y \sim IV_z + \{IV_w + IV_x\}} + $ \\
+			$\Delta R^2_{Y \sim IV_x - \{IV_v + IV_z\}})\frac{1}{12} + $ & $\Delta R^2_{Y \sim IV_v + \{IV_w + IV_x\}})\frac{1}{12} +$ \\
+			$\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v + IV_z\}}\frac{1}{4}$ & $\Delta R^2_{Y \sim IV_v + \{IV_w + IV_w + IV_x\}}\frac{1}{4}$ \\
+			\hline
+		\end{tabular}
+		\label{tab:exgen}
+	\end{table}
 
-	Where $\pi$ refers to the total number of permutations of the $p$ players and $O_i$ is some distinct ordered set (i.e., where the order of inclusion matters) of players not including $Pl_a$ that can include the null set of no players.
+	As is implied by the computations in Table \ref{tab:exgen}, each general dominance statistics are a weighted average of the individual increments to the $R^2$s.
 	
-	Predictive models work in a way similar to cooperative games in that IVs jointly enter into a predictive equation (i.e., must interact) and are adjusted for redundancy in terms of prediction of the DV (i.e., share information).
-	Thus, Shapley value decomposition can be applied in a straightforward way to predictive models if the IVs are thought of as players and the fit statistic is thought of as the cooperative goal value.
-	Indeed, the Shapley value methodology has received a great deal of attention recently in the machine learning literature as a general, model agnostic method for understanding complex model predictions \cite(e.g.,){lundberg2020local}.
-	Moreover, the generality of the Shapley value decomposition methodology means that the approach extends in a natural way to the decomposition of CRM values. 
-	Shapley values are a general method for decomposing values but its extension to DA is the methodology that most clearly defined methods for determining the relative importance of predictive models.
+	The process of computing the general dominance statistic for $IV_x$ is formalized below in Equation \ref{eq:genst}.
 	
+	\begin{equation}
+		C_{IV_x} = \frac{\sum^{p}_{i=1} C^i_{IV_x}}{p}
+		\label{eq:genst}
+	\end{equation}
+	
+	Using the general dominance statistics computed in Equation \ref{eq:genst}, the process of determining general dominance of $IV_x$ over $IV_z$ can also be defined as in Equation \ref{eq:gendom}.
+	
+	\begin{equation}
+		IV_x \ D_g \ IV_z \quad if \quad C_{IV_x} > C_{IV_z}
+		\label{eq:gendom}
+	\end{equation}
+	
+	The $D_c$ in this case is a designation indicating conditional dominance of the left hand IV over the right hand IV.
+	
+	When complete and conditional dominance is not achieved between two $IV_x$ and $IV_z$, but general dominance is, $IV_x$ tends to explain more of $Y$ than does $IV_z$ but is sensitive to inclusion order.
+	Hence, when achieved, general dominance suggests that $IV_x$'s predictive usefulness is on average, better than $IV_z$ and that it is more important when ignoring the effect of inclusion order.
+	
+	It is important to note that the  general dominance statistic values, when summed across the $p$ IVs, equals the sub-model $R^2$ when all $p$ predictors are included.
+	This is a useful feature of these statistics that, as has been discussed in other reviews \cite{gromping2007estimators,johnson2004history}, ties this method to earlier work that has focused on the decomposition of the $R^2$ statistic.
 
-	
-	\subsection{Other Dominance Computations and Designations}
-	
-
-	
-
-	This section has outlined why Shapley value decomposition and the extension into DA applies to CRMs. 
-	This section has also provided a discussion of how DA statistics and designations are computed and determined.
+	In the sections above, I have provided a discussion of DA's development and reviewed how DA statistics are computed and DA designations are determined.
 	In the section below, I transition from a broad outline of DA to a more targeted discussion of the application of DA to CRMs.
-	The discussion of CRM-based DA begins by considering which fit metric should be used and proceeds to an extensive example applying DA to both PR and NBR.
+	The focus of the section discussion of CRM-based DA focuses on considering which fit metric should be used when applying DA to CRMs.
 	
 \section{Applying Dominance Analysis to Count Regression Models}
 
-	Conceptually, DA can be applied to CRMs as its basis in Shapley values allows the application of the method to any procedure that is similar to a cooperative game.
-	A complication of applying DA to CRMs is that most of the literature on DA has focused on its application to LRM with the residual $R^2$ (i.e., $R^2_{RES}$).
-	CRMs and LRM have many similarities and, given the numerical nature of count DVs and that the output from CRMs is typically in the form of a predicted count/mean value, the $R^2_{RES}$ could be applied to CRM-based DA.
+	A complication of applying DA to CRMs is that most of the literature on DA has focused on its application to LRM with the variance explained $R^2$.
+	CRMs and LRM have many similarities and, given the semi-continuous nature of count DVs and that the output from CRMs is typically in the form of a predicted count/mean value, the $R^2$ could be applied to CRM-based DA.
 	
-	Although $R^2_{RES}$ could be applied, there are good conceptual reasons to choose another fit metric. 
-	The section below provides a detailed rationale for the choice of a different metric, the deviance $R^2$ (i.e., $R^2_{DEV}$), that better reflects how CRMs fit to data. 
+	Although the variance explained $R^2$ could be applied, there are good conceptual reasons to choose another fit metric. 
+	In thhe section below, I provides a detailed rationale for the choice of a different metric, the deviance $R^2$ (i.e., $R^2_{DEV}$), that better reflects how CRMs fit to data. 
 	
 	\subsection{Count Regression Fit Metric: Deviance $R^2$}
 	
@@ -305,28 +279,41 @@
 	It is thus important to choose a fit metric that matches the probability distribution's underlying fitting criterion.
 	
 	First consider LRM.
-	LRM is based on a Normal or Gaussian probability distribution that can be simplified to the	least-squares criterion which seeks to minimize $\sum (y - \hat{y})^2$ or the sums of squares between the predicted values from the LRM and the observed DV.
-	The $R^2_{RES}$ that has been traditionally applied in LRM-based DA is one less than the ratio of the sum of squares of the observed DV and predicted value to the sum of squares of the observed DV and the mean of the observed DV (i.e., $\sum (y - \bar{y})^2$).
-	Because the $R^2_{RES}$ uses the LRM minimization goal's in computing differences between the observed data and the predictions, the $R^2_{RES}$ is a useful model fit metric for LRM.
-	
-	The $(y - \hat{y})^2$ computation used in the computation of the $R^2_{RES}$ is also known as the \emph{unit deviance} for the Normal distribution as it describes how the model's prediction "deviates" from observed values \cite{mccullagh2019generalized}.
-	The value in the numerator of the $R^2_{RES}$ is then a deviance for a Normal distribution.
-	The denominator can be similarly cast as a deviance if considering a null LRM that estimates only an intercept and thus returns the mean.
-	Thus, the the $R^2_{RES}$ can also be thought of as a deviance $R^2$.
-	
-	Cameron and Windmeijer \citeyear{cameron1996r} first formalize the concept of extending the $R^2_{RES}$ to a version of the metric based on deviance.
-	The deviance $R^2$ is computed as:
+	LRM is based on a Normal or Gaussian probability distribution that can be simplified to the	least-squares criterion which seeks to minimize $SS_{RES} = \sum (Y - \hat{Y})^2$ or the residual sums of squares between the predicted values from the LRM and the observed DV.
+	The residual sums of squares can be used in ratio with the total sums of squares (i.e., $SS_{TOT} = \sum (Y - \bar{Y})^2$) to obtain the proportion of the total sums of squares that are unexplained.
+	These two values can be used to obtain the residual $R^2$, formalized below in Equation \ref{eq:r2res}, which is equivalent to the explained variance $R^2$ \cite{cameron1996r}.
 	
 	\begin{equation}
-		R^{2}_{DEV} = 1 - \frac{D_{model}}{D_{null}}
+		R^2_{RES} = 1 - \frac{SS_{RES}}{SS_{TOT}}
+			\label{eq:r2res}
 	\end{equation}
 
-	Where $D_{null}$ is the model deviance associated with a null model describing an intercept- or mean-only model.
-	Thus, when the LRM's deviance computations are substituted in for the $D_{model}$ and $D_{null}$ values, the $R^{2}_{DEV}$ is equivalent to $R^{2}_{RES}$.
+	Because the $R^2_{RES}$ uses the LRM minimization goal's in computing differences between the observed data and the predictions, the $R^2_{RES}$ is a useful model fit metric for LRM.
 	
-	An advantage of constructing the $R^{2}_{DEV}$ is that the deviance concept has been generalized from LRM to generalized linear models such as PR and NBR as well.
-	For example, the unit deviance computation for PR and a special case of the NBR\footnote{This special case is the NBR estimated using a quasi-likelihood method. Maximum likelihood methods require a more complex form given the estimation of the $\alpha$ parameter.} is $2(y\ln \frac{y}{\hat{y}} - (y - \hat{y}))$. 
-	This PR-focused deviance value differs notably from the Normal distribution deviance in that it tends to penalize underprediction more than overprediction.
+	The computation used to obtain the $SS_{RES}$ is also known as the deviance for the Normal distribution as it describes how the model's predictions deviate from observed values \cite{mccullagh2019generalized}.
+	The value in the numerator of the $R^2_{RES}$ is then a deviance for a Normal distribution based on the model's predictions.
+	The denominator can be similarly cast as a deviance if considering a $SS_{TOT}$ as a null LRM that estimates only an intercept and thus returns the mean.
+	Thus, the the $R^2_{RES}$ is ratio of deviences or a deviance $R^2$ for the Normal distribution.
+	
+	Cameron and Windmeijer \citeyear{cameron1996r} first generalized the $R^2_{RES}$ to $R^2_{DEV}$.
+	This $R^2_{DEV}$ is computed as in Equation \ref{eq:r2dev} below.
+	
+	\begin{equation}
+		R^{2}_{DEV} = 1 - \frac{DEV_{model}}{DEV_{null}}
+		\label{eq:r2dev}
+	\end{equation}
+
+	Where $DEV_{null}$ is the model deviance associated with a null model describing an intercept- or mean-only model.
+	Thus, when the LRM's deviance computations are substituted in for the $DEV_{model}$ and $DEV_{null}$ values, the $R^{2}_{DEV}$ is equivalent to $R^{2}_{RES}$.
+	
+	...ended here - maybe revisit this section/re-read it...
+	
+	$R^{2}_{DEV}$ is a fit statistic that can apply generalized linear models such as PR and NBR.
+	For example, the unit deviance computation for PR and a special case of the NBR\footnote{
+		This special case is the NBR estimated using a quasi-likelihood method. 
+		Maximum likelihood methods require a more complex form given the estimation of the $\alpha$ parameter.} 
+	is $2(Y\ln \frac{Y}{\hat{Y}} - (Y - \hat{Y}))$. 
+	Note that this PR-focused deviance value differs notably from the Normal distribution deviance in that it tends to penalize underprediction more than overprediction.
 	The extra penalties assigned to underprediction are consistent with the PR's log-linear nature in that the log distance between 1 and 2 (.69) is larger than between 2 and 3 (.41); on average, lower log-transformed differences get penalized more than higher log-transformed differences.
 	By contrast, Normal distribution deviance penalizes discrepancies from observed values equally in either direction.
 	
