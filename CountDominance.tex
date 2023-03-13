@@ -267,221 +267,220 @@
 \section{Applying Dominance Analysis to Count Regression Models}
 
 	A complication of applying DA to CRMs is that most of the literature on DA has focused on its application to LRM with the variance explained $R^2$.
-	CRMs and LRM have many similarities and, given the semi-continuous nature of count DVs and that the output from CRMs is typically in the form of a predicted count/mean value, the $R^2$ could be applied to CRM-based DA.
+	Given the semi-continuous nature of count DVs and that the output from CRMs is typically in the form of a predicted count/mean value, the $R^2$ could be applied to CRM-based DA.
 	
 	Although the variance explained $R^2$ could be applied, there are good conceptual reasons to choose another fit metric. 
-	In thhe section below, I provides a detailed rationale for the choice of a different metric, the deviance $R^2$ (i.e., $R^2_{DEV}$), that better reflects how CRMs fit to data. 
+	In the section below, I provide a detailed rationale for the choice of a different metric, the deviance $R^2$ (i.e., $R^2_{DEV}$), that better reflects how CRMs fit to data. 
 	
 	\subsection{Count Regression Fit Metric: Deviance $R^2$}
 	
-	CRMs are not only log-linear models but also follow probability distributions that differ from the LRM that has been traditionally been the focus of DA.
-	This is important as statistical models are fit using information about the data as applied to a probability distribution to find their most likely parameter values.
-	It is thus important to choose a fit metric that matches the probability distribution's underlying fitting criterion.
+	CRMs such as PR and NBR are not only log-linear models but follow the discrete Poisson and negative Binomial probability distributions.
+	That both of these CRMs follow a distribution that is not the Normal distribution is important to consider when evaluating model fit.
+	This is because statistical models are fit using information about the data as applied to a probability distribution to find their most likely parameter values.
+	Thus, choosing a fit metric that matches the probability distribution's underlying fitting criterion will best reflect how the model fits to data.
 	
-	First consider LRM.
-	LRM is based on a Normal or Gaussian probability distribution that can be simplified to the	least-squares criterion which seeks to minimize $SS_{RES} = \sum (Y - \hat{Y})^2$ or the residual sums of squares between the predicted values from the LRM and the observed DV.
-	The residual sums of squares can be used in ratio with the total sums of squares (i.e., $SS_{TOT} = \sum (Y - \bar{Y})^2$) to obtain the proportion of the total sums of squares that are unexplained.
-	These two values can be used to obtain the residual $R^2$, formalized below in Equation \ref{eq:r2res}, which is equivalent to the explained variance $R^2$ \cite{cameron1996r}.
+	In considering how fit metrics reflect underlying fitting criteria, I find it instructive to first consider the LRM.
+	LRM is based on a Normal or Gaussian probability distribution that has been shown to have least-squares as its fitting criterion which seeks to minimize $SS_{residual} = \sum (Y - \hat{Y})^2$ or the residual sums of squares between the predicted values from the LRM and the observed DV. The computation used to obtain the $SS_{residual}$ is also known as the deviance ($DEV$) for the Normal distribution as it describes how the model's predictions deviate from observed values \cite{mccullagh2019generalized}.
+	The $SS_{residual}$ can then be cast as $DEV_{model}$ or a model deviance for the LRM.
 	
-	\begin{equation}
-		R^2_{RES} = 1 - \frac{SS_{RES}}{SS_{TOT}}
-			\label{eq:r2res}
-	\end{equation}
-
-	Because the $R^2_{RES}$ uses the LRM minimization goal's in computing differences between the observed data and the predictions, the $R^2_{RES}$ is a useful model fit metric for LRM.
+	Deviance computations apply to CRMs but can differ substantially from the LRM's least squares criterion.
+	For example, the deviance for PR and a special case of the NBR\footnote{
+		This special case is the NBR estimated using a quasi-likelihood method. 
+		Maximum likelihood methods require a more complex form given the estimation of the $\alpha$ parameter.} 
+	is $\sum Y\ln \frac{Y}{\hat{Y}} - (Y - \hat{Y})$. 
+	Note that this PR-focused deviance value differs notably from the Normal distribution deviance in that it tends to penalize underprediction more than overprediction.
+	The extra penalties assigned to underprediction are consistent with the truncated, semi-continuous nature of count DVs in that they cannot go below 0 and, thus, tend to be penalized more heavily toward the conceptual lower bound of the distribution.
+	By contrast, Normal distribution deviance has no such constraint and penalizes discrepancies from observed values equally in either direction.
 	
-	The computation used to obtain the $SS_{RES}$ is also known as the deviance for the Normal distribution as it describes how the model's predictions deviate from observed values \cite{mccullagh2019generalized}.
-	The value in the numerator of the $R^2_{RES}$ is then a deviance for a Normal distribution based on the model's predictions.
-	The denominator can be similarly cast as a deviance if considering a $SS_{TOT}$ as a null LRM that estimates only an intercept and thus returns the mean.
-	Thus, the the $R^2_{RES}$ is ratio of deviences or a deviance $R^2$ for the Normal distribution.
-	
-	Cameron and Windmeijer \citeyear{cameron1996r} first generalized the $R^2_{RES}$ to $R^2_{DEV}$.
-	This $R^2_{DEV}$ is computed as in Equation \ref{eq:r2dev} below.
+	The difference between the deviance computations across LRM and CRMs in terms of their implications for model fit was first discussed by Cameron and Windmeijer \citeyear{cameron1996r} who devise the $R^2_{DEV}$ or deviance $R^2$ outlined in Equation \ref{eq:r2dev} below.
 	
 	\begin{equation}
 		R^{2}_{DEV} = 1 - \frac{DEV_{model}}{DEV_{null}}
 		\label{eq:r2dev}
 	\end{equation}
-
-	Where $DEV_{null}$ is the model deviance associated with a null model describing an intercept- or mean-only model.
-	Thus, when the LRM's deviance computations are substituted in for the $DEV_{model}$ and $DEV_{null}$ values, the $R^{2}_{DEV}$ is equivalent to $R^{2}_{RES}$.
 	
-	...ended here - maybe revisit this section/re-read it...
+	Where $DEV_{null}$ is a deviance for an intercept- or mean-only model.
 	
-	$R^{2}_{DEV}$ is a fit statistic that can apply generalized linear models such as PR and NBR.
-	For example, the unit deviance computation for PR and a special case of the NBR\footnote{
-		This special case is the NBR estimated using a quasi-likelihood method. 
-		Maximum likelihood methods require a more complex form given the estimation of the $\alpha$ parameter.} 
-	is $2(Y\ln \frac{Y}{\hat{Y}} - (Y - \hat{Y}))$. 
-	Note that this PR-focused deviance value differs notably from the Normal distribution deviance in that it tends to penalize underprediction more than overprediction.
-	The extra penalties assigned to underprediction are consistent with the PR's log-linear nature in that the log distance between 1 and 2 (.69) is larger than between 2 and 3 (.41); on average, lower log-transformed differences get penalized more than higher log-transformed differences.
-	By contrast, Normal distribution deviance penalizes discrepancies from observed values equally in either direction.
+	As Cameron and Windmeijer note, the explained variance $R^2$ used in LRM is, in fact, a $R^2_{DEV}$ for the LRM as it can be cast as $1 - \frac{SS_{residual}}{SS_{total}}$ where $SS_{total} = \sum (Y - \bar{Y})^2$ which is equivalent to $DEV_{null}$ for the LRM.
+	Consequently, applying the explained variance $R^2$ to a CRM applies a fit metric meant for LRM's fitting criterion to CRMs.
+	Because the $R^{2}_{DEV}$ using each CRM's unique deviance computation necessarily fit better to each CRM's fitting criterion, it is then the fit metric I recommend for CRM-based DA.
 	
-	The $R^{2}_{DEV}$ is then a useful generalization of the $R^{2}_{RES}$ that allows the researcher to apply an residual computation that makes sense for the model in question, as opposed to applying the LRM's deviance criterion to a model that is not based on LRM \cite(e.g.,){cameron1996r}.
-	The $R^{2}_{DEV}$ is then the fit metric recommended for use in conducting DA with CRMs.
-	
-	This section has provided a rationale for the choice of a specific fit metric to use when applying DA to CRMs.
+	In this section I have provided a rationale for the choice of a specific fit metric to use when applying DA to CRMs.
 	In the sections to follow, I transition to the description of the methodology for applying DA to CRMs.
 	This discussion briefly outlines the data generated for this purpose, describes the models estimated from the data, and also describes how DA statistics and designations were determined with the results.
 	
 	\subsection{Count Regression Model-based Dominance Analysis: An Analytic Example}
 	
-	In this section I describe how I generated data for a both a PR and NBR model.
-	These models are estimated in such a way as they would be were they based on "real" data and follow a procedure similar to that that would be applied to answering a "real" research question with the data.
-	
-	The next section provides a high-level overview of how the data were generated and descriptive statistics about the data.
-	Note that a full outline of the data generation and analysis process is available in the online supplement.
+	The goal of this section is to provide a walk through of an analysis of CRM-based DA using the $R^2_{DEV}$ recommended in the previous section.
+	This walk through is intended to be useful as a guide for researchers and analysts interested in applying this method to CRMs.
+	In the section below, I begin by describing how I generated data for the walk through based on a PR model\footnote{
+		An example using an NBR is available in the online supplement.}.
+	The methods used to generate these data are not directly relevant to the goals of this manuscript and, as such, have been put into an online supplement.
+	Please note that the online supplement outlines the literal generation and development perspective behind the generation of these data in great detail.
+	The section below is focused primarily on describing the conceptual nature of the data so that the reader can follow along prior to transitioning to analysis.
 	
 		\subsubsection{Data Generation}
-		
-	The data for this analysis were generated as opposed to obtained empirically to maintain control over their usefulness in illustrating the key concepts for this manuscript.
-	A goal in generating these data were to make them "realistic" when possible. 
-	That is, to reduce the elements of the data that made them simulated in order to focus on the concepts
 	
-	The data simulated in this section were intended to describe the generation of garments from a tailors in a fortnight or two-week period.
-	Data from a total of 6,780 simulated tailors were generated over this period across two different garments/DVs and for four garment generation factors/IVs.
+	The study described below intends to evaluate the effect of four different tailoring shop characteristics on the output of each shop.
+	The data for this analysis describe a sample of 6,780 such tailoring shops over a two-week period of time.
+	One count DV output of each of these shops is the number of sport jackets (called SJ below) finished by the shop.
+	Sport jackets are garments developed from a template and are of standard sizes and measurements.
+	As such, the jackets are expected to show little extra variation and were expected to be Poisson distributed.
 	
-	One dependent variable, the number of stock sport coats of a set size made by the tailors, is Poisson distributed. 
-	The second dependent variable, number of made-to-measure sport coats with custom elements made by the tailors, is negative Binomial distributed. 
-	The four garment generation factors include a] equipment reliability, b] assistant staffing levels, c] tailor skill-level, and d] tailor work experience.
-	Each of the four garment generation factors were designed to be multivariate Normally distributed with pre-specified relationships with the two forms of garment count DVs.
-	The pre-specified relationships between each of the garment generation factors with both garment count DVs were identical.
-	The only factor that differed between garment generation factors was the distribution of the DV.
-	Both garment count DVs were designed to have mean values of 1.
-	The negative Binomial, made-to-order sport coat count variable was also designed to have a variance of 3.	
+	There were four measured tailoring shop characteristics used to predict sport jacket output. 
+	The first characteristic was an expert's assessment of the shop's equipment reliability (called ER in results below).
+	Equipment reliability reflects the ease of the tailoring shop's equipment use for staff and the extent to which it is likely to fail to operate when needed. 
+	The second characteristic was the sufficiency of tailoring assistant staffing levels (called AS in results below).
+	Understaffed tailoring shops are likely to suffer from reduced productivity given the shortage of labor.
+	A third characteristic is the managing tailor's level of skill (called SL in results below).
+	More skilled managing tailors are more likely than less skilled managers to have designed processes that facilitate jacket completion.
+	Finally, the last characteristic is the managing tailor's work experience (called WE in results below).
+	Similar to skill-level, more experienced managing tailors are likely to have designed processes that improve garment production.
 	
-	The means, standard deviations, and correlations between all four IVs and two DVs is reported below in Table 1. 
+	The means, standard deviations, and correlations between all four IVs and two DVs are reported below in Table \ref{tab:desc}. 
 	
-\begin{longtable}{lrr|rrrrrr}
-	\caption*{
-		{\large Table 1: Descriptive Statistics}
-	} \\ 
-	\toprule
-	&  & Standard & \multicolumn{6}{c}{Correlations} \\ 
-	\cmidrule(lr){4-9}
-	Variable & Mean & Deviation & ER & AS & SL & WE & SJ & MJ \\ 
-	\midrule
-	ER & $-0.0355$ & $1.1853$ & $1.0000$ & $0.4168$ & $0.1446$ & $0.2180$ & $0.4419$ & $0.3820$ \\ 
-	AS & $-0.0261$ & $1.4494$ & $0.4168$ & $1.0000$ & $0.1958$ & $0.2850$ & $0.4025$ & $0.3488$ \\ 
-	SL & $-0.0056$ & $1.5480$ & $0.1446$ & $0.1958$ & $1.0000$ & $0.3295$ & $0.3393$ & $0.2935$ \\ 
-	WE & $0.0144$ & $1.9211$ & $0.2180$ & $0.2850$ & $0.3295$ & $1.0000$ & $0.3973$ & $0.3487$ \\ 
-	SJ & $0.9920$ & $1.0040$ & $0.4419$ & $0.4025$ & $0.3393$ & $0.3973$ & $1.0000$ & $0.8773$ \\ 
-	MJ & $0.9971$ & $1.7478$ & $0.3820$ & $0.3488$ & $0.2935$ & $0.3487$ & $0.8773$ & $1.0000$ \\ 
-	\bottomrule
-\end{longtable}
+	\begin{table}[h!]
+		\centering
+		\caption{\centering Descriptive Statistics} 
+		\begin{tabular}{lrr|rrrrr}
+			\toprule
+			&  & Standard & \multicolumn{5}{c}{Correlations} \\ 
+			\cmidrule(lr){4-8}
+			Variable & Mean & Deviation & ER & AS & SL & WE & SJ \\ 
+			\midrule
+			ER & $-0.0355$ & $1.1853$ & $1.0000$ & $0.4168$ & $0.1446$ & $0.2180$ & $0.4419$ \\ 
+			AS & $-0.0261$ & $1.4494$ & $0.4168$ & $1.0000$ & $0.1958$ & $0.2850$ & $0.4025$ \\ 
+			SL & $-0.0056$ & $1.5480$ & $0.1446$ & $0.1958$ & $1.0000$ & $0.3295$ & $0.3393$ \\ 
+			WE & $0.0144$ & $1.9211$ & $0.2180$ & $0.2850$ & $0.3295$ & $1.0000$ & $0.3973$ \\ 
+			SJ & $0.9920$ & $1.0040$ & $0.4419$ & $0.4025$ & $0.3393$ & $0.3973$ & $1.0000$ \\ 
+			\bottomrule
+		\end{tabular}
+		\label{tab:desc}
+	\end{table}
 
-	Table 1 shows that the means of each of the IVs are 0 and the means of the DVs are 1. 
-	Table 1 also shows variability between the IVs in terms of their variances with ER having the lowest variability and WE the highest.
-	The results also show modest to moderate-sized correlations between IVs with SL having some of the lowest overlap with other IVs and AS having the highest.
-	The results for the DVs also show distinctly different standard deviations with SJ following the Poisson distribution requirement that the mean equal the variance and MJ showing a much higher variation than the mean as is typical of negative Binomial distributed variables.
+	One point of note about the 6,780 tailoring shops revealed in Table \ref{tab:desc} is that, on average, each of them produced a single jacket in the two-week period under study.
+	In addition, the variance of sport jacket production was consistent with its expected their underlying distribution.
+	Specifically, stock jacket production had a variance of 1 which closely matches the mean as is assumed of the Poisson distribution. 
 	
-	The next section moves on to using these data to estimate a PR with the SJ variable as well as an NBR with the MJ variable predicted by the four IVs.
+	Given that the sport jacket DV fits the requirements of a Poisson distribution, in the next section I estimate a PR predicting it using the four shop characteristic IVs.
 
 		\subsubsection{Regression Results}
 		
-	The PR results predicting SJ are reported in Table 2. 
+	The PR results using the four shop characteristic IVs to predict stock jacket counts are reported in Table \ref{tab:poisreg}. 
+	Table \ref{tab:poisreg} includes coefficients ($\beta$), standard errors (SE), the the 95\% confidence interval for the unstandardized coefficients, and the exponentiated coefficient or incidence rate ratio/IRR ($e^{\beta}$).
 	
-	\begin{longtable}{l|rrrrrrrr}
-		\caption*{
-			{\large Table 2: Poisson Regression}
-		} \\ 
-		\toprule
-		\multicolumn{1}{l}{} &  &  & \multicolumn{2}{c}{Confidence Interval} &  &  &  &  \\ 
-		\cmidrule(lr){4-5}
-		\multicolumn{1}{l}{} & Coef & SE & Low & High & z & p & IRR & Std \\ 
-		\midrule
-		Inter & $-0.1805$ & $0.0142$ & $-0.2084$ & $-0.1529$ & $-12.7404$ & $0.0000$ & $0.8349$ & $0.0000$ \\ 
-		ER & $0.2463$ & $0.0114$ & $0.2239$ & $0.2687$ & $21.5862$ & $0.0000$ & $1.2793$ & $0.2919$ \\ 
-		AS & $0.1320$ & $0.0095$ & $0.1133$ & $0.1506$ & $13.8945$ & $0.0000$ & $1.1411$ & $0.1913$ \\ 
-		SL & $0.1264$ & $0.0083$ & $0.1100$ & $0.1427$ & $15.1533$ & $0.0000$ & $1.1347$ & $0.1956$ \\ 
-		WE & $0.1167$ & $0.0069$ & $0.1032$ & $0.1302$ & $16.9536$ & $0.0000$ & $1.1238$ & $0.2243$ \\ 
-		\bottomrule
-	\end{longtable}
+	\begin{table}[h!]
+		\centering
+		\caption{\centering Poisson Regression Predicting Stock Jackets Produced} 
+		\begin{tabular}{l|rrrrr}
+			\toprule
+			\multicolumn{1}{l}{} &  &  & \multicolumn{2}{c}{95\% Confidence Interval} &   \\ 
+			\cmidrule(lr){4-5}
+			\multicolumn{1}{l}{} & $\beta$ & SE & Low & High & $e^{\beta}$ \\ 
+			\midrule
+			ER & $0.2463$ & $0.0114$ & $0.2239$ & $0.2687$ & $1.2793$ \\ 
+			AS & $0.1320$ & $0.0095$ & $0.1133$ & $0.1506$ & $1.1411$ \\ 
+			SL & $0.1264$ & $0.0083$ & $0.1100$ & $0.1427$ & $1.1347$ \\ 
+			WE & $0.1167$ & $0.0069$ & $0.1032$ & $0.1302$ &  $1.1238$  \\ 
+			$Intercept$ & $-0.1805$ & $0.0142$ & $-0.2084$ & $-0.1529$ & $0.8349$ \\
+			\bottomrule
+		\end{tabular}
+		\label{tab:poisreg}
+	\end{table}
 
-	Table 2 shows that each of the IVs has a statistically significant, positive effect at the $p < .05$ level.	
-	In terms of effect size magnitude, ER had the largest unstandardized coefficient/IRR value with a 1 unit change in equipment reliability leading to a 27.9\% increase in the number of stock jackets produced in a fortnight.
-	By contrast, WE obtained the smallest unstandardized coefficient/IRR value with a 1 unit change in equipment reliability leading to a 12.4\% increase in the number of stock jackets produced in a fortnight. 
-	AS (14.1\% increase) and SL (13.5\% increase) fell between ER and WE in terms of unstandardized results.
-	
-	The standardized coefficients reported in Table 2 were computed by first standardizing each IV to have a variance of 1 and then re-running the model.
-	These standardized results show a different ordering of the IVs' effect sizes as compared to the unstandardized results. 
-	The most noteworthy change is related to the change to the ordering of WE, SL, and AS. In the standardized results, WE obtains the largest coefficient among the IVs followed by SL and then AS. 
-	This kind of change is a common finding when comparing coefficients using unstandardized and standardized coefficients.
-	This kind of change is also one reason the use of coefficients for determining importance is not recommended in the literature \cite{johnson2004history}.
-	
-	The NBR results predicting MJ are reported below in Table 3.
-	
-	\setlength{\LTpost}{1mm}
-	\begin{longtable}{l|rrrrrrrr}
-		\caption*{
-			{\large Table 3: Negative Binomial Regression}
-		} \\ 
-		\toprule
-		\multicolumn{1}{l}{} &  &  & \multicolumn{2}{c}{Confidence Interval} &  &  &  &  \\ 
-		\cmidrule(lr){4-5}
-		\multicolumn{1}{l}{} & Coef & SE & Low & High & z & p & IRR & Std \\ 
-		\midrule
-		Inter & $-0.4608$ & $0.0207$ & $-0.5015$ & $-0.4205$ & $-22.2364$ & $0.0000$ & $0.6308$ & $0.0000$ \\ 
-		ER & $0.4138$ & $0.0169$ & $0.3802$ & $0.4477$ & $24.4244$ & $0.0000$ & $1.5126$ & $0.4905$ \\ 
-		AS & $0.2249$ & $0.0139$ & $0.1977$ & $0.2523$ & $16.1768$ & $0.0000$ & $1.2522$ & $0.3260$ \\ 
-		SL & $0.2171$ & $0.0123$ & $0.1930$ & $0.2413$ & $17.7168$ & $0.0000$ & $1.2425$ & $0.3361$ \\ 
-		WE & $0.1979$ & $0.0102$ & $0.1780$ & $0.2180$ & $19.4610$ & $0.0000$ & $1.2189$ & $0.3803$ \\ 
-		\bottomrule
-	\end{longtable}
-	\begin{minipage}{\linewidth}
-		Theta parameter is 1.371.\\
-	\end{minipage}
 
-	Table 3's unstandardized/IRR results show many similarities to the PR modeling of SJ reported Table 2 as each IV is positive and statistically significant at $p < .05$. 
-	The magnitude of the unstandardized coefficients/IRR values obtained by the NBR tended to be larger than the PR but showed the same rank order among the IVs.
-	Specifically, ER remained largest with a 1 unit change in equipment reliability leading to a 51.3\% increase in the number of made to order jackets produced in a fortnight.
-	WE again obtained the smallest unstandardized coefficient/IRR value with a 1 unit change in equipment reliability leading to a 21.9\% increase in the number of made to order jackets produced in a fortnight. 
-	AS (25.2\% increase) and SL (24.3\% increase) fell between ER and WE in terms of unstandardized results.
-	Finally, the reported $\theta$ parameter value was small. 
-	For the NBR, the $\theta$ shows the extent to which the model had "excess" variation over and above a Poisson as the variance of the negative Binomial distribution is taken to be $\mu + \frac{\mu^2}{\theta}$. 
-	Hence, large $\theta$ values shrink the variance toward the Poisson (i.e., where $\mu$ describes both the mean and variance) and small values allow for variance over and above what would be expected of a Poisson.
+	Table \ref{tab:poisreg} shows that each of the IVs has a positive effect on the number of stock jackets and appear to be statistically significant (at the $p < .05$ level) as is implied by the confidence intervals.
 	
-	The standardized coefficients for the NBR reported in Table 3 showed the same pattern as those results obtained by the  PR model in Table 2. 
-	In both models ER resulted in the largest value followed by WE, then SL, and then AS.
+	In terms of effect size magnitude, equipment reliability had the largest effect on stock jacket counts. 
+	The IRR value shows that each one point increase in equipment reliability led to a 27.9\% increase in the number of stock jackets finished.
+	Assisting staffing levels obtained the second largest effect on stock jacket counts with its IRR value showing that each one point increase in staffing levels led to a 14.1\% increase in the number of stock jackets finished.
+	Skill level and work experience obtained the smallest effect sizes as reflected by their IRRs.
+	Skill level resulted in a 13.5\% increase and work experence a 12.4\% increase in the number of stock jackets produced in two weeks. 
 	
-	The PR and NBR modeling results reported in Tables 2 and 3 provide the key inferential and predictive model results needed to interpret the simulated data.
-	In the section below I proceed to using both models in a DA.
-	For each model, I collect all possible $R^2_{DEV}$ values, report all dominance statistics, and make all dominance designations.
-	In addition, I compute a selection of the reported dominance statistics in the course of describing each models' results.
+	The IRR value for the model intercept reports on the average number of stock jackets when all IVs are 0; here at their means. 
+	The .8349 value obtained is similar to the overall mean of near 1 reported in Table \ref{tab:desc}.
+	This .8349 value is also used as a baseline prediction for the PR.
+	For instance, the expected number of stock jackets with equipment reliability at 1 and all other IVs at 0 is $.8349*1.2793 = 1.0681$ or just above 1 jacket.
+	Contextualizing model predictions by reporting out specific predicted values is useful for non-linear models such as PR as they more clearly depict the multiplicative effects produced inherently by CRMs.
+	Hence, reporting on and visualizing predicted marginal means adds value to the model interpretation process \cite(see)[for a similar perspective]{ronkko2022eight}.
+	Although I do not report marginal means plots in the body of this manuscript for brevity, such plots are reported in the online supplement. {\large <-reconsider}.
+	
+%	The NBR results predicting MJ are reported below in Table \ref{tab:nbreg}.
+%	
+%	\begin{table}[h!]
+%		\centering
+%		\caption{\centering Negative Binomial Regression Predicting Made-to-measure Jackets Produced} 
+%		\begin{tabular}{l|rrrrr}
+%			\toprule
+%			\multicolumn{1}{l}{} &  &  & \multicolumn{2}{c}{Confidence Interval} &  \\ 
+%			\cmidrule(lr){4-5}
+%			\multicolumn{1}{l}{} & $\beta$ & SE & Low & High& $e^{\beta}$  \\ 
+%			\midrule
+%			ER & $0.4138$ & $0.0169$ & $0.3802$ & $0.4477$ & $1.5126$ \\ 
+%			AS & $0.2249$ & $0.0139$ & $0.1977$ & $0.2523$ & $1.2522$ \\ 
+%			SL & $0.2171$ & $0.0123$ & $0.1930$ & $0.2413$ & $1.2425$ \\ 
+%			WE & $0.1979$ & $0.0102$ & $0.1780$ & $0.2180$ & $1.2189$ \\ 
+%			$Intercept$ & $-0.4608$ & $0.0207$ & $-0.5015$ & $-0.4205$ & $0.6308$ \\ 
+%			\bottomrule
+%			\multicolumn{6}{l}{Theta parameter is 1.371.}
+%		\end{tabular}
+%		\label{tab:nbreg}
+%	\end{table}
+%
+%	Table \ref{tab:nbreg}'s unstandardized/IRR results show many similarities to the PR modeling of SJ reported Table \ref{tab:poisreg} as each IV is positive and statistically significant at $p < .05$. 
+%	The magnitude of the unstandardized coefficients/IRR values obtained by the NBR tended to be larger than the PR but showed the same rank order among the IVs.
+%	Specifically, ER remained largest with a 1 unit change in equipment reliability leading to a 51.3\% increase in the number of made to order jackets produced in a fortnight.
+%	WE again obtained the smallest unstandardized coefficient/IRR value with a 1 unit change in equipment reliability leading to a 21.9\% increase in the number of made to order jackets produced in a fortnight. 
+%	AS (25.2\% increase) and SL (24.3\% increase) fell between ER and WE in terms of unstandardized results.
+%	Finally, the reported $\theta$ parameter value was small. 
+%	For the NBR, the $\theta$ shows the extent to which the model had "excess" variation over and above a Poisson as the variance of the negative Binomial distribution is taken to be $\mu + \frac{\mu^2}{\theta}$. 
+%	Hence, large $\theta$ values shrink the variance toward the Poisson (i.e., where $\mu$ describes both the mean and variance) and small values allow for variance over and above what would be expected of a Poisson.
+%	
+%	The standardized coefficients for the NBR reported in Table 3 showed the same pattern as those results obtained by the  PR model in Table 2. 
+%	In both models ER resulted in the largest value followed by WE, then SL, and then AS.
+	
+	The PR modeling result reported in Table \ref{tab:poisreg} shows that all four IVs have predictive effects on stock jacket production and, in addition, show different effect size magnitudes that indicate likely differences in the importance of each IV for explaining sport jacket production.
+	
+	In the section below, I transition to the focal analysis of this work where I determine the importance of each IV for predicing sport jacket production using DA.
+	In this way, the section below provides an empirical example that applies the designation and computational formulas in Equations \ref{eq:cptdom}, \ref{eq:cdlst}, \ref{eq:cdldom}, \ref{eq:genst}, and \ref{eq:gendom} to the PR model in Table \ref{tab:poisreg}.
+	
+	...ended here...
 	
 		\subsubsection{Dominance Analysis Results}
 		
-	DA, as well as Shapley value decomposition, requires that $R^2$ values from all possible combinations of the IVs as included and excluded from the model are collected\footnote{Several implementations of Shapley value decomposition in machine learning approximate this process and do not collect results from all combinations for computational feasibility.}.
-	The four IVs used in this manuscript result in $2^4 = 16$ combinations.
-	Because one combination includes the condition where no IVs are included, which will produce a 0 $R^2_{DEV}$ value, it is omitted below in Table 4.
+	DA always begins with collecting model fit statistics from all sub-models 
+	The four IVs used in this manuscript result in $2^4 = 16$ sub-models including the sub-model with no predictors which is omitted as it will produce a 0 value.
+	The results from all model sub-sets are reported below in Table \ref{tab:r2sub}.
 	
-	\begin{longtable}{l|rr}
-		\caption*{
-			{\large Table 4: All Subsets Deviance R-square Results Across Models}
-		} \\ 
-		\toprule
-		\multicolumn{1}{l}{} & Poisson/SJ & Negative Binomial/MJ \\ 
-		\midrule
-		ER & $0.1704$ & $0.1845$ \\ 
-		AS & $0.1418$ & $0.1519$ \\ 
-		SL & $0.1008$ & $0.1051$ \\ 
-		WE & $0.1384$ & $0.1483$ \\ 
-		ER + AS & $0.2209$ & $0.2455$ \\ 
-		ER + SL & $0.2388$ & $0.2665$ \\ 
-		ER + WE & $0.2530$ & $0.2847$ \\ 
-		AS + SL & $0.2047$ & $0.2285$ \\ 
-		AS + WE & $0.2200$ & $0.2454$ \\ 
-		SL + WE & $0.1816$ & $0.2007$ \\ 
-		ER + AS + SL & $0.2748$ & $0.3127$ \\ 
-		ER + AS + WE & $0.2821$ & $0.3212$ \\ 
-		ER + SL + WE & $0.2868$ & $0.3272$ \\ 
-		AS + SL + WE & $0.2524$ & $0.2866$ \\ 
-		ER + AS + SL + WE & $0.3113$ & $0.3584$ \\ 
-		\bottomrule
-	\end{longtable}
+	\begin{table}[h!]
+		\centering
+		\caption{\centering $R^2_{DEV}$ by Sub-model}
+		\begin{tabular}{l|r}
+			\toprule
+			$SJ \sim ER$ & $0.1704$ \\ 
+			$SJ \sim AS$ & $0.1418$ \\ 
+			$SJ \sim SL$ & $0.1008$ \\ 
+			$SJ \sim WE$ & $0.1384$ \\ 
+			$SJ \sim ER + AS$ & $0.2209$ \\ 
+			$SJ \sim ER + SL$ & $0.2388$ \\ 
+			$SJ \sim ER + WE$ & $0.2530$ \\ 
+			$SJ \sim AS + SL$ & $0.2047$ \\ 
+			$SJ \sim AS + WE$ & $0.2200$ \\ 
+			$SJ \sim SL + WE$ & $0.1816$ \\ 
+			$SJ \sim ER + AS + SL$ & $0.2748$\\ 
+			$SJ \sim ER + AS + WE$ & $0.2821$ \\ 
+			$SJ \sim ER + SL + WE$ & $0.2868$ \\ 
+			$SJ \sim AS + SL + WE$ & $0.2524$ \\ 
+			$SJ \sim ER + AS + SL + WE$ & $0.3113$ \\ 
+			\bottomrule
+		\end{tabular}
+		\label{tab:r2sub}
+	\end{table}
 
-	Table 4 shows that, on average, the $R^2_{DEV}$ values for the NBR model, like their coefficient values, were larger than for the PR model.
-	The last entry for each model in Table 4 is the model $R^2_{DEV}$ for the PR in Table 2 (i.e., .3113) and NBR in Table 3 (i.e., .3584).
+	Table \ref{tab:r2sub} shows that, on average, the $R^2_{DEV}$ values for the NBR model, like their coefficient values, were larger than for the PR model.
+	The last entry for each model in Table 4 is the model $R^2_{DEV}$ for the PR in Table \ref{tab:poisreg} (i.e., .3113).
+	
+	
 
 	These series of 15 values are applied using Equation 2 to obtain general dominance statistic values for each IV.
 	The general dominance statistic values for each model is reported in Table 5.
@@ -513,11 +512,6 @@
 	The below is a conceptual schematic of the ER general dominance statistic and could be applied to either the PR or NBR values in Table 4.
 	The schematic is the following combination of $R^2_{DEV}$ values:
 	
-	$$GDS_{ER} = \frac{R^2_{DEV_{ER}}}{1*4} + \frac{R^2_{DEV_{ER + AS}} - R^2_{DEV_{AS}}}{3*4} + \frac{R^2_{DEV_{ER + SL}} - R^2_{DEV_{SL}}}{3*4} + $$
-	$$\frac{R^2_{DEV_{ER + WE}} - R^2_{DEV_{WE}}}{3*4} + \frac{R^2_{DEV_{ER + AS + SL}} - R^2_{DEV_{AS + SL}}}{3*4} + $$ 
-	$$\frac{R^2_{DEV_{ER + AS + WE}} - R^2_{DEV_{AS + WE}}}{3*4} + \frac{R^2_{DEV_{ER + SL + WE}} - R^2_{DEV_{SL + WE}}}{3*4} + $$
-	$$\frac{R^2_{DEV_{ER + AS + SL + WE}} - R^2_{DEV_{AS + SL + WE}}}{1*4}$$
-	
 	These 8 terms, when summed, produce the .1048 value for the PR when its values are applied or .1206 value for the NBR when its values are applied.
 	To get general dominance statistics for other IVs, the computations are re-arranged such that the $R^2_{dev}$ values in the minuend (i.e., fist value in the difference) for each computation contains the focal IV and the $R^2_{dev}$ values in the subtrahend (i.e., the second value in the difference) contains all the other IVs in the model.
 	
@@ -543,11 +537,6 @@
 	When applied to computing ER's Shapley value decomposition across the 24 inclusion permutations, 6 permutations put ER as the first IV included and 6 permutations put ER as the last IV included.
 	The six other combinations are possible in the data, both represented twice in the 24 permutations.
 	These 8 total terms mirror those used in computing the general dominance statistics and can be written as:
-	
-	$$SV_{ER} = 24^{-1}\{6(R^2_{DEV_{ER}}) + 2(R^2_{DEV_{ER + AS}} - R^2_{DEV_{AS}}) + 2(R^2_{DEV_{ER + SL}} - R^2_{DEV_{SL}}) + $$
-	$$2(R^2_{DEV_{ER + WE}} - R^2_{DEV_{WE}}) + 2(R^2_{DEV_{ER + AS + SL}} - R^2_{DEV_{AS + SL}}) + $$ 
-	$$2(R^2_{DEV_{ER + AS + WE}} - R^2_{DEV_{AS + WE}}) + 2(R^2_{DEV_{ER + SL + WE}} - R^2_{DEV_{SL + WE}}) + $$
-	$$6(R^2_{DEV_{ER + AS + SL + WE}} - R^2_{DEV_{AS + SL + WE}})\}$$
 	
 	When multiplying through by $24^{-1} = \frac{1}{24}$, the increments repeated 6 times have a $\frac{6}{24} = \frac{1}{4}$ weight where the increments repated 2 times have a $\frac{2}{24} = \frac{1}{12}$ weight matching the general dominance statistic computation.
 	Thus, the weighting scheme used by general dominance statistics is a linear transformation of Shapley values that equally weights different IV inclusion permutations.
@@ -580,16 +569,6 @@
 	
 	The example computation using ER above is extended here to compute conditional dominance statistics.
 	The four conditional dominance statistics for ER are computed as:
-	
-	$$CDS^1_{ER} = R^2_{DEV_{ER}}$$
-	
-	$$CDS^2_{ER} = \frac{R^2_{DEV_{ER + AS}} - R^2_{DEV_{AS}}}{3} + \frac{R^2_{DEV_{ER + SL}} - R^2_{DEV_{SL}}}{3} + $$
-	$$\frac{R^2_{DEV_{ER + WE}} - R^2_{DEV_{WE}}}{3}$$
-	
-	$$CDS^3_{ER} = \frac{R^2_{DEV_{ER + AS + SL}} - R^2_{DEV_{AS + SL}}}{3} + \frac{R^2_{DEV_{ER + AS + WE}} - R^2_{DEV_{AS + WE}}}{3} + $$
-	$$\frac{R^2_{DEV_{ER + SL + WE}} - R^2_{DEV_{SL + WE}}}{3}$$
-	
-	$$CDS^4_{ER} = R^2_{DEV_{ER + AS + SL + WE}} - R^2_{DEV_{AS + SL + WE}}$$
 	
 	Each of the conditional dominance statistics are, again, components of the general dominance statistic computed above.
 	
