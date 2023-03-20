@@ -323,14 +323,14 @@
 	
 	The study described below intends to evaluate the effect of four different tailoring shop characteristics on the output of each shop.
 	The data for this analysis describe a sample of 6,780 such tailoring shops over a two-week period of time.
-	One count DV output of each of these shops is the number of sport jackets (called SJ below) finished by the shop.
+	One count DV output of each of these shops is the number of sport jackets (called $SJ$ below) finished by the shop.
 	Sport jackets are garments developed from a template and are of standard sizes and measurements.
 	As such, the jackets are expected to show little extra variation and were expected to be Poisson distributed.
 	
 	There were four measured tailoring shop characteristics used to predict sport jacket output. 
-	The first characteristic was an expert's assessment of the shop's equipment reliability (called ER in results below).
+	The first characteristic was an expert's assessment of the shop's equipment reliability (called $ER$ in results below).
 	Equipment reliability reflects the ease of the tailoring shop's equipment use for staff and the extent to which it is likely to fail to operate when needed. 
-	The second characteristic was the sufficiency of tailoring assistant staffing levels (called AS in results below).
+	The second characteristic was the sufficiency of tailoring assistant staffing levels (called $AS$ in results below).
 	Understaffed tailoring shops are likely to suffer from reduced productivity given the shortage of labor.
 	A third characteristic is the managing tailor's level of skill (called SL in results below).
 	More skilled managing tailors are more likely than less skilled managers to have designed processes that facilitate jacket completion.
@@ -346,13 +346,13 @@
 			\toprule
 			&  & Standard & \multicolumn{5}{c}{Correlations} \\ 
 			\cmidrule(lr){4-8}
-			Variable & Mean & Deviation & ER & AS & SL & WE & SJ \\ 
+			Variable & Mean & Deviation & $ER$ & $AS$ & SL & WE & $SJ$ \\ 
 			\midrule
-			ER & $-0.0355$ & $1.1853$ & $1.0000$ & $0.4168$ & $0.1446$ & $0.2180$ & $0.4419$ \\ 
-			AS & $-0.0261$ & $1.4494$ & $0.4168$ & $1.0000$ & $0.1958$ & $0.2850$ & $0.4025$ \\ 
+			$ER$ & $-0.0355$ & $1.1853$ & $1.0000$ & $0.4168$ & $0.1446$ & $0.2180$ & $0.4419$ \\ 
+			$AS$ & $-0.0261$ & $1.4494$ & $0.4168$ & $1.0000$ & $0.1958$ & $0.2850$ & $0.4025$ \\ 
 			SL & $-0.0056$ & $1.5480$ & $0.1446$ & $0.1958$ & $1.0000$ & $0.3295$ & $0.3393$ \\ 
 			WE & $0.0144$ & $1.9211$ & $0.2180$ & $0.2850$ & $0.3295$ & $1.0000$ & $0.3973$ \\ 
-			SJ & $0.9920$ & $1.0040$ & $0.4419$ & $0.4025$ & $0.3393$ & $0.3973$ & $1.0000$ \\ 
+			$SJ$ & $0.9920$ & $1.0040$ & $0.4419$ & $0.4025$ & $0.3393$ & $0.3973$ & $1.0000$ \\ 
 			\bottomrule
 		\end{tabular}
 		\label{tab:desc}
@@ -360,26 +360,26 @@
 
 	One point of note about the 6,780 tailoring shops revealed in Table \ref{tab:desc} is that, on average, each of them produced a single jacket in the two-week period under study.
 	In addition, the variance of sport jacket production was consistent with its expected their underlying distribution.
-	Specifically, stock jacket production had a variance of 1 which closely matches the mean as is assumed of the Poisson distribution. 
+	Specifically, sport jacket production had a variance of 1 which closely matches the mean as is assumed of the Poisson distribution. 
 	
 	Given that the sport jacket DV fits the requirements of a Poisson distribution, in the next section I estimate a PR predicting it using the four shop characteristic IVs.
 
 		\subsubsection{Regression Results}
 		
-	The PR results using the four shop characteristic IVs to predict stock jacket counts are reported in Table \ref{tab:poisreg}. 
+	The PR results using the four shop characteristic IVs to predict sport jacket counts are reported in Table \ref{tab:poisreg}. 
 	Table \ref{tab:poisreg} includes coefficients ($\beta$), standard errors (SE), the the 95\% confidence interval for the unstandardized coefficients, and the exponentiated coefficient or incidence rate ratio/IRR ($e^{\beta}$).
 	
 	\begin{table}[h!]
 		\centering
-		\caption{\centering Poisson Regression Predicting Stock Jackets Produced} 
+		\caption{\centering Poisson Regression Predicting Sport Jackets Produced} 
 		\begin{tabular}{l|rrrrr}
 			\toprule
 			\multicolumn{1}{l}{} &  &  & \multicolumn{2}{c}{95\% Confidence Interval} &   \\ 
 			\cmidrule(lr){4-5}
 			\multicolumn{1}{l}{} & $\beta$ & SE & Low & High & $e^{\beta}$ \\ 
 			\midrule
-			ER & $0.2463$ & $0.0114$ & $0.2239$ & $0.2687$ & $1.2793$ \\ 
-			AS & $0.1320$ & $0.0095$ & $0.1133$ & $0.1506$ & $1.1411$ \\ 
+			$ER$ & $0.2463$ & $0.0114$ & $0.2239$ & $0.2687$ & $1.2793$ \\ 
+			$AS$ & $0.1320$ & $0.0095$ & $0.1133$ & $0.1506$ & $1.1411$ \\ 
 			SL & $0.1264$ & $0.0083$ & $0.1100$ & $0.1427$ & $1.1347$ \\ 
 			WE & $0.1167$ & $0.0069$ & $0.1032$ & $0.1302$ &  $1.1238$  \\ 
 			$Intercept$ & $-0.1805$ & $0.0142$ & $-0.2084$ & $-0.1529$ & $0.8349$ \\
@@ -389,68 +389,32 @@
 	\end{table}
 
 
-	Table \ref{tab:poisreg} shows that each of the IVs has a positive effect on the number of stock jackets and appear to be statistically significant (at the $p < .05$ level) as is implied by the confidence intervals.
+	Table \ref{tab:poisreg} shows that each of the IVs has a positive effect on the number of sport jackets and appear to be statistically significant (at the $p < .05$ level) as is implied by the confidence intervals.
 	
-	In terms of effect size magnitude, equipment reliability had the largest effect on stock jacket counts. 
-	The IRR value shows that each one point increase in equipment reliability led to a 27.9\% increase in the number of stock jackets finished.
-	Assisting staffing levels obtained the second largest effect on stock jacket counts with its IRR value showing that each one point increase in staffing levels led to a 14.1\% increase in the number of stock jackets finished.
+	In terms of effect size magnitude, equipment reliability had the largest effect on sport jacket counts. 
+	The IRR value shows that each one point increase in equipment reliability led to a 27.9\% increase in the number of sport jackets finished.
+	Assisting staffing levels obtained the second largest effect on sport jacket counts with its IRR value showing that each one point increase in staffing levels led to a 14.1\% increase in the number of sport jackets finished.
 	Skill level and work experience obtained the smallest effect sizes as reflected by their IRRs.
-	Skill level resulted in a 13.5\% increase and work experence a 12.4\% increase in the number of stock jackets produced in two weeks. 
+	Skill level resulted in a 13.5\% increase and work experence a 12.4\% increase in the number of sport jackets produced in two weeks. 
 	
-	The IRR value for the model intercept reports on the average number of stock jackets when all IVs are 0; here at their means. 
+	The IRR value for the model intercept reports on the average number of sport jackets when all IVs are 0; here at their means. 
 	The .8349 value obtained is similar to the overall mean of near 1 reported in Table \ref{tab:desc}.
 	This .8349 value is also used as a baseline prediction for the PR.
-	For instance, the expected number of stock jackets with equipment reliability at 1 and all other IVs at 0 is $.8349*1.2793 = 1.0681$ or just above 1 jacket.
+	For instance, the expected number of sport jackets with equipment reliability at 1 and all other IVs at 0 is $.8349*1.2793 = 1.0681$ or just above 1 jacket.
 	Contextualizing model predictions by reporting out specific predicted values is useful for non-linear models such as PR as they more clearly depict the multiplicative effects produced inherently by CRMs.
 	Hence, reporting on and visualizing predicted marginal means adds value to the model interpretation process \cite(see)[for a similar perspective]{ronkko2022eight}.
-	Although I do not report marginal means plots in the body of this manuscript for brevity, such plots are reported in the online supplement. {\large <-reconsider}.
+	Although I do not report marginal means plots in the body of this manuscript for brevity, such plots are reported in the online supplement.
 	
-%	The NBR results predicting MJ are reported below in Table \ref{tab:nbreg}.
-%	
-%	\begin{table}[h!]
-%		\centering
-%		\caption{\centering Negative Binomial Regression Predicting Made-to-measure Jackets Produced} 
-%		\begin{tabular}{l|rrrrr}
-%			\toprule
-%			\multicolumn{1}{l}{} &  &  & \multicolumn{2}{c}{Confidence Interval} &  \\ 
-%			\cmidrule(lr){4-5}
-%			\multicolumn{1}{l}{} & $\beta$ & SE & Low & High& $e^{\beta}$  \\ 
-%			\midrule
-%			ER & $0.4138$ & $0.0169$ & $0.3802$ & $0.4477$ & $1.5126$ \\ 
-%			AS & $0.2249$ & $0.0139$ & $0.1977$ & $0.2523$ & $1.2522$ \\ 
-%			SL & $0.2171$ & $0.0123$ & $0.1930$ & $0.2413$ & $1.2425$ \\ 
-%			WE & $0.1979$ & $0.0102$ & $0.1780$ & $0.2180$ & $1.2189$ \\ 
-%			$Intercept$ & $-0.4608$ & $0.0207$ & $-0.5015$ & $-0.4205$ & $0.6308$ \\ 
-%			\bottomrule
-%			\multicolumn{6}{l}{Theta parameter is 1.371.}
-%		\end{tabular}
-%		\label{tab:nbreg}
-%	\end{table}
-%
-%	Table \ref{tab:nbreg}'s unstandardized/IRR results show many similarities to the PR modeling of SJ reported Table \ref{tab:poisreg} as each IV is positive and statistically significant at $p < .05$. 
-%	The magnitude of the unstandardized coefficients/IRR values obtained by the NBR tended to be larger than the PR but showed the same rank order among the IVs.
-%	Specifically, ER remained largest with a 1 unit change in equipment reliability leading to a 51.3\% increase in the number of made to order jackets produced in a fortnight.
-%	WE again obtained the smallest unstandardized coefficient/IRR value with a 1 unit change in equipment reliability leading to a 21.9\% increase in the number of made to order jackets produced in a fortnight. 
-%	AS (25.2\% increase) and SL (24.3\% increase) fell between ER and WE in terms of unstandardized results.
-%	Finally, the reported $\theta$ parameter value was small. 
-%	For the NBR, the $\theta$ shows the extent to which the model had "excess" variation over and above a Poisson as the variance of the negative Binomial distribution is taken to be $\mu + \frac{\mu^2}{\theta}$. 
-%	Hence, large $\theta$ values shrink the variance toward the Poisson (i.e., where $\mu$ describes both the mean and variance) and small values allow for variance over and above what would be expected of a Poisson.
-%	
-%	The standardized coefficients for the NBR reported in Table 3 showed the same pattern as those results obtained by the  PR model in Table 2. 
-%	In both models ER resulted in the largest value followed by WE, then SL, and then AS.
-	
-	The PR modeling result reported in Table \ref{tab:poisreg} shows that all four IVs have predictive effects on stock jacket production and, in addition, show different effect size magnitudes that indicate likely differences in the importance of each IV for explaining sport jacket production.
+	The PR modeling result reported in Table \ref{tab:poisreg} shows that all four IVs have predictive effects on sport jacket production and, in addition, show different effect size magnitudes that indicate likely differences in the importance of each IV for explaining sport jacket production.
 	
 	In the section below, I transition to the focal analysis of this work where I determine the importance of each IV for predicing sport jacket production using DA.
 	In this way, the section below provides an empirical example that applies the designation and computational formulas in Equations \ref{eq:cptdom}, \ref{eq:cdlst}, \ref{eq:cdldom}, \ref{eq:genst}, and \ref{eq:gendom} to the PR model in Table \ref{tab:poisreg}.
 	
-	...ended here...
-	
 		\subsubsection{Dominance Analysis Results}
-		
-	DA always begins with collecting model fit statistics from all sub-models 
-	The four IVs used in this manuscript result in $2^4 = 16$ sub-models including the sub-model with no predictors which is omitted as it will produce a 0 value.
-	The results from all model sub-sets are reported below in Table \ref{tab:r2sub}.
+	
+	DA designations and statistics are built from the collection of model fit statistics representing all sub-models.
+	The four tailoring shop IVs used in this manuscript result in $2^4 = 16$ sub-models.
+	The results from all model sub-sets are reported below in Table \ref{tab:r2sub} omitting the sub-model with no predictors as it will produce a 0 value.
 	
 	\begin{table}[h!]
 		\centering
@@ -477,172 +441,139 @@
 		\label{tab:r2sub}
 	\end{table}
 
-	Table \ref{tab:r2sub} shows that, on average, the $R^2_{DEV}$ values for the NBR model, like their coefficient values, were larger than for the PR model.
-	The last entry for each model in Table 4 is the model $R^2_{DEV}$ for the PR in Table \ref{tab:poisreg} (i.e., .3113).
+	A few points can be gleaned from the results in Table \ref{tab:r2sub}. 
+	For example, Table \ref{tab:r2sub}. shows that equipment reliability appears to be associated with larger $R^2_{DEV}$ values and is likely to be an important variable consistent with its coefficient size. 
+	The $R^2_{DEV}$ values associated with the remaining variables is harder to discern from the table but do not as clearly follow the coefficient sizes reported in Table \ref{tab:poisreg}.
+	As such, it is useful to instead compare these values using the dominance analysis designations.
 	
+	The first dominance designation to evaluate using the results in Table \ref{tab:r2sub} is whether IVs show evidence of completely dominating one another.
+	Equipment reliability was noted as having larger $R^2_{DEV}$ values than other variables above and, when using Equation \ref{eq:cptdom} to evaluate equipment reliability relative to the other three IVs, is shown to completely dominate all three.
+	Thus, equipment reliability is the undisputed top predictor of sport jacket production irrespective of IV inclusion ordering in the model.	
 	
-
-	These series of 15 values are applied using Equation 2 to obtain general dominance statistic values for each IV.
-	The general dominance statistic values for each model is reported in Table 5.
+	The complete dominance relationships between the remaining variables is far less clearly defined. 
+	For instance, work experience completely dominates skill level but does not completely dominate assistant staffing.
+	Moreover, assistant staffing and skill level have no complete dominance relationship either.
+	This makes clearly raking the final three variables more nuanced as work experience is undisputedly better than skill level irrespective of inclusion order, but no such clear statement can be made of the rest of the comparisons.
+	Thus, work experience is likely the 'second best' predictor but its will require the one of the expanded dominance designations to confirm this is the case.
 	
-	\begin{longtable}{l|rr}
-		\caption*{
-			{\large Table 5: General Dominance Statistics}
-		} \\ 
-		\toprule
-		\multicolumn{1}{l}{} & Poisson/SJ & Negative Binomial/MJ \\ 
-		\midrule
-		ER & $0.1048$ & $0.1206$ \\ 
-		AS & $0.0726$ & $0.0833$ \\ 
-		SL & $0.0570$ & $0.0657$ \\ 
-		WE & $0.0769$ & $0.0888$ \\ 
-		\midrule
-		Overall & $0.3113$ & $0.3584$ \\ 
-		\bottomrule
-	\end{longtable}
-
-	The results reported in Table 5 show that the rank order of/the general dominance designations among the IVs is identical across models.
-	Both models show that ER generally dominates each other IV, followed by WE generally dominating SL and AS, and AS generally dominating SL.
-	This pattern of results is similar to but does not match those from the standardized coefficients reported in Tables 2 and 3.
-	Specifically, the standardized coefficients overestimate SL's impact relative to AS and produce results, as will be seen below, that are more similar to each IV's conditional dominance statistics at subset size 4.
+	In order to rank the remaining variables, the conditional dominance statistics for all the tailoring shop IVs were computed using Equation \ref{eq:cdlst}.
+	The results of the conditional dominance statistic computations are depicted graphically in Figure \ref{fg:cdl} below.
+	For this Figure \ref{fg:cdl}, the y-axis is on a log scale to improve legibility nearer subsets sizes of 4.
 	
-	General dominance statistic computation involves applying Equation 2 to the values in Table 4. 
-	Equation 2 is, however, abstract and the process of translating individual $R^2_{DEV}$ values into general dominance statistics can be hard to follow.
-	Below I provide an example of how the general dominance statistic for the ER variable is computed.
-	The below is a conceptual schematic of the ER general dominance statistic and could be applied to either the PR or NBR values in Table 4.
-	The schematic is the following combination of $R^2_{DEV}$ values:
-	
-	These 8 terms, when summed, produce the .1048 value for the PR when its values are applied or .1206 value for the NBR when its values are applied.
-	To get general dominance statistics for other IVs, the computations are re-arranged such that the $R^2_{dev}$ values in the minuend (i.e., fist value in the difference) for each computation contains the focal IV and the $R^2_{dev}$ values in the subtrahend (i.e., the second value in the difference) contains all the other IVs in the model.
-	
-	One point of note about this computation is that the general dominance statistic is a weighted average of all the different subsets' $R^2_{DEV}$ values from either model.
-	Note also that these terms are weighted such that their contribution is balanced by subset size. 
-	That is, the average is such that values at subset size 1 do not contribute less to the statistic than those values at subset size 2 despite there being more terms from subset size 2 than 1.
-	Because there are three subset size 2 terms to put into the statistic, each of the subset size 2 terms are "downweighted" such that the average of the values of subset size 2, as opposed to each individual value, is used in the general dominance statistic.
-	As will be discussed further below, these subset size averages are conditional dominance statistics.
-	
-	The weighted averaging scheme imposed by DA to produce general dominance statistics derives directly from Shapley value decomposition.
-	The weighting scheme used by DA is a simplification of Shapley value decomposition's scheme that focuses on the key difference between the methods: Shapley values are order dependent whereas general dominance statistics are not.
-	Shapley values differentiate between all possible \emph{permuatations} of IV inclusion orders when computing IV contributions to the model and apply an arithmetic average of these contributions to compute the values for that IV.
-	Thus, in Shapley value decomposition computing the value for ER would require averaging the increment ER makes to the $R^2_{DEV}$ over $4! = 4*3*2*1 = 24$ model IV inclusion sequences.
-	
-	The Shapley value decomposition method, when applied to statistical models PR and NBR, makes the strong assumption that the strict order of inclusion of the IVs matters over and above the unordered combination of IVs included at any step.
-	That is, Shapley values assume that it is useful to distinguish between the order of inclusion ER, AS, SL, and WE from the order of inclusion ER, AS, WE, and SL for the contribution ER makes to the model.
-	Although Shapley values differentiate between these two orderings, ER is the first IV in the model for both and will have an identical increment to prediction across orderings.
-	In fact, in all 6 IV inclusion order permutations where ER is the first IV to enter the model the value will be identical.
-	Shapley value decomposition then effectively re-uses information about the model during computation.
-	
-	Table 4 shows that there are really only 15 unique $R^2_{DEV}$ that can be obtained from the model and thus only 15 models, as opposed to 24, that need to be estimated from the data.
-	Because Shapley values re-use information about the model, the Shapley value decomposition computation in Equation 1 can be written as the average of 24 computations where different elements of the model are re-used a specific number of times.
-	When applied to computing ER's Shapley value decomposition across the 24 inclusion permutations, 6 permutations put ER as the first IV included and 6 permutations put ER as the last IV included.
-	The six other combinations are possible in the data, both represented twice in the 24 permutations.
-	These 8 total terms mirror those used in computing the general dominance statistics and can be written as:
-	
-	When multiplying through by $24^{-1} = \frac{1}{24}$, the increments repeated 6 times have a $\frac{6}{24} = \frac{1}{4}$ weight where the increments repated 2 times have a $\frac{2}{24} = \frac{1}{12}$ weight matching the general dominance statistic computation.
-	Thus, the weighting scheme used by general dominance statistics is a linear transformation of Shapley values that equally weights different IV inclusion permutations.
-	
-	The general dominance statistics are an arithmetic average of the conditional dominance statistics.
-	Those conditional dominance statistics are also computed in this section using Table 4's values with Equation 3. 
-	Conditional dominance statistic values are reported, in graphical format, in Figure 1. 
-	The graphic format is useful with conditional dominance statistics as their values are less useful to interpret directly than general dominance statistics that are interpretable as parts of the $R^2_{DEV}$.
-	Rather conditional dominance statistics are useful to interpret as a \emph{trend} across subset sizes.
-	When an IV conditionally dominates another IV, its conditional dominance statistic trendline will always be above the other IV across the entirety of the graph.
-	If an IV's trendline ever meets or slips below the other IV's trendline, conditional dominance between the two IVs cannot be determined.
-	The graphical format simplifies thus simplifies conditional dominance designation among IVs.
-	For this graph, the y-axis is also on a log scale to improve legibility nearer subsets sizes of 4.
-	
-	\begin{longtable}{c}
-		\caption*{
-			{\large Figure 1: Conditional Dominance Statistics}
-		} \\ 
+	\begin{figure}[h!]
+		\centering
+		\caption{Conditional Dominance Statistics}
 		\includegraphics{includes/condit_gph}
-	\end{longtable}
+		\label{fg:cdl}
+	\end{figure}
 
-	Figure 1's results showed that a few conditional dominance designations were possible for both PR and NBR models.
-	ER conditionally dominated AS, SL and WE. 
-	In addition, WE conditionally dominated SL.
-	By contrast, no conditional dominance relationships were possible with AS across both PR and NBR models as, for both models, AS starts with the second largest value at subset size of 1 and ends with the smallest value at subset size of 4.
-	In part, this complex relationship has to do with AS's generally high correlations with other IVs. 
-	At lower subset sizes, AS shows a larger value as its coefficient value is relatively large and its overlap with other IVs has not been taken into account.
-	At higher subset sizes, AS's larger correlation with other IVs makes the increment it adds to prediction smaller as it overlaps with other IVs to a large extent.
-	Thus, in combination, AS's pattern of intercorrelations produces a complex conditional dominance statistic trend.
+	The graphic format is useful for the reporting of conditional dominance statistics with only a few IVs as the relative orientation of each of the lines reflects the nature of the conditional dominance designation implemented in Equation \ref{eq:cdldom}.
+	Specifically, if an IVs conditional dominance trendline is always above, and thus never crosses over, another IV's conditional dominance trendline, the IV that is above conditionally dominates the one below.
+	Figure \ref{fg:cdl} confirms the complete dominance results in that equipment reliability's line is above the lines for the other three IVs indicating that it dominates each of them.
+	Similarly, work experience's line is above skill level's line consistent with the complete dominance results.
 	
-	The example computation using ER above is extended here to compute conditional dominance statistics.
-	The four conditional dominance statistics for ER are computed as:
+	The conditional dominance relationships among the final three variable comparisons do not offer a different designation than did the complete dominance results.
+	Work experience fails to conditionally dominate assistant staffing given assistant staffing's conditional dominance statistic at subset size 1. 
+	Similarly, assistant staffing fails to conditionally dominate skill level given skill level's conditional dominance statistic at subset size 4.
+	These conditional dominance results further reinforce the idea that attempting to rank these IVs is not straightforward and their contributions to prediction depend on the order of their inclusion in the model. 
 	
-	Each of the conditional dominance statistics are, again, components of the general dominance statistic computed above.
+	Given that no complete or conditional dominance designations were possible for comparing assistant staffing with skill level and work experience, I proceed to evaluating the general dominance designations between these variables. 
+	The general dominance statistics for each tailoring shop IV was computed using Equation \ref{eq:genst} and are reported in Table \ref{tab:gen}.
 	
-	Conditional dominance is a pre-requisite for the final designation between two IVs, complete dominance.
-	Hence, it is only necessary to attempt to determine complete dominance for IVs where there is a conditional dominance designation.
-	Recall that there were 4 conditional dominance designations above: WE conditionally dominated SL and ER conditionally dominated all other IVs. 
-	The results in Table 4 show that all four IV comparisons produce complete dominance designations for the PR and NBR models.
+	\begin{table}[h!]
+		\centering
+		\caption{\centering General Dominance Statistics}
+		\begin{tabular}{l|r}
+			\toprule
+			$ER$ & $0.1048$ \\ 
+			$AS$ & $0.0726$ \\ 
+			SL & $0.0570$ \\ 
+			WE & $0.0769$ \\ 
+			\bottomrule
+		\end{tabular}
+		\label{tab:gen}
+	\end{table}
+
+	Evaluating the general dominance designations implied by the general dominance statistics in Table \ref{tab:gen} using Equation \ref{eq:gendom} again shows that equipment reliability dominates each other variable and that work experience dominates skill level. 
+	The general dominance statistics add to the prior dominance designations by determining that work experience also generally dominates assistant staffing and that assitant staffing generally dominates skill level.
+	The general dominance designations then allow for a clear rank ordering of the tailoring shop IVs in predicting sport jackets with equipment reliability being the most important followed by work experience, then assistant staffing, and ending with skill level.
 	
-	Complete dominance is determined by comparing $R^2_{DEV}$ from individual, comparable models.
-	For the ER to AS determination this involved $R^2_{DEV_{AS}}$ compared to $R^2_{DEV_{ER}}$, $R^2_{DEV_{AS + SL}}$ compared to $R^2_{DEV_{ER + SL}}$, $R^2_{DEV_{AS + WE}}$ compared to $R^2_{DEV_{ER + WE}}$, and $R^2_{DEV_{AS + SL + WE}}$ compared to $R^2_{DEV_{ER + SL + WE}}$.
-	For each of these four comparisons, the model containing ER was greater than the model containing AS.
-	
-	In conclusion, the DA results provide a set of dominance designations between the IVs indicating different levels of importance between them. 
-	AS was, overall, the most important variable in terms of explaing the DV as reflected in the $E^2_{DEV}$ across PR and NBR models. 
-	ER completely dominated AS, SL and WE.
-	WE completely dominated SL, and generally dominated AS.
-	Finally, AS generally dominated SL.
+	In conclusion, the DA results have built on reports of the model in Table \ref{tab:poisreg} by adding additional information about how each of the tailoring shop IVs explains variation or information in the sport jacket production variable. 
+	The DA results work to support the inference about the large IRR value obtained by equipment reliability, confirming that this variable, regardless of the order in which it might be included in the model, is most important. 
+	In addition, equipment reliability is associated with nearly one-third (i.e., $\frac{.1048}{.3113} \approx \frac{1}{3}$ of the explained information in sport jackets alone.
+	The DA results also provide useful contextualization of the other three IV's IRR values from Table \ref{tab:poisreg}. 
+	An important point of clarification is on the importance of the work experience variable which, despite having the lowest IRR value, was generally recognized as the second most important IV in the model.
+	Although work experience's effect changed depending on the order in which it was included when comparing against assistant staffing, its large variance reported on in Table \ref{tab:desc} likely resulted in it superseding the other two IVs in terms of explained information in sport jacket production.
+	Finally, the DA results also provided useful information about the stability of the assistant staffing effect relative to skill level.
+	Assistant staffing obtained the second largest IRR value but, as was most clearly revealed in Figure \ref{fg:cdl}, its usefulness in terms of variance explained was the most dependent on the order of inclusion of all of the IVs.
+	As such, it was only able to generally dominate the skill level IV.
 
 	\subsubsection{Section Summary}
 	
-	This section was intended to provide an extensive analytic of how to apply the recommended DA methodology using the $R^2_{DEV}$ to PR and NBR models.
-	For these examples, estimated and interpreted model coefficients, their DA statistics, as well as provided schematics related to the computation of DA statistics.
+	This section provided an extensive analytic walk through of a data analysis in a PR model using simulated data.
+	The PR model described in this section interpreted model coefficients using IRRs and applied the recommended DA methodology using the $R^2_{DEV}$ to dominance statistics and designations.
 	
-	The data used in the modeling was simulated but was generated to be realistic and interpreted as though it was obtained empirically.
-	As such, the data analytic examples above provided a valuable overview of recommended practice for computing DA statistics and determining DA designations with count DVs.
-	
-	The DA methodology discussed in the sections above grows more complicated when the count data meet specific conditions. 
-	One condition discussed in the introduction is the condition where the observations in the data are "exposed" to the count generating mechanism differently.
-	The section below shifts to discussing the conceptual underpinnings of these different exposure times for modeling and proceeds to discuss how such exposure times affect DA statistics and designations using an extension of the simulated data.
+	The data analytic conditions under which the PR model above was generated and estimated assumed that the time window under which each tailoring shop was observed was two weeks.
+	In many real world situations involving count DVs, the time window might vary from observation to observation. 
+	Under such conditions, the observations are "exposed" to the count generating mechanism differently.
+	In the section below, I shift the focus to a conceptual discussion of what exposure means for count DVs, how differential exposure is accommodated in CRMs, and offer an example of differential exposure affects DA statistics and designations with another data analytic example.
 	
 \section{Additional Consideration for CRMs}
 
-	CRMs necessarily differ from other linear models as they have an implied level of aggregation that is associated with them.
-	In fact, one interpretation of a Poisson distribution is as accumulated repeated sampling from a Binomial distribution with a set number of trials \cite(e.g.,){hodges1960poisson}.
+	CRMs are defined by their accommodation of the semi-continuous and non-negative values on which count DVs take.
+	Count DVs, in addition to these two facets, are also marked by an implied level of aggregation.
+	Note that all the count DVs discussed in the introduction, as well as the simulated DV in the example above, all aggregate a number of events over a specific period of time.	
+	
+	That count DVs as aggregated events is a common interpretation of a Poisson distributed variable. 
+	Indeed, Poisson variables can be defined as accumulated repeated sampling from a Binomial distribution with a set probabity of occurrence and a set number of trials \cite(e.g.,){hodges1960poisson}.
 	In this interpretation of the Poisson, the Poisson mean parameter $\mu$ is the product of the number of trials $n$ for the Binomial distribution times the probability $p$ of the event occurring in the Binomial distribution.
 	Given the Binomial interpretation of the Poisson, it is clear that CRMs assume that the counts of events realized in the data are derived from Binomial processes that share the same number of trials and probabilities of occurrence.
-	That is, CRMs assume that the realized counts stem from the same underlying Binomial processes.
+	The linkage between aggregated Binomial processes and the negative Binomial distribution is even clearer as it is, in fact, defined as aggregated Binomial events or trials.
+	In the end, both PR and NBR models can be seen as a method for modeling aggregated event counts that stem from a specfic set of Binomial processes.
 	
-	
-	
-	CRMs are able to accommodate adjustments where different Binomial processes are observed. 
-	Below is a conceptual discussion of what these adjustments are, why they are important to apply, and how they affect DA statistics.
+	That count DVs can differ in their exposure to, or the number of trials in producing, the observed count values is can be accommodated in the analysis assuming that the differences in exposure to the count generating processes are encoded into a variable that can be used to adjust the results of the CRM.
+	In the section below, I elaborate more on what differential exposure is, the practical effects of differential exposure on answering research questions with count DVs, and how to adjust CRM results to ensure that count DVs that might be affected by differential exposure produce accurate DA statistics and designations.
 
-	\subsection{Exposure Variables and Offset Terms}
+	\subsection{Differential Exposure and Offset Terms}
 	
-	The concept of exposure to a count generating process, as well as its importance to generating observed values, is easier to explain in the context of an example.
-	Consider the following research question using a count DV.
-	Does additional customer service training increase the number of positive reviews for a business?
-	When thinking about research questions that are answered using CRMs, the Binomial interpretation of the Poisson is a convenient way to describe the parameter estimate results and how they are interpreted.
-	A key interpretive question for this research is whether we believe that the training will affect the probability of receiving a positive review, the number of customers who can provide a review, or both factors.
-	For this research question, the customer service training is likely to focus on the probability of receiving a positive review.
-	Conceptually, the customer service training should, with a fixed set of customers, increase the count as the probability that any one customer is happy and thus provides a positive review is increased.
-	These questions, focused on probability of the event occurring, are common in application to CRMs and are the focus of this discussion.
+	Analysis of data with CRMs is, fundamentally, a method to answer research questions.
+	Consider, for example, evaluating whether a customer service training increases the number of positive reviews for a business.
+	From the perspective of the Binomial interpretation of count events like positive reviews, the researcher must consider whether the training will affect the probability of receiving a positive review from any given customer, the number of customers who can provide a review, or both factors.
+	For this research question, the customer service training is likely to be most relevant to the probability of receiving a positive review from any given customer.
+	Thus, with a fixed set of customers, the customer service training should increase the count of positive reviews due to increasing the probability that any one customer is happy and thus provides a positive review.
 	
-	Probability-oriented count DV questions are complicated by the nature of the data generation process as the same probability can produce different numbers of observed events with different numbers of trials or different levels of "exposure" to the probability.
-	For example, two business locations might have 10 positive reviews each but one may have had 1,000 customers and the other 100 customers.
-	Both observations yield the same count value but imply starkly different probabilities of observing an event (i.e., $\frac{10}{1000} = .01$ and $\frac{10}{100} = .1$).
-	In this case, the number of customers is a nuisance factor that obscures the underlying probability of occurrence of the sought after event.
+	A complication that can easily arise in evaluating a research question like the one above is that two business locations can have different numbers of customers.
+	If location A has 100 customers and location B has 1,000 customers, I would expect that location B would have more positive reviews that location A given the same underlying probability of observing the postitive review event.	
+	The count DV, however, does not naturally contain this information and, in fact, the default CRM assumption is that that the two locations have the same number of customers---a fact known not to be true.
 	
-	CRMs can control for such nuisance/unequal exposure to the count generating mechanism using what is known as an \emph{offset} term.  
-	The offset term is usually assumed to be a natural log transformed version of the exposure variable and enters into the CRM with a coefficient of 1.
-	The coefficient of 1 results in the count DV being transformed into a rate dependent on values of the exposure variable.
-	How the count DV is transformed into a rate with a coefficient of 1 follows from the following algebraic manipulations.
-	Imagine a simple case where an intercept only model is fit with an offset.
-	In a log-linear CRM, this produces: $y = e^{offset + \beta}$.
-	Recall that the offset term is the natural log of a variable, say, $o$.  
-	Applying the natural log and substituting $\ln o$ for $offset$, the prior equation can be written as $\ln y = \ln o + \beta$.
-	Re-arranging the $\ln o$ term results in $\ln y - \ln o = \beta$ which, given the properties of logarithms, is tantamount to $\ln \frac{y}{o} = \beta$.
-	Therefore, the inclusion of a natural log transformed exposure variable turns the count DV into a rate that depends on exposure variable forced into the model as an offset term.
+	That both locations have different numbers of customers means that the locations have different levels of exposure or 'differential exposure' to the count generating probability. 
+	The differential exposure in locations A and B is a problem when interpreting the count DV for answering the research question. 
+	Consider what would happen in a CRM if locations A and B both receive 10 positive reviews.
+	I know that both values of 10 imply starkly different probabilities of observing an event (i.e., $\frac{10}{1000} = .01$ and $\frac{10}{100} = .1$).
+	The CRM, however, does not have any built-in way to distinguish between the location's values given just the count DV values and they would be erroneously treated the same in the model.
+	What the CRM needs is to be instructed how to adjust the results for the known differential exposure that obscures the differences in the underlying probability of event occurrence.
 	
-	The re-scaling of the DV by the offset term adjusts for differences in Binomial trials between observations in a count DV and better reflects the underlying probability which is desirable for probability-based research questions with CRMs.
-	The re-scaling process also reduces the extent of unexplainable variation, or deviance, in the count DV as observations with high counts and high exposure values are pulled nearer those with low counts and low exposure values.	
-	As a result, inclusion of an offset term will affect $R^2_{DEV}$ values and DA statistics on which they are based.
-	It is also important to note that the relationships IVs have with the exposure variable can have a substantial impact on the estimated coefficients an DA statistics that can bias results and affect inference for probabilty-oriented count research questions.
+	CRMs can control for differential exposure using an offset term.  
+	The offset term, for a log-linear CRM, is natural log transformed version of a variable that reflects the known differential exposure between observations set to a coefficient value of 1.
+	Thus, to control for differential exposure, the researcher must have access to a variable that reflects, for each observation, the exposure that the observation had to the count generating process.
+	When this exposure variable is natural logarithm transformed and included in the CRM with a coefficient of 1, the DV predicted by the model becomes the ratio of counts out of the value of the exposure or the rate of events given exposure.
+	
+	The transformation of the count DV to a rate follows is easier to see when making a few algebraic manipulations to the model.
+	Consider the most simple case of a CRM, an intercept only model that is fit with an offset term.
+	An intercept-only model with an offset would, as a formula, look like: $Y = e^{\beta_o\ln X_{exposure} + \beta_1}$, where $X_{exposure}$ is the exposure variable, $\beta_1$ is the offset term, and $\beta_1$ is the model intercept.
+	Taking the natural logarithm of both sides of the equation and given the offset term is 1, the equation above simplifies to $\ln Y = \ln X_{exposure} + \beta_1$.
+	Subtracting $\ln X_{exposure}$ from both sides results in $\ln Y - \ln X_{exposure} = \beta_1$.
+	Finally, the difference between two logarithms is the logarithm of their quotient, thus producing $\ln \frac{Y}{X_{exposure}} = \beta_1$ or $\frac{Y}{X_{exposure}} = e^{\beta_1}$.
+	The natural logarithm transformed exposure variable, when included with an offset term, necessaily results in the dependent variable being a rate.
+	
+	The practical effect of the offset term is that the DV better reflects the underlying probability of the event and is no longer contaiminated with different levels of exposure to the count generating process.
+	An additional side effect of the offset term is that it reduces the extent of unexplainable variation, or deviance, in the count DV.
+	The reduction in unexplainable variation arises as observations with high counts and high exposure values are pulled nearer those with low counts and low exposure values.	
+	As a result of the reduced unexplainable variation, inclusion of an offset term affects the values obtained $R^2_{DEV}$ values and DA statistics on which they are based.
+	
+	...ended here - need a good way to work the below in ... feels abrupt at current ...
+	
+	It is also important to note that the relationships IVs have with the exposure variable can have a substantial impact on the estimated coefficients an DA statistics that can bias results and affect inference for probability-oriented count research questions.
 	
 	The sections below extend the modeling discussed above by describing the generation of two new variables that have different patterns of exposure to the count generating process. 
 	The modeling process above is then repeated on these new variables to illustrate the effect that exposure variables, and modeling them as offset terms, have on both modeling and DA results.
@@ -659,76 +590,78 @@
 	The data described in this section extended on the generated data produced for the analytic examples discussed previously.
 	These data were then generated with the intention to balance their "realism" with built-in properties that illustrate the nature of the exposure effects.
 	
-	The data simulated in this section again focused on the 6,780 tailors generating stock jackets in a fortnight.
+	The data simulated in this section again focused on the 6,780 tailors generating sport jackets in a fortnight.
 	One key difference from the data above is that the period of time in which these data simulated was for two different local holidays.
-	The first stock jacket variable occurred for near a religious holiday (SJ\_RH) that is not celebrated in the same way by all tailors.
+	The first sport jacket variable occurred for near a religious holiday ($SJ_{RH}$) that is not celebrated in the same way by all tailors.
 	The observation of this religious holiday produced inconsistent leaves of absence, and thus less exposure, across tailors that were uncorrelated with their IV values.
 	
-	The second stock jacket variable occurred near a common time when tailors take voluntary holidays (SJ\_VH) that depends on tailor workload.
+	The second sport jacket variable occurred near a common time when tailors take voluntary holidays ($SJ_{VH}$) that depends on tailor workload.
 	Because tailors who produce more jackets are more likely to have their workload sufficiently light to take the holiday, the IVs are inversely related to the likelihood of taking holiday time and thus exposure.
 	The sport jacket variable was otherwise identical to the previous version discussed above. 
-	The exposure days for religous holidays (RH) and voluntary holidays (VH) ranged from a minimum of 1 working day to 10 (i.e., all working days in a fortnight) and were uniformly distributed.
+	The exposure days for religious holidays (RH) and voluntary holidays (VH) ranged from a minimum of 1 working day to 10 (i.e., all working days in a fortnight) and were uniformly distributed.
 	
-	The means, standard deviations, and correlations with the IVs and one another are reported in Table 6.
+	The means, standard deviations, and correlations with the IVs and one another are reported in Table \ref{tab:dscEx}.
 	
-	\begin{longtable}{lrrrrrr}
-		\caption*{
-			{\large Table 6: Descriptive Statistics}
-		} \\ 
-		\toprule
-		&  &  Standard & \multicolumn{4}{c}{Correlations} \\ 
-		\cmidrule(lr){4-7}
-		Variable & Mean & Deviation & ER & AS & SL & WE \\ 
-		\midrule
-		SJ\_RH & $0.5447$ & $0.7575$ & $0.3455$ & $0.3247$ & $0.2773$ & $0.3174$ \\ 
-		RH & $5.5186$ & $2.8950$ & $-0.0108$ & $-0.0072$ & $-0.0156$ & $-0.0249$ \\ 
-		SJ\_VH & $0.4709$ & $0.6549$ & $0.2332$ & $0.2325$ & $0.1631$ & $0.2405$ \\ 
-		VH & $5.5301$ & $2.8897$ & $-0.3952$ & $-0.3450$ & $-0.3574$ & $-0.3252$ \\ 
-		\bottomrule
-	\end{longtable}
+	\begin{table}[h!]
+		\centering
+		\caption{\centering Descriptive Statistics with Differential Exposure}
+		\begin{tabular}{lrrrrrr}
+			\toprule
+			&  &  Standard & \multicolumn{4}{c}{Correlations} \\ 
+			\cmidrule(lr){4-7}
+			Variable & Mean & Deviation & $ER$ & $AS$ & SL & WE \\ 
+			\midrule
+			$SJ_{RH}$ & $0.5447$ & $0.7575$ & $0.3455$ & $0.3247$ & $0.2773$ & $0.3174$ \\ 
+			$SJ_{VH}$ & $0.4709$ & $0.6549$ & $0.2332$ & $0.2325$ & $0.1631$ & $0.2405$ \\ 
+			\bottomrule
+		\end{tabular}
+		\label{tab:dscEx}
+	\end{table}
 	
-	Table 6 shows that the means and standard deviations for SJ\_RH and SJ\_VH were effectively identical but had shrunk from the value of SJ in Table 1.
+	Table 6 shows that the means and standard deviations for $SJ_{RH}$ and $SJ_{VH}$ were effectively identical but had shrunk from the value of SJ in Table 1.
 	This is because SJ implicitly assumes an exposure value of 10 for all observations. 
-	Because the exposures for SJ\_RH and SJ\_VH were both around 5.5 days, their means shrunk proportional to the number of days of exposure.
+	Because the exposures for $SJ_{RH}$ and $SJ_{VH}$ were both around 5.5 days, their means shrunk proportional to the number of days of exposure.
 	If 10 days produces a mean of 1, then 5.5 average days should produce an average of .55.
 	
 	The pattern of correlations between the SJ-exposed variables and their exposures with the IVs is also of note. 
-	In the case of both SJ\_RH and SJ\_VH, their correlations with the IVs are smaller than SJ as reported in Table 1. 
+	In the case of both $SJ_{RH}$ and $SJ_{VH}$, their correlations with the IVs are smaller than SJ as reported in Table 1. 
 	This is due to a restriction in variance from reduced exposure time to the count generating process for these variables.
-	Note also the differences between RH, the exposure variable for SJ\_RH, and VH, the exposure variable for SJ\_VH.
+	Note also the differences between RH, the exposure variable for $SJ_{RH}$, and VH, the exposure variable for $SJ_{VH}$.
 	RH is, as expected, effectively uncorrelated with the IVs.
 	By contrast, VH shows strong, negative correlations with the IVs.
 	It is these negative correlations that produce an additional suppressing effect on the correlations between SH\_VH and the IVs as the restriction in variance due to exposure is inversely related to counts.
-	These negative correlations are also the reason SJ\_VH's mean is less than  the expected value of .55.
+	These negative correlations are also the reason $SJ_{VH}$'s mean is less than  the expected value of .55.
 	
-	In sections to come, the new SJ\_RH and SJ\_VH variables are analyzed in separate PR models.
+	In sections to come, the new $SJ_{RH}$ and $SJ_{VH}$ variables are analyzed in separate PR models.
 	Both models are evaluated with and with out the use of their exposure variable modeled as an offset.
-	The results below are subdivided by the type of exposure variable and begins with SJ\_RH, the uncorrelated exposure variable.
+	The results below are subdivided by the type of exposure variable and begins with $SJ_{RH}$, the uncorrelated exposure variable.
 	
 		\subsubsection{Uncorrelated Exposure Variable}
 		
-	The two models using SJ\_RH, one with and one without the exposure variable modeled with an offset, are reported in Table 7.
+	The two models using $SJ_{RH}$, one with and one without the exposure variable modeled with an offset, are reported in Table 7.
 	Only coefficient and IRR values are reported in Table 7 as their values are the focus of this discussion.
 		
-	\begin{longtable}{l|rrrr}
-		\caption*{
-			{\large Table 7: Uncorrelated Exposure Poisson Regression}
-		} \\ 
-		\toprule
-		\multicolumn{1}{l}{} & \multicolumn{2}{c}{No Offset} & \multicolumn{2}{c}{Offset} \\ 
-		\cmidrule(lr){2-3} \cmidrule(lr){4-5}
-		\multicolumn{1}{l}{} & Coefficient & IRR & Coefficient & IRR \\ 
-		\midrule
-		Inter & $-0.8170$ & $0.4418$ & $-2.5276$ & $0.0799$ \\ 
-		ER & $0.2575$ & $1.2937$ & $0.2657$ & $1.3043$ \\ 
-		AS & $0.1521$ & $1.1643$ & $0.1502$ & $1.1621$ \\ 
-		SL & $0.1455$ & $1.1566$ & $0.1515$ & $1.1636$ \\ 
-		WE & $0.1271$ & $1.1355$ & $0.1347$ & $1.1442$ \\ 
-		\bottomrule
-	\end{longtable}
+	\begin{table}[h!]
+		\centering
+		\caption{\centering Uncorrelated Exposure Results}
+		\begin{tabular}{l|rrrrrr}
+			\toprule
+			\multicolumn{1}{l}{} & \multicolumn{3}{c}{Without Offset} & \multicolumn{3}{c}{With Offset} \\ 
+			\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+			\multicolumn{1}{l}{} & $\beta$ & $e^{\beta}$ & $C$ & $\beta$ & $e^{\beta}$ & $C$ \\ 
+			\midrule
+			$ER$ & $0.2575$ & $1.2937$ & $0.0708$ & $0.2657$ & $1.3043$ & $0.0863$ \\ 
+			$AS$ & $0.1521$ & $1.1643$ & $0.0541$ & $0.1502$ & $1.1621$ & $0.0641$ \\ 
+			SL & $0.1455$ & $1.1566$ & $0.0437$ & $0.1515$ & $1.1636$ & $0.0545$ \\ 
+			WE & $0.1271$ & $1.1355$ & $0.0551$ & $0.1347$ & $1.1442$ & $0.0698$ \\ 
+			$Intercept$ & $-0.8170$ & $0.4418$ & & $-2.5276$ & $0.0799$ & \\ 
+			\bottomrule
+		\end{tabular}
+	\label{tab:unexp}
+	\end{table}
 	
 	Table 7 shows that the coefficients and IRR values for the models with and without an offset term are very similar to one another with the exception of their intercept value.
-	That the exposure variable does not noticeably affect the magnitude of the coefficients, despite the clear impact the exposure variable has on the SJ distribution's mean and variance relative to when there is no exposure effect, may come as a surprise.
+	That the exposure variable does not noticeably affect the magnitude of the coefficients, despite the clear impact the exposure variable has on the $SJ$ distribution's mean and variance relative to when there is no exposure effect, may come as a surprise.
 	Indeed, the exposure variable works in a similar way to random/uncorrelated error variance which tends to shrink the magnitude of coefficients in LRM.
 	The key difference between error variance in LRM and 'random' exposure variables in CRMs is the multiplicative nature of the CRM's coefficients.
 	For an LRM, the additional error variance dilutes what a 1 unit change in an IV does in terms of units of change to the DV.
@@ -738,14 +671,14 @@
 	Compared to the coefficients, the intercept across both models does show substantial change with the addition of the offset term.
 	The difference across the offset and no offset models is to re-scale the mean value in a way that reflects the new interpretation of the DV when an offset is estimated.
 	The effect of the re-scaling is clearest when comparing IRR values across models.
-	The IRR value for the no offset model is .4418, which is an IV-adjusted mean based on the .5447 mean value for SJ\_RH.
+	The IRR value for the no offset model is .4418, which is an IV-adjusted mean based on the .5447 mean value for $SJ_{RH}$.
 	The IRR value for the offsets model is .0799, which is an IV-adjusted rate based on the theoretical underlying rate of .1000.
-	This theoretical rate is obtained from for SJ which is what SJ\_RH would be equivalent to given no exposure differences.
-	In this case, SJ's mean is 1 and implied exposure is 10 working days.
-	The rate of counts for SJ is then $\frac{1}{10}$ or .1000.
+	This theoretical rate is obtained from for $SJ$ which is what $SJ_{RH}$ would be equivalent to given no exposure differences.
+	In this case, $SJ$'s mean is 1 and implied exposure is 10 working days.
+	The rate of counts for $SJ$ is then $\frac{1}{10}$ or .1000.
 	Thus, the offset term has, as expected, re-scaled the DV from a count to a rate.
 	
-	It is also important to note that the coefficient values obtained for the IVs for both models in Table 7 are, again with the exception of the intercept, similar to the values obtained for the non-exposure affected SJ variable in Table 2.
+	It is also important to note that the coefficient values obtained for the IVs for both models in Table 7 are, again with the exception of the intercept, similar to the values obtained for the non-exposure affected $SJ$ variable in Table 2.
 	Whereas the effects of differential exposure that are uncorrelated with the IVs has had a minimal effect on the estimated coefficients, the effect of uncorrelated differential exposure is more noticeable among the next set of results; the general dominance statistics for both models reported in Table 8.
 	
 	\begin{longtable}{l|rr}
@@ -755,8 +688,8 @@
 		\toprule
 		\multicolumn{1}{l}{} & No Offset & Offset \\ 
 		\midrule
-		ER & $0.0708$ & $0.0863$ \\ 
-		AS & $0.0541$ & $0.0641$ \\ 
+		$ER$ & $0.0708$ & $0.0863$ \\ 
+		$AS$ & $0.0541$ & $0.0641$ \\ 
 		SL & $0.0437$ & $0.0545$ \\ 
 		WE & $0.0551$ & $0.0698$ \\ 
 		\midrule
@@ -767,18 +700,18 @@
 	Table 8 shows that the general dominance statistics for models with the offset term are all larger than their corresponding values without the offset term. 
 	However ostensibly different, the differences in magnitudes between these results is due to the differences across models in the magnitude of the $R^2_{DEV}$ from which each IV has been partitioned.
 	In fact, the relative proportions of the $R^2_{DEV}$ explained by each of IVs within each model is nearly identical.
-	For example, ER is responsible for approximately 31\% of the $R^2_{DEV}$ for both models (i.e., $\frac{.0708}{.2238} = .3164; \frac{.0863}{.2748} = .3140)$.
+	For example, $ER$ is responsible for approximately 31\% of the $R^2_{DEV}$ for both models (i.e., $\frac{.0708}{.2238} = .3164; \frac{.0863}{.2748} = .3140)$.
 	The reason for the notable difference in explained deviance across models is because of the offset term's role in reducing unexplained variation in the DV for probability-based research questions.
 	As was discussed previously, the exposure effect produces variation in the count DV that is unrelated to the focal probability of the occurrence of an event.
 	The inclusion of the offset term reduces this unexplained variation directly and obtains results that are closer to those that would be obtained if exposure was equal.
-	To this last point, note that the general dominance statistics and $R^2_{DEV}$ for the offset model are much closer to the results of SJ in Table 5 than are the no offset model's results.
+	To this last point, note that the general dominance statistics and $R^2_{DEV}$ for the offset model are much closer to the results of $SJ$ in Table 5 than are the no offset model's results.
 	
-	The section below moves to discussing the results of the use of exposure terms for the SJ\_VH variable in which the IVs are related to exposure.
-	As with the results for SJ\_RH, the models with and without offset terms are reported.
+	The section below moves to discussing the results of the use of exposure terms for the $SJ_{VH}$ variable in which the IVs are related to exposure.
+	As with the results for $SJ_{RH}$, the models with and without offset terms are reported.
 	
 		\subsubsection{Correlated Exposure Variable}
 		
-	The no offset and offset models using SJ\_VH are reported in Table 9.
+	The no offset and offset models using $SJ_{VH}$ are reported in Table 9.
 	As before, only the coefficient and IRR values from each model are reported.
 	
 	\begin{longtable}{l|rrrr}
@@ -791,17 +724,17 @@
 		\multicolumn{1}{l}{} & Coefficient & IRR & Coefficient & IRR \\ 
 		\midrule
 		Inter & $-0.8512$ & $0.4269$ & $-2.5182$ & $0.0806$ \\ 
-		ER & $0.1638$ & $1.1780$ & $0.3054$ & $1.3572$ \\ 
-		AS & $0.1145$ & $1.1214$ & $0.1735$ & $1.1895$ \\ 
+		$ER$ & $0.1638$ & $1.1780$ & $0.3054$ & $1.3572$ \\ 
+		$AS$ & $0.1145$ & $1.1214$ & $0.1735$ & $1.1895$ \\ 
 		SL & $0.0642$ & $1.0663$ & $0.1668$ & $1.1815$ \\ 
 		WE & $0.1118$ & $1.1182$ & $0.1568$ & $1.1698$ \\ 
 		\bottomrule
 	\end{longtable}
 	
 	As compared to the uncorrelated exposure results in Table 7, the correlated exposure results show different patterns of results across no offset and offset models for all IVs.
-	Whereas the offset model looks relatively similar to the pattern of results from the no offset model in Table 7 as well as the results in Table 2, the no offset model shows a notable shrinkage in the magnitude of the coefficient and IRR for SL and AS relative to other results.
-	The magnitude of SL's coefficient across all models has been between AS and WE whereas for no offset model using SJ\_VH, SL's value is notably lower than all other coefficients.
-	AS' coefficient in the no offset model is also relatively smaller than in all other models to this point; nearly equal in value to WE's coefficient value.
+	Whereas the offset model looks relatively similar to the pattern of results from the no offset model in Table 7 as well as the results in Table 2, the no offset model shows a notable shrinkage in the magnitude of the coefficient and IRR for SL and $AS$ relative to other results.
+	The magnitude of SL's coefficient across all models has been between $AS$ and WE whereas for no offset model using $SJ_{VH}$, SL's value is notably lower than all other coefficients.
+	$AS$' coefficient in the no offset model is also relatively smaller than in all other models to this point; nearly equal in value to WE's coefficient value.
 	... note sim of intercept...
 	
 	The no offset model results in Table 9 show the biasing effect of the correlated exposure variable on coefficient estimates when it is not modeled as an offset.
@@ -815,8 +748,8 @@
 		\toprule
 		\multicolumn{1}{l}{} & No Offset & Offset \\ 
 		\midrule
-		ER & $0.0307$ & $0.0889$ \\ 
-		AS & $0.0280$ & $0.0656$ \\ 
+		$ER$ & $0.0307$ & $0.0889$ \\ 
+		$AS$ & $0.0280$ & $0.0656$ \\ 
 		SL & $0.0127$ & $0.0512$ \\ 
 		WE & $0.0342$ & $0.0737$ \\ 
 		\midrule
@@ -824,16 +757,16 @@
 		\bottomrule
 	\end{longtable}
 
-	Table 10's results show, similar to those of Table 9, that the model including an offset is very similar to the results obtained from the offset model in Table 7 as well as SJ's results from Table 5.
+	Table 10's results show, similar to those of Table 9, that the model including an offset is very similar to the results obtained from the offset model in Table 7 as well as $SJ$'s results from Table 5.
 	Thus, the effect of a correlated exposure variable is relatively minimal on DA statistics given that the appropriate offset term is included in the model and reproduces results similar to a model not affected by differential exposure.
 	By contrast, the no offset model shows both a large reduction in the magnitude of the $R^2_{DEV}$ as well as a change in the rank orders of the IVs.
 	The reduction in the magnitude of the $R^2_{DEV}$ was produced, in part, for reasons similar to the uncorrelated exposure models as additional unexplainable variation was added to the count DV. 
 	In the case of the correlated exposure model, the extra variation in counts due to differential exposure also affected coefficient estimates as can be seen in Table 9.
 	In all cases, the estimated magnitude of the IV's coefficients, when affected by differential exposure that was correlated with the IVs, was smaller than expected relative to the models without such differential exposure.
 	The effect of correlated, differential exposure also changed the rank order of top two IVs.
-	In the no offset model, WE obtains the highest general dominance statistic value followed by ER.
-	The correlations in Table 6 reveal the probable reason for this effect in that WE both has the highest relationship with SJ\_VH as well as the lowest correlation with the exposure variable VH.
-	Hence, without the offset term adjustment, WE appears to have the strongest overall impact on SJ\_VH.
+	In the no offset model, WE obtains the highest general dominance statistic value followed by $ER$.
+	The correlations in Table 6 reveal the probable reason for this effect in that WE both has the highest relationship with $SJ_{VH}$ as well as the lowest correlation with the exposure variable VH.
+	Hence, without the offset term adjustment, WE appears to have the strongest overall impact on $SJ_{VH}$.
 	
 		\subsubsection{Section Summary}
 		
@@ -929,7 +862,7 @@
 	Finally, this work does not directly address how to conduct DA with a commonly observed complication with count DVs, zero inflation.
 	Zero inflation is a condition where the count DV shows more zero counts than would be expected from a standard Poisson or negative Binomial distribution \cite(e.g.,){blevins2015count}. 
 	A zero-inflated model is often thought of as having an "opt out" process that forces counts to 0 owing to making them not possible. 
-	For example, as applied to the generation of stock jackets, if a process in which tailors shops had to close and thus could not produced any jackets was modeled, such IVs could be modeled in a zero-inflation model to recover the effects of the other predictors on the "count" process.
+	For example, as applied to the generation of sport jackets, if a process in which tailors shops had to close and thus could not produced any jackets was modeled, such IVs could be modeled in a zero-inflation model to recover the effects of the other predictors on the "count" process.
 	An additional complexity that results from zero-inflated models is that it is possible to allow IVs to predict the count generating process, the opting out process, or both.
 	In such circumstances the researcher may have to consider whether an alternative approach that emphasizes parameter estimates as opposed to IVs is better suited to the importance determination with DA; indeed, past work has used zero-inflated Poisson regression as an example of the application of parameter estimate-based DA \cite{luchman2020relative}.
 	I expect that the recommendations offered in this paper could extend in a straightforward way to zero-inflated models as Cameron and Windmeijer \citeyear{cameron1996r} do consider zero-inflated models in terms of $R^2_{DEV}$ computation. 
