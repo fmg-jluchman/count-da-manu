@@ -9,23 +9,20 @@ editor_options:
     wrap: 72
 ---
 
-This notebook provides documentation for the generation of the data used in the manuscript **Relative Importance Analysis with Count Regression Models**.
+This notebook provides documentation for the generation of the data used in the manuscript **Relative Importance Analysis for Count Regression Models**.
 
-The documentation and discussion of approach in this document extends on that provided in the main manuscript as the discussion here focuses more closely on implementation details. These implementation details are are not essential for the reader to understand the manuscript but are essential for understanding the analytic context and for reproducibility.
-
-The code block below initiates the analysis by setting the R environment.
-
-A component of this environment is the random seed to be able to fully reproduce the data. 
+This document extends on the main manuscript by focusing more closely on implementation details. These implementation details are are not essential for the reader to understand the manuscript but are essential for reproducibility of the results. The details in this notebook also add additional context the manuscript's analyses by, for example, extending the Poisson regression results reported to negative Binomial regression.
 
 Details on the random seed as well as the details of the R environment are available at the end of this notebook.
 
-```{r set-up, results='hide'}
+```{r set-up, include = FALSE}
 library(gt)
 library(MASS)
 library(tidyverse)
 library(magrittr)
 library(domir)
 library(parameters)
+library(performance)
 library(datawizard)
 library(MCMCpack)
 
@@ -34,34 +31,32 @@ set.seed(84490856)
 
 # Data Generation
 
-The manuscript describes four IVs including:
+The manuscript describes four tailoring shop characteristic IVs that will be used in the analysis. These IVs are:
 
   a. equipment reliability or _ER_
   b. assistant staffing levels or _AS_
-  c. tailor skill-level or _SL_
+  c. tailor skill level or _SL_
   d. tailor work experience or _WE_
   
-This section provides details related to the population-level parameters used to generate the data used for analysis.
+Each of these IVs are generated for the simulated tailoring shops described in the manuscript as the first step in the data generation methodology.
+
+My approach in generating the data for this manuscript was to begin by developing higher-order population parameters that were intended to give a specific set of results from a linear regression. These higher-order population parameters were useful as a conceptual structure from which to generate the data. The data, as generated, were only to be based loosely on this higher-order conceptual structure and the population parameters actually used to generate the data were sampled, and thus varied, from it in a way that was not intended to be directly under my control. As such, the results would in a general sense follow from the higher order conceptual structure imposed on the data but not be completely determined by me. 
+
+This method of developing a well-structured set of parameters from which the observed data's parameters are sampled is advantageous in my view for this manuscript. Specifically, this structure allows the data to be generated in such a way as to illustrate key concepts yet also maintaining an element of randomness and realism in its appearance and in the results they produce.
 
 ## Generate IV Data
 
-The generation of the four IVs begins with setting up a population-level covariance matrix describing the variances of and interrelationships between the IVs.
+The generation of the four IVs began with setting up a higher-order population-level covariance matrix describing the variances of and interrelationships between the four tailoring shop IVs. This higher-order variance-covariance matrix was used as a set of parameters from which an sampled variance-covariance was obtained. This sampled variance covariance matrix was used as the population parameters from which the observations from this study were derived.
 
-The four IVs were designed such that they would have different variances. The variances chosen were four equally spaced values between standard deviation values of 1 and 2. The first IV, _ER_, was then designed to have a $\sigma_{ER} = 1.00$ and $\sigma^2_{ER} = 1.00$.The second IV, _AS_, was designed to have $\sigma_{AS} = 1.33$ and of $\sigma^2_{AS} = 1.78$.  _SL_ was designed to have $\sigma_{SL} = 1.67$ and $\sigma^2_{SL} = 2.78$.  Finally, _WE_ was designed to have $\sigma_{WE} = 2.00$ and $\sigma^2_{WE} = 4.00$.
+### Higher-Order Variance-Covariance Structure
 
-The design of the interrelationships between the IVs was implemented as to give the IVs non-zero overlaps between one another. This was done as DA is most useful, as a methodology for inferring importance, when the IVs overlap. Although the IVs were designed to overlap, I did not want the extent of the overlap between the IVs to be such that some IVs were more redundant with other IVs than other IVs. All six correlations between the four IVs were thus designed to take on one of three values .250, .125, and .063. These three values were "balanced" across IVs such that the total redundancy for any one IV was identical to the others. 
+The variances of IVs affect their contribution to the $R^2$ and thus will also affect the dominance designations and statistics produced by each IV. As an important determinant of dominance designations and statistics, the IVs were set to different values. The variances chosen were four equally spaced values between standard deviation values of 1 and 2. The first IV, _ER_, had a $\sigma_{ER} = 1.00$ and $\sigma^2_{ER} = 1.00$. The second IV, _AS_, had $\sigma_{AS} = 1.33$ and $\sigma^2_{AS} = 1.78$.  _SL_ had $\sigma_{SL} = 1.67$ and $\sigma^2_{SL} = 2.78$.  Finally, _WE_ had $\sigma_{WE} = 2.00$ and $\sigma^2_{WE} = 4.00$.
 
-The six different correlations specified were: $r_{ER,AS} = .250$, $r_{ER,SL} = .125$, $r_{ER,WE} = .063$, $r_{AS,SL} = .063$, $r_{AS,WE} = .125$, and $r_{SL,WE} = .250$.
+Dominance designations and statistics depend on interrelationships between the IVs. I did not have any reason to expect that a specific correlation structure would be more advantageous than another in defining the higher-order structure. As such, I defined the correlation matrix to be "balanced" across IVs such that the total redundancy for any one IV was identical to the others. 
 
-The manuscript notes that a goal for the generation of the data for analytic use in this exercise is to obtain data that are 'realistic.' The balanced correlations that are determined at the population-level fail to 'feel real.' 
+All six correlations between the four IVs were thus designed to take on one of three values .250, .125, and .063 with the following values specified between each of the IVs: $r_{ER,AS} = .250$, $r_{ER,SL} = .125$, $r_{ER,WE} = .063$, $r_{AS,SL} = .063$, $r_{AS,WE} = .125$, and $r_{SL,WE} = .250$.
 
-In an effort to add more realism to the dataset, the population covariance matrix is filtered through an inverse Wishart distribution using a single draw and large value (i.e., 100) for the degree of freedom parameter.
-
-Sampling from the inverse Wishart distribution will produce a set of correlation values that are based on the balanced approach but appear more 'as though' they were generated by a real data generating process. The large value for the degrees of freedom has the effect of reducing the variances of the sampled matrix but also stabilizes the correlations of the values sampled to be closer to the population values. The variances of all the variables, once generated in the data, are multiplied by 100 to re-adjust them back to near their original values.
-
-### Population Values
-
-This section sets the population-level covariance matrix.
+The code block below sets and reports on the correlation matrix as well as the the variance-covariance matrix on which it is based.
 
 ```{r gen-iv-mat}
 namelist <- 
@@ -90,9 +85,15 @@ Covariance_Matrix %>% cov2cor() %>%
   tab_header("Table S2: Population Correlation Matrix")
 ```
 
-Tables S1 and S2 confirm the correct/intended values are in the covariance and correlation matrices.
+...
 
 ### Sampled Values
+
+The manuscript notes that a goal for the generation of the data for analytic use in this exercise is to obtain data that are 'realistic.' The balanced correlations that are determined at the population-level fail to 'feel real.' 
+
+In an effort to add more realism to the dataset, the population covariance matrix is filtered through an inverse Wishart distribution using a single draw and large value (i.e., 100) for the degree of freedom parameter.
+
+Sampling from the inverse Wishart distribution will produce a set of correlation values that are based on the balanced approach but appear more 'as though' they were generated by a real data generating process. The large value for the degrees of freedom has the effect of reducing the variances of the sampled matrix but also stabilizes the correlations of the values sampled to be closer to the population values. The variances of all the variables, once generated in the data, are multiplied by 100 to re-adjust them back to near their original values.
 
 This section uses the set population covariance matrix as the scale parameter and a value of 100 as a degree of freedom parameter to obtain a single draw from the inverse Wishart distribution.  
 
@@ -595,41 +596,6 @@ Data_Frame %>%
   gtsave(filename = "descrips_exposure.tex", path = "./includes/")
 ```
 
-<!-- ## Zero-inflated Poisson Dependent Variable -->
-
-<!-- The zero-inflated Poisson dependent variable uses the Poisson variable as well as the Normally distributed variable created to produce the correlated offset (negative, randomized Normal variable coefficients).  The correlated offset variable is translated through a cumulative Normal probability to a binomial quantile function with 1 draw and a probability of .9.  -->
-
-
-<!-- ```{r zero-inflate} -->
-<!-- Data_Frame %<>% -->
-<!--   mutate( -->
-<!--     Y_ZIP =  -->
-<!--       Y_Poisson *  -->
-<!--       qbinom( -->
-<!--         pnorm(Censoring, log.p = TRUE), -->
-<!--         1, .9, log.p = TRUE) -->
-<!--   ) -->
-
-<!-- Data_Frame %>% -->
-<!--   select(Y_ZIP) %>% -->
-<!--   ggplot(aes(Y_ZIP)) + stat_bin() -->
-
-<!-- Data_Frame %>% -->
-<!--   summarise( -->
-<!--     across(.fns = mean), -->
-<!--     )  -->
-
-<!-- Data_Frame %>% -->
-<!--   summarise( -->
-<!--     across(.fns = sd), -->
-<!--     )  -->
-
-<!-- Data_Frame %>%  -->
-<!--   cor %>%  -->
-<!--   kable -->
-
-<!-- ``` -->
-
 ```{r save-data, results='hide', include=FALSE}
 saveRDS(Data_Frame, "./Data_Results/DF.rds")
 ```
@@ -642,17 +608,6 @@ Data_Frame <-
 # Primary Modeling
 
 This section describes the model estimation and dominance analysis of the primary analysis models involving SJ and MJ variables.
-
-This section also sets the deviance $R^2$ function (i.e., `dev_r2`) needed for dominance analysis.
-
-```{r dev-R2}
-dev_r2 <-
-  function(obj) {
-    res <- (1 - obj$deviance/obj$null.deviance)
-    names(res) <- "dev_r2"
-    return(res)
-  }
-```
 
 ## Poisson Regressions
 
@@ -722,7 +677,7 @@ SJ_pois_subsets <-
             discard(ivs, ~ str_length(.) < 2) %>%
             reformulate(response = "SJ") %>%
               glm(data = Data_Frame, family = poisson()) %>%
-              dev_r2()
+              r2_kullback(adjust = FALSE)
           }
   )
 
@@ -755,7 +710,7 @@ SJ_pois_DA <-
         \(fml, ...) {
           res <- 
             glm(fml, ...) 
-          return(dev_r2(res))
+          return(r2_kullback(res, adjust = FALSE))
         },
         data = Data_Frame, family = poisson())
 
@@ -771,7 +726,7 @@ SJ_pois_DA %>%
   tab_header("Table S16: Poisson Model General Dominance Statistics") %>%
   fmt_number(columns = 2:3, decimals = 4) %>%
   tab_source_note(str_c("Overall Deviance R-square is ", 
-                        SJ_pois_reg %>% dev_r2() %>% 
+                        SJ_pois_reg %>% r2_kullback() %>% 
                           sprintf("%5.4f", .), "."))
 
 SJ_pois_DA %>% 
@@ -866,7 +821,7 @@ MJ_nb_subsets <-
             discard(ivs, ~ str_length(.) < 2) %>%
             reformulate(response = "MJ") %>%
               glm.nb(data = Data_Frame) %>%
-              dev_r2()
+              r2_kullback(adjust = FALSE)
           }
   )
 
@@ -891,7 +846,7 @@ MJ_nb_DA <-
         \(fml, ...) {
           res <- 
             glm.nb(fml, ...) 
-          return(dev_r2(res))
+          return(r2_kullback(res, adjust = FALSE))
         },
         data = Data_Frame)
 
@@ -907,7 +862,7 @@ MJ_nb_DA %>%
   tab_header("Table S20: Negative Binomial Model General Dominance Statistics") %>%
   fmt_number(columns = 2:3, decimals = 4) %>%
   tab_source_note(str_c("Overall Deviance R-square is ", 
-                        MJ_nb_reg %>% dev_r2() %>% 
+                        MJ_nb_reg %>% r2_kullback(adjust = FALSE) %>% 
                           sprintf("%5.4f", .), "."))
 
 MJ_nb_DA %>% 
@@ -976,8 +931,8 @@ SJ_pois_DA %>%
             by = "Variable") %>%
   set_names(c("Variable", "Poisson/SJ", "Negative Binomial/MJ")) %>%
   bind_rows(tibble(Variable = "Overall", 
-                   `Poisson/SJ` = SJ_pois_reg %>% dev_r2(), 
-                   `Negative Binomial/MJ` = MJ_nb_reg %>% dev_r2())) %>%
+                   `Poisson/SJ` = SJ_pois_reg %>% r2_kullback(adjust = FALSE), 
+                   `Negative Binomial/MJ` = MJ_nb_reg %>% r2_kullback(adjust = FALSE))) %>%
   gt(rowname_col = "Variable") %>%
   tab_header("Table 5: General Dominance Statistics") %>%
   tab_style(
@@ -999,13 +954,6 @@ Figure 1 in the manuscript is generated in this section.
 SJ_pois_DA %>%
   pluck("Conditional_Dominance") %>%
   as_tibble(rownames = "IV") %>%
-  mutate(Model = "Poisson/SJ") %>%
-  bind_rows(
-    MJ_nb_DA %>%
-      pluck("Conditional_Dominance")  %>%
-      as_tibble(rownames = "IV") %>%
-      mutate(Model = "Negative\nBinomial/MJ")
-  ) %>%
   pivot_longer(
     cols = starts_with("subset_size"),
     names_to = "Subset Size",
@@ -1013,16 +961,14 @@ SJ_pois_DA %>%
     names_prefix = "subset_size_"
     ) %>% 
   mutate(
-    Model = fct_relevel(Model, "Poisson/SJ", "Negative\nBinomial/MJ"),
     IV = fct_relevel(IV, "ER", "AS", "SL", "WE"),
     `Subset Size` = `Subset Size` %>% as.integer
   ) %>%
   ggplot(
     aes(x = `Subset Size`, y = `Conditional Dominance Statistic`, group = IV, color = IV)
   ) + geom_line() + 
-  facet_grid(rows = vars(Model)) + theme_linedraw() +
+  theme_linedraw() +
   labs(linetype = "") + 
-  #scale_linetype_manual(values = c(ER = "solid", AS = "dashed", SL = "dotdash", WE = "dotted")) +
   coord_trans(xlim = c(.9, 4.1), ylim = c(.023, .195), expand = FALSE, y = "log") + 
   theme(legend.position = c(.90, .89), legend.box.background = element_rect(color = "black"), 
         legend.title = element_blank(), legend.text = element_text(size = 7), 
@@ -1067,7 +1013,7 @@ SJ_RH_no_exp_DA <-
         \(fml, ...) {
           res <- 
             glm(fml, ...) 
-          return(dev_r2(res))
+          return(r2_kullback(res, adjust = FALSE))
         },
         data = Data_Frame, family = poisson())
 
@@ -1083,7 +1029,7 @@ SJ_RH_no_exp_DA %>%
   tab_header("Table S25: Uncorrelated Exposure with No Offset General Dominance Statistics") %>%
   fmt_number(columns = 2:3, decimals = 4) %>%
   tab_source_note(str_c("Overall Deviance R-square is ", 
-                        SJ_RH_reg_no_exp %>% dev_r2() %>% 
+                        SJ_RH_reg_no_exp %>% r2_kullback(adjust = FALSE) %>% 
                           sprintf("%5.4f", .), "."))
 
 SJ_RH_no_exp_DA %>% 
@@ -1141,7 +1087,7 @@ SJ_RH_exp_DA <-
             fml %>%
             update(. ~ . + offset(log(RH))) %>%
             glm(...) 
-          return(dev_r2(res))
+          return(r2_kullback(res, adjust = FALSE))
         },
         data = Data_Frame, family = poisson())
 
@@ -1157,7 +1103,7 @@ SJ_RH_exp_DA %>%
   tab_header("Table S28: Uncorrelated Exposure with Offset General Dominance Statistics") %>%
   fmt_number(columns = 2:3, decimals = 4) %>%
   tab_source_note(str_c("Overall Deviance R-square is ", 
-                        SJ_RH_reg_exp %>% dev_r2() %>% 
+                        SJ_RH_reg_exp %>% r2_kullback(adjust = FALSE) %>% 
                           sprintf("%5.4f", .), "."))
 
 SJ_RH_exp_DA %>% 
@@ -1267,7 +1213,7 @@ SJ_VH_no_exp_DA <-
         \(fml, ...) {
           res <- 
             glm(fml, ...) 
-          return(dev_r2(res))
+          return(r2_kullback(res, adjust = FALSE))
         },
         data = Data_Frame, family = poisson())
 
@@ -1283,7 +1229,7 @@ SJ_VH_no_exp_DA %>%
   tab_header("Table S32: Correlated Exposure with No Offset General Dominance Statistics") %>%
   fmt_number(columns = 2:3, decimals = 4) %>%
   tab_source_note(str_c("Overall Deviance R-square is ", 
-                        SJ_VH_reg_no_exp %>% dev_r2() %>% 
+                        SJ_VH_reg_no_exp %>% r2_kullback(adjust = FALSE) %>% 
                           sprintf("%5.4f", .), "."))
 
 SJ_VH_no_exp_DA %>% 
@@ -1341,7 +1287,7 @@ SJ_VH_exp_DA <-
             fml %>%
             update(. ~ . + offset(log(VH))) %>%
             glm(...) 
-          return(dev_r2(res))
+          return(r2_kullback(res, adjust = FALSE))
         },
         data = Data_Frame, family = poisson())
 
@@ -1357,7 +1303,7 @@ SJ_VH_exp_DA %>%
   tab_header("Table S36: Correlated Exposure with Offset General Dominance Statistics") %>%
   fmt_number(columns = 2:3, decimals = 4) %>%
   tab_source_note(str_c("Overall Deviance R-square is ", 
-                        SJ_VH_reg_exp %>% dev_r2() %>% 
+                        SJ_VH_reg_exp %>% r2_kullback(adjust = FALSE) %>% 
                           sprintf("%5.4f", .), "."))
 
 SJ_VH_exp_DA %>% 

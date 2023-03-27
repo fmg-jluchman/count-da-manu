@@ -72,7 +72,7 @@
  	Here I discuss the different levels of dominance between two IVs as defined by DA, how these levels are determined in the data, and what this level of dominance means in terms of the importance of any IV in the model.
 	The conceptual discussion of DA is followed by a more focused discussion where I apply DA to CRMs.
 	The goal of the focused CRM-based DA discussion is to recommend a model fit statistic for use in dominance designations.
-	In the third section, I apply the topics discussed in the previous two sections in a detailed PR- and NBR-based DA using simulated data designed be useful in illustrating key CRM-based DA concepts.
+	In the third section, I apply the topics discussed in the previous two sections in a detailed PR-based DA using simulated data designed be useful in illustrating key CRM-based DA concepts.
 	In a fourth and final section, I turn to discussing the concept of differential exposure in count DVs, show how it can affect inferences from CRM analysis, and provide the method used to correct for it in analysis.
 	My goal in discussing differential exposure is to outline the effect of this data generation mechanism on DA statistics and designations.
 	I compute and compare CRM-based DA statistics with and without corrections based, again, on simulated data in this section to illustrate the impact of ignoring this issue during analysis.
@@ -332,9 +332,9 @@
 	Equipment reliability reflects the ease of the tailoring shop's equipment use for staff and the extent to which it is likely to fail to operate when needed. 
 	The second characteristic was the sufficiency of tailoring assistant staffing levels (called $AS$ in results below).
 	Understaffed tailoring shops are likely to suffer from reduced productivity given the shortage of labor.
-	A third characteristic is the managing tailor's level of skill (called SL in results below).
+	A third characteristic is the managing tailor's level of skill (called $SL$ in results below).
 	More skilled managing tailors are more likely than less skilled managers to have designed processes that facilitate jacket completion.
-	Finally, the last characteristic is the managing tailor's work experience (called WE in results below).
+	Finally, the last characteristic is the managing tailor's work experience (called $WE$ in results below).
 	Similar to skill-level, more experienced managing tailors are likely to have designed processes that improve garment production.
 	
 	The means, standard deviations, and correlations between all four IVs and two DVs are reported below in Table \ref{tab:desc}. 
@@ -346,12 +346,12 @@
 			\toprule
 			&  & Standard & \multicolumn{5}{c}{Correlations} \\ 
 			\cmidrule(lr){4-8}
-			Variable & Mean & Deviation & $ER$ & $AS$ & SL & WE & $SJ$ \\ 
+			Variable & Mean & Deviation & $ER$ & $AS$ & $SL$ & $WE$ & $SJ$ \\ 
 			\midrule
 			$ER$ & $-0.0355$ & $1.1853$ & $1.0000$ & $0.4168$ & $0.1446$ & $0.2180$ & $0.4419$ \\ 
 			$AS$ & $-0.0261$ & $1.4494$ & $0.4168$ & $1.0000$ & $0.1958$ & $0.2850$ & $0.4025$ \\ 
-			SL & $-0.0056$ & $1.5480$ & $0.1446$ & $0.1958$ & $1.0000$ & $0.3295$ & $0.3393$ \\ 
-			WE & $0.0144$ & $1.9211$ & $0.2180$ & $0.2850$ & $0.3295$ & $1.0000$ & $0.3973$ \\ 
+			$SL$ & $-0.0056$ & $1.5480$ & $0.1446$ & $0.1958$ & $1.0000$ & $0.3295$ & $0.3393$ \\ 
+			$WE$ & $0.0144$ & $1.9211$ & $0.2180$ & $0.2850$ & $0.3295$ & $1.0000$ & $0.3973$ \\ 
 			$SJ$ & $0.9920$ & $1.0040$ & $0.4419$ & $0.4025$ & $0.3393$ & $0.3973$ & $1.0000$ \\ 
 			\bottomrule
 		\end{tabular}
@@ -380,8 +380,8 @@
 			\midrule
 			$ER$ & $0.2463$ & $0.0114$ & $0.2239$ & $0.2687$ & $1.2793$ \\ 
 			$AS$ & $0.1320$ & $0.0095$ & $0.1133$ & $0.1506$ & $1.1411$ \\ 
-			SL & $0.1264$ & $0.0083$ & $0.1100$ & $0.1427$ & $1.1347$ \\ 
-			WE & $0.1167$ & $0.0069$ & $0.1032$ & $0.1302$ &  $1.1238$  \\ 
+			$SL$ & $0.1264$ & $0.0083$ & $0.1100$ & $0.1427$ & $1.1347$ \\ 
+			$WE$ & $0.1167$ & $0.0069$ & $0.1032$ & $0.1302$ &  $1.1238$  \\ 
 			$Intercept$ & $-0.1805$ & $0.0142$ & $-0.2084$ & $-0.1529$ & $0.8349$ \\
 			\bottomrule
 		\end{tabular}
@@ -487,8 +487,8 @@
 			\toprule
 			$ER$ & $0.1048$ \\ 
 			$AS$ & $0.0726$ \\ 
-			SL & $0.0570$ \\ 
-			WE & $0.0769$ \\ 
+			$SL$ & $0.0570$ \\ 
+			$WE$ & $0.0769$ \\ 
 			\bottomrule
 		\end{tabular}
 		\label{tab:gen}
@@ -571,36 +571,34 @@
 	The reduction in unexplainable variation arises as observations with high counts and high exposure values are pulled nearer those with low counts and low exposure values.	
 	As a result of the reduced unexplainable variation, inclusion of an offset term affects the values obtained $R^2_{DEV}$ values and DA statistics on which they are based.
 	
-	...ended here - need a good way to work the below in ... feels abrupt at current ...
-	
-	It is also important to note that the relationships IVs have with the exposure variable can have a substantial impact on the estimated coefficients an DA statistics that can bias results and affect inference for probability-oriented count research questions.
-	
-	The sections below extend the modeling discussed above by describing the generation of two new variables that have different patterns of exposure to the count generating process. 
-	The modeling process above is then repeated on these new variables to illustrate the effect that exposure variables, and modeling them as offset terms, have on both modeling and DA results.
+	In the sections below, I show the effect differential exposure has on the results of CRMs when by repeating the analysis applied to the sport jacket production variable to two new Poisson distributed variables.
+	These two new variables are based on the same underlying causal model as sport jacket production variable above but have been contaminated with two different kinds of differential exposure.
+	My intention in providing examples of the effect of multiple kinds differential exposure on count DVs is to illustrate the likely result of such differential exposure on model coefficients as well as DA designations and statistics.
+	I also show how the inclusion of an appropriate offset term can correct such differential exposure contamination across all forms of results.
 	
 	\subsection{Dominance Analysis with Offset Terms: Analytic Examples}
 	
-	This section is an extension of the data analysis section above that discussed the PR and NBR modeling.
-	Here, an additional two Poisson distributed variables are created that have different levels of exposure to the count generating process and different relationships with the IVs.
-	
-	The next section provides a description of the variables and how they were generated. Full details on data generation are available in the online supplement.
+	This section extends on the data analysis of the sport jacket production variable by developing two additional sport jacket production variables that were observed under time periods with different types of holidays.	
+	As above, the generation perspective and actual implementation of generating these variables is described in the online supplement as opposed to in this manuscript directly. The section below describes the two new variables, and their contaminating differential exposure processes, prior to using them in analysis.
 	
 		\subsubsection{Data Generation}
 		
-	The data described in this section extended on the generated data produced for the analytic examples discussed previously.
-	These data were then generated with the intention to balance their "realism" with built-in properties that illustrate the nature of the exposure effects.
+	The focus in this section remains on evaluating the effect of the four tailoring shop characteristics in predicting stock jacket production from the same set of 6,780 tailoring shops as above. 
+	The difference in the count variables produced below are that they were measured during different two-week periods with different kinds of holidays.
 	
-	The data simulated in this section again focused on the 6,780 tailors generating sport jackets in a fortnight.
-	One key difference from the data above is that the period of time in which these data simulated was for two different local holidays.
-	The first sport jacket variable occurred for near a religious holiday ($SJ_{RH}$) that is not celebrated in the same way by all tailors.
-	The observation of this religious holiday produced inconsistent leaves of absence, and thus less exposure, across tailors that were uncorrelated with their IV values.
+	One of the two-week periods in which these tailoring shops were observed occurred near a religious holiday that is not celebrated in the same way by all tailoring shops.
+	The resulting sport jacket production variable under religious holiday observance (called $SJ_{RH}$ below) was contaminated by differential exposure owing to inconsistent leaves of absence by tailors over the two-week period.
+	These inconsistent leaves of absence made for each tailoring shop having different numbers of days in which no work was done and, thus, no exposure to the probability generating process.
+	Assume in this case that it is known that the observance of the religious holidays in this period of time are uncorrelated with any of the tailoring shop characteristics. 
+	Thus, the differential exposure process contaminating the sport jacket production variable with religious holiday observance is completely random.
 	
-	The second sport jacket variable occurred near a common time when tailors take voluntary holidays ($SJ_{VH}$) that depends on tailor workload.
-	Because tailors who produce more jackets are more likely to have their workload sufficiently light to take the holiday, the IVs are inversely related to the likelihood of taking holiday time and thus exposure.
-	The sport jacket variable was otherwise identical to the previous version discussed above. 
-	The exposure days for religious holidays (RH) and voluntary holidays (VH) ranged from a minimum of 1 working day to 10 (i.e., all working days in a fortnight) and were uniformly distributed.
+	The second of the two-week periods in which these tailoring shops were observed occurred near a time when it is common for tailoring shops to take voluntary holidays
+	The resulting sport jacket production variable under voluntary holiday (called $SJ_{VH}$ below) was also contaminated by differential exposure owing to inconsistent leaves of absence by tailors over the two-week period.
+	Assume in this case that it is known that taking voluntary holidays depends on tailoring shop characteristics.
+	Tailoring shops with specific characteristics were more likely to take holidays during this two-week period than other shops.
+	Thus, the differential exposure process contaminating the sport jacket production variable taking a voluntary holiday is completely correlated with the tailoring shop characteristics.
 	
-	The means, standard deviations, and correlations with the IVs and one another are reported in Table \ref{tab:dscEx}.
+	The means, standard deviations, and correlations of the new sport jacket production variables with each of the tailoting shop IVs are reported in Table \ref{tab:dscEx}.
 	
 	\begin{table}[h!]
 		\centering
@@ -609,7 +607,7 @@
 			\toprule
 			&  &  Standard & \multicolumn{4}{c}{Correlations} \\ 
 			\cmidrule(lr){4-7}
-			Variable & Mean & Deviation & $ER$ & $AS$ & SL & WE \\ 
+			Variable & Mean & Deviation & $ER$ & $AS$ & $SL$ & $WE$ \\ 
 			\midrule
 			$SJ_{RH}$ & $0.5447$ & $0.7575$ & $0.3455$ & $0.3247$ & $0.2773$ & $0.3174$ \\ 
 			$SJ_{VH}$ & $0.4709$ & $0.6549$ & $0.2332$ & $0.2325$ & $0.1631$ & $0.2405$ \\ 
@@ -618,32 +616,30 @@
 		\label{tab:dscEx}
 	\end{table}
 	
-	Table 6 shows that the means and standard deviations for $SJ_{RH}$ and $SJ_{VH}$ were effectively identical but had shrunk from the value of SJ in Table 1.
-	This is because SJ implicitly assumes an exposure value of 10 for all observations. 
-	Because the exposures for $SJ_{RH}$ and $SJ_{VH}$ were both around 5.5 days, their means shrunk proportional to the number of days of exposure.
-	If 10 days produces a mean of 1, then 5.5 average days should produce an average of .55.
+	The two types of holidays described above have the effect of making fewer working days and thus will reduce the magnitude of the mean and standard deviations of Poisson distributed variables like the sport jacket production variables.	
+	Consistent with that expectation, by comparison to the results in Table \ref{tab:desc}, Table \ref{tab:dscEx}'s results, show that the means and standard deviations for sport jacket production shrunk given the two types of holidays.
 	
-	The pattern of correlations between the SJ-exposed variables and their exposures with the IVs is also of note. 
-	In the case of both $SJ_{RH}$ and $SJ_{VH}$, their correlations with the IVs are smaller than SJ as reported in Table 1. 
-	This is due to a restriction in variance from reduced exposure time to the count generating process for these variables.
-	Note also the differences between RH, the exposure variable for $SJ_{RH}$, and VH, the exposure variable for $SJ_{VH}$.
-	RH is, as expected, effectively uncorrelated with the IVs.
-	By contrast, VH shows strong, negative correlations with the IVs.
-	It is these negative correlations that produce an additional suppressing effect on the correlations between SH\_VH and the IVs as the restriction in variance due to exposure is inversely related to counts.
-	These negative correlations are also the reason $SJ_{VH}$'s mean is less than  the expected value of .55.
+	The two types of holidays would also be expected to have specific effects on the correlations with the tailoring shop characteristics.
+	The random religious holiday observance differential exposure is likely to shrink correlations with all tailoring shop characteristics.
+	This is because this random differential exposure effectively adds unexplainable error variation to the sport jacket production process.
+	By contrast, the tailoring shop characteristic-correlated voluntary holiday differential exposure should change the magnitude of the correlations consistent with the exposure process.
+	When comparing the correlations in Table \ref{tab:desc} to those of Table \ref{tab:dscEx}, both expected patterns emerge.
+	Religious holiday observence shrinks the magnitude of the correlations but does not change the relative magnitudes meaningfully.
+	Voluntary holidays however do change the relative magnitudes.
 	
-	In sections to come, the new $SJ_{RH}$ and $SJ_{VH}$ variables are analyzed in separate PR models.
-	Both models are evaluated with and with out the use of their exposure variable modeled as an offset.
-	The results below are subdivided by the type of exposure variable and begins with $SJ_{RH}$, the uncorrelated exposure variable.
+	The next section uses the religious holiday observence/random differential exposure-contaminated sport jacket production variable as the dependent variable in a PR as well as a PR-based DA.
+	Two different versions of this model are reported.
+	One version of the model uses the known religious holiday exposure variable in an offset term and the other does not.
+	Both models are reported and compared to show the effect of the inclusion of the offset term for model results.
 	
-		\subsubsection{Uncorrelated Exposure Variable}
+		\subsubsection{Random Differential Exposure}
 		
-	The two models using $SJ_{RH}$, one with and one without the exposure variable modeled with an offset, are reported in Table 7.
-	Only coefficient and IRR values are reported in Table 7 as their values are the focus of this discussion.
+	The two models using religious holiday contaminated sport jacket production are reported in Table \ref{tab:unexp}.
+	Only the coefficients, IRRs, and general dominance statistics are reported for each IV for brevity.
 		
 	\begin{table}[h!]
 		\centering
-		\caption{\centering Uncorrelated Exposure Results}
+		\caption{\centering Poisson Modeling Results under Random Differential Exposure}
 		\begin{tabular}{l|rrrrrr}
 			\toprule
 			\multicolumn{1}{l}{} & \multicolumn{3}{c}{Without Offset} & \multicolumn{3}{c}{With Offset} \\ 
@@ -652,133 +648,93 @@
 			\midrule
 			$ER$ & $0.2575$ & $1.2937$ & $0.0708$ & $0.2657$ & $1.3043$ & $0.0863$ \\ 
 			$AS$ & $0.1521$ & $1.1643$ & $0.0541$ & $0.1502$ & $1.1621$ & $0.0641$ \\ 
-			SL & $0.1455$ & $1.1566$ & $0.0437$ & $0.1515$ & $1.1636$ & $0.0545$ \\ 
-			WE & $0.1271$ & $1.1355$ & $0.0551$ & $0.1347$ & $1.1442$ & $0.0698$ \\ 
+			$SL$ & $0.1455$ & $1.1566$ & $0.0437$ & $0.1515$ & $1.1636$ & $0.0545$ \\ 
+			$WE$ & $0.1271$ & $1.1355$ & $0.0551$ & $0.1347$ & $1.1442$ & $0.0698$ \\ 
 			$Intercept$ & $-0.8170$ & $0.4418$ & & $-2.5276$ & $0.0799$ & \\ 
 			\bottomrule
 		\end{tabular}
 	\label{tab:unexp}
 	\end{table}
 	
-	Table 7 shows that the coefficients and IRR values for the models with and without an offset term are very similar to one another with the exception of their intercept value.
-	That the exposure variable does not noticeably affect the magnitude of the coefficients, despite the clear impact the exposure variable has on the $SJ$ distribution's mean and variance relative to when there is no exposure effect, may come as a surprise.
-	Indeed, the exposure variable works in a similar way to random/uncorrelated error variance which tends to shrink the magnitude of coefficients in LRM.
-	The key difference between error variance in LRM and 'random' exposure variables in CRMs is the multiplicative nature of the CRM's coefficients.
-	For an LRM, the additional error variance dilutes what a 1 unit change in an IV does in terms of units of change to the DV.
-	For a CRM, the interpretation of the coefficient is that a 1 unit change in an IV does in terms of a percent change to the DV.
-	Here the random variation from an exposure variable would have affect change disproportionately across levels of the DV to shrink the magnitude of the coefficients in the same way as in an LRM.
+	Table \ref{tab:unexp}'s results show that the effect of random differential exposure with religious holiday observance did not substantially affect the IV coefficient and IRR estimates and the results with and without offsets are similar to one another and to the results in Table \ref{tab:poisreg} where there is not differential exposure.
+	The coefficients that do change in a noteworthy way are the $Intercept$ values across models with the model omitting the offset obtaining a value near the mean of the religious holiday observance stock jacket production distribution and the model with the offset nearer the underlying probability of observing a stock jacket being produced in any given day in the two-week period (the underlying probability is .1; see online supplement for a discussion).
 	
-	Compared to the coefficients, the intercept across both models does show substantial change with the addition of the offset term.
-	The difference across the offset and no offset models is to re-scale the mean value in a way that reflects the new interpretation of the DV when an offset is estimated.
-	The effect of the re-scaling is clearest when comparing IRR values across models.
-	The IRR value for the no offset model is .4418, which is an IV-adjusted mean based on the .5447 mean value for $SJ_{RH}$.
-	The IRR value for the offsets model is .0799, which is an IV-adjusted rate based on the theoretical underlying rate of .1000.
-	This theoretical rate is obtained from for $SJ$ which is what $SJ_{RH}$ would be equivalent to given no exposure differences.
-	In this case, $SJ$'s mean is 1 and implied exposure is 10 working days.
-	The rate of counts for $SJ$ is then $\frac{1}{10}$ or .1000.
-	Thus, the offset term has, as expected, re-scaled the DV from a count to a rate.
+	Although the PR model coefficients associated with each IV did not change meaningfully given the random differential exposure, the DA statistics and designations did. 
+	In particular, equipment reliability no longer completely dominates, but rather conditionally dominates, work experience with or without an offset term.
+	All of the DA statistics obtained under differential exposure in Table \ref{tab:unexp} are smaller compared to those in Table \ref{tab:gen} obtained under equal exposure 
+	Thus, irrespective of the use of an offset term, differential exposure also affected the magnitude of dominance statistics
+	The designation change and overall change in magnitude when introducing random differential exposure were not correctable with an offset term. 
+	That is, the use of an offset term given random differential exposure did not produce results that matched those from the equal exposure model modeling stock jacket production over the full two-week period.
 	
-	It is also important to note that the coefficient values obtained for the IVs for both models in Table 7 are, again with the exception of the intercept, similar to the values obtained for the non-exposure affected $SJ$ variable in Table 2.
-	Whereas the effects of differential exposure that are uncorrelated with the IVs has had a minimal effect on the estimated coefficients, the effect of uncorrelated differential exposure is more noticeable among the next set of results; the general dominance statistics for both models reported in Table 8.
+	Although there were several similarities across models estimated with and without an offset term, there was one noteworthy difference.
+	All of the general dominance statistics, as well as conditional dominance statistics (reported in online supplement) for the model without the offset term were relatively smaller than those with the offset term included.
+	As was noted above, differential exposure adds variation to the model deviance that is unexplained in the absence of an offset term.
+	The difference in the magnitude of the general dominance statistic values obtained with and without an offset term reflect this effect.
+	When the offset term is not included there is more variation in the model that is unexplained, reducing the magnitude of the $R^2_{DEV}$.
+	By contrast, when the offset term is included, the additional variation introduced by differential exposure is reduced which has the effect of increasing the $R^2_{DEV}$.
 	
-	\begin{longtable}{l|rr}
-		\caption*{
-			{\large Table 8: Uncorrelated Exposure Poisson-based General Dominance Statistics}
-		} \\ 
-		\toprule
-		\multicolumn{1}{l}{} & No Offset & Offset \\ 
-		\midrule
-		$ER$ & $0.0708$ & $0.0863$ \\ 
-		$AS$ & $0.0541$ & $0.0641$ \\ 
-		SL & $0.0437$ & $0.0545$ \\ 
-		WE & $0.0551$ & $0.0698$ \\ 
-		\midrule
-		Overall & $0.2238$ & $0.2748$ \\ 
-		\bottomrule
-	\end{longtable}
+	The section below transitions away from random differential exposure to the correlated differential exposure mechanism introduced by taking voluntary holidays.
+	Again, correlated differential exposure is the process where the exposure variable is related to the IVs in the statistical model.
+	Given these relationships, the effect of correlated differential exposure on the model reslts is expected to be more substantial.
+	As with the random differential exposure results, the correlated exposure results include a model with an offset and without an offset.
 	
-	Table 8 shows that the general dominance statistics for models with the offset term are all larger than their corresponding values without the offset term. 
-	However ostensibly different, the differences in magnitudes between these results is due to the differences across models in the magnitude of the $R^2_{DEV}$ from which each IV has been partitioned.
-	In fact, the relative proportions of the $R^2_{DEV}$ explained by each of IVs within each model is nearly identical.
-	For example, $ER$ is responsible for approximately 31\% of the $R^2_{DEV}$ for both models (i.e., $\frac{.0708}{.2238} = .3164; \frac{.0863}{.2748} = .3140)$.
-	The reason for the notable difference in explained deviance across models is because of the offset term's role in reducing unexplained variation in the DV for probability-based research questions.
-	As was discussed previously, the exposure effect produces variation in the count DV that is unrelated to the focal probability of the occurrence of an event.
-	The inclusion of the offset term reduces this unexplained variation directly and obtains results that are closer to those that would be obtained if exposure was equal.
-	To this last point, note that the general dominance statistics and $R^2_{DEV}$ for the offset model are much closer to the results of $SJ$ in Table 5 than are the no offset model's results.
-	
-	The section below moves to discussing the results of the use of exposure terms for the $SJ_{VH}$ variable in which the IVs are related to exposure.
-	As with the results for $SJ_{RH}$, the models with and without offset terms are reported.
-	
-		\subsubsection{Correlated Exposure Variable}
+		\subsubsection{Correlated Differential Exposure}
 		
-	The no offset and offset models using $SJ_{VH}$ are reported in Table 9.
-	As before, only the coefficient and IRR values from each model are reported.
+	The two models using voluntary holiday contaminated sport jacket production are reported in Table \ref{tab:exp}.
+	As before, model coefficients, IRRs, and general dominance statistics are reported.
 	
-	\begin{longtable}{l|rrrr}
-		\caption*{
-			{\large Table 9: Correlated Exposure Poisson Regression}
-		} \\ 
-		\toprule
-		\multicolumn{1}{l}{} & \multicolumn{2}{c}{No Offset} & \multicolumn{2}{c}{Offset} \\ 
-		\cmidrule(lr){2-3} \cmidrule(lr){4-5}
-		\multicolumn{1}{l}{} & Coefficient & IRR & Coefficient & IRR \\ 
-		\midrule
-		Inter & $-0.8512$ & $0.4269$ & $-2.5182$ & $0.0806$ \\ 
-		$ER$ & $0.1638$ & $1.1780$ & $0.3054$ & $1.3572$ \\ 
-		$AS$ & $0.1145$ & $1.1214$ & $0.1735$ & $1.1895$ \\ 
-		SL & $0.0642$ & $1.0663$ & $0.1668$ & $1.1815$ \\ 
-		WE & $0.1118$ & $1.1182$ & $0.1568$ & $1.1698$ \\ 
-		\bottomrule
-	\end{longtable}
+	\begin{table}[h!]
+		\centering
+		\caption{\centering Poisson Modeling Results under Correlated Differential Exposure}
+		\begin{tabular}{l|rrrrrr}
+			\toprule
+			\multicolumn{1}{l}{} & \multicolumn{3}{c}{Without Offset} & \multicolumn{3}{c}{With Offset} \\ 
+			\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+			\multicolumn{1}{l}{} & $\beta$ & $e^{\beta}$ & $C$ & $\beta$ & $e^{\beta}$ & $C$ \\ 
+			\midrule
+			$ER$ & $0.1638$ & $1.1780$ & $0.0307$ & $0.3054$ & $1.3572$ & $0.0889$ \\ 
+			$AS$ & $0.1145$ & $1.1214$ & $0.0280$ & $0.1735$ & $1.1895$ & $0.0656$ \\ 
+			$SL$ & $0.0642$ & $1.0663$ & $0.0127$ & $0.1668$ & $1.1815$ & $0.0512$ \\ 
+			$WE$ & $0.1118$ & $1.1182$ & $0.0342$ & $0.1568$ & $1.1698$ & $0.0737$ \\ 
+			$Intercept$ & $-0.8512$ & $0.4269$ & & $-2.5182$ & $0.0806$ & \\ 
+			\bottomrule
+		\end{tabular}
+		\label{tab:exp}
+	\end{table}
 	
-	As compared to the uncorrelated exposure results in Table 7, the correlated exposure results show different patterns of results across no offset and offset models for all IVs.
-	Whereas the offset model looks relatively similar to the pattern of results from the no offset model in Table 7 as well as the results in Table 2, the no offset model shows a notable shrinkage in the magnitude of the coefficient and IRR for SL and $AS$ relative to other results.
-	The magnitude of SL's coefficient across all models has been between $AS$ and WE whereas for no offset model using $SJ_{VH}$, SL's value is notably lower than all other coefficients.
-	$AS$' coefficient in the no offset model is also relatively smaller than in all other models to this point; nearly equal in value to WE's coefficient value.
-	... note sim of intercept...
+	As compared to the random differential exposure results in Table \ref{tab:unexp}, the correlated differential exposure results in Table \ref{tab:exp} show clear differences in patterns of results across models with and without an offset term.
+	The correlated differential exposure effect has noticeably changed the coefficients' relative magnitudes, with work experience gaining and skill level losing the most predictive utility.
+	By contrast, the model with an offset shows the same relative magnitude of coefficient sizes as the model with equal exposure.
+	This change in the relative magnitude of the coefficients in the model without an offset is the result of the IVs now having two ways in which to predict the sport jacket production outcome: the traditional path where the IV increases the probability of obtaining a sport jacket in a given day and, in addition, the exposure path where the IV increases the probability of any given day being a non-work day; thus, not having the chance to produce any sport jackets.
+	When the offset term is included, the second, exposure path is controlled for in the model, and the model again reflects only the effect of each IV on the probability of producing a sport jacket on any given day.
 	
-	The no offset model results in Table 9 show the biasing effect of the correlated exposure variable on coefficient estimates when it is not modeled as an offset.
-	The notable change to coefficients due to the correlated exposure are likely to impact DA results as well.	
-	Table 10 below reports on the general dominance statistics derived from both models in Table 9.
+	The DA statistics and designations also change given the effect of correlated differential exposure introduced by the voluntary holiday contamination.
+	Without an offset, work experience conditionally dominates both equipment reliability and assistant staffing levels and appears to be the most dominant tailoring shop characteristic over equipment reliability.
+	Equipment reliability continues to completely dominate assistant staffing levels as well as tailor skill level and, finally, assistant staffing level completely dominates tailor skill level.
+	The effect of the correlated differential exposure then has a clear re-shuffling effect on the relative importance of the IVs.
 	
-	\begin{longtable}{l|rr}
-		\caption*{
-			{\large Table 10: Correlated Exposure Poisson-based General Dominance Statistics}
-		} \\ 
-		\toprule
-		\multicolumn{1}{l}{} & No Offset & Offset \\ 
-		\midrule
-		$ER$ & $0.0307$ & $0.0889$ \\ 
-		$AS$ & $0.0280$ & $0.0656$ \\ 
-		SL & $0.0127$ & $0.0512$ \\ 
-		WE & $0.0342$ & $0.0737$ \\ 
-		\midrule
-		Overall & $0.1055$ & $0.2795$ \\ 
-		\bottomrule
-	\end{longtable}
-
-	Table 10's results show, similar to those of Table 9, that the model including an offset is very similar to the results obtained from the offset model in Table 7 as well as $SJ$'s results from Table 5.
-	Thus, the effect of a correlated exposure variable is relatively minimal on DA statistics given that the appropriate offset term is included in the model and reproduces results similar to a model not affected by differential exposure.
-	By contrast, the no offset model shows both a large reduction in the magnitude of the $R^2_{DEV}$ as well as a change in the rank orders of the IVs.
-	The reduction in the magnitude of the $R^2_{DEV}$ was produced, in part, for reasons similar to the uncorrelated exposure models as additional unexplainable variation was added to the count DV. 
-	In the case of the correlated exposure model, the extra variation in counts due to differential exposure also affected coefficient estimates as can be seen in Table 9.
-	In all cases, the estimated magnitude of the IV's coefficients, when affected by differential exposure that was correlated with the IVs, was smaller than expected relative to the models without such differential exposure.
-	The effect of correlated, differential exposure also changed the rank order of top two IVs.
-	In the no offset model, WE obtains the highest general dominance statistic value followed by $ER$.
-	The correlations in Table 6 reveal the probable reason for this effect in that WE both has the highest relationship with $SJ_{VH}$ as well as the lowest correlation with the exposure variable VH.
-	Hence, without the offset term adjustment, WE appears to have the strongest overall impact on $SJ_{VH}$.
+	By contrast, the results of the model contaminated with correlated differential exposure, when including the offset term produces DA results very similar to the model contaminated with random differential exposure.
+	In fact the dominance designations across models with different exposure types, when an offset is included, are identical.
+	Moreover, the statistics across models with an offset term are very similar to one another.
+	Taken together, these results help to illustrate the value of including the offset term for the accurate computation of DA designations and statistics.	
 	
 		\subsubsection{Section Summary}
 		
-	This section has discussed the effects of unequal exposure to a count generating process on both estimated coefficients as well as DA statistics.
-	When unequal exposure to the count generating process is uncorrelated with the IVs in the model, the effect of unequal exposure is minimal, mostly changing the total $R^2_{DEV}$ value obtained as well as the model intercept.
-	When unequal exposure to the count generating process is, at least in part, determined by the IVs in the model, the effect of unequal exposure is far more influential.
-	The results in Tables 9 and 10 show that correlated, unequal exposure can bias coefficient estimates as well as explained deviance metrics, as well as change the rank order of IV importance.
+	This section discussed the impact of differential exposure on the results of CRMs with a focus on DA designations and statistics.
+	I have argued that when a researcher is interested in using a count DV to answer a research question that focuses on increasing the probability of observing the event that produces counts, that differential exposure to the probability can lead to contamination of the count DV and should be corrected using an offset term.
 	
-	Although unequal exposure can have notable biasing effects, such biases can be corrected for using the exposure variable as an offset term in the model.
-	Modeled offset terms do not necessarily recover the effect of each IV that would have been obtained had there been no unequal exposure, but do result in notable improvements to the model estimates and DA statistics over the alternative where an offset term is not modeled. 
-	These results then show the importance of considering whether it is possible that observed counts in a CRM could result from different probabilities of the event occurring, different exposure to the count generating probability, or both.
-	If it is the case that both factors might be producing counts and the focus of the research question is on the probability of events, it is important to attempt to model the exposure variable as an offset term to avoid potential bias in the results.
+	The impact of differential exposure to the probability generating process was illustrated using two different count DVs with different differential exposure mechanisms.
+	One mechanism was a random differential exposure mechanism.
+	This random differential exposure was reflected by religious holiday observance on sport jacket production among the tailoring shops.
+	The random differential exposure affected the model results primarily by adding in additional unexplainable variation to the count DV that is reflected in the magnitude of the DA statistics.
+	
+	The other mechanism was a correlated differential exposure mechanism that was dependent on the levels of the tailoring shop characteristics.
+	This correlated differential exposure was reflected by taking voluntary holiday leave on sport jacket production among the tailoring shops.
+	The correlated differential exposure affected the model results more directly by producing an alternative mechanism for sport jacket production which affected model coefficients as well as DA designations and statistics.
+	
+	A key takeaway from this section is that the use of offset terms is an effective way to recover more accurate DA designations and statistics when the focus of the research is on the probability of events and count DV is contaminated with differential exposure.
+	
+	... ended here ...
 
 	
 \section{Discussion}
@@ -799,45 +755,45 @@
 	This article touched on many of the key aspects necessary for extending DA to CRM.
 	Below I discuss additional potential extensions of this work and future directions for the evaluation of IV importance in organizational science.
 	
-	\subsection{Extensions and Future Directions}
+	\subsection{Limitations and Future Directions}
 	
-	PR in particular, but also NBR, are instances of the broader class of models known as generalized linear models \cite{mccullagh2019generalized}. 
-	Specifically, PR is a generalized linear model in the Poisson "family" with a natural lograrithm "link" \cite(See implementation of generalized linear models in R;){R}.
-	In extending DA to CRMs, I also effectively make an argument for the applicability of DA using the $R^2_{DEV}$ to \emph{any} generalized linear model using the same approach.
-	That is, given that DA is applicable to CRMs, it is also applicable to any generalized linear model with a different distribution family or link function.
-	This is an important point to note as it is not necessary for researchers to hesitate in applying DA to generalized linear models that have not been explicitly discussed in the literature.
-	Indeed, because this article links Shapley value decompsition to DA and then provides a method for implementing DA with a specific generalized linear model (i.e., CRMs), it is trivial to extend the same approach to a generalized linear model with a different family and link function.
-	Therefore, DA with the $R^2_{DEV}$ approach is applicable to any generalized linear model.
+%	PR in particular, but also NBR, are instances of the broader class of models known as generalized linear models \cite{mccullagh2019generalized}. 
+%	Specifically, PR is a generalized linear model in the Poisson "family" with a natural lograrithm "link" \cite(See implementation of generalized linear models in R;){R}.
+%	In extending DA to CRMs, I also effectively make an argument for the applicability of DA using the $R^2_{DEV}$ to \emph{any} generalized linear model using the same approach.
+%	That is, given that DA is applicable to CRMs, it is also applicable to any generalized linear model with a different distribution family or link function.
+%	This is an important point to note as it is not necessary for researchers to hesitate in applying DA to generalized linear models that have not been explicitly discussed in the literature.
+%	Indeed, because this article links Shapley value decompsition to DA and then provides a method for implementing DA with a specific generalized linear model (i.e., CRMs), it is trivial to extend the same approach to a generalized linear model with a different family and link function.
+%	Therefore, DA with the $R^2_{DEV}$ approach is applicable to any generalized linear model.
 	
-	It is worth noting before moving on that the $R^2_{McFadden}$, recommended by Azen and Traxel \citeyear{azen2009using} for use in DA with logistic regression generalized linear model, is equivalent in computation to the $R^2_{DEV}$. 
-	This is because the form of the deviance computation for a logistic regression produces a value that is  a scalar multiple of its log-likelihood. 
-	As such, the perspective taken in the paper agrees with that of the past research in that recommends the use of $R^2_{McFadden}$. 
-	Additionally, Cameron and Windmeijer \citeyear{cameron1996r} note that the $R^2_{McFadden}$ differs from the $R^2_{DEV}$ by a scalar multiple and is valid in application to CRMs and, by implication, the computation of DA statistics using CRMs.
+%	It is worth noting before moving on that the $R^2_{McFadden}$, recommended by Azen and Traxel \citeyear{azen2009using} for use in DA with logistic regression generalized linear model, is equivalent in computation to the $R^2_{DEV}$. 
+%	This is because the form of the deviance computation for a logistic regression produces a value that is  a scalar multiple of its log-likelihood. 
+%	As such, the perspective taken in the paper agrees with that of the past research in that recommends the use of $R^2_{McFadden}$. 
+%	Additionally, Cameron and Windmeijer \citeyear{cameron1996r} note that the $R^2_{McFadden}$ differs from the $R^2_{DEV}$ by a scalar multiple and is valid in application to CRMs and, by implication, the computation of DA statistics using CRMs.
 	
-	Shapley value decomposition and, by extension, DA are well-known to be computationally expensive methodologies that require averaging of contributions by IVs to a model over a potentially extremely large pool of values.
-	For example, a DA with 20 IVs would require $2^{20} = 1,048,576$ different sub-models in order to collect fit statistics associated with all possible combinations of IVs and compute general dominance statistics.
-	Whereas modern computing power could feasibly accommodate around one million models in a reasonable amount of time, adding additional IVs beyond 20 continues to grow the number of required models geometrically. 
-	An additional 10 IVs results in $2^{30} = 1,073,741,824$ or over one billion model required to obtain dominance statistics; even if each CRM took $\frac{1}{100}$ of a second to estimate, this many models would take nearly 4 months to complete on a single machine.
-	
-	Many approaches have been developed to approximate Shapley values/DA that are far less computationally expensive. 
-	Relative weights analysis \cite{johnson2000heuristic} is a commonly applied alternative to DA that approximates the averaging process between all possible models using singular value decomposition.
-	Relative weights analysis has shown some promise in past research \cite{lebreton2007multidimensional}, and has been extended to one generalized linear model in published research \cite[i.e., logit regression]{tonidandel2011relative} but has been subject to sharp criticism \cite{thomas2014johnson} and is not among commonly recommended methods for relative importance of linear models \cite{gromping2007estimators}. 
-		
-	Shapley values have also grown in use among methodologists seeking an approach that can provide "interpretable machine learning" results \cite{molnar2020interpretable}.
-	In many cases, such efforts apply Shapley values, or approximations to them, that decompose predicted values for each observation in the data \shortcite(e.g.,){lundberg2020local}.
-	Such Shapley decompositions of predicted values can be used, when cross-referenced with a observations' IV values, that, in the aggregate, can be used to get a sense for the nature of the effect of that IV on the DV much like a coefficient in a CRM.
-	Machine learning models often have a great number of IVs which makes the "exact" computation of Shapley values infeasible.
-	Methods to facilitate Shapley value computations in the literature have included sampling permutations \cite{castro2009polynomial} and normal approximations under specific assumptions \cite{fatima2008linear}, among others.
-	In application to machine learning methods, Shapley value approximations have often use a weighted-least squares approximation with sampling and adjustments for dependence \cite{sellereite2020shapr,aas2021explaining}. 
-	Such approximation methods may be useful in application to CRM and other models as an alternative estimator of the DA statistics.
-	
-	Finally, to the knowledge of the author, there has been relatively little work has considered the value in applying Owen decomposition \cite(e.g.,){huettner2012axiomatic} to DA broadly.
-	Owen decomposition differs from Shapley in that a grouping structure is applied to IVs in which groups of IVs "negotiate" values jointly between groups but subsequently also "negotiate" values within their group as well. 
-	The result is that each IV obtains a component of the fit metric, and the Owen values are a full decomposition of the fit metric, but a large number of sub-models can be eliminated. 
-	For example, by grouping 8 IVs into 4 groups of 2, the number of sub-models needing estimation goes from $2^8 = 256$ to $2^4 + 2^2*4 = 32$---an eight-fold reduction in the number of sub-models needing estimation.
-	An approach such as this can directly (i.e., without approximation) and substantially reduce the size of the pool of sub-models to estimate and retains feasibility for computing dominance designations such as complete dominance.	
-	
-	\subsection{Limitations}
+%	Shapley value decomposition and, by extension, DA are well-known to be computationally expensive methodologies that require averaging of contributions by IVs to a model over a potentially extremely large pool of values.
+%	For example, a DA with 20 IVs would require $2^{20} = 1,048,576$ different sub-models in order to collect fit statistics associated with all possible combinations of IVs and compute general dominance statistics.
+%	Whereas modern computing power could feasibly accommodate around one million models in a reasonable amount of time, adding additional IVs beyond 20 continues to grow the number of required models geometrically. 
+%	An additional 10 IVs results in $2^{30} = 1,073,741,824$ or over one billion model required to obtain dominance statistics; even if each CRM took $\frac{1}{100}$ of a second to estimate, this many models would take nearly 4 months to complete on a single machine.
+%	
+%	Many approaches have been developed to approximate Shapley values/DA that are far less computationally expensive. 
+%	Relative weights analysis \cite{johnson2000heuristic} is a commonly applied alternative to DA that approximates the averaging process between all possible models using singular value decomposition.
+%	Relative weights analysis has shown some promise in past research \cite{lebreton2007multidimensional}, and has been extended to one generalized linear model in published research \cite[i.e., logit regression]{tonidandel2011relative} but has been subject to sharp criticism \cite{thomas2014johnson} and is not among commonly recommended methods for relative importance of linear models \cite{gromping2007estimators}. 
+%		
+%	Shapley values have also grown in use among methodologists seeking an approach that can provide "interpretable machine learning" results \cite{molnar2020interpretable}.
+%	In many cases, such efforts apply Shapley values, or approximations to them, that decompose predicted values for each observation in the data \shortcite(e.g.,){lundberg2020local}.
+%	Such Shapley decompositions of predicted values can be used, when cross-referenced with a observations' IV values, that, in the aggregate, can be used to get a sense for the nature of the effect of that IV on the DV much like a coefficient in a CRM.
+%	Machine learning models often have a great number of IVs which makes the "exact" computation of Shapley values infeasible.
+%	Methods to facilitate Shapley value computations in the literature have included sampling permutations \cite{castro2009polynomial} and normal approximations under specific assumptions \cite{fatima2008linear}, among others.
+%	In application to machine learning methods, Shapley value approximations have often use a weighted-least squares approximation with sampling and adjustments for dependence \cite{sellereite2020shapr,aas2021explaining}. 
+%	Such approximation methods may be useful in application to CRM and other models as an alternative estimator of the DA statistics.
+%	
+%	Finally, to the knowledge of the author, there has been relatively little work has considered the value in applying Owen decomposition \cite(e.g.,){huettner2012axiomatic} to DA broadly.
+%	Owen decomposition differs from Shapley in that a grouping structure is applied to IVs in which groups of IVs "negotiate" values jointly between groups but subsequently also "negotiate" values within their group as well. 
+%	The result is that each IV obtains a component of the fit metric, and the Owen values are a full decomposition of the fit metric, but a large number of sub-models can be eliminated. 
+%	For example, by grouping 8 IVs into 4 groups of 2, the number of sub-models needing estimation goes from $2^8 = 256$ to $2^4 + 2^2*4 = 32$---an eight-fold reduction in the number of sub-models needing estimation.
+%	An approach such as this can directly (i.e., without approximation) and substantially reduce the size of the pool of sub-models to estimate and retains feasibility for computing dominance designations such as complete dominance.	
+%	
+%	\subsection{Limitations}
 	
 	This work provides a justification for why DA is applicable to CRMs and offers multiple, extensive data analytic examples that model and dominance analyze simulated data.
 	The data simulated in this manuscript were designed to have specific properties that make them applicable to the different CRMs and CRM-specific data analytic issues that were valuable to discuss as applied to DA.
