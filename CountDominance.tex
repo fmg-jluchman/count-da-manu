@@ -733,108 +733,62 @@
 	The correlated differential exposure affected the model results more directly by producing an alternative mechanism for sport jacket production which affected model coefficients as well as DA designations and statistics.
 	
 	A key takeaway from this section is that the use of offset terms is an effective way to recover more accurate DA designations and statistics when the focus of the research is on the probability of events and count DV is contaminated with differential exposure.
-	
-	... ended here ...
 
 	
 \section{Discussion}
 
-	This manuscript provided a rationale for application of a specific methodology when using relative importance analysis with CRMs.
-	I argue that DA, as an extension of Shapley value decomposition, is an applicable method to CRMs and in addition provided a fit metric for use in the relative importance analysis of any CRM.
-	Specifically, I recommend the use of the deviance $R^2$ or $R^2_{DEV}$ as it is directly analogous to the explained variance $R^2$ or $R^2_{EXP}$.
-	Applying the $R^2_{DEV}$ to CRMs then follows directly from the application of $R^2_{EXP}$ to LRM.
+	In this manuscript I have recommended a methodology for determining the relative importance of IVs in CRMs.
+	Specifically, I recommend the DA methodology as an approach that is comprehensive in the information it provides about IV's prediction and, when using an appropriate fit metric such as the $R^2_{DEV}$, can apply to CRMs and provide information analogous to the explained variance $R^2$ using the LRM.
 	
-	In addition, this manuscript provides a discussion of one specific data analytic consideration of particular relevance to CRMs; differential exposure to a count generating process.
-	In the discussion of this issue, I outline its relevance to the evaluation of count DV-based research questions and showed examples of how the concept affects both model coefficient estimates as well as DA statistics.
-	The section focusing on differential exposure also showed the extent to which modeling such differential exposure variables as offset terms could correct the biasing effect and produces more accurate estimates of parameters and DA statistics.
+	In addition, I walk the reader through an example data analysis applying PR to simulated data. 
+	In walking the reader through this example, I use the recommended DA with $R^2_{DEV}$ fit statistic approach to evaluate the relative importance of the four IVs in the simulated data.
+	This walk through of the DA focuses on interpreting IV importance with a focus on how meeting different levels of DA designation stringency offers different evidence for the importance of the IVs over one another.
 	
-	In combination, the discussion of these issues supplies organizational scientists with the tools necessary to accurately evaluate IV relative importance as applied to a series of widely used CRMs. 
-	It is important when modeling count DVs that the recommendations provided by Blevins et al. \citeyear{blevins2015count} are considered first as their guidance can point a researcher to the appropriate model to apply to the data. 
-	This article seeks only to pick up where they left off and recommend practices for the evaluation of the selected CRM after estimation. 
+	Finally, I discuss differential exposure to count generating processes in CRMs as a potentially biasing factor both for DA statistics and designations.
+	In the example analyses discussed that focus on differential exposure, I show that the use of an offset term is effective for recovering more accurate DA statistics and designations and should be used to correct for differential exposure in CRMS when it is likely to affect a count DV.
 	
-	This article touched on many of the key aspects necessary for extending DA to CRM.
-	Below I discuss additional potential extensions of this work and future directions for the evaluation of IV importance in organizational science.
+	In combination, this manuscript picks up where Blevins et al. \citeyear{blevins2015count} had left off by recommending the use of a specific postestimation method, DA, for better understanding model prediction as well as expanding on specific issues that affect CRMs
+	It remains important to continue to consult their work when choosing to implement a CRM to choose the most appropriate one given the nature of the data.
+	I recommend that you follow the estimation of the CRM with a DA to more fully understand and contextualize the predictions made by each IV.
+	
+	I have touched on many of the key aspects necessary for extending DA to CRM in this manuscript but acknowledge that I have not been able to discuss all relevant issues for determining IV importance in CRMs.
+	Below I discuss some noteworthy limitations and additional extensions of this work before closing.
 	
 	\subsection{Limitations and Future Directions}
 	
-%	PR in particular, but also NBR, are instances of the broader class of models known as generalized linear models \cite{mccullagh2019generalized}. 
-%	Specifically, PR is a generalized linear model in the Poisson "family" with a natural lograrithm "link" \cite(See implementation of generalized linear models in R;){R}.
-%	In extending DA to CRMs, I also effectively make an argument for the applicability of DA using the $R^2_{DEV}$ to \emph{any} generalized linear model using the same approach.
-%	That is, given that DA is applicable to CRMs, it is also applicable to any generalized linear model with a different distribution family or link function.
-%	This is an important point to note as it is not necessary for researchers to hesitate in applying DA to generalized linear models that have not been explicitly discussed in the literature.
-%	Indeed, because this article links Shapley value decompsition to DA and then provides a method for implementing DA with a specific generalized linear model (i.e., CRMs), it is trivial to extend the same approach to a generalized linear model with a different family and link function.
-%	Therefore, DA with the $R^2_{DEV}$ approach is applicable to any generalized linear model.
+	In this work, I use only a series of PR models with simulated data to provide empirical examples.
+	The use of PR with simulated data was an intentional choice to avoid the need to work through many of the decision points outlined by Blevins et al. \citeyear{blevins2015count} related to the selection of the appropriate CRM.
+	In addition, the use of simulated data allowed for designing an underlying dataset that had specific properties---which was especially helpful for the section discussing differential exposure.
+	It is important to note again that the same modeling processes applied to an NBR is discussed in the online supplement.
+	The results of the NBR-based DA are very similar to those of the PR-based DA given the same underlying data generating model.
+	As such, I did not see adding it to the main manuscript as worth the space it would take to describe and have left it in the supplement for any interested reader.
+	I will acknowledge before moving on that the use of the simulated data as I have done in this manuscript adds additional complexity to following along with the methodology in the online supplement.
+	That said, all the procedures used to simulate the various count DVs are fully replicable, well-documented, and available as a markdown that can be used by interested readers with a working knowledge of R \cite{R}.
 	
-%	It is worth noting before moving on that the $R^2_{McFadden}$, recommended by Azen and Traxel \citeyear{azen2009using} for use in DA with logistic regression generalized linear model, is equivalent in computation to the $R^2_{DEV}$. 
-%	This is because the form of the deviance computation for a logistic regression produces a value that is  a scalar multiple of its log-likelihood. 
-%	As such, the perspective taken in the paper agrees with that of the past research in that recommends the use of $R^2_{McFadden}$. 
-%	Additionally, Cameron and Windmeijer \citeyear{cameron1996r} note that the $R^2_{McFadden}$ differs from the $R^2_{DEV}$ by a scalar multiple and is valid in application to CRMs and, by implication, the computation of DA statistics using CRMs.
+	A key contribution of this manuscript is in discussing the effect of differential exposure on DA statistics and designations.
+	As was shown, differential exposure can bias DA results irrespective of whether the IVs are correlated with the differential exposure process or not.
+	I did not provide an extensive evaluation of the effects of differential exposure on CRM coefficients or DA statistics but rather provide a high-level conceptual discussion of the issue and illustration of what can occur in situations where an offset term correction is not applied.
+	Although a thorough evaluation of the potential bias introduced by omitting an offset term when differential exposure has contaminated the count DV was not undertaken in this work, I see future research focusing on this issue as applied to DA of potential value and help researchers identify situations when such bias is more or less likely to occur.
+	One suggestion for such research would be to implement it in a way similar to Braun, Converse, and Oswald's \citeyear{braun2019accuracy} evaluation of measurement reliability and sampling error on dominance statistics in meta-analytic LRM.
 	
-%	Shapley value decomposition and, by extension, DA are well-known to be computationally expensive methodologies that require averaging of contributions by IVs to a model over a potentially extremely large pool of values.
-%	For example, a DA with 20 IVs would require $2^{20} = 1,048,576$ different sub-models in order to collect fit statistics associated with all possible combinations of IVs and compute general dominance statistics.
-%	Whereas modern computing power could feasibly accommodate around one million models in a reasonable amount of time, adding additional IVs beyond 20 continues to grow the number of required models geometrically. 
-%	An additional 10 IVs results in $2^{30} = 1,073,741,824$ or over one billion model required to obtain dominance statistics; even if each CRM took $\frac{1}{100}$ of a second to estimate, this many models would take nearly 4 months to complete on a single machine.
-%	
-%	Many approaches have been developed to approximate Shapley values/DA that are far less computationally expensive. 
-%	Relative weights analysis \cite{johnson2000heuristic} is a commonly applied alternative to DA that approximates the averaging process between all possible models using singular value decomposition.
-%	Relative weights analysis has shown some promise in past research \cite{lebreton2007multidimensional}, and has been extended to one generalized linear model in published research \cite[i.e., logit regression]{tonidandel2011relative} but has been subject to sharp criticism \cite{thomas2014johnson} and is not among commonly recommended methods for relative importance of linear models \cite{gromping2007estimators}. 
-%		
-%	Shapley values have also grown in use among methodologists seeking an approach that can provide "interpretable machine learning" results \cite{molnar2020interpretable}.
-%	In many cases, such efforts apply Shapley values, or approximations to them, that decompose predicted values for each observation in the data \shortcite(e.g.,){lundberg2020local}.
-%	Such Shapley decompositions of predicted values can be used, when cross-referenced with a observations' IV values, that, in the aggregate, can be used to get a sense for the nature of the effect of that IV on the DV much like a coefficient in a CRM.
-%	Machine learning models often have a great number of IVs which makes the "exact" computation of Shapley values infeasible.
-%	Methods to facilitate Shapley value computations in the literature have included sampling permutations \cite{castro2009polynomial} and normal approximations under specific assumptions \cite{fatima2008linear}, among others.
-%	In application to machine learning methods, Shapley value approximations have often use a weighted-least squares approximation with sampling and adjustments for dependence \cite{sellereite2020shapr,aas2021explaining}. 
-%	Such approximation methods may be useful in application to CRM and other models as an alternative estimator of the DA statistics.
-%	
-%	Finally, to the knowledge of the author, there has been relatively little work has considered the value in applying Owen decomposition \cite(e.g.,){huettner2012axiomatic} to DA broadly.
-%	Owen decomposition differs from Shapley in that a grouping structure is applied to IVs in which groups of IVs "negotiate" values jointly between groups but subsequently also "negotiate" values within their group as well. 
-%	The result is that each IV obtains a component of the fit metric, and the Owen values are a full decomposition of the fit metric, but a large number of sub-models can be eliminated. 
-%	For example, by grouping 8 IVs into 4 groups of 2, the number of sub-models needing estimation goes from $2^8 = 256$ to $2^4 + 2^2*4 = 32$---an eight-fold reduction in the number of sub-models needing estimation.
-%	An approach such as this can directly (i.e., without approximation) and substantially reduce the size of the pool of sub-models to estimate and retains feasibility for computing dominance designations such as complete dominance.	
-%	
-%	\subsection{Limitations}
+	Prior work on DA has also suggested the application of bootstrapping to estimate standard errors for general dominance statistics and reproduce-ability values for other dominance designations \cite{azen2009using,braun2019accuracy}. 
+	Bootstrapping the CRM-based dominance statistics and designations is possible for CRM-based DA in the same way as was outlined for logistic regression by Azen and Traxel \citeyear{azen2009using} but is not examined in the present work.
+	A substantial complication with the application of standard errors to DA statistics is in providing clear, compelling rationale as to the differences in roles that null hypothesis testing plays in testing coefficients as compared to DA statistics.
+	At current, the literature does not offer useful guidelines about how the roles of each type of hypothesis test might affect the interpretation of the model and the research questions it seeks to answer.
 	
-	This work provides a justification for why DA is applicable to CRMs and offers multiple, extensive data analytic examples that model and dominance analyze simulated data.
-	The data simulated in this manuscript were designed to have specific properties that make them applicable to the different CRMs and CRM-specific data analytic issues that were valuable to discuss as applied to DA.
-	The use of simulated data is not, in and of itself, a limitation.
-	The limitation in using simulated data is in avoiding many of the decision points noted by Blevins et al. \citeyear{blevins2015count} related to the selection of the appropriate CRM.
-	Careful consideration of the decision to choose a specific CRM is important, but were avoided in this work to focus on modeling and DA with data that were unequivocally known to apply to specific models.
-	In addition to not covering the model selection process, I also acknowledge that using simulated data adds additional complexity to following along with the methodology in the online supplement.
-	The procedures used to simulate the various count DVs are complex but could add value to understanding count DVs for interested readers with a working knowledge of R \cite{R}.
-	
-	In addition, this manuscript provides two examples of how omitting a relevant offset term can result in unexpected changes to DA statistics and designations.
-	The examples provided show how the omission of an offset term affects DA statistics in ways different from, and arguably more serious than, estimated model coefficients.
-	The purpose of this section was to raise awareness of this issue as one that has received less attention among organizational scientists but has the potential to strongly affect importance designations.
-	This manuscript makes no attempt to quantify or characterize the extent of bias that can occur when omitting an offset term as I consider doing so out of scope.
-	Although a thorough evaluation of the potential bias introduced by omitting an offset term was not undertaken in this work, I see future research focusing on this issue as applied to DA of potential value and help researchers identify situations when such bias is more or less likely to occur.
-	An evaluation of omitted offset terms could be taken on in a way similar to Braun, Converse, and Oswald's \citeyear{braun2019accuracy} evaluation of measurement reliability and sampling error on dominance statistics in meta-analytic LRM.
-	
-	Related to sampling error, prior work on DA has also suggested the application of bootstrapping to estimate standard errors for general dominance statistics and reproduce-ability values for dominance designations \cite{azen2009using,braun2019accuracy}. 
-	Bootstrapping the dominance statistics and designations is possible for CRM-based DA in the same way as was outlined for logistic regression by Azen and Traxel \citeyear{azen2009using} but is not examined in the present work.
-	A severe complication with the bootstrapping method as applied to DA is, as discussed above, that as the number of IVs increases, the DA itself becomes computationally infeasible---let alone the entirety of the DA process being repeated for a fixed number of bootstrap iterations.
-	A useful extension on this research would be to evaluate approximations to a full DA-with-bootstrapping process that could provide information on sampling variability but would remain scale-able and computationally feasible with CRMs (and other predictive models) of typical sizes encountered in the literature.
-	
-	Finally, this work does not directly address how to conduct DA with a commonly observed complication with count DVs, zero inflation.
-	Zero inflation is a condition where the count DV shows more zero counts than would be expected from a standard Poisson or negative Binomial distribution \cite(e.g.,){blevins2015count}. 
-	A zero-inflated model is often thought of as having an "opt out" process that forces counts to 0 owing to making them not possible. 
-	For example, as applied to the generation of sport jackets, if a process in which tailors shops had to close and thus could not produced any jackets was modeled, such IVs could be modeled in a zero-inflation model to recover the effects of the other predictors on the "count" process.
-	An additional complexity that results from zero-inflated models is that it is possible to allow IVs to predict the count generating process, the opting out process, or both.
-	In such circumstances the researcher may have to consider whether an alternative approach that emphasizes parameter estimates as opposed to IVs is better suited to the importance determination with DA; indeed, past work has used zero-inflated Poisson regression as an example of the application of parameter estimate-based DA \cite{luchman2020relative}.
-	I expect that the recommendations offered in this paper could extend in a straightforward way to zero-inflated models as Cameron and Windmeijer \citeyear{cameron1996r} do consider zero-inflated models in terms of $R^2_{DEV}$ computation. 
-	Such extensions would still need to consider whether IV- or parameter estimate-based DA fits the research question they are asking of the zero-inflated model.
-	
+	Finally, zero-inflation is a commonly observed condition in count DVs that has been discussed extensively in prior work \cite(e.g.,){blevins2015count}. 
+	Cameron and Windmeijer \citeyear{cameron1996r} discuss the application of the $R^2_{DEV}$ to zero-inflated CRMs and, thus, a DA methodology based on the same general approach as discussed above could be applied to zero-inflated CRMs.
+	One additional complication that arises with considering how to determine importance with zero-inflated models is that zero-inflated CRMs model two processes in the data. 
+	The first process is the standard count generating process whereby IVs increase or decrease counts of the DV.
+	The second is an "opt out" process whereby IV increase or decrease the likelihood of the count being 0.
+	An additional complication introduced by the two processes modeled by zero-inflated CRMs is that it is possible to allow specific IVs to predict the count generating process, the opting out process, or both.
+	In such circumstances the researcher should consider whether an alternative approach that emphasizes parameter estimates as opposed to IVs is better suited to the importance determination with DA \cite{luchman2020relative}.
 	
 	\subsection{Conclusion}
 	
 	DA is a useful post-estimation methodology for determining the importance of IVs in statistical models such as CRMs.
-	This manuscript has provided argumentation for how and why DA could extend to CRMs, offered extensive examples focusing on the computation of DA statistics with simulated data, and provided recommendations for how to adjust a CRM-based DA when observations in the count DV may have different levels of exposure to the count generating process.
-	
-	In combination, the content of this manuscript will provide organizational and other behavioral scientists the necessary steps for determining the relative importance of IVs in CRMs they estimate.
-	It is also important to note that several software implementations that can accommodate CRMs are available in different software.
-	For instance, the \texttt{domin} package in Stata \cite{luchman2021determining} as well as the \texttt{parameters} \cite{ludecke2020extracting} and \texttt{domir} packages in R \cite{luchman2022package} can accommodate CRMs. 
-	Thus, combined with this article's recommendations, all the necessary tools for the DA of CRMs are available to researchers to better understand their count DV-based models.
-
+	This manuscript has provided a recommended methodology for extending DA to CRMs, offered extensive examples focusing on the interpretation of DA statistics and designations with simulated data, and provided recommendations for how to adjust a CRM-based DA when observations in the count DV may have different levels of exposure to the count generating process.
+	In combination, the conceptual discussion of DA, CRMs, and differential exposure, when combined with the empirical examples, will provide organizational and other behavioral scientists the necessary tools for better understanding the CRMs they estimate as applied to the research questions to which the results apply.
 
 \bibliography{CountDominance.bib}
 \bibliographystyle{mslapa}

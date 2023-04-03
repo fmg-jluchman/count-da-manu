@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2022 - Flatpak)
+This is BibTeX, Version 0.99d (TeX Live 2023 - Flatpak)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: CountDominance.aux
 White space in argument---line 16 of file CountDominance.aux
@@ -7,46 +7,45 @@ White space in argument---line 16 of file CountDominance.aux
 I'm skipping whatever remains of this command
 The style file: mslapa.bst
 Database file #1: CountDominance.bib
-Warning--empty journal in luchman2022package
-You've used 34 entries,
+You've used 21 entries,
             2808 wiz_defined-function locations,
-            819 strings with 10939 characters,
-and the built_in function-call counts, 17290 in all, are:
-= -- 1669
-> -- 867
-< -- 21
-+ -- 348
-- -- 336
-* -- 1560
-:= -- 3343
-add.period$ -- 101
-call.type$ -- 34
-change.case$ -- 369
-chr.to.int$ -- 34
-cite$ -- 35
-duplicate$ -- 507
-empty$ -- 1082
-format.name$ -- 394
-if$ -- 3156
+            746 strings with 8529 characters,
+and the built_in function-call counts, 10191 in all, are:
+= -- 997
+> -- 464
+< -- 15
++ -- 182
+- -- 176
+* -- 906
+:= -- 1957
+add.period$ -- 63
+call.type$ -- 21
+change.case$ -- 212
+chr.to.int$ -- 21
+cite$ -- 21
+duplicate$ -- 314
+empty$ -- 667
+format.name$ -- 217
+if$ -- 1874
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 35
-newline$ -- 172
-num.names$ -- 170
-pop$ -- 290
+missing$ -- 21
+newline$ -- 108
+num.names$ -- 105
+pop$ -- 160
 preamble$ -- 1
-purify$ -- 338
+purify$ -- 193
 quote$ -- 0
-skip$ -- 421
+skip$ -- 259
 stack$ -- 0
-substring$ -- 975
-swap$ -- 34
+substring$ -- 594
+swap$ -- 22
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 300
-warning$ -- 1
-while$ -- 189
+type$ -- 186
+warning$ -- 0
+while$ -- 118
 width$ -- 0
-write$ -- 507
+write$ -- 316
 (There was 1 error message)

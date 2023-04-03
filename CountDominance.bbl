@@ -1,12 +1,5 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\citeauthoryear{Aas, Jullum \& L{\o}land}{Aas
-  et~al.}{2021}{}]{aas2021explaining}
-Aas, K., Jullum, M. \& L{\o}land, A. (2021).
-\newblock Explaining individual predictions when features are dependent: More
-  accurate approximations to shapley values.
-\newblock {\em Artificial Intelligence}, {\em 298}, 103502.
-
 \bibitem[\protect\citeauthoryear{Azen \& Budescu}{Azen \&
   Budescu}{2003}{}]{azen2003dominance}
 Azen, R. \& Budescu, D.~V. (2003).
@@ -56,23 +49,11 @@ Cameron, A.~C. \& Windmeijer, F.~A. (1996).
 \newblock {\em Journal of Business \& Economic Statistics}, {\em 14(2)},
   209--220.
 
-\bibitem[\protect\citeauthoryear{Castro, G{\'o}mez \& Tejada}{Castro
-  et~al.}{2009}{}]{castro2009polynomial}
-Castro, J., G{\'o}mez, D. \& Tejada, J. (2009).
-\newblock Polynomial calculation of the shapley value based on sampling.
-\newblock {\em Computers \& Operations Research}, {\em 36(5)}, 1726--1730.
-
 \bibitem[\protect\citeauthoryear{Cronbach \& Meehl}{Cronbach \&
   Meehl}{1955}{}]{cronbach1955construct}
 Cronbach, L.~J. \& Meehl, P.~E. (1955).
 \newblock Construct validity in psychological tests.
 \newblock {\em Psychological bulletin}, {\em 52(4)}, 281.
-
-\bibitem[\protect\citeauthoryear{Fatima, Wooldridge \& Jennings}{Fatima
-  et~al.}{2008}{}]{fatima2008linear}
-Fatima, S.~S., Wooldridge, M. \& Jennings, N.~R. (2008).
-\newblock A linear approximation method for the shapley value.
-\newblock {\em Artificial Intelligence}, {\em 172(14)}, 1673--1699.
 
 \bibitem[\protect\citeauthoryear{Gr{\"o}mping}{Gr{\"o}mping}{2007}{}]{gromping2007estimators}
 Gr{\"o}mping, U. (2007).
@@ -86,37 +67,12 @@ Hodges, J.~L. \& Le~Cam, L. (1960).
 \newblock The poisson approximation to the poisson binomial distribution.
 \newblock {\em The Annals of Mathematical Statistics}, {\em 31(3)}, 737--740.
 
-\bibitem[\protect\citeauthoryear{Huettner \& Sunder}{Huettner \&
-  Sunder}{2012}{}]{huettner2012axiomatic}
-Huettner, F. \& Sunder, M. (2012).
-\newblock Axiomatic arguments for decomposing goodness of fit according to
-  shapley and owen values.
-\newblock {\em Electronic Journal of Statistics}, {\em 6}, 1239--1250.
-
-\bibitem[\protect\citeauthoryear{Johnson}{Johnson}{2000}{}]{johnson2000heuristic}
-Johnson, J.~W. (2000).
-\newblock A heuristic method for estimating the relative weight of predictor
-  variables in multiple regression.
-\newblock {\em Multivariate behavioral research}, {\em 35(1)}, 1--19.
-
 \bibitem[\protect\citeauthoryear{Johnson \& LeBreton}{Johnson \&
   LeBreton}{2004}{}]{johnson2004history}
 Johnson, J.~W. \& LeBreton, J.~M. (2004).
 \newblock History and use of relative importance indices in organizational
   research.
 \newblock {\em Organizational research methods}, {\em 7(3)}, 238--257.
-
-\bibitem[\protect\citeauthoryear{LeBreton, Hargis, Griepentrog, Oswald \&
-  Ployhart}{LeBreton et~al.}{2007}{}]{lebreton2007multidimensional}
-LeBreton, J.~M., Hargis, M.~B., Griepentrog, B., Oswald, F.~L. \& Ployhart,
-  R.~E. (2007).
-\newblock A multidimensional approach for evaluating variables in
-  organizational research and practice.
-\newblock {\em Personnel Psychology}, {\em 60(2)}, 475--498.
-
-\bibitem[\protect\citeauthoryear{Luchman}{Luchman}{2022}{}]{luchman2022package}
-Luchman, J. (2022).
-\newblock Package ‘domir’.
 
 \bibitem[\protect\citeauthoryear{Luchman, Lei \& Kaplan}{Luchman
   et~al.}{2020}{}]{luchman2020relative}
@@ -132,37 +88,11 @@ Luchman, J.~N. (2014).
   An extension and review of best practices.
 \newblock {\em Organizational Research Methods}, {\em 17(4)}, 452--471.
 
-\bibitem[\protect\citeauthoryear{Luchman}{Luchman}{2021}{}]{luchman2021determining}
-Luchman, J.~N. (2021).
-\newblock Determining relative importance in stata using dominance analysis:
-  domin and domme.
-\newblock {\em The Stata Journal}, {\em 21(2)}, 510--538.
-
-\bibitem[\protect\citeauthoryear{L{\"u}decke, Ben-Shachar, Patil \&
-  Makowski}{L{\"u}decke et~al.}{2020}{}]{ludecke2020extracting}
-L{\"u}decke, D., Ben-Shachar, M.~S., Patil, I. \& Makowski, D. (2020).
-\newblock Extracting, computing and exploring the parameters of statistical
-  models using r.
-\newblock {\em Journal of Open Source Software}, {\em 5(53)}, 2445.
-
-\bibitem[\protect\citeauthoryear{Lundberg, Erion, Chen, DeGrave, Prutkin, Nair,
-  Katz, Himmelfarb, Bansal \& Lee}{Lundberg et~al.}{2020}{}]{lundberg2020local}
-Lundberg, S.~M., Erion, G., Chen, H., DeGrave, A., Prutkin, J.~M., Nair, B.,
-  Katz, R., Himmelfarb, J., Bansal, N. \& Lee, S.-I. (2020).
-\newblock From local explanations to global understanding with explainable ai
-  for trees.
-\newblock {\em Nature machine intelligence}, {\em 2(1)}, 56--67.
-
 \bibitem[\protect\citeauthoryear{McCullagh \& Nelder}{McCullagh \&
   Nelder}{2019}{}]{mccullagh2019generalized}
 McCullagh, P. \& Nelder, J.~A. (2019).
 \newblock {\em Generalized linear models}.
 \newblock Routledge.
-
-\bibitem[\protect\citeauthoryear{Molnar}{Molnar}{2020}{}]{molnar2020interpretable}
-Molnar, C. (2020).
-\newblock {\em Interpretable machine learning}.
-\newblock Lulu. com.
 
 \bibitem[\protect\citeauthoryear{Motowidlo}{Motowidlo}{2003}{}]{motowidlo2003job}
 Motowidlo, S.~J. (2003).
@@ -202,20 +132,6 @@ Rotolo, D. \& Messeni~Petruzzelli, A. (2013).
 \newblock When does centrality matter? scientific productivity and the
   moderating role of research specialization and cross-community ties.
 \newblock {\em Journal of Organizational Behavior}, {\em 34(5)}, 648--670.
-
-\bibitem[\protect\citeauthoryear{Sellereite \& Jullum}{Sellereite \&
-  Jullum}{2020}{}]{sellereite2020shapr}
-Sellereite, N. \& Jullum, M. (2020).
-\newblock shapr: An r-package for explaining machine learning models with
-  dependence-aware shapley values.
-\newblock {\em The Journal of Open Source Software}, {\em 5(46)}, 2027.
-
-\bibitem[\protect\citeauthoryear{Thomas, Zumbo, Kwan \& Schweitzer}{Thomas
-  et~al.}{2014}{}]{thomas2014johnson}
-Thomas, D.~R., Zumbo, B.~D., Kwan, E. \& Schweitzer, L. (2014).
-\newblock On johnson's (2000) relative weights method for assessing variable
-  importance: A reanalysis.
-\newblock {\em Multivariate behavioral research}, {\em 49(4)}, 329--338.
 
 \bibitem[\protect\citeauthoryear{Tonidandel \& LeBreton}{Tonidandel \&
   LeBreton}{2011}{}]{tonidandel2011relative}
