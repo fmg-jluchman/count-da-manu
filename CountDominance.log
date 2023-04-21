@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023 - Flatpak) (preloaded format=pdflatex 2023.3.29)  2 APR 2023 10:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.4.17)  19 APR 2023 19:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**CountDominance.tex
-(./CountDominance.tex
+**./CountDominance.tex
+(CountDominance.tex
 LaTeX2e <2022-11-01> patch level 1
-L3 programming layer <2023-02-22> (./sagej.cls
+L3 programming layer <2023-02-22> (sagej.cls
 Document Class: sagej 2017/01/17 v1.20\ sagej.cls
-(/app/texlive/texmf-dist/tex/latex/base/article.cls
+(C:\Program Files\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
-(/app/texlive/texmf-dist/tex/latex/base/size10.clo
+(C:\Program Files\MiKTeX\tex/latex/base\size10.clo
 File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
@@ -24,46 +24,46 @@ File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 \belowcaptionskip=\skip49
 \bibindent=\dimen140
 )
-(/app/texlive/texmf-dist/tex/latex/psnfss/times.sty
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/psnfss\times.sty
 Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
 )
-(/app/texlive/texmf-dist/tex/latex/psnfss/helvet.sty
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/psnfss\helvet.sty
 Package: helvet 2020/03/25 PSNFSS-v9.3 (WaS) 
 
-(/app/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 ))
-(/app/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/app/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
 
-(/app/texlive/texmf-dist/tex/latex/graphics/trig.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 )
-(/app/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+(C:\Program Files\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 
-(/app/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+(C:\Program Files\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen141
 \Gin@req@width=\dimen142
 )
-(/app/texlive/texmf-dist/tex/latex/base/latexsym.sty
+(C:\Program Files\MiKTeX\tex/latex/base\latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup4
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
 )
-(/app/texlive/texmf-dist/tex/latex/base/ifthen.sty
+(C:\Program Files\MiKTeX\tex/latex/base\ifthen.sty
 Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 )
-(/app/texlive/texmf-dist/tex/latex/graphics/rotating.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\rotating.sty
 Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 \c@r@tfl@t=\count193
 \rotFPtop=\skip50
@@ -71,7 +71,7 @@ Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 \rot@float@box=\box51
 \rot@mess@toks=\toks17
 )
-(/app/texlive/texmf-dist/tex/latex/tools/calc.sty
+(C:\Program Files\MiKTeX\tex/latex/tools\calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count194
 \calc@Bcount=\count195
@@ -84,11 +84,11 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count196
 \calc@Cskip=\skip54
 )
-(/app/texlive/texmf-dist/tex/latex/textcase/textcase.sty
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/textcase\textcase.sty
 Package: textcase 2022/07/10 v1.03 Text only upper/lower case changing (DPC)
 Package textcase Info: Defining Legacy names on input line 20.
 )
-(/app/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen145
 \lightrulewidth=\dimen146
@@ -108,22 +108,22 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@lastruleclass=\count266
 \@thisrulewidth=\dimen157
 )
-(/app/texlive/texmf-dist/tex/latex/graphics/color.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\color.sty
 Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
 
-(/app/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+(C:\Program Files\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
 
-(/app/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx))
-(/app/texlive/texmf-dist/tex/latex/endnotes/endnotes.sty
+(C:\Program Files\MiKTeX\tex/latex/graphics\mathcolor.ltx))
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/endnotes\endnotes.sty
 Package: endnotes 2020-01-02 endnotes package
 \c@endnote=\count267
 \endnotesep=\dimen158
 \@enotes=\write3
 )
-(/app/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks18
 \symAMSa=\mathgroup5
@@ -132,28 +132,28 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
-(/app/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
-(/app/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 
-(/app/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks19
 \ex@=\dimen159
 )
 \pmbraise@=\dimen160
 )
-(/app/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2022/04/08 v2.17n AMS math features
 \@mathmargin=\skip55
 
 For additional information on amsmath, use the `?' option.
-(/app/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
 )
-(/app/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+(C:\Program Files\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
 \inf@bad=\count268
@@ -204,7 +204,7 @@ LaTeX Info: Redefining \Relbar on input line 971.
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 )
-(/app/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/amscls\amsthm.sty
 Package: amsthm 2020/05/29 v2.20.6
 \thm@style=\toks24
 \thm@bodyfont=\toks25
@@ -216,7 +216,7 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@headsep=\skip60
 \dth@everypar=\toks29
 )
-(/app/texlive/texmf-dist/tex/latex/base/tracefnt.sty
+(C:\Program Files\MiKTeX\tex/latex/base\tracefnt.sty
 Package: tracefnt 2020/12/22 v3.0n Standard LaTeX package (font tracing)
 \tracingfonts=\count280
 LaTeX Info: Redefining \selectfont on input line 107.
@@ -226,10 +226,10 @@ Already applied: [0000/00/00] Add hook to \selectfont  on input line 145.
 \absbox=\box54
 \@bls=\dimen168
 
-(/app/texlive/texmf-dist/tex/latex/caption/caption.sty
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/caption\caption.sty
 Package: caption 2023/03/12 v3.6j Customizing captions (AR)
 
-(/app/texlive/texmf-dist/tex/latex/caption/caption3.sty
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/03/12 v2.4 caption3 kernel (AR)
 \caption@tempdima=\dimen169
 \captionmargin=\dimen170
@@ -245,23 +245,23 @@ Package caption Info: Standard document class detected.
 \c@continuedfloat=\count282
 Package caption Info: rotating package is loaded.
 )
-(/app/texlive/texmf-dist/tex/latex/mslapa/mslapa.sty
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/mslapa\mslapa.sty
 \bibhang=\skip61
 ))
-(/app/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(C:\Program Files\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks30
 \inpenc@posthook=\toks31
 )
-(/app/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(C:\Program Files\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+ptm on input line 11
 2.
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 ))
-(/app/texlive/texmf-dist/tex/latex/tools/longtable.sty
+(C:\Program Files\MiKTeX\tex/latex/tools\longtable.sty
 Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 \LTleft=\skip62
 \LTright=\skip63
@@ -280,7 +280,7 @@ Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 \c@LT@chunks=\count287
 \LT@p@ftn=\toks32
 )
-(/app/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+(C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count288
 \l__pdf_internal_box=\box60
@@ -289,7 +289,7 @@ File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 LaTeX Warning: Unused global option(s):
     [ShortAfour].
 
-(./CountDominance.aux)
+(CountDominance.aux)
 \openout1 = `CountDominance.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
@@ -307,7 +307,7 @@ LaTeX Font Info:    ... okay on input line 10.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
 
-(/app/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+(C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count289
 \scratchdimen=\dimen178
@@ -320,26 +320,25 @@ LaTeX Font Info:    ... okay on input line 10.
 \MPnumerator=\count293
 \makeMPintoPDFobject=\count294
 \everyMPtoPDFconversion=\toks34
-) (/app/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+) (C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 
-(/app/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
+(C:\Program Files\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: longtable package is loaded.
 
-(/app/texlive/texmf-dist/tex/latex/caption/ltcaption.sty
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/caption\ltcaption.sty
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for T1+phv on input line 17
 .
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/psnfss\t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
@@ -353,19 +352,19 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 LaTeX Font Info:    Trying to load font information for U+lasy on input line 19
 .
 
-(/app/texlive/texmf-dist/tex/latex/base/ulasy.fd
+(C:\Program Files\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 LaTeX Font Info:    Trying to load font information for U+msa on input line 19.
 
 
-(/app/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
 
 
-(/app/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
@@ -377,7 +376,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 LaTeX Font Info:    Trying to load font information for TS1+phv on input line 2
 3.
 
-(/app/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
+(C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/psnfss\ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
 LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
@@ -398,8 +397,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
 (Font)              scaled to size 6.64998pt on input line 32.
  [1
 
-{/app/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}{/app/texlive/texmf
--dist/fonts/enc/dvips/base/8r.enc}]
+{C:/Users/jluchman/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 59.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
@@ -432,52 +430,52 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [7] [8]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
 87.
- (/app/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+ (C:\Users\jluchman\AppData\Roaming\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [9]
+)
+[9]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [10] [11] [12]
-<includes/condit_gph.png, id=60, 325.215pt x 216.81pt>
+<includes/condit_gph.png, id=59, 325.215pt x 216.81pt>
 File: includes/condit_gph.png Graphic file (type png)
 <use includes/condit_gph.png>
-Package pdftex.def Info: includes/condit_gph.png  used on input line 466.
+Package pdftex.def Info: includes/condit_gph.png  used on input line 465.
 (pdftex.def)             Requested size: 325.2142pt x 216.80946pt.
  [13 <./includes/condit_gph.png>] [14] [15] [16] [17] [18]
-[19] [20] [21] [22] [23] (./CountDominance.bbl [24]) [25] (./CountDominance.aux
-) )
+[19] [20] [21] [22] [23] (CountDominance.bbl [24]) [25] (CountDominance.aux) )
 (\end occurred when \ifx on line 2 was incomplete) 
 Here is how much of TeX's memory you used:
- 5392 strings out of 476025
- 87151 string characters out of 5791510
- 1869388 words of memory out of 5000000
- 25718 multiletter control sequences out of 15000+600000
+ 5398 strings out of 476334
+ 88387 string characters out of 5797777
+ 1869382 words of memory out of 5000000
+ 25703 multiletter control sequences out of 15000+600000
  581040 words of font info for 114 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,10n,77p,1308b,440s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</app/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmex10.pfb></app/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi10.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi12.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb
-></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></app/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></app/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmi8.pfb></app/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmmi9.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr10.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb
-></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></app/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></app/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr8.pfb></app/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy6.pfb></app/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-</app/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></app/texlive/texm
-f-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></app/texlive/texmf-dist/fonts/type1
-/urw/helvetic/uhvro8a.pfb></app/texlive/texmf-dist/fonts/type1/urw/times/utmr8a
-.pfb></app/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on CountDominance.pdf (25 pages, 374741 bytes).
+ 72i,10n,77p,1310b,440s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{C:/Program Files/MiKTeX/font
+s/enc/dvips/base/8r.enc}<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program 
+Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pf
+b><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program
+ Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Program Files/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program F
+iles/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX/f
+onts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/hel
+vetic/uhvr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
+<C:/Program Files/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiK
+TeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on CountDominance.pdf (25 pages, 397949 bytes).
 PDF statistics:
- 193 PDF objects out of 1000 (max. 8388607)
- 121 compressed objects within 2 object streams
+ 190 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

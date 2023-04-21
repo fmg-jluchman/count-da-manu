@@ -348,11 +348,11 @@
 			\cmidrule(lr){4-8}
 			Variable & Mean & Deviation & $ER$ & $AS$ & $SL$ & $WE$ & $SJ$ \\ 
 			\midrule
-			$ER$ & $-0.0355$ & $1.1853$ & $1.0000$ & $0.4168$ & $0.1446$ & $0.2180$ & $0.4419$ \\ 
-			$AS$ & $-0.0261$ & $1.4494$ & $0.4168$ & $1.0000$ & $0.1958$ & $0.2850$ & $0.4025$ \\ 
-			$SL$ & $-0.0056$ & $1.5480$ & $0.1446$ & $0.1958$ & $1.0000$ & $0.3295$ & $0.3393$ \\ 
-			$WE$ & $0.0144$ & $1.9211$ & $0.2180$ & $0.2850$ & $0.3295$ & $1.0000$ & $0.3973$ \\ 
-			$SJ$ & $0.9920$ & $1.0040$ & $0.4419$ & $0.4025$ & $0.3393$ & $0.3973$ & $1.0000$ \\ 
+			$ER$ & $-0.0355$ & $1.1853$ & $1.0000$ & $0.4168$ & $0.1446$ & $0.2180$ & $0.4175$ \\ 
+			$AS$ & $-0.0261$ & $1.4494$ & $0.4168$ & $1.0000$ & $0.1958$ & $0.2850$ & $0.3592$ \\ 
+			$SL$ & $-0.0056$ & $1.5480$ & $0.1446$ & $0.1958$ & $1.0000$ & $0.3295$ & $0.2913$ \\ 
+			$WE$ & $0.0144$ & $1.9211$ & $0.2180$ & $0.2850$ & $0.3295$ & $1.0000$ & $0.3726$ \\ 
+			$SJ$ & $0.9940$ & $1.0082$ & $0.4175$ & $0.3592$ & $0.2913$ & $0.3726$ & $1.0000$ \\ 
 			\bottomrule
 		\end{tabular}
 		\label{tab:desc}
@@ -378,29 +378,28 @@
 			\cmidrule(lr){4-5}
 			\multicolumn{1}{l}{} & $\beta$ & SE & Low & High & $e^{\beta}$ \\ 
 			\midrule
-			$ER$ & $0.2463$ & $0.0114$ & $0.2239$ & $0.2687$ & $1.2793$ \\ 
-			$AS$ & $0.1320$ & $0.0095$ & $0.1133$ & $0.1506$ & $1.1411$ \\ 
-			$SL$ & $0.1264$ & $0.0083$ & $0.1100$ & $0.1427$ & $1.1347$ \\ 
-			$WE$ & $0.1167$ & $0.0069$ & $0.1032$ & $0.1302$ &  $1.1238$  \\ 
-			$Intercept$ & $-0.1805$ & $0.0142$ & $-0.2084$ & $-0.1529$ & $0.8349$ \\
+			$ER$ & $0.2431$ & $0.0114$ & $0.2208$ & $0.2655$ & $1.2753$ \\  
+			$AS$ & $0.1081$ & $0.0095$ & $0.0896$ & $0.1267$ & $1.1142$ \\ 
+			$SL$ & $0.0999$ & $0.0083$ & $0.0835$ & $0.1162$ & $1.1050$ \\
+			$WE$ & $0.1158$ & $0.0069$ & $0.1024$ & $0.1293$ & $1.1228$ \\ 
+			$Intercept$ & $-0.1507$ & $0.0138$ & $-0.1780$ & $-0.1237$ & $0.8601$ \\
 			\bottomrule
 		\end{tabular}
 		\label{tab:poisreg}
 	\end{table}
 
-
 	Table \ref{tab:poisreg} shows that each of the IVs has a positive effect on the number of sport jackets and appear to be statistically significant (at the $p < .05$ level) as is implied by the confidence intervals.
 	
 	In terms of effect size magnitude, equipment reliability had the largest effect on sport jacket counts. 
-	The IRR value shows that each one point increase in equipment reliability led to a 27.9\% increase in the number of sport jackets finished.
-	Assisting staffing levels obtained the second largest effect on sport jacket counts with its IRR value showing that each one point increase in staffing levels led to a 14.1\% increase in the number of sport jackets finished.
-	Skill level and work experience obtained the smallest effect sizes as reflected by their IRRs.
-	Skill level resulted in a 13.5\% increase and work experence a 12.4\% increase in the number of sport jackets produced in two weeks. 
+	The IRR value shows that each one point increase in equipment reliability led to a 27.5\% increase in the number of sport jackets finished.
+	Tailor work experience obtained the second largest effect on sport jacket counts with its IRR value showing that each one point increase in staffing levels led to a 12.3\% increase in the number of sport jackets finished.
+	Assistant staffing and skill level obtained the smallest effect sizes as reflected by their IRRs.
+	Assistant staffing resulted in a 11.4\% increase and work experence a 10.5\% increase in the number of sport jackets produced in two weeks. 
 	
 	The IRR value for the model intercept reports on the average number of sport jackets when all IVs are 0; here at their means. 
-	The .8349 value obtained is similar to the overall mean of near 1 reported in Table \ref{tab:desc}.
-	This .8349 value is also used as a baseline prediction for the PR.
-	For instance, the expected number of sport jackets with equipment reliability at 1 and all other IVs at 0 is $.8349*1.2793 = 1.0681$ or just above 1 jacket.
+	The .8601 value obtained is similar to the overall mean of near 1 reported in Table \ref{tab:desc}.
+	This .8601 value is also used as a baseline prediction for the PR.
+	For instance, the expected number of sport jackets with equipment reliability at 1 and all other IVs at 0 is $.8601*1.2753 = 1.0969$ or just above 1 jacket.
 	Contextualizing model predictions by reporting out specific predicted values is useful for non-linear models such as PR as they more clearly depict the multiplicative effects produced inherently by CRMs.
 	Hence, reporting on and visualizing predicted marginal means adds value to the model interpretation process \cite(see)[for a similar perspective]{ronkko2022eight}.
 	Although I do not report marginal means plots in the body of this manuscript for brevity, such plots are reported in the online supplement.
@@ -421,25 +420,25 @@
 		\caption{\centering $R^2_{DEV}$ by Sub-model}
 		\begin{tabular}{l|r}
 			\toprule
-			$SJ \sim ER$ & $0.1704$ \\ 
-			$SJ \sim AS$ & $0.1418$ \\ 
-			$SJ \sim SL$ & $0.1008$ \\ 
-			$SJ \sim WE$ & $0.1384$ \\ 
-			$SJ \sim ER + AS$ & $0.2209$ \\ 
-			$SJ \sim ER + SL$ & $0.2388$ \\ 
-			$SJ \sim ER + WE$ & $0.2530$ \\ 
-			$SJ \sim AS + SL$ & $0.2047$ \\ 
-			$SJ \sim AS + WE$ & $0.2200$ \\ 
-			$SJ \sim SL + WE$ & $0.1816$ \\ 
-			$SJ \sim ER + AS + SL$ & $0.2748$\\ 
-			$SJ \sim ER + AS + WE$ & $0.2821$ \\ 
-			$SJ \sim ER + SL + WE$ & $0.2868$ \\ 
-			$SJ \sim AS + SL + WE$ & $0.2524$ \\ 
-			$SJ \sim ER + AS + SL + WE$ & $0.3113$ \\ 
+			$SJ \sim ER$ & $0.1524$ \\ 
+			$SJ \sim AS$ & $0.1131$ \\ 
+			$SJ \sim SL$ & $0.0744$ \\ 
+			$SJ \sim WE$ & $0.1219$ \\ 
+			$SJ \sim ER + AS$ & $0.1887$ \\ 
+			$SJ \sim ER + SL$ & $0.2006$ \\ 
+			$SJ \sim ER + WE$ & $0.2248$ \\ 
+			$SJ \sim AS + SL$ & $0.1584$ \\ 
+			$SJ \sim AS + WE$ & $0.1844$ \\ 
+			$SJ \sim SL + WE$ & $0.1502$ \\ 
+			$SJ \sim ER + AS + SL$ & $0.2266$\\ 
+			$SJ \sim ER + AS + WE$ & $0.2442$ \\ 
+			$SJ \sim ER + SL + WE$ & $0.2459$ \\ 
+			$SJ \sim AS + SL + WE$ & $0.2050$ \\ 
+			$SJ \sim ER + AS + SL + WE$ & $0.2624$ \\ 
 			\bottomrule
 		\end{tabular}
 		\label{tab:r2sub}
-	\end{table}
+	\end{table} 
 
 	A few points can be gleaned from the results in Table \ref{tab:r2sub}. 
 	For example, Table \ref{tab:r2sub}. shows that equipment reliability appears to be associated with larger $R^2_{DEV}$ values and is likely to be an important variable consistent with its coefficient size. 
@@ -462,7 +461,7 @@
 	
 	\begin{figure}[h!]
 		\centering
-		\caption{Conditional Dominance Statistics}
+		\caption{\centering Conditional Dominance Statistics}
 		\includegraphics{includes/condit_gph}
 		\label{fg:cdl}
 	\end{figure}
@@ -485,10 +484,10 @@
 		\caption{\centering General Dominance Statistics}
 		\begin{tabular}{l|r}
 			\toprule
-			$ER$ & $0.1048$ \\ 
-			$AS$ & $0.0726$ \\ 
-			$SL$ & $0.0570$ \\ 
-			$WE$ & $0.0769$ \\ 
+			$ER$ & $0.0965$ \\ 
+			$AS$ & $0.0560$ \\ 
+			$SL$ & $0.0399$ \\ 
+			$WE$ & $0.0700$ \\ 
 			\bottomrule
 		\end{tabular}
 		\label{tab:gen}
@@ -500,7 +499,7 @@
 	
 	In conclusion, the DA results have built on reports of the model in Table \ref{tab:poisreg} by adding additional information about how each of the tailoring shop IVs explains variation or information in the sport jacket production variable. 
 	The DA results work to support the inference about the large IRR value obtained by equipment reliability, confirming that this variable, regardless of the order in which it might be included in the model, is most important. 
-	In addition, equipment reliability is associated with nearly one-third (i.e., $\frac{.1048}{.3113} \approx \frac{1}{3}$ of the explained information in sport jackets alone.
+	In addition, equipment reliability is associated with nearly one-third (i.e., $\frac{.0965}{.2624} \approx \frac{1}{3}$ of the explained information in sport jackets alone.
 	The DA results also provide useful contextualization of the other three IV's IRR values from Table \ref{tab:poisreg}. 
 	An important point of clarification is on the importance of the work experience variable which, despite having the lowest IRR value, was generally recognized as the second most important IV in the model.
 	Although work experience's effect changed depending on the order in which it was included when comparing against assistant staffing, its large variance reported on in Table \ref{tab:desc} likely resulted in it superseding the other two IVs in terms of explained information in sport jacket production.
@@ -609,8 +608,8 @@
 			\cmidrule(lr){4-7}
 			Variable & Mean & Deviation & $ER$ & $AS$ & $SL$ & $WE$ \\ 
 			\midrule
-			$SJ_{RH}$ & $0.5447$ & $0.7575$ & $0.3455$ & $0.3247$ & $0.2773$ & $0.3174$ \\ 
-			$SJ_{VH}$ & $0.4709$ & $0.6549$ & $0.2332$ & $0.2325$ & $0.1631$ & $0.2405$ \\ 
+			$SJ_{RH}$ & $0.5448$ & $0.7610$ & $0.3290$ & $0.2875$ & $0.2291$ & $0.2977$ \\  
+			$SJ_{VH}$ & $0.4876$ & $0.6754$ & $0.2265$ & $0.2084$ & $0.1328$ & $0.2254$ \\
 			\bottomrule
 		\end{tabular}
 		\label{tab:dscEx}
@@ -646,11 +645,11 @@
 			\cmidrule(lr){2-4} \cmidrule(lr){5-7}
 			\multicolumn{1}{l}{} & $\beta$ & $e^{\beta}$ & $C$ & $\beta$ & $e^{\beta}$ & $C$ \\ 
 			\midrule
-			$ER$ & $0.2575$ & $1.2937$ & $0.0708$ & $0.2657$ & $1.3043$ & $0.0863$ \\ 
-			$AS$ & $0.1521$ & $1.1643$ & $0.0541$ & $0.1502$ & $1.1621$ & $0.0641$ \\ 
-			$SL$ & $0.1455$ & $1.1566$ & $0.0437$ & $0.1515$ & $1.1636$ & $0.0545$ \\ 
-			$WE$ & $0.1271$ & $1.1355$ & $0.0551$ & $0.1347$ & $1.1442$ & $0.0698$ \\ 
-			$Intercept$ & $-0.8170$ & $0.4418$ & & $-2.5276$ & $0.0799$ & \\ 
+			$ER$ & $0.2606$ & $1.2977$ & $0.0672$ & $0.2683$ & $1.3077$ & $0.0824$ \\ 
+			$AS$ & $0.1225$ & $1.1303$ & $0.0410$ & $0.1210$ & $1.1287$ & $0.0490$ \\ 
+			$SL$ & $0.1066$ & $1.1125$ & $0.0277$ & $0.1125$ & $1.1191$ & $0.0352$ \\  
+			$WE$ & $0.1287$ & $1.1374$ & $0.0509$ & $0.1360$ & $1.1457$ & $0.0650$ \\ 
+			$Intercept$ & $-0.7812$ & $0.4579$ & & $-2.4914$ & $0.0828$ & \\ 
 			\bottomrule
 		\end{tabular}
 	\label{tab:unexp}
@@ -692,11 +691,11 @@
 			\cmidrule(lr){2-4} \cmidrule(lr){5-7}
 			\multicolumn{1}{l}{} & $\beta$ & $e^{\beta}$ & $C$ & $\beta$ & $e^{\beta}$ & $C$ \\ 
 			\midrule
-			$ER$ & $0.1638$ & $1.1780$ & $0.0307$ & $0.3054$ & $1.3572$ & $0.0889$ \\ 
-			$AS$ & $0.1145$ & $1.1214$ & $0.0280$ & $0.1735$ & $1.1895$ & $0.0656$ \\ 
-			$SL$ & $0.0642$ & $1.0663$ & $0.0127$ & $0.1668$ & $1.1815$ & $0.0512$ \\ 
-			$WE$ & $0.1118$ & $1.1182$ & $0.0342$ & $0.1568$ & $1.1698$ & $0.0737$ \\ 
-			$Intercept$ & $-0.8512$ & $0.4269$ & & $-2.5182$ & $0.0806$ & \\ 
+			$ER$ & $0.1706$ & $1.1860$ & $0.0305$ & $0.3081$ & $1.3608$ & $0.0881$ \\ 
+			$AS$ & $0.0934$ & $1.0979$ & $0.0217$ & $0.1381$ & $1.1480$ & $0.0512$ \\
+			$SL$ & $0.0402$ & $1.0410$ & $0.0076$ & $0.1166$ & $1.1236$ & $0.0323$ \\ 
+			$WE$ & $0.1096$ & $1.1158$ & $0.0311$ & $0.1527$ & $1.1650$ & $0.0677$ \\
+			$Intercept$ & $-0.8011$ & $0.4488$ & & $-2.4769$ & $0.0840$ & \\
 			\bottomrule
 		\end{tabular}
 		\label{tab:exp}
