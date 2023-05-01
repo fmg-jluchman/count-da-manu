@@ -452,7 +452,7 @@
 	The complete dominance relationships between the remaining variables is far less clearly defined. 
 	For instance, work experience completely dominates skill level but does not completely dominate assistant staffing.
 	Moreover, assistant staffing and skill level have no complete dominance relationship either.
-	This makes clearly raking the final three variables more nuanced as work experience is undisputedly better than skill level irrespective of inclusion order, but no such clear statement can be made of the rest of the comparisons.
+	This makes clearly ranking the final three variables more nuanced as work experience is a better predictor than skill level irrespective of inclusion order, but no such clear statement can be made of the rest of the comparisons.
 	Thus, work experience is likely the 'second best' predictor but its will require the one of the expanded dominance designations to confirm this is the case.
 	
 	In order to rank the remaining variables, the conditional dominance statistics for all the tailoring shop IVs were computed using Equation \ref{eq:cdlst}.
@@ -470,13 +470,15 @@
 	Specifically, if an IVs conditional dominance trendline is always above, and thus never crosses over, another IV's conditional dominance trendline, the IV that is above conditionally dominates the one below.
 	Figure \ref{fg:cdl} confirms the complete dominance results in that equipment reliability's line is above the lines for the other three IVs indicating that it dominates each of them.
 	Similarly, work experience's line is above skill level's line consistent with the complete dominance results.
+	In addition, work experience's line is above assistant staffing's line indicating that it conditionally dominates assistant staffing.
+	Although work experience does not explain more than assistant staffing in all comparable models (see Table \ref{tab:r2sub}; specifically, $SJ \sim AS + SL$ versus $SJ \sim SL + WE$'s values), when considering the average increment by number of IVs included, work experience produces bigger increments to the $R^2_{DEV}$ than does assistant staffing levels. 
+	As such, work experience's dominance of assistant staffing is model dependent, but not dependent on IV inclusion order.
 	
-	The conditional dominance relationships among the final three variable comparisons do not offer a different designation than did the complete dominance results.
-	Work experience fails to conditionally dominate assistant staffing given assistant staffing's conditional dominance statistic at subset size 1. 
-	Similarly, assistant staffing fails to conditionally dominate skill level given skill level's conditional dominance statistic at subset size 4.
+	The conditional dominance relationships for the last two IVs does not offer a different designation than did the complete dominance results.
+	Assistant staffing fails to conditionally dominate skill level given skill level's conditional dominance statistic at subset size 4.
 	These conditional dominance results further reinforce the idea that attempting to rank these IVs is not straightforward and their contributions to prediction depend on the order of their inclusion in the model. 
 	
-	Given that no complete or conditional dominance designations were possible for comparing assistant staffing with skill level and work experience, I proceed to evaluating the general dominance designations between these variables. 
+	Given that no complete or conditional dominance designations were possible for comparing assistant staffing with skill level, I proceed to evaluating the general dominance designations between these variables. 
 	The general dominance statistics for each tailoring shop IV was computed using Equation \ref{eq:genst} and are reported in Table \ref{tab:gen}.
 	
 	\begin{table}[h!]
@@ -493,19 +495,19 @@
 		\label{tab:gen}
 	\end{table}
 
-	Evaluating the general dominance designations implied by the general dominance statistics in Table \ref{tab:gen} using Equation \ref{eq:gendom} again shows that equipment reliability dominates each other variable and that work experience dominates skill level. 
-	The general dominance statistics add to the prior dominance designations by determining that work experience also generally dominates assistant staffing and that assitant staffing generally dominates skill level.
-	The general dominance designations then allow for a clear rank ordering of the tailoring shop IVs in predicting sport jackets with equipment reliability being the most important followed by work experience, then assistant staffing, and ending with skill level.
+	Evaluating the general dominance designations implied by the general dominance statistics in Table \ref{tab:gen} using Equation \ref{eq:gendom} again shows that equipment reliability dominates each other variable and that work experience dominates skill level and assistant staffing. 
+	The general dominance statistics add to the prior dominance designations by determining that assitant staffing generally dominates skill level.
+	The general dominance designations then add to the results above in that they allow for a clear rank ordering of the tailoring shop IVs in predicting sport jackets with equipment reliability being the most important followed by work experience, then assistant staffing, and ending with skill level.
 	
 	In conclusion, the DA results have built on reports of the model in Table \ref{tab:poisreg} by adding additional information about how each of the tailoring shop IVs explains variation or information in the sport jacket production variable. 
 	The DA results work to support the inference about the large IRR value obtained by equipment reliability, confirming that this variable, regardless of the order in which it might be included in the model, is most important. 
 	In addition, equipment reliability is associated with nearly one-third (i.e., $\frac{.0965}{.2624} \approx \frac{1}{3}$ of the explained information in sport jackets alone.
-	The DA results also provide useful contextualization of the other three IV's IRR values from Table \ref{tab:poisreg}. 
-	An important point of clarification is on the importance of the work experience variable which, despite having the lowest IRR value, was generally recognized as the second most important IV in the model.
-	Although work experience's effect changed depending on the order in which it was included when comparing against assistant staffing, its large variance reported on in Table \ref{tab:desc} likely resulted in it superseding the other two IVs in terms of explained information in sport jacket production.
-	Finally, the DA results also provided useful information about the stability of the assistant staffing effect relative to skill level.
-	Assistant staffing obtained the second largest IRR value but, as was most clearly revealed in Figure \ref{fg:cdl}, its usefulness in terms of variance explained was the most dependent on the order of inclusion of all of the IVs.
-	As such, it was only able to generally dominate the skill level IV.
+	The DA results also provide useful contextualization of the other three IV's IRR values from Table \ref{tab:poisreg}.
+	Specifically, the IRR values for work experience, assistant staffing levels, and skill level were similar, each within .01 of one another. 
+	It would then seem like each IV might have a similar importance comparison with each other IV.
+	The dominance designations obtained showed this is not the case as work experience completely dominated only skill level and conditionally dominated assistant staffing levels. 
+	Moreover, assistant staffing levels generally dominated skill level.
+	The DA results then showed a great deal of variability in terms of strength of dominance designations even within this rather narrow window of IRR values.
 
 	\subsubsection{Section Summary}
 	
@@ -658,15 +660,11 @@
 	Table \ref{tab:unexp}'s results show that the effect of random differential exposure with religious holiday observance did not substantially affect the IV coefficient and IRR estimates and the results with and without offsets are similar to one another and to the results in Table \ref{tab:poisreg} where there is not differential exposure.
 	The coefficients that do change in a noteworthy way are the $Intercept$ values across models with the model omitting the offset obtaining a value near the mean of the religious holiday observance stock jacket production distribution and the model with the offset nearer the underlying probability of observing a stock jacket being produced in any given day in the two-week period (the underlying probability is .1; see online supplement for a discussion).
 	
-	Although the PR model coefficients associated with each IV did not change meaningfully given the random differential exposure, the DA statistics and designations did. 
-	In particular, equipment reliability no longer completely dominates, but rather conditionally dominates, work experience with or without an offset term.
-	All of the DA statistics obtained under differential exposure in Table \ref{tab:unexp} are smaller compared to those in Table \ref{tab:gen} obtained under equal exposure 
-	Thus, irrespective of the use of an offset term, differential exposure also affected the magnitude of dominance statistics
-	The designation change and overall change in magnitude when introducing random differential exposure were not correctable with an offset term. 
-	That is, the use of an offset term given random differential exposure did not produce results that matched those from the equal exposure model modeling stock jacket production over the full two-week period.
+	In addition, the relative comparisons between the IVs' general dominance statistics did not change meaningfully given the random differential exposure with or without the offset term. 
+	The most noteworthy result is that all of the DA statistics obtained under random differential exposure in Table \ref{tab:unexp} are smaller compared to those in Table \ref{tab:gen} obtained under equal exposure.
+	Thus, irrespective of the use of an offset term, differential exposure affected the magnitude of the general dominance statistics, shrinking them all toward 0 relative to the data obtained under equal exposure.
 	
-	Although there were several similarities across models estimated with and without an offset term, there was one noteworthy difference.
-	All of the general dominance statistics, as well as conditional dominance statistics (reported in online supplement) for the model without the offset term were relatively smaller than those with the offset term included.
+	Although the results obtained with and without an offset term showed a similar pattern of results, the results with an offset term tended to be closer in their values to the data obtained under equal exposure.
 	As was noted above, differential exposure adds variation to the model deviance that is unexplained in the absence of an offset term.
 	The difference in the magnitude of the general dominance statistic values obtained with and without an offset term reflect this effect.
 	When the offset term is not included there is more variation in the model that is unexplained, reducing the magnitude of the $R^2_{DEV}$.
@@ -674,7 +672,7 @@
 	
 	The section below transitions away from random differential exposure to the correlated differential exposure mechanism introduced by taking voluntary holidays.
 	Again, correlated differential exposure is the process where the exposure variable is related to the IVs in the statistical model.
-	Given these relationships, the effect of correlated differential exposure on the model reslts is expected to be more substantial.
+	Given these relationships, the effect of correlated differential exposure on the model results is expected to be more substantial.
 	As with the random differential exposure results, the correlated exposure results include a model with an offset and without an offset.
 	
 		\subsubsection{Correlated Differential Exposure}
@@ -702,19 +700,15 @@
 	\end{table}
 	
 	As compared to the random differential exposure results in Table \ref{tab:unexp}, the correlated differential exposure results in Table \ref{tab:exp} show clear differences in patterns of results across models with and without an offset term.
-	The correlated differential exposure effect has noticeably changed the coefficients' relative magnitudes, with work experience gaining and skill level losing the most predictive utility.
-	By contrast, the model with an offset shows the same relative magnitude of coefficient sizes as the model with equal exposure.
+	The correlated differential exposure effect in the model without an offset has changed the coefficients' absolute values noticeably, shrinking all IRR values but most substantially for equipment reliability.
+	By contrast, the model with the offset term obtains coefficient values that are, generally, more similar relative to one another as the data under equal exposure especially for the equipment reliability and skill level IVs.
 	This change in the relative magnitude of the coefficients in the model without an offset is the result of the IVs now having two ways in which to predict the sport jacket production outcome: the traditional path where the IV increases the probability of obtaining a sport jacket in a given day and, in addition, the exposure path where the IV increases the probability of any given day being a non-work day; thus, not having the chance to produce any sport jackets.
 	When the offset term is included, the second, exposure path is controlled for in the model, and the model again reflects only the effect of each IV on the probability of producing a sport jacket on any given day.
 	
-	The DA statistics and designations also change given the effect of correlated differential exposure introduced by the voluntary holiday contamination.
-	Without an offset, work experience conditionally dominates both equipment reliability and assistant staffing levels and appears to be the most dominant tailoring shop characteristic over equipment reliability.
-	Equipment reliability continues to completely dominate assistant staffing levels as well as tailor skill level and, finally, assistant staffing level completely dominates tailor skill level.
-	The effect of the correlated differential exposure then has a clear re-shuffling effect on the relative importance of the IVs.
-	
-	By contrast, the results of the model contaminated with correlated differential exposure, when including the offset term produces DA results very similar to the model contaminated with random differential exposure.
-	In fact the dominance designations across models with different exposure types, when an offset is included, are identical.
-	Moreover, the statistics across models with an offset term are very similar to one another.
+	A crucial change in the results for the data under correlated differential exposure is that the dominance designations shift in the model without an offset term relative to the model with an offset term.
+	Without an offset, work experience is the most important variable overall, swapping places with equipment reliability. 
+	By contrast, the results with an offset term mirror those from the data under equal exposure with equipment reliability being designated the most dominant IV.
+	It is also important to note that the dominance statistics across random and correlated differential exposure models with an offset term are very similar to one another and to the results from the data under equal exposure.
 	Taken together, these results help to illustrate the value of including the offset term for the accurate computation of DA designations and statistics.	
 	
 		\subsubsection{Section Summary}
@@ -731,7 +725,7 @@
 	This correlated differential exposure was reflected by taking voluntary holiday leave on sport jacket production among the tailoring shops.
 	The correlated differential exposure affected the model results more directly by producing an alternative mechanism for sport jacket production which affected model coefficients as well as DA designations and statistics.
 	
-	A key takeaway from this section is that the use of offset terms is an effective way to recover more accurate DA designations and statistics when the focus of the research is on the probability of events and count DV is contaminated with differential exposure.
+	A key takeaway from this section is that the use of offset terms is an effective way to recover more accurate DA designations and statistics when the focus of the research is on the probability of events and the count DV is contaminated with differential exposure.
 
 	
 \section{Discussion}
@@ -744,7 +738,7 @@
 	This walk through of the DA focuses on interpreting IV importance with a focus on how meeting different levels of DA designation stringency offers different evidence for the importance of the IVs over one another.
 	
 	Finally, I discuss differential exposure to count generating processes in CRMs as a potentially biasing factor both for DA statistics and designations.
-	In the example analyses discussed that focus on differential exposure, I show that the use of an offset term is effective for recovering more accurate DA statistics and designations and should be used to correct for differential exposure in CRMS when it is likely to affect a count DV.
+	In the example analyses discussed that focus on differential exposure, I show that the use of an offset term is effective for recovering more accurate DA statistics and designations and should be used to correct for differential exposure in CRMs when it is likely to affect a count DV.
 	
 	In combination, this manuscript picks up where Blevins et al. \citeyear{blevins2015count} had left off by recommending the use of a specific postestimation method, DA, for better understanding model prediction as well as expanding on specific issues that affect CRMs
 	It remains important to continue to consult their work when choosing to implement a CRM to choose the most appropriate one given the nature of the data.

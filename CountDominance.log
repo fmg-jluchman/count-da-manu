@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.4.17)  19 APR 2023 19:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.4.17)  25 APR 2023 13:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -444,7 +444,7 @@ File: includes/condit_gph.png Graphic file (type png)
 Package pdftex.def Info: includes/condit_gph.png  used on input line 465.
 (pdftex.def)             Requested size: 325.2142pt x 216.80946pt.
  [13 <./includes/condit_gph.png>] [14] [15] [16] [17] [18]
-[19] [20] [21] [22] [23] (CountDominance.bbl [24]) [25] (CountDominance.aux) )
+[19] [20] [21] [22] (CountDominance.bbl [23] [24]) [25] (CountDominance.aux) )
 (\end occurred when \ifx on line 2 was incomplete) 
 Here is how much of TeX's memory you used:
  5398 strings out of 476334
@@ -473,7 +473,7 @@ onts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/hel
 vetic/uhvr8a.pfb><C:/Program Files/MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
 <C:/Program Files/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiK
 TeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on CountDominance.pdf (25 pages, 397949 bytes).
+Output written on CountDominance.pdf (25 pages, 397643 bytes).
 PDF statistics:
  190 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
