@@ -15,10 +15,10 @@
 \affiliation{\affilnum{1}Fors Marsh}
 
 \begin{abstract}
-	Determining independent variable relative importance is a highly useful practice in organizational science.  Whereas techniques to determine independent variable importance are available for normally distributed and binary dependent variable models, such techniques have not been extended to count dependent variables (CDVs).  The current work extends previous research on binary and multi-category dependent variable relative importance analysis to provide a methodology for conducting relative importance analysis on CDV models using dominance analysis (DA).  Moreover, the current work provides a set of comprehensive data analytic examples that demonstrate how and when to use CDV models in a DA and the advantages general DA statistics offer in interpreting CDV model results.  Moreover, the current work outlines best practices for determining independent variable relative importance for CDVs using replaceable examples on data from the publicly available National Longitudinal Survey of Youth 1979 cohort.  The present work then contributes to the literature by using in-depth data analytic examples to outline best practices in conducting relative importance analysis for CDV models and by highlighting unique information DA results provide about CDV models.
+	Count variables are common in organizational science as an outcome. Count regression models (CRMs), such as Poisson regression, are recommended as methods to analyze count variables but can be challenging to interpret given their non-linear functional form. I recommend relative importance analysis as a method to use in intepreting CRM results. This work extends on past research by describing an approach to determining the importance of independent variables in CRMs using dominance analysis (DA). In this manuscript, I review DA as a relative importance method, recommend an $R^2$ to use with CRM-based DA, and outline the results of an analysis with simlulated data that uses the recommended methodology. I also discuss the effect of differential exposure to the count generating process across observations on count outcomes, how to correct for differential exposure, and the effect of differential exposure on relative importance determination. This work contributes to the literature by extending DA to CRMs, discussing the impact of differential exposure on CRM models and relative importance, and for providing a thoroughly documented data analysis that can be used by researchers interested in implementing the methodology.
 \end{abstract}
 
-\keywords{Dominance Analysis, Relative Importance, Poisson Regression, Negative Binomial Regression, R-square}
+\keywords{Dominance Analysis, Relative Importance, Poisson Regression, Exposure, R-square, Negative Binomial Regression, Count Data, Offset}
 
 \maketitle
 
@@ -37,14 +37,15 @@
 	
 	CRMs are generalized linear models that mathematically transform the predictive equation to ensure that predicted values stay in the range of the DV.
 	CRMs use an exponential or log-linear transformation that has the form $y = e^{\beta}$. 
-	Thus the predictive equation represented by $\beta$ requiores back-transformation using a natural logarithm in order to obtain a predicted count value.
+	Thus the predictive equation represented by $\beta$ requires back-transformation using a natural logarithm in order to obtain a predicted count value.
 	This log-linear transformation ensures that predicted values from $\beta$ can take on any number in the real number line yet, when back-transformed into predicted counts, will have a lower bound of 0.
 	
 	The log-linear predictive equations and coefficients CRMs estimate are challenging to interpret directly.
 	Log-linear CRM coefficients are challenging to interpret because they describe how the natural logarithm of the DV changes given a 1 unit change to an independent variable/IV. 
 	When back-translated through an exponential function, CRM coefficients are known as incidence rate ratios and describe the percentage change in the DV per unit change to the IV.
 	Importantly, the percentage change described by CRM coefficients makes the count values produced by those changes relative to where they began.
-	For example, a CRM coefficient does not differentiate between a change from 1 predicted behavior to 2 and 5 predicted behaviors to 10 despite the noteworthy difference in the absolute number of behaviors in both examples as each describe a 100\% increase in the count DV value.
+	For example, a CRM coefficient does not differentiate between a change from 1 predicted behavior to 2 and 5 predicted behaviors to 10. 
+	Despite the noteworthy difference in the absolute number of behaviors in both examples, each describe a 100\% increase in the count DV value.
 		
 	Model post-estimation methods such as graphing estimated marginal means are useful interpretive tools for log-linear CRMs to better contextualize the logarithmic predicted values they produce.
 	Another increasingly common model post-estimation tool used to contextualize model predictions are relative importance analysis methods \cite{tonidandel2011relative}. 
@@ -52,30 +53,31 @@
 	
 	To date, published methodological work has extended DA from the linear regression model/LRM on which it was originally developed, to generalized linear models including binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative}.	
 	This work extends DA to CRMs and makes three contributions to the literature.
-	This work first reviews DA as a relative importance methodology and  recommends using a specific pseudo-$R^2$ statistic for CRM-based DA and implements multiple data analytic examples of DA with that statistic.
-	Despite the applicability of DA to any model fit statistic that could be computed for a CRM, pseudo-$R^2$ values are valuable for DA due to their interpretability. 
-	The recommended pseudo-$R^2$ statistic is a direct generalization of the explained variance $R^2$ in the LRM to generalized linear models based on model deviance.
+	This work first reviews DA as a relative importance methodology, recommends using a specific pseudo-$R^2$ statistic for CRM-based DA, and implements multiple data analytic examples of DA with that statistic.
+	The pseudo-$R^2$ chosen for CRM-based DA is a direct generalization of the explained variance $R^2$ in the LRM to generalized linear models based on model deviance.
 	The data analytic examples then use this deviance-based pseudo-$R^2$ as the fit statistic in a series of DA computations with simulated Poisson and negative Binomial distributed data.
 	
 	Second, this work discusses data generation mechanisms with count DVs and outlines how research questions with count DVs can, under certain circumstances, be affected by a concept known as differential exposure.
 	Differential exposure is a concept whereby two observations have different numbers of opportunities to produce behavior counts.
-	Oftentimes, such differential exposure is a nuisance factor related to data collection context and not of substantive interest and is correctable in the model using an offset term with a variable measuring differential exposure.
+	Oftentimes such differential exposure is a nuisance factor related to data collection context, not of substantive interest, and is correctable in the model using an offset term with a variable measuring differential exposure.
 	As I will show in this work, differential exposure is of particular import for DA statistic computation as it can affect estimates of DA statistics even when model coefficients are relatively unaffected.
 	
 	Finally, this work extends on that of Blevins, Tsang, and Spain \citeyear{blevins2015count}'s review and recommendations for the use of CRMs in organizational science. 
 	Blevins et al. discuss the extent of CRM use in the organizational science literature, describe model and analytic details about the PR and NBR models, and provide a flowchart that researchers can use to identify which CRM might be best to choose for their data analysis.
-	In this work, I extend on their review to add an in-depth discussion of the DA methodology and its role as a post-estimation methodology.
-	DA extends on the interpretation of coefficients to describe how the coefficients, when applied to the observed data, produce improvements to predicting the count DV.
-	In addition, the discussion of differential exposure extends on Blevins et al.'s conceptual review to cover more of the considerations important for CRM-based data analysis.
+	In this work, I extend on their review to add an in-depth discussion of DA and its role as a post-estimation methodology.
+	DA extends on the interpretation of coefficients to describe how the coefficients, when applied to the observed data, improve model-to-fit in predicting the count DV.
+	In addition, the discussion of differential exposure extends on Blevins et al.'s conceptual review to cover an additional consideration important for CRM-based data analysis.
 	
-	In this work, I begin with a detailed discussion of the conceptual background of DA--the relative importance analysis method most applicable to CRMs.	
+	I begin the manuscript with a detailed discussion of the conceptual background of DA--the relative importance analysis method most applicable to CRMs.	
  	Here I discuss the different levels of dominance between two IVs as defined by DA, how these levels are determined in the data, and what this level of dominance means in terms of the importance of any IV in the model.
 	The conceptual discussion of DA is followed by a more focused discussion where I apply DA to CRMs.
 	The goal of the focused CRM-based DA discussion is to recommend a model fit statistic for use in dominance designations.
 	In the third section, I apply the topics discussed in the previous two sections in a detailed PR-based DA using simulated data designed be useful in illustrating key CRM-based DA concepts.
-	In a fourth and final section, I turn to discussing the concept of differential exposure in count DVs, show how it can affect inferences from CRM analysis, and provide the method used to correct for it in analysis.
-	My goal in discussing differential exposure is to outline the effect of this data generation mechanism on DA statistics and designations.
-	I compute and compare CRM-based DA statistics with and without corrections based, again, on simulated data in this section to illustrate the impact of ignoring this issue during analysis.
+	In a fourth and final section, I turn to discussing the concept of differential exposure in count DVs, show how it can affect results from CRM analysis, and provide the method used to correct for it in analysis.
+	My goal in discussing differential exposure is to outline the effect of this concept on DA statistics and designations.
+	To this end, I compute and compare CRM-based DA statistics with and without corrections to illustrate the impact of ignoring this issue during analysis.
+	
+	% ended here
 		
 \section{Dominance Analysis: A Unique Relative Importance Analysis Method}
 
