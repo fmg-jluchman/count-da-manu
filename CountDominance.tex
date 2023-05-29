@@ -82,23 +82,26 @@
 \section{Dominance Analysis: A Unique Relative Importance Analysis Method}
 
 	Research methodologists and statisticians have used many methods over the years to determine how important an IV is in a LRM \cite(see reviews in){gromping2007estimators, johnson2004history}.
-	Importance methods have included the correlation between the IV and DV, an IV's standardized regression coefficient, as well as the increment to the $R^2$ makes, an IV makes when predicting the DV.
-	These methods, however informative in specific circumstances, are not considered to be useful as importance metirics as they fail to simultaneously account for the IV's bivariate and multivariate (i.e., controlling for other IV) relationships with the DV \cite{johnson2004history}.
-	Accommodating both bi- and multivariate relationships is important in determining importance as, for most statistical models, the order in which IVs are included is arbitrary yet the order of inclusion of IVs fundamentally affects the inferences made about IV importance.
-	Hence, it is essential to use importance methods that are independent of inclusion order.
+	Importance methods have included the correlation between the IV and DV, an IV's standardized regression coefficient, as well as the increment to the $R^2$ an IV makes when predicting the DV.
+	These methods, however informative in specific circumstances, are not considered to be useful as importance metirics as they fail to simultaneously account for the IV's bivariate and multivariate (i.e., controlling for other IVs) relationships with the DV \cite{johnson2004history}.
+	Accommodating both bi- and multivariate relationships is important in determining importance as, for most statistical models, the order in which IVs are included in the model is arbitrary yet IV inclusion order fundamentally affects the conclusions drawn.
+	Hence, it is essential to use importance methods that produce results that are independent of inclusion order.
 	
-	One importance method that is independent of ordering and has been favorably received in the methodology community, is DA.
-	DA was originally developed as a method for determining IV importance for the LRM by Budescu \citeyear{budescu1993dominance} that extended on past methods by defining importance in terms of pairwise IV comparisons as inferred from the direct comparison of sub-model $R^2$ values.
-	Sub-model $R^2$ are those computed by re-fitting the model to the data with some subset of all the IVs.
-	In a model with $p$ IVs there are a total of $2^p$ sub-models including the full model with all $p$ IVs and the null model with none of the IVs (i.e., an intercept-only model)--which always produces a value of 0 and is often omitted.
-	DA achieves order independence by comparing the two focal IVs' $R^2$ values across sub-models that contain all combinations of the non-focal IVs including the null set of no other non-focal IVs.	
-	In this way, the dominance comparisons produced by DA do not depend on the order of IV inclusion and, indeed, require that an IV obtain a higher value than another IV irrespective of inclusion of other non-focal IVs.
+	One importance method that is independent of ordering and has enjoyed favorable reviews in the methodology community is DA.
+	DA was originally developed as a method for determining IV importance for the LRM by Budescu \citeyear{budescu1993dominance}.
+	DA extended on past importance methods by defining importance in terms of pairwise IV comparisons across multiple sub-model $R^2$ values.
+	Sub-model $R^2$ values are those computed by re-fitting the model to the data with some subset of all the IVs.
+	In a model with $p$ IVs there are a total of $2^p$ sub-models including the full model with all $p$ IVs and the null model with none of the IVs (i.e., an intercept-only model which always produces an $R^2$ value of 0 and is often omitted).
+	DA achieves order independence by comparing the pair of focal IVs' $R^2$ values across all possible sets of equivalent non-focal IV sub-models. 
+	A non-focal IV sub-model is a sub-model that contains a distinct subset of the $p - 2$ non-focal IVs (which can be the null set, $\emptyset$, of no other non-focal IVs).	
+	In this way, the dominance comparisons produced by DA do not depend on the order of IV inclusion and require that one focal IV obtain higher $R^2$ values than the other focal IV irrespective of which non-focal IVs are included, or not, in the sub-model.
 	
 	As an example of how the dominance comparison is implemented, consider a model with 4 IVs: $IV_x$, $IV_z$, $IV_w$ and $IV_v$ predicting $Y$.
-	If the dominance comparison was focusing on $IV_x$ versus $IV_z$, there would be a total of 3 possible $R^2$ comparisons each of which is outlined below in Table \ref{tab:exdom}.
-	In each comparison, the subscripted model indicates the form of the LRM equation in symbolic form (i.e., similar to an R formula interface).
-	$IV_x$ dominates $IV_z$ only when all the sub-model $R^2$ values that include $IV_x$ are greater than the sub-model $R^2$ values that include $IV_z$ across all three of these sub-models.
-	The dominance comparison described in this section has, more recently, been named complete dominance and has been recognized as the most stringent, or hardest to achieve, dominance designation in a series of three possible designations \cite{azen2003dominance}.	
+	If the comparison pair for the dominance analysis was focusing on $IV_x$ versus $IV_z$, there would be a total of four possible $R^2$ comparisons, each of which is reported below in Table \ref{tab:exdom}.
+	In each comparison, the subscripted model indicates the LRM prediction equation in symbolic form.
+	The terms in braces represent the non-focal IV subset for the comparison.
+	$IV_x$ dominates $IV_z$ only when all the sub-model $R^2$ values that include $IV_x$ are greater than the sub-model $R^2$ values that include $IV_z$.
+	The dominance comparisons described in this section have, more recently, been named complete dominance and have been recognized as the most stringent, or hardest to achieve, dominance designation that an IV can obtain over another IV in a series of three possible dominance designations between IV pairs \cite{azen2003dominance}.	
 
 		\begin{table}[h!]
 			\centering
@@ -107,10 +110,10 @@
 				
 				& Sub-model with $IV_x$ & Sub-model with $IV_z$ \\
 				\hline
-				Across null set/no other IVs & $R^2_{Y \sim IV_x}$ & $R^2_{Y \sim IV_z}$ \\
-				Comparing across $IV_w$ & $R^2_{Y \sim IV_x + IV_w}$ & $R^2_{Y \sim IV_z + IV_w}$ \\
-				Comparing across $IV_v$ & $R^2_{Y \sim IV_x + IV_v}$ & $R^2_{Y \sim IV_z + IV_v}$ \\
-				Comparing across both $IV_w$ and $IV_v$ & $R^2_{Y \sim IV_x + IV_w + IV_v}$ & $R^2_{Y \sim IV_z + IV_w + IV_v}$ \\
+				Across null set/no other IVs & $R^2_{Y \sim IV_x + \{\emptyset\}}$ & $R^2_{Y \sim IV_z+ \{\emptyset\} }$ \\
+				Comparing across $IV_w$ & $R^2_{Y \sim IV_x + \{IV_w\}}$ & $R^2_{Y \sim IV_z + \{IV_w\}}$ \\
+				Comparing across $IV_v$ & $R^2_{Y \sim IV_x + \{IV_v\}}$ & $R^2_{Y \sim IV_z + \{IV_w\}}$ \\
+				Comparing across both $IV_w$ and $IV_v$ & $R^2_{Y \sim IV_x + \{IV_w + IV_v\}}$ & $R^2_{Y \sim IV_z + \{IV_w + IV_v\}}$ \\
 				\hline
 		\end{tabular}
 		\label{tab:exdom}
@@ -119,42 +122,37 @@
 	\subsection{Complete Dominance}
 	
 	Complete dominance is the most stringent of the dominance designations as it is a difficult designation for an IV to achieve over another.
-	Complete dominance is difficult to achieve as it involves direct comparisons between IVs at the level of individual sub-models' $R^2$ values.
-	The reason this designation is so difficult to achieve is that it is non-compensatory; all sub-model $R^2$ value comparisons must favor one IV over another or the designation will fail to be achieved.
+	Complete dominance is difficult to achieve as it involves direct comparisons between IV pairs across multiple sub-model $R^2$ values and is non-compensatory; all sub-model $R^2$ value comparisons must show that one IV has a larger value than the other IV or the designation will fail to be achieved.
 	
-	The process for determining complete dominance between two IVs, $IV_x$ and $IV_z$ with an arbitrary number of IVs in the model ($p$) can also be defined as:
+	The process for determining complete dominance between a pair of IVs, for example $IV_x$ and $IV_z$, with an arbitrary number of non-focal IVs in the model ($p - 2$) is defined as:
 	
 	\begin{equation}
-		IV_x \, D \, IV_z \quad if \quad k = \sum^k_{j=1} \Biggr\{ \begin{matrix} if \ R^2_{Y \sim IV_x + \{u_j\}} > R^2_{Y \sim IV_z + \{u_j\}} \ then \ 1 \\ else \ 0 \end{matrix}
+		IV_x \, D \, IV_z \quad if \quad 2^{p-2} = \sum^{2^{p-2}}_{j=1} \Biggr\{ \begin{matrix} if \ R^2_{Y \sim IV_x + \{u_j\}} > R^2_{Y \sim IV_z + \{u_j\}} \ then \ 1 \\ else \ 0 \end{matrix}
 		\label{eq:cptdom}
 	\end{equation}
 	
-	Where the total number of combinations of IVs not including $IV_x$ or $IV_z$ is $k = 2^{p - 2}$ and $u_j$ is a distinct subset of the other $p - 2$ IVs.
-	The braces surrounding $u_j$ indicate that it is a subset of IVs such as those in Table \ref{tab:exdom}.
-	The $D$ in this case is a designation indicating complete dominance of the left hand IV over the right hand IV.
+	Where $u_j$ is a distinct subset of the other $p - 2$ IVs.
+	As in Table \ref{tab:exdom}, the braces surrounding $u_j$ indicate that it is a subset of non-focal IVs.
+	The $D$ in this case is a designation indicating complete dominance of $IV_x$ over $IV_z$.
+	Ultimately, if $IV_x$ completely dominates $IV_z$ as is outlined in Equation \ref{eq:cptdom}, $IV_x$ is clearly and unconditionally better than $IV_z$ in terms of explaining variance in $Y$ given the LRM from which all sub-models were derived.	
 	
-	Ultimately, if $IV_x$ completely dominates $IV_z$ as is outlined in Equation \ref{eq:cptdom}, $IV_x$ has bested $IV_z$ 
-	in all possible directly comparable ways in the model.
-	As such, when $IV_x$ completely dominates $IV_z$, it clearly explains more of $Y$, and is thus more important for explaining differences observed in $Y$, in the model
-	
-	Because complete dominance is a difficult criterion to achieve in comparing two IVs, alternative, less-stringent and more compensatory, dominance designations have been proposed to provide more ways to compare the predictive usefulness of IVs against one another.
-	The criteria used in the sections to come involve averaging the $R^2$ values associated with the IVs in the comparison and comparing those resultant averages.
+	Because complete dominance is a difficult criterion to achieve in comparing IV pairs, alternative and more compensatory, dominance designations have been proposed to provide more ways to compare the predictive usefulness of IVs against one another.
+	The criteria used in the alternative dominance designations are discussed in the sections below and involve averaging the $R^2$ increment values associated with each IV and determining importance by comparing those average values.
 	
 	\subsection{Conditional Dominance}
 	
 	A less stringent dominance designation between IV pairs than complete dominance is called conditional dominance.
-	Conditional dominance relaxes the stringency of the comparisons across pairs of IVs by changing the focus from comparing $R^2$ values of individual sub-models to averages of $R^2$ increments across sub-models.
-	By comparing averages of $R^2$ increments, as opposed to individual sub-model $R^2$ values, conditional dominance allows for some sub-models with higher values of $R^2$ increments to compensate for sub-models with lower values of $R^2$ increments in the averaging.
-	Thus, it is more likely that an IV will be determined to be conditionally dominant over another given a set of sub-model $R^2$ values.
+	Conditional dominance relaxes the stringency of the comparisons across pairs of IVs by changing the focus from comparing $R^2$ values of individual sub-models across all equivalent non-focal IV subsets to averages of increments to the $R^2$ made by the focal IV across specific sub-models.	
+	By comparing averages of $R^2$ increments, as opposed to individual sub-model $R^2$ values, conditional dominance allows some sub-models with higher $R^2$ increment values to compensate for sub-models with lower $R^2$ increment values.
+	Conditional dominance comparisons are then more likely to result a focal IV dominating another.
 	
-	The specific comparisons made to determine conditional dominance of one IV over another focus on the average increment an IV makes to the $R^2$ with a specific number of IVs in the sub-model.
-	The averages are aggregated by the number of IVs in the sub-model as it is necessarily the case that, as more IVs are added to a model, the incremental contribution any one IV can make to the $R^2$ shrinks.
-	Hence, conditional dominance designations acknowledge that increments to the $R^2$ are best compared in the context of the number of IVs in the model.	
+	The averages computed for conditional dominance group the sub-models by the number of included IVs.
+	Conditional dominance averages are grouped by the number of IVs in the sub-model as, in general, including more IVs in a sub-model reduces the incremental contribution any one IV can make to the $R^2$.
+	Hence, conditional dominance averages avoid dependence on inclusion order by computing average increment values for all possible inclusion orderings of each IV.
 	
-	The average increments to the $R^2$ computed for determining conditional dominance are known as conditional dominance statistics.
-	Each IV has a conditional dominance statistic for each number of IVs in the sub-model. 
-	Thus, with $p$ IVs, each IV will have $p$ conditional dominance statistics to compare to another IV.
-	Extending on Table \ref{tab:exdom}, determining conditional dominance between $IV_x$ and $IV_z$ would involve all four different conditional dominance statistics the computation of which are outlined below in Table \ref{tab:excdl}.
+	The average increments to the $R^2$ used in determining conditional dominance are known as conditional dominance statistics.
+	Because each IV has a conditional dominance statistic for each number of IVs in the sub-model, with $p$ IVs, each IV will have $p$ conditional dominance statistics to compare to another IV.
+	Extending on Table \ref{tab:exdom}, determining conditional dominance between $IV_x$ and $IV_z$ would involve all four different conditional dominance statistics, the computation of which are outlined below in Table \ref{tab:excdl}.
 	
 	\begin{table}[h!]
 		\centering
@@ -170,54 +168,52 @@
 			\hline
 			& $(\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v\}} + $ & $(\Delta R^2_{Y \sim IV_z + \{IV_w + IV_v\}} + $ \\
 			Three IVs & $\Delta R^2_{Y \sim IV_x + \{IV_w + IV_z\}} + $ & $\Delta R^2_{Y \sim IV_z + \{IV_w + IV_x\}} + $ \\
-			& $\Delta R^2_{Y \sim IV_x - \{IV_v + IV_z\}})\frac{1}{3}$ & $\Delta R^2_{Y \sim IV_v + \{IV_w + IV_x\}})\frac{1}{3}$ \\
+			& $\Delta R^2_{Y \sim IV_x - \{IV_v + IV_z\}})\frac{1}{3}$ & $\Delta R^2_{Y \sim IV_z + \{IV_v + IV_x\}})\frac{1}{3}$ \\
 			\hline
-			Four IVs & $\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v + IV_z\}}$ & $\Delta R^2_{Y \sim IV_v + \{IV_w + IV_w + IV_x\}}$ \\
+			Four IVs & $\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v + IV_z\}}$ & $\Delta R^2_{Y \sim IV_z + \{IV_w + IV_v + IV_x\}}$ \\
 			\hline
 		\end{tabular}
 		\label{tab:excdl}
 	\end{table}
 	
-	The $\Delta$ indicates that the values in Table \ref{tab:excdl} reflect that the $R^2$ value is an increment made by the first IV beyond the subset of IVs in braces.
-	For the first set of conditional dominance statistics, at one IV, the $\emptyset$ indicates the null set with no IVs--thus, is the $R^2$ with the IV by itself in a subset.
-	Note that the conditional dominance statistics are not only averaged but also include all IVs in their computation.
-	Hence, conditional dominance comparisons between two IVs' conditional dominance statistics will include increments from the IV against which they are being compared in their each average.
-	This is a noteworthy difference from complete dominance designations that ignore sub-model $R^2$ values that include the IV against which the focal IV is being compared.
+	The $\Delta$ used in Table \ref{tab:excdl} indicates that the $R^2$ value is an increment made by the focal IV beyond the subset of non-focal IVs in braces.
+	Note that the conditional dominance statistics use $R^2$ increments from subsets that include all other non-focal IVs.
+	Hence, conditional dominance comparisons between two IVs will include increments from the IV against which they are being compared in their each average.
+	This is a noteworthy difference from complete dominance designations that do not use sub-model $R^2$ values that include the IV against which the focal IV is being compared.
 	
-	The process of computing conditional dominance statistics for $IV_x$ for a number of IVs in the model $i$ can be formalized as in Equation \ref{eq:cdlst} below.
+	The process of computing conditional dominance statistics for $IV_x$ at $i$ IVs in the submodel can be formalized as in Equation \ref{eq:cdlst} below.
 	
 	\begin{equation}
-		C^{i}_{IV_x} = \frac{\sum^{l_i}_{g=1} \Delta R^2_{IV_x + \{o_g\}}}{l_g}
+		C^{i}_{IV_x} = \frac{\sum^{k_i}_{g=1} \Delta R^2_{IV_x + \{o_g\}}}{k_g}
 		\label{eq:cdlst}
 	\end{equation}
 	
-	Where $l_i$ is the number of combinations of size $i$ given $p$ IVs and $o_g$ is a distict subset of the $p$ IVs of size $i - 1$, not inluding $IV_x$, that are included in the sub-model.
-	
-	The process for determining conditional dominance between two IVs, $IV_x$ and $IV_z$, can also be defined as in Equation \ref{eq:cdldom}.
+	Where $k_i$ is the number of combinations of size $i$ given $p$ IVs and $o_g$ is a distict subset of the $p-1$ IVs of size $i - 1$ that are included in the sub-model.	
+	The process for determining conditional dominance between two IVs, $IV_x$ and $IV_z$, is defined in Equation \ref{eq:cdldom}.
 	
 	\begin{equation}
 		IV_x \ D_c \ IV_z \quad if \quad p = \sum^p_{i=1} \Biggl\{ \begin{matrix} if \ C^{i}_{IV_x} > C^{i}_{IV_z} \ then \ 1 \\ else \ 0 \end{matrix}
 		\label{eq:cdldom}
 	\end{equation}
 	
-	The $D_c$ in this case is a designation indicating conditional dominance of the left hand IV over the right hand IV.
+	The $D_c$ is a designation indicating conditional dominance of the $IV_x$ over $IV_z$.	
+	When $IV_x$ does not completely but does conditionally dominate $IV_z$, $IV_x$ is generally better than $IV_z$ for explaining variance in $Y$ given the underlying LRM irrespective of inclusion order in the model.
+	Conditional dominance thus suggests that $IV_x$'s explanatory value is not generally sensitive to the order in which it enters the model compared to $IV_z$ and that it is more important conditional on the number of IVs in the sub-model.
 	
-	When complete dominance is not achieved between two $IV_x$ and $IV_z$, but conditional dominance is, $IV_x$ tends to explain more of $Y$ than does $IV_z$ irrespective of inclusion order.
-	Thus, when achieved, conditional dominance suggests that $IV_x$'s effects are not generally sensitive to the order in which it enters the model compared to $IV_z$ and that it is more important conditional on the number of IVs in the sub-model.
-	
-	Conditional dominance between two IVs is much less stringent than complete dominance but can still be a difficult designation to meet for IV pairs in models with a great deal of between-IV overlap.
-	The final dominance designation involves yet another averaging step to allow reduce the stringency of the comparison and allow for compensation of values over inclusion orders.
+	Conditional dominance between an IV pair is much less stringent than complete dominance but can still be a difficult designation to meet in models with a great deal of between-IV overlap.
+	As a result, a third dominance designation was developed that involves yet another averaging step and is described in the next section.
 	
 	\subsection{General Dominance}
 	
 	The least stringent dominance designation between IV pairs is called general dominance.
 	General dominance further relaxes the stringency of the comparisons between IV pairs by changing the focus from comparing average increments grouped by the number of IVs in a sub-model to the arithmetic average of these averages.
+	General dominance is then the average of the conditional dominance statistics for each IV.
 	By averaging over conditional dominance statistics, general dominance allows higher contributions at specific numbers of IVs in the sub-model to compensate for lower contributions at other numbers of IVs in the sub-model. 
-	The values generated by general dominance almost guarantee that IVs will produce a dominance designation and permits an explicit rank ordering of IV predictive usefulness of each IV in the model.
+	The values generated by general dominance will, in almost all cases, produce a dominance designation between the pair of IVs.
 	
-	The averaged conditional dominance statistics computed for determining general dominance are known as general dominance statistics. The single general dominance statistic computed for each IV
-	Extending on Table \ref{tab:excdl}, determining general dominance between $IV_x$ and $IV_z$ would involve both general dominance statistics.
-	Both general dominance statistics are included below in Table \ref{tab:exgen} in their full computational form.
+	The averaged conditional dominance statistics computed for determining general dominance are known as general dominance statistics. 
+	Table \ref{tab:exgen} shows the general dominance statistic computation for $IV_x$ and $IV_z$.
+	This computation incorporates all the values in Table \ref{tab:excdl} but summed into a single statistic.
 	
 		\begin{table}[h!]
 		\centering
@@ -231,39 +227,36 @@
 			$\Delta R^2_{Y \sim IV_x + \{IV_z\}})\frac{1}{12} + $ & $\Delta R^2_{Y \sim IV_z + \{IV_x\}})\frac{1}{12} + $ \\
 			$(\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v\}} + $ & $(\Delta R^2_{Y \sim IV_z + \{IV_w + IV_v\}} + $ \\
 			$\Delta R^2_{Y \sim IV_x + \{IV_w + IV_z\}} + $ & $\Delta R^2_{Y \sim IV_z + \{IV_w + IV_x\}} + $ \\
-			$\Delta R^2_{Y \sim IV_x - \{IV_v + IV_z\}})\frac{1}{12} + $ & $\Delta R^2_{Y \sim IV_v + \{IV_w + IV_x\}})\frac{1}{12} +$ \\
-			$\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v + IV_z\}}\frac{1}{4}$ & $\Delta R^2_{Y \sim IV_v + \{IV_w + IV_w + IV_x\}}\frac{1}{4}$ \\
+			$\Delta R^2_{Y \sim IV_x - \{IV_v + IV_z\}})\frac{1}{12} + $ & $\Delta R^2_{Y \sim IV_z + \{IV_v + IV_x\}})\frac{1}{12} +$ \\
+			$\Delta R^2_{Y \sim IV_x + \{IV_w + IV_v + IV_z\}}\frac{1}{4}$ & $\Delta R^2_{Y \sim IV_z + \{IV_w + IV_v + IV_x\}}\frac{1}{4}$ \\
 			\hline
 		\end{tabular}
 		\label{tab:exgen}
 	\end{table}
 
-	As is implied by the computations in Table \ref{tab:exgen}, each general dominance statistics are a weighted average of the individual increments to the $R^2$s.
-	
-	The process of computing the general dominance statistic for $IV_x$ is formalized below in Equation \ref{eq:genst}.
+	As is implied by the computations in Table \ref{tab:exgen}, general dominance statistics are a weighted average of the individual increments to the $R^2$s and is defined for $IV_x$ in Equation \ref{eq:genst}.
 	
 	\begin{equation}
 		C_{IV_x} = \frac{\sum^{p}_{i=1} C^i_{IV_x}}{p}
 		\label{eq:genst}
 	\end{equation}
 	
-	Using the general dominance statistics computed in Equation \ref{eq:genst}, the process of determining general dominance of $IV_x$ over $IV_z$ can also be defined as in Equation \ref{eq:gendom}.
+	Using the general dominance statistics computed in Equation \ref{eq:genst}, determining whether $IV_x$ generally dominates $IV_z$ is defined in Equation \ref{eq:gendom}.
 	
 	\begin{equation}
 		IV_x \ D_g \ IV_z \quad if \quad C_{IV_x} > C_{IV_z}
 		\label{eq:gendom}
 	\end{equation}
 	
-	The $D_c$ in this case is a designation indicating conditional dominance of the left hand IV over the right hand IV.
+	The $D_g$ is a designation indicating general dominance of $IV_x$ over $IV_z$.	
+	When $IV_x$ does not completely or conditionally but does generally dominate $IV_z$, $IV_x$ is generally better than $IV_z$ for explaining variance in $Y$ given the underlying LRM but is sensitive to inclusion order in the model.
+	General dominance thus suggests that $IV_x$'s predictive usefulness is, on average, better than $IV_z$ and that it is more important when discounting the effects of IV inclusion order.
 	
-	When complete and conditional dominance is not achieved between two $IV_x$ and $IV_z$, but general dominance is, $IV_x$ tends to explain more of $Y$ than does $IV_z$ but is sensitive to inclusion order.
-	Hence, when achieved, general dominance suggests that $IV_x$'s predictive usefulness is on average, better than $IV_z$ and that it is more important when ignoring the effect of inclusion order.
-	
-	It is important to note that the  general dominance statistic values, when summed across the $p$ IVs, equals the sub-model $R^2$ when all $p$ predictors are included.
-	This is a useful feature of these statistics that, as has been discussed in other reviews \cite{gromping2007estimators,johnson2004history}, ties this method to earlier work that has focused on the decomposition of the $R^2$ statistic.
+	Note that the  general dominance statistic values, when summed across the $p$ IVs, equals the sub-model $R^2$ when all $p$ predictors are included.
+	This is a useful feature of these statistics that, as has been discussed in other reviews \cite{gromping2007estimators,johnson2004history}, ties this method to earlier work on IV importance focusing on the decomposition of the $R^2$ statistic.
 
-	In the sections above, I have provided a discussion of DA's development and reviewed how DA statistics are computed and DA designations are determined.
-	In the section below, I transition from a broad outline of DA to a more targeted discussion of the application of DA to CRMs.
+	In the sections above, I have provided a brief discussion of DA's development and reviewed how DA statistics are computed and designations are determined.
+	In the section below, I transition from a broad outline of DA to a more targeted discussion on application of DA to CRMs.
 	The focus of the section discussion of CRM-based DA focuses on considering which fit metric should be used when applying DA to CRMs.
 	
 \section{Applying Dominance Analysis to Count Regression Models}
@@ -304,36 +297,36 @@
 	Where $DEV_{null}$ is a deviance for an intercept- or mean-only model.
 	
 	As Cameron and Windmeijer note, the explained variance $R^2$ used in LRM is, in fact, a $R^2_{DEV}$ for the LRM as it can be cast as $1 - \frac{SS_{residual}}{SS_{total}}$ where $SS_{total} = \sum (Y - \bar{Y})^2$ which is equivalent to $DEV_{null}$ for the LRM.
-	Consequently, applying the explained variance $R^2$ to a CRM applies a fit metric meant for LRM's fitting criterion to CRMs.
-	Because the $R^{2}_{DEV}$ using each CRM's unique deviance computation necessarily fit better to each CRM's fitting criterion, it is then the fit metric I recommend for CRM-based DA.
+	Consequently, a researcher applying the explained variance $R^2$ to a CRM is applying a fit metric that is meant for LRM's fitting criterion to evaluating model to data fit for a CRM.
+	Ultimately, I recommend using the $R^{2}_{DEV}$ with deviance computations for $DEV_{model}$ and $DEV_{null}$ that are based on each CRM's fitting criterion as they are a much better conceptual fit for CRM-based DA.
 	
 	In this section I have provided a rationale for the choice of a specific fit metric to use when applying DA to CRMs.
-	In the sections to follow, I transition to the description of the methodology for applying DA to CRMs.
-	This discussion briefly outlines the data generated for this purpose, describes the models estimated from the data, and also describes how DA statistics and designations were determined with the results.
+	In the sections to follow, I transition to an example application of the methodology to CRMs.
+	This discussion briefly outlines the data generated for this purpose, describes the models estimated from the data, and also describes how DA statistics and designations were determined.
 	
 	\subsection{Count Regression Model-based Dominance Analysis: An Analytic Example}
 	
-	The goal of this section is to provide a walk through of an analysis of CRM-based DA using the $R^2_{DEV}$ recommended in the previous section.
-	This walk through is intended to be useful as a guide for researchers and analysts interested in applying this method to CRMs.
-	In the section below, I begin by describing how I generated data for the walk through based on a PR model\footnote{
+	The goal of this section is to provide an example analysis using the recommended $R^2_{DEV}$ CRM-based DA methodology.
+	This  example is intended to be useful as a guide for researchers and analysts interested in applying this method to CRMs.
+	In the section below, I begin by describing how I generated data for the example based on a PR model\footnote{
 		An example using an NBR is available in the online supplement.}.
 	The methods used to generate these data are not directly relevant to the goals of this manuscript and, as such, have been put into an online supplement.
-	Please note that the online supplement outlines the literal generation and development perspective behind the generation of these data in great detail.
+	Please note that the online supplement outlines the code to generate the data and development perspective behind the generation of these data in great detail.
 	The section below is focused primarily on describing the conceptual nature of the data so that the reader can follow along prior to transitioning to analysis.
 	
 		\subsubsection{Data Generation}
 	
 	The study described below intends to evaluate the effect of four different tailoring shop characteristics on the output of each shop.
-	The data for this analysis describe a sample of 6,780 such tailoring shops over a two-week period of time.
-	One count DV output of each of these shops is the number of sport jackets (called $SJ$ below) finished by the shop.
-	Sport jackets are garments developed from a template and are of standard sizes and measurements.
+	The data for this analysis describe a sample of 6,780 tailoring shops over a two-week period of time.
+	The count DV output of each of these shops is the number of sport jackets (called $SJ$ below) finished by the shop in the two-week time period.
+	The sport jackets produced by these shops are garments developed from a template and are of standard sizes and measurements.
 	As such, the jackets are expected to show little extra variation and were expected to be Poisson distributed.
 	
 	There were four measured tailoring shop characteristics used to predict sport jacket output. 
 	The first characteristic was an expert's assessment of the shop's equipment reliability (called $ER$ in results below).
-	Equipment reliability reflects the ease of the tailoring shop's equipment use for staff and the extent to which it is likely to fail to operate when needed. 
+	Equipment reliability reflects the ease of use of the shop's equipment for the staff and the extent to which it is likely to fail to operate when needed. 
 	The second characteristic was the sufficiency of tailoring assistant staffing levels (called $AS$ in results below).
-	Understaffed tailoring shops are likely to suffer from reduced productivity given the shortage of labor.
+	Understaffed tailoring shops are likely to suffer from reduced productivity given a shortage of labor.
 	A third characteristic is the managing tailor's level of skill (called $SL$ in results below).
 	More skilled managing tailors are more likely than less skilled managers to have designed processes that facilitate jacket completion.
 	Finally, the last characteristic is the managing tailor's work experience (called $WE$ in results below).
@@ -361,15 +354,15 @@
 	\end{table}
 
 	One point of note about the 6,780 tailoring shops revealed in Table \ref{tab:desc} is that, on average, each of them produced a single jacket in the two-week period under study.
-	In addition, the variance of sport jacket production was consistent with its expected their underlying distribution.
+	In addition, the variance of sport jacket production was consistent with its expected underlying distribution.
 	Specifically, sport jacket production had a variance of 1 which closely matches the mean as is assumed of the Poisson distribution. 
 	
-	Given that the sport jacket DV fits the requirements of a Poisson distribution, in the next section I estimate a PR predicting it using the four shop characteristic IVs.
+	Given that the sport jacket production DV fits the requirements of a Poisson distribution, in the next section I estimate a PR predicting it using the four shop characteristic IVs.
 
 		\subsubsection{Regression Results}
 		
 	The PR results using the four shop characteristic IVs to predict sport jacket counts are reported in Table \ref{tab:poisreg}. 
-	Table \ref{tab:poisreg} includes coefficients ($\beta$), standard errors (SE), the the 95\% confidence interval for the unstandardized coefficients, and the exponentiated coefficient or incidence rate ratio/IRR ($e^{\beta}$).
+	Table \ref{tab:poisreg} includes coefficients ($\beta$), standard errors ($\sigma_{\beta}$), the the 95\% confidence interval, and the exponentiated coefficient or incidence rate ratio/IRR ($e^{\beta}$).
 	
 	\begin{table}[h!]
 		\centering
@@ -378,7 +371,7 @@
 			\toprule
 			\multicolumn{1}{l}{} &  &  & \multicolumn{2}{c}{95\% Confidence Interval} &   \\ 
 			\cmidrule(lr){4-5}
-			\multicolumn{1}{l}{} & $\beta$ & SE & Low & High & $e^{\beta}$ \\ 
+			\multicolumn{1}{l}{} & $\beta$ & $\sigma_{\beta}$ & Low & High & $e^{\beta}$ \\ 
 			\midrule
 			$ER$ & $0.2431$ & $0.0114$ & $0.2208$ & $0.2655$ & $1.2753$ \\  
 			$AS$ & $0.1081$ & $0.0095$ & $0.0896$ & $0.1267$ & $1.1142$ \\ 
@@ -390,7 +383,7 @@
 		\label{tab:poisreg}
 	\end{table}
 
-	Table \ref{tab:poisreg} shows that each of the IVs has a positive effect on the number of sport jackets and appear to be statistically significant (at the $p < .05$ level) as is implied by the confidence intervals.
+	Table \ref{tab:poisreg} shows that each of the IVs has a positive effect on the number of sport jackets produced and appear to be statistically significant (at the $p < .05$ level) as is implied by the confidence intervals.
 	
 	In terms of effect size magnitude, equipment reliability had the largest effect on sport jacket counts. 
 	The IRR value shows that each one point increase in equipment reliability led to a 27.5\% increase in the number of sport jackets finished.
@@ -398,13 +391,13 @@
 	Assistant staffing and skill level obtained the smallest effect sizes as reflected by their IRRs.
 	Assistant staffing resulted in a 11.4\% increase and work experence a 10.5\% increase in the number of sport jackets produced in two weeks. 
 	
-	The IRR value for the model intercept reports on the average number of sport jackets when all IVs are 0; here at their means. 
+	The IRR value for the model intercept reports on the average number of sport jackets when all IVs are 0; for these results, the number of jackets produced with all four IVs at its mean value. 
 	The .8601 value obtained is similar to the overall mean of near 1 reported in Table \ref{tab:desc}.
-	This .8601 value is also used as a baseline prediction for the PR.
+	This .8601 value can also used as a baseline prediction for the PR.
 	For instance, the expected number of sport jackets with equipment reliability at 1 and all other IVs at 0 is $.8601*1.2753 = 1.0969$ or just above 1 jacket.
-	Contextualizing model predictions by reporting out specific predicted values is useful for non-linear models such as PR as they more clearly depict the multiplicative effects produced inherently by CRMs.
+	Contextualizing model predictions by reporting out specific predicted values is useful for non-linear models such as PR as they more clearly depict the multiplicative effects produced by CRMs.
 	Hence, reporting on and visualizing predicted marginal means adds value to the model interpretation process \cite(see)[for a similar perspective]{ronkko2022eight}.
-	Although I do not report marginal means plots in the body of this manuscript for brevity, such plots are reported in the online supplement.
+	Although I do not report marginal means plots in the body of this manuscript for brevity, such plots are reported in the online supplement for interested readers.
 	
 	The PR modeling result reported in Table \ref{tab:poisreg} shows that all four IVs have predictive effects on sport jacket production and, in addition, show different effect size magnitudes that indicate likely differences in the importance of each IV for explaining sport jacket production.
 	
@@ -443,9 +436,9 @@
 	\end{table} 
 
 	A few points can be gleaned from the results in Table \ref{tab:r2sub}. 
-	For example, Table \ref{tab:r2sub}. shows that equipment reliability appears to be associated with larger $R^2_{DEV}$ values and is likely to be an important variable consistent with its coefficient size. 
+	For example, Table \ref{tab:r2sub} shows that equipment reliability appears to be associated with larger $R^2_{DEV}$ values and is likely to be an important variable consistent with its coefficient size. 
 	The $R^2_{DEV}$ values associated with the remaining variables is harder to discern from the table but do not as clearly follow the coefficient sizes reported in Table \ref{tab:poisreg}.
-	As such, it is useful to instead compare these values using the dominance analysis designations.
+	As such, it is useful to compare these values using the dominance analysis designations.
 	
 	The first dominance designation to evaluate using the results in Table \ref{tab:r2sub} is whether IVs show evidence of completely dominating one another.
 	Equipment reliability was noted as having larger $R^2_{DEV}$ values than other variables above and, when using Equation \ref{eq:cptdom} to evaluate equipment reliability relative to the other three IVs, is shown to completely dominate all three.
@@ -453,13 +446,13 @@
 	
 	The complete dominance relationships between the remaining variables is far less clearly defined. 
 	For instance, work experience completely dominates skill level but does not completely dominate assistant staffing.
-	Moreover, assistant staffing and skill level have no complete dominance relationship either.
+	Moreover, assistant staffing and skill level have no complete dominance relationship.
 	This makes clearly ranking the final three variables more nuanced as work experience is a better predictor than skill level irrespective of inclusion order, but no such clear statement can be made of the rest of the comparisons.
-	Thus, work experience is likely the 'second best' predictor but its will require the one of the expanded dominance designations to confirm this is the case.
+	Thus, work experience is likely the second best predictor but it will require the one of the expanded dominance designations to confirm this is the case.
 	
 	In order to rank the remaining variables, the conditional dominance statistics for all the tailoring shop IVs were computed using Equation \ref{eq:cdlst}.
 	The results of the conditional dominance statistic computations are depicted graphically in Figure \ref{fg:cdl} below.
-	For this Figure \ref{fg:cdl}, the y-axis is on a log scale to improve legibility nearer subsets sizes of 4.
+	For this Figure, the y-axis is on a log scale to improve legibility nearer subsets sizes of 4.
 	
 	\begin{figure}[h!]
 		\centering
@@ -502,7 +495,7 @@
 	The general dominance designations then add to the results above in that they allow for a clear rank ordering of the tailoring shop IVs in predicting sport jackets with equipment reliability being the most important followed by work experience, then assistant staffing, and ending with skill level.
 	
 	In conclusion, the DA results have built on reports of the model in Table \ref{tab:poisreg} by adding additional information about how each of the tailoring shop IVs explains variation or information in the sport jacket production variable. 
-	The DA results work to support the inference about the large IRR value obtained by equipment reliability, confirming that this variable, regardless of the order in which it might be included in the model, is most important. 
+	The DA results support the inference about the large IRR value obtained by equipment reliability, confirming that this variable, regardless of the order in which it might be included in the model, is most important. 
 	In addition, equipment reliability is associated with nearly one-third (i.e., $\frac{.0965}{.2624} \approx \frac{1}{3}$ of the explained information in sport jackets alone.
 	The DA results also provide useful contextualization of the other three IV's IRR values from Table \ref{tab:poisreg}.
 	Specifically, the IRR values for work experience, assistant staffing levels, and skill level were similar, each within .01 of one another. 
@@ -513,43 +506,46 @@
 
 	\subsubsection{Section Summary}
 	
-	This section provided an extensive analytic walk through of a data analysis in a PR model using simulated data.
-	The PR model described in this section interpreted model coefficients using IRRs and applied the recommended DA methodology using the $R^2_{DEV}$ to dominance statistics and designations.
+	This section provided an extensive example of a PR model analysis using simulated data.
+	The PR model described in this section interpreted model coefficients using IRRs and applied the recommended DA methodology using the $R^2_{DEV}$ to compute dominance statistics and designations.
 	
 	The data analytic conditions under which the PR model above was generated and estimated assumed that the time window under which each tailoring shop was observed was two weeks.
 	In many real world situations involving count DVs, the time window might vary from observation to observation. 
 	Under such conditions, the observations are "exposed" to the count generating mechanism differently.
-	In the section below, I shift the focus to a conceptual discussion of what exposure means for count DVs, how differential exposure is accommodated in CRMs, and offer an example of differential exposure affects DA statistics and designations with another data analytic example.
+	In the section below, I shift the focus to a conceptual discussion of what exposure means for count DVs, how differential exposure is accommodated in CRMs, and offer an example of how differential exposure affects DA statistics and designations with another data analytic example.
 	
 \section{Additional Consideration for CRMs}
 
-	CRMs are defined by their accommodation of the semi-continuous and non-negative values on which count DVs take.
-	Count DVs, in addition to these two facets, are also marked by an implied level of aggregation.
-	Note that all the count DVs discussed in the introduction, as well as the simulated DV in the example above, all aggregate a number of events over a specific period of time.	
+	CRMs are designed to model the semi-continuous and non-negative values on which count DVs take.
+	Count DVs, in addition to being semi-continuous and non-negative, are also marked by an implied level of aggregation.
+	Note that all the count DVs discussed in the introduction, as well as the simulated DV in the example above, aggregate a number of events over a specific period of time.	
 	
-	That count DVs as aggregated events is a common interpretation of a Poisson distributed variable. 
+	Count DVs as aggregated events is a common interpretation of a Poisson distributed variable. 
 	Indeed, Poisson variables can be defined as accumulated repeated sampling from a Binomial distribution with a set probabity of occurrence and a set number of trials \cite(e.g.,){hodges1960poisson}.
 	In this interpretation of the Poisson, the Poisson mean parameter $\mu$ is the product of the number of trials $n$ for the Binomial distribution times the probability $p$ of the event occurring in the Binomial distribution.
 	Given the Binomial interpretation of the Poisson, it is clear that CRMs assume that the counts of events realized in the data are derived from Binomial processes that share the same number of trials and probabilities of occurrence.
 	The linkage between aggregated Binomial processes and the negative Binomial distribution is even clearer as it is, in fact, defined as aggregated Binomial events or trials.
 	In the end, both PR and NBR models can be seen as a method for modeling aggregated event counts that stem from a specfic set of Binomial processes.
 	
-	That count DVs can differ in their exposure to, or the number of trials in producing, the observed count values is can be accommodated in the analysis assuming that the differences in exposure to the count generating processes are encoded into a variable that can be used to adjust the results of the CRM.
+	Given the interpretation of a count DV as the product of a probability and a number of discrete trials, it is clear that differences in counts can arise from both differences across observations in terms of their underlying count probability as well as their number of trials, or exposure to the probability.
+	Often differences in exposure are not of conceptual interest and the researcher will want to adjust the CRM for differential exposure across observations.
 	In the section below, I elaborate more on what differential exposure is, the practical effects of differential exposure on answering research questions with count DVs, and how to adjust CRM results to ensure that count DVs that might be affected by differential exposure produce accurate DA statistics and designations.
 
 	\subsection{Differential Exposure and Offset Terms}
 	
-	Analysis of data with CRMs is, fundamentally, a method to answer research questions.
-	Consider, for example, evaluating whether a customer service training increases the number of positive reviews for a business.
+	%ended here
+	
+	When answering research questions using CRMs it is valuable to consider how the central count DV could be the product of both differences in probability of events as well as differences in exposure. 
+	As an example, consider the number of positive reviews a business receives and whether a customer service training increases the number of those positive reviews.
 	From the perspective of the Binomial interpretation of count events like positive reviews, the researcher must consider whether the training will affect the probability of receiving a positive review from any given customer, the number of customers who can provide a review, or both factors.
 	For this research question, the customer service training is likely to be most relevant to the probability of receiving a positive review from any given customer.
 	Thus, with a fixed set of customers, the customer service training should increase the count of positive reviews due to increasing the probability that any one customer is happy and thus provides a positive review.
 	
-	A complication that can easily arise in evaluating a research question like the one above is that two business locations can have different numbers of customers.
-	If location A has 100 customers and location B has 1,000 customers, I would expect that location B would have more positive reviews that location A given the same underlying probability of observing the postitive review event.	
-	The count DV, however, does not naturally contain this information and, in fact, the default CRM assumption is that that the two locations have the same number of customers---a fact known not to be true.
+	What happens when a research question like the one above must be evaluated in two business locations that have different numbers of customers?
+	If location A has 100 customers and location B has 1,000 customers, I would expect that location B would have more positive reviews than location A given the same underlying probability of observing the postitive review event.	
+	The count DV, however, does not naturally contain this information which complicates the interpretation of the results given the contamination of the count DV with customer counts.
 	
-	That both locations have different numbers of customers means that the locations have different levels of exposure or 'differential exposure' to the count generating probability. 
+	That both locations have different numbers of customers means that the locations have different levels of exposure or differential exposure to the count generating probability. 
 	The differential exposure in locations A and B is a problem when interpreting the count DV for answering the research question. 
 	Consider what would happen in a CRM if locations A and B both receive 10 positive reviews.
 	I know that both values of 10 imply starkly different probabilities of observing an event (i.e., $\frac{10}{1000} = .01$ and $\frac{10}{100} = .1$).
