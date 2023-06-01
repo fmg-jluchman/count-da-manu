@@ -15,7 +15,7 @@
 \affiliation{\affilnum{1}Fors Marsh}
 
 \begin{abstract}
-	Count variables are common in organizational science as an outcome. Count regression models (CRMs), such as Poisson regression, are recommended as methods to analyze count variables but can be challenging to interpret given their non-linear functional form. I recommend relative importance analysis as a method to use in intepreting CRM results. This work extends on past research by describing an approach to determining the importance of independent variables in CRMs using dominance analysis (DA). In this manuscript, I review DA as a relative importance method, recommend an $R^2$ to use with CRM-based DA, and outline the results of an analysis with simlulated data that uses the recommended methodology. I also discuss the effect of differential exposure to the count generating process across observations on count outcomes, how to correct for differential exposure, and the effect of differential exposure on relative importance determination. This work contributes to the literature by extending DA to CRMs, discussing the impact of differential exposure on CRM models and relative importance, and for providing a thoroughly documented data analysis that can be used by researchers interested in implementing the methodology.
+	Count variables are common in organizational science as an outcome. Count regression models (CRMs), such as Poisson regression, are recommended as methods to analyze count variables but can be challenging to interpret given their non-linear functional form. I recommend relative importance analysis as a method to use in intepreting CRM results. This work extends on past research by describing an approach to determining the importance of independent variables in CRMs using dominance analysis (DA). In this manuscript, I review DA as a relative importance method, recommend an $R^2$ to use with CRM-based DA, and outline the results of an analysis with simlulated data that uses the recommended methodology. I also discuss the effect of differential exposure to the count generating probability across observations on count outcomes, how to correct for differential exposure, and the effect of differential exposure on relative importance determination. This work contributes to the literature by extending DA to CRMs, discussing the impact of differential exposure on CRM models and relative importance, and for providing a thoroughly documented data analysis that can be used by researchers interested in implementing the methodology.
 \end{abstract}
 
 \keywords{Dominance Analysis, Relative Importance, Poisson Regression, Exposure, R-square, Negative Binomial Regression, Count Data, Offset}
@@ -76,8 +76,6 @@
 	In a fourth and final section, I turn to discussing the concept of differential exposure in count DVs, show how it can affect results from CRM analysis, and provide the method used to correct for it in analysis.
 	My goal in discussing differential exposure is to outline the effect of this concept on DA statistics and designations.
 	To this end, I compute and compare CRM-based DA statistics with and without corrections to illustrate the impact of ignoring this issue during analysis.
-	
-	% ended here
 		
 \section{Dominance Analysis: A Unique Relative Importance Analysis Method}
 
@@ -527,13 +525,11 @@
 	The linkage between aggregated Binomial processes and the negative Binomial distribution is even clearer as it is, in fact, defined as aggregated Binomial events or trials.
 	In the end, both PR and NBR models can be seen as a method for modeling aggregated event counts that stem from a specfic set of Binomial processes.
 	
-	Given the interpretation of a count DV as the product of a probability and a number of discrete trials, it is clear that differences in counts can arise from both differences across observations in terms of their underlying count probability as well as their number of trials, or exposure to the probability.
+	Given the interpretation of a count DV as the product of a probability and a number of discrete trials, it is clear that differences in counts can arise from both differences across observations in terms of their underlying probability as well as their number of trials, or exposure to the probability.
 	Often differences in exposure are not of conceptual interest and the researcher will want to adjust the CRM for differential exposure across observations.
 	In the section below, I elaborate more on what differential exposure is, the practical effects of differential exposure on answering research questions with count DVs, and how to adjust CRM results to ensure that count DVs that might be affected by differential exposure produce accurate DA statistics and designations.
 
 	\subsection{Differential Exposure and Offset Terms}
-	
-	%ended here
 	
 	When answering research questions using CRMs it is valuable to consider how the central count DV could be the product of both differences in probability of events as well as differences in exposure. 
 	As an example, consider the number of positive reviews a business receives and whether a customer service training increases the number of those positive reviews.
@@ -543,37 +539,36 @@
 	
 	What happens when a research question like the one above must be evaluated in two business locations that have different numbers of customers?
 	If location A has 100 customers and location B has 1,000 customers, I would expect that location B would have more positive reviews than location A given the same underlying probability of observing the postitive review event.	
-	The count DV, however, does not naturally contain this information which complicates the interpretation of the results given the contamination of the count DV with customer counts.
-	
-	That both locations have different numbers of customers means that the locations have different levels of exposure or differential exposure to the count generating probability. 
-	The differential exposure in locations A and B is a problem when interpreting the count DV for answering the research question. 
-	Consider what would happen in a CRM if locations A and B both receive 10 positive reviews.
+	The count DV, however, does not naturally contain this information which complicates the interpretation of the results given the contamination of the count DV with customer counts that differ by location. 
+	As an example of the potential that differential exposure has for affecting the interpretation of results with count DVs, consider what would happen in a CRM if locations A and B both receive 10 positive reviews.
 	I know that both values of 10 imply starkly different probabilities of observing an event (i.e., $\frac{10}{1000} = .01$ and $\frac{10}{100} = .1$).
-	The CRM, however, does not have any built-in way to distinguish between the location's values given just the count DV values and they would be erroneously treated the same in the model.
-	What the CRM needs is to be instructed how to adjust the results for the known differential exposure that obscures the differences in the underlying probability of event occurrence.
+	A CRM, however, will not distinguish between each location's differential exposure given just the count DV values and will treat them as though they are the same.
+	In order to recover the correct probabilities of occurrence, the researcher needs to incorporate an additional modeling feature that informs the CRM about differential exposure.
 	
-	CRMs can control for differential exposure using an offset term.  
+	The modeling feature a researcher can use to adjust for differential exposure in a CRM is an offset term.  
 	The offset term, for a log-linear CRM, is natural log transformed version of a variable that reflects the known differential exposure between observations set to a coefficient value of 1.
-	Thus, to control for differential exposure, the researcher must have access to a variable that reflects, for each observation, the exposure that the observation had to the count generating process.
-	When this exposure variable is natural logarithm transformed and included in the CRM with a coefficient of 1, the DV predicted by the model becomes the ratio of counts out of the value of the exposure or the rate of events given exposure.
+	Thus, to control for differential exposure, the researcher must have access to a variable that reflects, for each observation, the exposure that the observation had to the count generating probability.
+	When this exposure variable is natural logarithm transformed and included in the CRM with a coefficient of 1, the DV predicted by the model becomes the ratio of the count DV to exposure or the rate of observed events.
 	
-	The transformation of the count DV to a rate follows is easier to see when making a few algebraic manipulations to the model.
-	Consider the most simple case of a CRM, an intercept only model that is fit with an offset term.
-	An intercept-only model with an offset would, as a formula, look like: $Y = e^{\beta_o\ln X_{exposure} + \beta_1}$, where $X_{exposure}$ is the exposure variable, $\beta_1$ is the offset term, and $\beta_1$ is the model intercept.
+	The transformation that turns the count DV into a rate is easier to see when making a few algebraic manipulations to the model.
+	As an example, consider the most simple case of a CRM; an intercept only model that is fit with an offset term.
+	An intercept-only model with an offset would, as a formula, look like: $Y = e^{\beta_o\ln X_{exposure} + \beta_1}$, where $X_{exposure}$ is the exposure variable, $\beta_o$ is the offset term, and $\beta_1$ is the model intercept.
 	Taking the natural logarithm of both sides of the equation and given the offset term is 1, the equation above simplifies to $\ln Y = \ln X_{exposure} + \beta_1$.
 	Subtracting $\ln X_{exposure}$ from both sides results in $\ln Y - \ln X_{exposure} = \beta_1$.
-	Finally, the difference between two logarithms is the logarithm of their quotient, thus producing $\ln \frac{Y}{X_{exposure}} = \beta_1$ or $\frac{Y}{X_{exposure}} = e^{\beta_1}$.
-	The natural logarithm transformed exposure variable, when included with an offset term, necessaily results in the dependent variable being a rate.
+	Finally, the difference between two logarithms is the logarithm of their quotient, thus producing $\ln \frac{Y}{X_{exposure}} = \beta_1$ or, when back translated to exponential form, $\frac{Y}{X_{exposure}} = e^{\beta_1}$.
+	The natural logarithm transformed exposure variable, when included with an offset term, then necessaily results in the count DV being a rate.
 	
-	The practical effect of the offset term is that the DV better reflects the underlying probability of the event and is no longer contaiminated with different levels of exposure to the count generating process.
+	The practical effect of the use of an offset term is that the count DV better reflects the underlying probability of the event and is no longer contaiminated with different levels of exposure to the count generating probability.
 	An additional side effect of the offset term is that it reduces the extent of unexplainable variation, or deviance, in the count DV.
 	The reduction in unexplainable variation arises as observations with high counts and high exposure values are pulled nearer those with low counts and low exposure values.	
-	As a result of the reduced unexplainable variation, inclusion of an offset term affects the values obtained $R^2_{DEV}$ values and DA statistics on which they are based.
+	As a result of the reduced unexplainable variation, inclusion of an offset term affects the values obtained by  $R^2_{DEV}$ values and DA statistics on which they are based.
 	
-	In the sections below, I show the effect differential exposure has on the results of CRMs when by repeating the analysis applied to the sport jacket production variable to two new Poisson distributed variables.
+	In the sections below, I show the effect that differential exposure has on the results of CRMs by extending the analysis applied to the sport jacket production variable to two cases sport jacket production variables that are contaminated with differential exposure.
 	These two new variables are based on the same underlying causal model as sport jacket production variable above but have been contaminated with two different kinds of differential exposure.
 	My intention in providing examples of the effect of multiple kinds differential exposure on count DVs is to illustrate the likely result of such differential exposure on model coefficients as well as DA designations and statistics.
-	I also show how the inclusion of an appropriate offset term can correct such differential exposure contamination across all forms of results.
+	I also show how the inclusion of an appropriate offset term can correct such differential exposure contamination for each DV.
+	
+	% ended here
 	
 	\subsection{Dominance Analysis with Offset Terms: Analytic Examples}
 	
@@ -587,7 +582,7 @@
 	
 	One of the two-week periods in which these tailoring shops were observed occurred near a religious holiday that is not celebrated in the same way by all tailoring shops.
 	The resulting sport jacket production variable under religious holiday observance (called $SJ_{RH}$ below) was contaminated by differential exposure owing to inconsistent leaves of absence by tailors over the two-week period.
-	These inconsistent leaves of absence made for each tailoring shop having different numbers of days in which no work was done and, thus, no exposure to the probability generating process.
+	These inconsistent leaves of absence made for each tailoring shop having different numbers of days in which no work was done and, thus, no exposure to the count generating probability.
 	Assume in this case that it is known that the observance of the religious holidays in this period of time are uncorrelated with any of the tailoring shop characteristics. 
 	Thus, the differential exposure process contaminating the sport jacket production variable with religious holiday observance is completely random.
 	
@@ -714,7 +709,7 @@
 	This section discussed the impact of differential exposure on the results of CRMs with a focus on DA designations and statistics.
 	I have argued that when a researcher is interested in using a count DV to answer a research question that focuses on increasing the probability of observing the event that produces counts, that differential exposure to the probability can lead to contamination of the count DV and should be corrected using an offset term.
 	
-	The impact of differential exposure to the probability generating process was illustrated using two different count DVs with different differential exposure mechanisms.
+	The impact of differential exposure to the count generating probability was illustrated using two different count DVs with different differential exposure mechanisms.
 	One mechanism was a random differential exposure mechanism.
 	This random differential exposure was reflected by religious holiday observance on sport jacket production among the tailoring shops.
 	The random differential exposure affected the model results primarily by adding in additional unexplainable variation to the count DV that is reflected in the magnitude of the DA statistics.
@@ -735,7 +730,7 @@
 	In walking the reader through this example, I use the recommended DA with $R^2_{DEV}$ fit statistic approach to evaluate the relative importance of the four IVs in the simulated data.
 	This walk through of the DA focuses on interpreting IV importance with a focus on how meeting different levels of DA designation stringency offers different evidence for the importance of the IVs over one another.
 	
-	Finally, I discuss differential exposure to count generating processes in CRMs as a potentially biasing factor both for DA statistics and designations.
+	Finally, I discuss differential exposure to count generating probabilities in CRMs as a potentially biasing factor both for DA statistics and designations.
 	In the example analyses discussed that focus on differential exposure, I show that the use of an offset term is effective for recovering more accurate DA statistics and designations and should be used to correct for differential exposure in CRMs when it is likely to affect a count DV.
 	
 	In combination, this manuscript picks up where Blevins et al. \citeyear{blevins2015count} had left off by recommending the use of a specific postestimation method, DA, for better understanding model prediction as well as expanding on specific issues that affect CRMs
@@ -778,7 +773,7 @@
 	\subsection{Conclusion}
 	
 	DA is a useful post-estimation methodology for determining the importance of IVs in statistical models such as CRMs.
-	This manuscript has provided a recommended methodology for extending DA to CRMs, offered extensive examples focusing on the interpretation of DA statistics and designations with simulated data, and provided recommendations for how to adjust a CRM-based DA when observations in the count DV may have different levels of exposure to the count generating process.
+	This manuscript has provided a recommended methodology for extending DA to CRMs, offered extensive examples focusing on the interpretation of DA statistics and designations with simulated data, and provided recommendations for how to adjust a CRM-based DA when observations in the count DV may have different levels of exposure to the count generating probability.
 	In combination, the conceptual discussion of DA, CRMs, and differential exposure, when combined with the empirical examples, will provide organizational and other behavioral scientists the necessary tools for better understanding the CRMs they estimate as applied to the research questions to which the results apply.
 
 \bibliography{CountDominance.bib}
