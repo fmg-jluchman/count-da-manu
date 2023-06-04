@@ -185,7 +185,7 @@ The advantage of the cumulative probability and quantile function (i.e., the nam
 
 The generation of the underlying Normally distributed variable extended from the methodology that was established above where a set of higher-order population parameters are first set and adjusted from using a draws from a specific distribution to reduce the effect of my decisions on the results.
 
-Conceptually, the underlying Normally distributed variable can be thought of as a latent propensity each tailoring shop has for making more garments. This garment propensity variable (called $GP$) is generated as linear combination of the four tailoring shop IVs. In devising the higher-order population coefficients, I thought it would be convenient to generate coefficients that, when combined with the higher-order population variances, would produce a specific $R^2$ under idealized conditions. In generating these coefficients, I intentionally ignored the higher-order population covariances to allow this section to be easier to follow and because I was not so much trying to attain a specific $R^2$ in the observed data but rather to have a reasonable, systematic approach to generating IV coefficient values.
+Conceptually, the underlying Normally distributed variable can be thought of as a latent propensity each tailoring shop has for making more garments. This garment propensity variable (called $GP$) is generated as a linear combination of the four tailoring shop IVs. In devising the higher-order population coefficients, I thought it would be convenient to generate coefficients that, when combined with the higher-order population variances, would produce a specific $R^2$ under idealized conditions. In generating these coefficients, I intentionally ignored the higher-order population covariances to allow this section to be easier to follow and because I was not so much trying to attain a specific $R^2$ in the observed data but rather to have a reasonable, systematic approach to generating IV coefficient values.
 	
 #### Higher-Order Population Parameters
 
@@ -345,7 +345,7 @@ The negative Binomial distributed variable related to the number of overcoats pr
 
 The generation of the $OC$ also sought to ensure as much similarity to the $GP$ variable as possible while also requiring that $OC$'s distribution fail to meet the assumptions of the Poisson distribution. The quantile function values that $GP$ was translated into were then a _size_ parameter of .5 and _mu_ parameter of 1.
 
-This combination of _size_ and _mu_ parameters result in a mean (i.e., the _mu_/$\mu$ value) but a variance that substantially exceeded 1; in this case  or a value of 3 as $\sigma^{2} = \mu + \frac{\mu^2}{size}$.
+This combination of _size_ and _mu_ parameters result in a mean (i.e., the _mu_/$\mu$ value) of 1 but a variance that substantially exceeded 1; in this case  or a value of 3 as $\sigma^{2} = \mu + \frac{\mu^2}{size}$.
 
 The code block below implements the translation process and reports on the descriptive results.
 
@@ -687,7 +687,7 @@ SJ_pois_param <-
 SJ_pois_param  %>% 
   select(-df_error, -CI, -z, -p) %>%
   {bind_rows(slice_tail(., n = 4), slice_head(., n = 1))} %>%
-  rename(Low = "CI_low", High = "CI_high", B = "Coefficient") %>%
+  rename(Low = "CI_low", High = "CI_high", B = "Coefficient", `\\sigma_{B}` = "SE") %>%
   mutate(`e^B` = exp(B), 
          Parameter = str_replace(Parameter, "\\(Intercept\\)", "Intercept")) %>%
   gt(rowname_col = "Parameter") %>%
@@ -712,7 +712,7 @@ map(c("ER", "AS", "SL", "WE"),
         emmeans::emmeans(reformulate(iv), 
                          at = lst) %>%
         as_tibble %>%
-        rename(mgn = iv) %>%
+        rename(mgn = all_of(iv)) %>%
         mutate(var = iv %>% as_factor,
                emmean = exp(emmean))
     }
@@ -733,7 +733,7 @@ The code block below captures all sub-model $R^2_{DEV}$ values. The values obtai
 IV_subsets <- 
   expand_grid(c("ER", ""), c("AS", ""), c("SL", ""), c("WE", "")) %>%
   set_names(c("ER", "AS", "SL", "WE")) %>%
-  mutate(num_per = rowSums(across(.fns = ~ str_length(.) > 1))) %>%
+  mutate(num_per = rowSums(across(everything(), .fns = ~ str_length(.) > 1))) %>%
   arrange(num_per, desc(ER), desc(AS), desc(SL), desc(WE)) %>%
   select(-num_per) %>%
   slice(-1) %>% 
@@ -1228,7 +1228,7 @@ SJ_VH_reg_wo_off_param %>%
   gt(rowname_col = "Parameter") %>%
   fmt_number(columns = 2:6, decimals = 4) %>%
   tab_spanner(columns = c(Low, High), label = "95% Confidence Interval") %>%
-  tab_header("Table S28: Correlated Differential Exposure Poisson Model Without Offset Term")
+  tab_header("Table S30: Correlated Differential Exposure Poisson Model Without Offset Term")
 ```
 
 #### Dominance Analysis Results
@@ -1254,7 +1254,7 @@ SJ_VH_wo_off_DA %>%
             by = "Variable") %>%
   set_names(c("Variable", "General Dominance", "Standardized")) %>%
   gt(rowname_col = "Variable") %>%
-  tab_header("Table S29: Correlated Differential Exposure Without Offset Term General Dominance Statistics") %>%
+  tab_header("Table S31: Correlated Differential Exposure Without Offset Term General Dominance Statistics") %>%
   fmt_number(columns = 2:3, decimals = 4) %>%
   tab_source_note(str_c("Overall Deviance R-square is ", 
                         SJ_VH_reg_wo_off %>% r2_kullback(adjust = FALSE) %>% 
@@ -1265,7 +1265,7 @@ SJ_VH_wo_off_DA %>%
   as_tibble(rownames = "Variable") %>%
   set_names(c("Variable", str_c("Subset Size: ", 1:4))) %>%
   gt(rowname_col = "Variable") %>%
-  tab_header("Table S30: Correlated Differential Exposure Without Offset Term  Conditional Dominance Statistics") %>%
+  tab_header("Table S32: Correlated Differential Exposure Without Offset Term  Conditional Dominance Statistics") %>%
   fmt_number(columns = 2:5, decimals = 4)
 
 SJ_VH_wo_off_DA %>% 
@@ -1277,7 +1277,7 @@ SJ_VH_wo_off_DA %>%
   set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
                                            c("ER", "AS", "SL", "WE")))) %>%
   gt(rowname_col = "Dominating Variable") %>%
-  tab_header("Table S31: Correlated Differential Exposure Without Offset Term  Complete Dominance Designations") %>%
+  tab_header("Table S33: Correlated Differential Exposure Without Offset Term  Complete Dominance Designations") %>%
   sub_missing() %>% 
   tab_stubhead("Dominating Variable")
 ```
@@ -1309,7 +1309,7 @@ SJ_VH_reg_w_off_param %>%
   gt(rowname_col = "Parameter") %>%
   fmt_number(columns = 2:6, decimals = 4) %>%
   tab_spanner(columns = c(Low, High), label = "95% Confidence Interval") %>%
-  tab_header("Table S32: Correlated Differential Exposure Poisson Model With Offset Term")
+  tab_header("Table S34: Correlated Differential Exposure Poisson Model With Offset Term")
 ```
 
 #### Dominance Analysis Results
@@ -1337,7 +1337,7 @@ SJ_VH_w_off_DA %>%
             by = "Variable") %>%
   set_names(c("Variable", "General Dominance", "Standardized")) %>%
   gt(rowname_col = "Variable") %>%
-  tab_header("Table S27: Random Differential Exposure With Offset Term General Dominance Statistics") %>%
+  tab_header("Table S35: Correlated Differential Exposure With Offset Term General Dominance Statistics") %>%
   fmt_number(columns = 2:3, decimals = 4) %>%
   tab_source_note(str_c("Overall Deviance R-square is ", 
                         SJ_VH_reg_w_off %>% r2_kullback(adjust = FALSE) %>% 
@@ -1348,7 +1348,7 @@ SJ_VH_w_off_DA %>%
   as_tibble(rownames = "Variable") %>%
   set_names(c("Variable", str_c("Subset Size: ", 1:4))) %>%
   gt(rowname_col = "Variable") %>%
-  tab_header("Table S28: Random Differential Exposure With Offset Term Conditional Dominance Statistics") %>%
+  tab_header("Table S36: Correlated Differential Exposure With Offset Term Conditional Dominance Statistics") %>%
   fmt_number(columns = 2:5, decimals = 4)
 
 SJ_VH_w_off_DA %>% 
@@ -1360,7 +1360,7 @@ SJ_VH_w_off_DA %>%
   set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
                                            c("ER", "AS", "SL", "WE")))) %>%
   gt(rowname_col = "Dominating Variable") %>%
-  tab_header("Table S29: Random Differential Exposure With Offset Term Complete Dominance Designations") %>%
+  tab_header("Table S37: Correlated Differential Exposure With Offset Term Complete Dominance Designations") %>%
   sub_missing() %>% 
   tab_stubhead("Dominating Variable")
 ```

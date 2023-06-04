@@ -9,13 +9,16 @@
 
 \begin{document}
 	
-\runninghead{Luchman}
+%\runninghead{Luchman}
+\runninghead{Anonymized}
 \title{Relative importance analysis for count regression models}
-\author{Joseph N. Luchman\affilnum{1}}
-\affiliation{\affilnum{1}Fors Marsh}
+%\author{Joseph N. Luchman\affilnum{1}}
+%\affiliation{\affilnum{1}Fors Marsh}
+\author{Anonymized-author\affilnum{1}}
+\affiliation{\affilnum{1}Anoymized-affiliation}
 
 \begin{abstract}
-	Count variables are common in organizational science as an outcome. Count regression models (CRMs), such as Poisson regression, are recommended as methods to analyze count variables but can be challenging to interpret given their non-linear functional form. I recommend relative importance analysis as a method to use in intepreting CRM results. This work extends on past research by describing an approach to determining the importance of independent variables in CRMs using dominance analysis (DA). In this manuscript, I review DA as a relative importance method, recommend an $R^2$ to use with CRM-based DA, and outline the results of an analysis with simlulated data that uses the recommended methodology. I also discuss the effect of differential exposure to the count generating probability across observations on count outcomes, how to correct for differential exposure, and the effect of differential exposure on relative importance determination. This work contributes to the literature by extending DA to CRMs, discussing the impact of differential exposure on CRM models and relative importance, and for providing a thoroughly documented data analysis that can be used by researchers interested in implementing the methodology.
+	Count variables are common in organizational science as an outcome. Count regression models (CRMs), such as Poisson regression, are recommended as methods to analyze count variables but can be challenging to interpret given their non-linear functional form. I recommend relative importance analysis as a method to use in interpreting CRM results. This work extends on past research by describing an approach to determining the importance of independent variables in CRMs using dominance analysis (DA). In this manuscript, I review DA as a relative importance method, recommend an $R^2$ to use with CRM-based DA, and outline the results of an analysis with simulated data that uses the recommended methodology. I also discuss the effect of differential exposure to the count generating probability across observations on count outcomes, how to correct for differential exposure, and the effect of differential exposure on relative importance determination. This work contributes to the literature by extending DA to CRMs, discussing the impact of differential exposure on CRM-based relative importance, and providing thoroughly documented example analysis that researchers can use to implementing the methodology in their research.
 \end{abstract}
 
 \keywords{Dominance Analysis, Relative Importance, Poisson Regression, Exposure, R-square, Negative Binomial Regression, Count Data, Offset}
@@ -551,48 +554,47 @@
 	When this exposure variable is natural logarithm transformed and included in the CRM with a coefficient of 1, the DV predicted by the model becomes the ratio of the count DV to exposure or the rate of observed events.
 	
 	The transformation that turns the count DV into a rate is easier to see when making a few algebraic manipulations to the model.
-	As an example, consider the most simple case of a CRM; an intercept only model that is fit with an offset term.
+	I will apply this transformation to a very simple CRM: an intercept only model that is fit with an offset term.
 	An intercept-only model with an offset would, as a formula, look like: $Y = e^{\beta_o\ln X_{exposure} + \beta_1}$, where $X_{exposure}$ is the exposure variable, $\beta_o$ is the offset term, and $\beta_1$ is the model intercept.
 	Taking the natural logarithm of both sides of the equation and given the offset term is 1, the equation above simplifies to $\ln Y = \ln X_{exposure} + \beta_1$.
 	Subtracting $\ln X_{exposure}$ from both sides results in $\ln Y - \ln X_{exposure} = \beta_1$.
-	Finally, the difference between two logarithms is the logarithm of their quotient, thus producing $\ln \frac{Y}{X_{exposure}} = \beta_1$ or, when back translated to exponential form, $\frac{Y}{X_{exposure}} = e^{\beta_1}$.
+	Finally, I use the property of logarithms that the difference between two logarithms is the logarithm of their quotient, thus producing $\ln \frac{Y}{X_{exposure}} = \beta_1$ or, when back translated to exponential form, $\frac{Y}{X_{exposure}} = e^{\beta_1}$.
 	The natural logarithm transformed exposure variable, when included with an offset term, then necessaily results in the count DV being a rate.
 	
 	The practical effect of the use of an offset term is that the count DV better reflects the underlying probability of the event and is no longer contaiminated with different levels of exposure to the count generating probability.
 	An additional side effect of the offset term is that it reduces the extent of unexplainable variation, or deviance, in the count DV.
 	The reduction in unexplainable variation arises as observations with high counts and high exposure values are pulled nearer those with low counts and low exposure values.	
-	As a result of the reduced unexplainable variation, inclusion of an offset term affects the values obtained by  $R^2_{DEV}$ values and DA statistics on which they are based.
+	As a result of the reduced unexplainable variation, inclusion of an offset term affects the values obtained by  $R^2_{DEV}$ and DA statistics on which they are based.
 	
-	In the sections below, I show the effect that differential exposure has on the results of CRMs by extending the analysis applied to the sport jacket production variable to two cases sport jacket production variables that are contaminated with differential exposure.
-	These two new variables are based on the same underlying causal model as sport jacket production variable above but have been contaminated with two different kinds of differential exposure.
+	In the sections below, I show the effect that differential exposure has on the results of CRMs by extending the analysis applied to the sport jacket production variable to two new variables that are contaminated with differential exposure.
+	These two new variables are based on the same underlying causal model as the sport jacket production variable above but have been contaminated with two different kinds of differential exposure.
 	My intention in providing examples of the effect of multiple kinds differential exposure on count DVs is to illustrate the likely result of such differential exposure on model coefficients as well as DA designations and statistics.
 	I also show how the inclusion of an appropriate offset term can correct such differential exposure contamination for each DV.
 	
-	% ended here
-	
 	\subsection{Dominance Analysis with Offset Terms: Analytic Examples}
 	
-	This section extends on the data analysis of the sport jacket production variable by developing two additional sport jacket production variables that were observed under time periods with different types of holidays.	
-	As above, the generation perspective and actual implementation of generating these variables is described in the online supplement as opposed to in this manuscript directly. The section below describes the two new variables, and their contaminating differential exposure processes, prior to using them in analysis.
+	This section extends on the data analysis above by developing two additional sport jacket production variables that were observed during time periods with two different types of holidays.	
+	As above, the generation perspective and actual implementation of generating these variables is described in the online supplement as opposed to in this manuscript directly. The section below describes the two new variables and their contaminating differential exposure processes prior to using them in analysis.
 	
 		\subsubsection{Data Generation}
 		
-	The focus in this section remains on evaluating the effect of the four tailoring shop characteristics in predicting stock jacket production from the same set of 6,780 tailoring shops as above. 
-	The difference in the count variables produced below are that they were measured during different two-week periods with different kinds of holidays.
+	The focus in this extended analysis remains on evaluating the effect of the four tailoring shop characteristics in predicting stock jacket production from the same set of 6,780 tailoring shops. 
+	The difference in the count variables produced below are that they were measured during two-week periods with different kinds of holidays.
 	
 	One of the two-week periods in which these tailoring shops were observed occurred near a religious holiday that is not celebrated in the same way by all tailoring shops.
 	The resulting sport jacket production variable under religious holiday observance (called $SJ_{RH}$ below) was contaminated by differential exposure owing to inconsistent leaves of absence by tailors over the two-week period.
-	These inconsistent leaves of absence made for each tailoring shop having different numbers of days in which no work was done and, thus, no exposure to the count generating probability.
+	These inconsistent leaves of absence resulted in each tailoring shop having different numbers of days in which no work was done.
+	On days in which no work was done there was, of course, no exposure to the count generating probability.
 	Assume in this case that it is known that the observance of the religious holidays in this period of time are uncorrelated with any of the tailoring shop characteristics. 
 	Thus, the differential exposure process contaminating the sport jacket production variable with religious holiday observance is completely random.
 	
-	The second of the two-week periods in which these tailoring shops were observed occurred near a time when it is common for tailoring shops to take voluntary holidays
+	The second of the two-week periods in which these tailoring shops were observed occurred near a time when it is common for tailoring shops to take voluntary holidays.
 	The resulting sport jacket production variable under voluntary holiday (called $SJ_{VH}$ below) was also contaminated by differential exposure owing to inconsistent leaves of absence by tailors over the two-week period.
 	Assume in this case that it is known that taking voluntary holidays depends on tailoring shop characteristics.
 	Tailoring shops with specific characteristics were more likely to take holidays during this two-week period than other shops.
-	Thus, the differential exposure process contaminating the sport jacket production variable taking a voluntary holiday is completely correlated with the tailoring shop characteristics.
+	Thus, the differential exposure process contaminating the sport jacket production variable due to taking a voluntary holiday is correlated with the tailoring shop characteristics.
 	
-	The means, standard deviations, and correlations of the new sport jacket production variables with each of the tailoting shop IVs are reported in Table \ref{tab:dscEx}.
+	The means, standard deviations, and correlations of the two new sport jacket production variables with each of the tailoting shop IVs are reported in Table \ref{tab:dscEx}.
 	
 	\begin{table}[h!]
 		\centering
@@ -610,25 +612,25 @@
 		\label{tab:dscEx}
 	\end{table}
 	
-	The two types of holidays described above have the effect of making fewer working days and thus will reduce the magnitude of the mean and standard deviations of Poisson distributed variables like the sport jacket production variables.	
+	The two types of holidays described above have the effect of making fewer working days and thus will reduce the magnitude of the mean and standard deviations of Poisson distributed sport jacket production variables.	
 	Consistent with that expectation, by comparison to the results in Table \ref{tab:desc}, Table \ref{tab:dscEx}'s results, show that the means and standard deviations for sport jacket production shrunk given the two types of holidays.
 	
 	The two types of holidays would also be expected to have specific effects on the correlations with the tailoring shop characteristics.
 	The random religious holiday observance differential exposure is likely to shrink correlations with all tailoring shop characteristics.
 	This is because this random differential exposure effectively adds unexplainable error variation to the sport jacket production process.
-	By contrast, the tailoring shop characteristic-correlated voluntary holiday differential exposure should change the magnitude of the correlations consistent with the exposure process.
+	By contrast, the tailoring shop characteristic-correlated voluntary holiday differential exposure should change the relative magnitude of the correlations consistent with the exposure process (described in the online supplement).
 	When comparing the correlations in Table \ref{tab:desc} to those of Table \ref{tab:dscEx}, both expected patterns emerge.
 	Religious holiday observence shrinks the magnitude of the correlations but does not change the relative magnitudes meaningfully.
-	Voluntary holidays however do change the relative magnitudes.
+	Voluntary holidays however do change the relative magnitudes (again, see online supplement for a discussion).
 	
 	The next section uses the religious holiday observence/random differential exposure-contaminated sport jacket production variable as the dependent variable in a PR as well as a PR-based DA.
 	Two different versions of this model are reported.
 	One version of the model uses the known religious holiday exposure variable in an offset term and the other does not.
-	Both models are reported and compared to show the effect of the inclusion of the offset term for model results.
+	Both models are reported and compared to show the effect of the inclusion of the offset term on model results.
 	
 		\subsubsection{Random Differential Exposure}
 		
-	The two models using religious holiday contaminated sport jacket production are reported in Table \ref{tab:unexp}.
+	The two models estimated using religious holiday contaminated sport jacket production are reported in Table \ref{tab:unexp}.
 	Only the coefficients, IRRs, and general dominance statistics are reported for each IV for brevity.
 		
 	\begin{table}[h!]
@@ -663,14 +665,14 @@
 	When the offset term is not included there is more variation in the model that is unexplained, reducing the magnitude of the $R^2_{DEV}$.
 	By contrast, when the offset term is included, the additional variation introduced by differential exposure is reduced which has the effect of increasing the $R^2_{DEV}$.
 	
-	The section below transitions away from random differential exposure to the correlated differential exposure mechanism introduced by taking voluntary holidays.
+	The section below moves to the analysis using the correlated differential exposure mechanism introduced by taking voluntary holidays.
 	Again, correlated differential exposure is the process where the exposure variable is related to the IVs in the statistical model.
 	Given these relationships, the effect of correlated differential exposure on the model results is expected to be more substantial.
 	As with the random differential exposure results, the correlated exposure results include a model with an offset and without an offset.
 	
 		\subsubsection{Correlated Differential Exposure}
 		
-	The two models using voluntary holiday contaminated sport jacket production are reported in Table \ref{tab:exp}.
+	The two models estimated using voluntary holiday contaminated sport jacket production are reported in Table \ref{tab:exp}.
 	As before, model coefficients, IRRs, and general dominance statistics are reported.
 	
 	\begin{table}[h!]
@@ -692,17 +694,17 @@
 		\label{tab:exp}
 	\end{table}
 	
-	As compared to the random differential exposure results in Table \ref{tab:unexp}, the correlated differential exposure results in Table \ref{tab:exp} show clear differences in patterns of results across models with and without an offset term.
-	The correlated differential exposure effect in the model without an offset has changed the coefficients' absolute values noticeably, shrinking all IRR values but most substantially for equipment reliability.
-	By contrast, the model with the offset term obtains coefficient values that are, generally, more similar relative to one another as the data under equal exposure especially for the equipment reliability and skill level IVs.
-	This change in the relative magnitude of the coefficients in the model without an offset is the result of the IVs now having two ways in which to predict the sport jacket production outcome: the traditional path where the IV increases the probability of obtaining a sport jacket in a given day and, in addition, the exposure path where the IV increases the probability of any given day being a non-work day; thus, not having the chance to produce any sport jackets.
+	As compared to the random differential exposure results in Table \ref{tab:unexp}, the correlated differential exposure results in Table \ref{tab:exp} show clear differences in the patterns across models with and without an offset term.
+	The correlated differential exposure effect in the model without an offset has changed the coefficients' values noticeably, shrinking all IRR values with the most substantial shrinkage seen for equipment reliability.
+	By contrast, the model with the offset term obtains coefficient values that are, generally, more similar to the data under equal exposure especially for the equipment reliability and skill level IVs.
+	This change in the relative magnitude of the coefficients in the model without an offset is the result of the IVs now having two ways in which to predict the sport jacket production outcome: the traditional path where the IV increases the probability of obtaining a sport jacket in a given day and, in addition, the exposure path where the IV increases the probability of any given day being a non-work day.
 	When the offset term is included, the second, exposure path is controlled for in the model, and the model again reflects only the effect of each IV on the probability of producing a sport jacket on any given day.
 	
 	A crucial change in the results for the data under correlated differential exposure is that the dominance designations shift in the model without an offset term relative to the model with an offset term.
 	Without an offset, work experience is the most important variable overall, swapping places with equipment reliability. 
 	By contrast, the results with an offset term mirror those from the data under equal exposure with equipment reliability being designated the most dominant IV.
 	It is also important to note that the dominance statistics across random and correlated differential exposure models with an offset term are very similar to one another and to the results from the data under equal exposure.
-	Taken together, these results help to illustrate the value of including the offset term for the accurate computation of DA designations and statistics.	
+	Taken together, these results help to illustrate the value of including the offset term for the accurate computation of DA designations and statistics when there is differential exposure in the count DV.
 	
 		\subsubsection{Section Summary}
 		
@@ -733,8 +735,8 @@
 	Finally, I discuss differential exposure to count generating probabilities in CRMs as a potentially biasing factor both for DA statistics and designations.
 	In the example analyses discussed that focus on differential exposure, I show that the use of an offset term is effective for recovering more accurate DA statistics and designations and should be used to correct for differential exposure in CRMs when it is likely to affect a count DV.
 	
-	In combination, this manuscript picks up where Blevins et al. \citeyear{blevins2015count} had left off by recommending the use of a specific postestimation method, DA, for better understanding model prediction as well as expanding on specific issues that affect CRMs
-	It remains important to continue to consult their work when choosing to implement a CRM to choose the most appropriate one given the nature of the data.
+	In combination, this manuscript picks up where Blevins et al. \citeyear{blevins2015count} had left off by recommending the use of a specific postestimation method, DA, for better understanding model prediction as well as expanding on specific issues that affect CRMs.
+	It remains important to continue to consult their work when choosing to implement a CRM as their decision flowchart can help the researcher to choose the most appropriate CRM given the nature of the data.
 	I recommend that you follow the estimation of the CRM with a DA to more fully understand and contextualize the predictions made by each IV.
 	
 	I have touched on many of the key aspects necessary for extending DA to CRM in this manuscript but acknowledge that I have not been able to discuss all relevant issues for determining IV importance in CRMs.
@@ -754,7 +756,8 @@
 	A key contribution of this manuscript is in discussing the effect of differential exposure on DA statistics and designations.
 	As was shown, differential exposure can bias DA results irrespective of whether the IVs are correlated with the differential exposure process or not.
 	I did not provide an extensive evaluation of the effects of differential exposure on CRM coefficients or DA statistics but rather provide a high-level conceptual discussion of the issue and illustration of what can occur in situations where an offset term correction is not applied.
-	Although a thorough evaluation of the potential bias introduced by omitting an offset term when differential exposure has contaminated the count DV was not undertaken in this work, I see future research focusing on this issue as applied to DA of potential value and help researchers identify situations when such bias is more or less likely to occur.
+	Although a thorough evaluation of the potential bias introduced by omitting an offset term when differential exposure has contaminated the count DV was not undertaken in this work, I see future research focusing on this issue as applied to DA of potential value.
+	Such reseach could be of value in helping researchers to identify situations when such bias is more or less likely to occur given their data.
 	One suggestion for such research would be to implement it in a way similar to Braun, Converse, and Oswald's \citeyear{braun2019accuracy} evaluation of measurement reliability and sampling error on dominance statistics in meta-analytic LRM.
 	
 	Prior work on DA has also suggested the application of bootstrapping to estimate standard errors for general dominance statistics and reproduce-ability values for other dominance designations \cite{azen2009using,braun2019accuracy}. 
@@ -766,7 +769,7 @@
 	Cameron and Windmeijer \citeyear{cameron1996r} discuss the application of the $R^2_{DEV}$ to zero-inflated CRMs and, thus, a DA methodology based on the same general approach as discussed above could be applied to zero-inflated CRMs.
 	One additional complication that arises with considering how to determine importance with zero-inflated models is that zero-inflated CRMs model two processes in the data. 
 	The first process is the standard count generating process whereby IVs increase or decrease counts of the DV.
-	The second is an "opt out" process whereby IV increase or decrease the likelihood of the count being 0.
+	The second is an "opt out" process whereby IVs increase or decrease the likelihood of the count being 0.
 	An additional complication introduced by the two processes modeled by zero-inflated CRMs is that it is possible to allow specific IVs to predict the count generating process, the opting out process, or both.
 	In such circumstances the researcher should consider whether an alternative approach that emphasizes parameter estimates as opposed to IVs is better suited to the importance determination with DA \cite{luchman2020relative}.
 	
@@ -774,7 +777,7 @@
 	
 	DA is a useful post-estimation methodology for determining the importance of IVs in statistical models such as CRMs.
 	This manuscript has provided a recommended methodology for extending DA to CRMs, offered extensive examples focusing on the interpretation of DA statistics and designations with simulated data, and provided recommendations for how to adjust a CRM-based DA when observations in the count DV may have different levels of exposure to the count generating probability.
-	In combination, the conceptual discussion of DA, CRMs, and differential exposure, when combined with the empirical examples, will provide organizational and other behavioral scientists the necessary tools for better understanding the CRMs they estimate as applied to the research questions to which the results apply.
+	In combination, the conceptual discussion of DA, CRMs, and differential exposure, when paired with the empirical examples in this paper, will provide organizational and other behavioral scientists with the tools necessary for better understanding the results of CRMs they estimate and to more completely answer the research questions to which CRMs are applied.
 
 \bibliography{CountDominance.bib}
 \bibliographystyle{mslapa}
