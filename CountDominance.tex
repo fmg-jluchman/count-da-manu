@@ -1,40 +1,47 @@
-\documentclass[ShortAfour,times,sageapa]{sagej}
-\usepackage[utf8]{inputenc}
+\documentclass[man]{apa7}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{longtable}
+\hypersetup{
+	colorlinks,
+	linkcolor=black,
+	citecolor=black,
+	urlcolor=black
+}
+\title{Relative importance analysis for count regression models}
+\author{Anonymized}
+\affiliation{Anonymized}
+\leftheader{Luchman}
+\shorttitle{Count Model Dominance}
+\journal{Journal of Business and Psychoogy}
+\volume{x}
 
+\usepackage[american]{babel}
+\usepackage[style=apa,backend=biber]{biblatex}
+%\addbibresource{CountDominance_bibli.bib}
+
+\abstract{
+	Count variables are common in organizational science as an outcome. Count regression models (CRMs), such as Poisson regression, are recommended as methods to analyze count variables but can be challenging to interpret given their non-linear functional form. I recommend relative importance analysis as a method to use in interpreting CRM results. This work extends on past research by describing an approach to determining the importance of independent variables in CRMs using dominance analysis (DA). In this manuscript, I review DA as a relative importance method, recommend an $R^2$ to use with CRM-based DA, and outline the results of an analysis with simulated data that uses the recommended methodology. This work contributes to the literature by extending DA to CRMs and provides a thoroughly documented example analysis that researchers can use to implement the methodology in their research.
+}
+
+\keywords{Dominance Analysis, Relative Importance, Poisson Regression, R-square, Negative Binomial Regression, Count Data}
 
 \begin{document}
+	\section{Abstract}
+	Count variables are common in organizational science as an outcome. Count regression models (CRMs), such as Poisson regression, are recommended as methods to analyze count variables but can be challenging to interpret given their non-linear functional form. I recommend relative importance analysis as a method to use in interpreting CRM results. This work extends on past research by describing an approach to determining the importance of independent variables in CRMs using dominance analysis (DA). In this manuscript, I review DA as a relative importance method, recommend an $R^2$ to use with CRM-based DA, and outline the results of an analysis with simulated data that uses the recommended methodology. This work contributes to the literature by extending DA to CRMs and provides a thoroughly documented example analysis that researchers can use to implement the methodology in their research.
 	
-%\runninghead{Luchman}
-\runninghead{Anonymized}
-\title{Relative importance analysis for count regression models}
-%\author{Joseph N. Luchman\affilnum{1}}
-%\affiliation{\affilnum{1}Fors Marsh}
-\author{Anonymized-author\affilnum{1}}
-\affiliation{\affilnum{1}Anoymized-affiliation}
+	\ \ \ \ \ \emph{Keywords}: Dominance Analysis, Relative Importance, Poisson Regression, R-square, Negative Binomial Regression, Count Data
+	
+	\newpage
 
-\begin{abstract}
-	Count variables are common in organizational science as an outcome. Count regression models (CRMs), such as Poisson regression, are recommended as methods to analyze count variables but can be challenging to interpret given their non-linear functional form. I recommend relative importance analysis as a method to use in interpreting CRM results. This work extends on past research by describing an approach to determining the importance of independent variables in CRMs using dominance analysis (DA). In this manuscript, I review DA as a relative importance method, recommend an $R^2$ to use with CRM-based DA, and outline the results of an analysis with simulated data that uses the recommended methodology. I also discuss the effect of differential exposure to the count generating probability across observations on count outcomes, how to correct for differential exposure, and the effect of differential exposure on relative importance determination. This work contributes to the literature by extending DA to CRMs, discussing the impact of differential exposure on CRM-based relative importance, and providing thoroughly documented example analysis that researchers can use to implementing the methodology in their research.
-\end{abstract}
-
-\keywords{Dominance Analysis, Relative Importance, Poisson Regression, Exposure, R-square, Negative Binomial Regression, Count Data, Offset}
-
-\maketitle
-
-\section{Introduction}
-
+%\maketitle
+\section{Relative importance analysis for count regression models}
 	Organizational science often uses how many times a behavior is observed as an outcome to answer research questions. 
 	Such behavior counts arise from many different sources at the organization- and individual-level of aggregation.
-	Organization-level behavior counts used in the literature include the number of organizations adopting a specific practice in a week \cite{naumovska2021strength} and number of divestitures organizations make in a year \cite{bettinazzi2021stakeholder}. 
-	Individual-level behavior counts used in the literature include the number of scientific articles published in a year by an academic \cite{rotolo2013does} or number of errors that resulted in an accident in the last three months among medical doctors \cite{naveh2015active}.
-	Behavior counts such as the above examples are valuable outcomes given that organizational science concepts are often defined terms of behavior \cite(e.g., job performance;){motowidlo2003job} and strategies to validate outcomes often use observable behavior as an outcome \cite(e.g., criterion-oriented validity;){cronbach1955construct}.
+	Organization-level behavior counts used in the literature include the number of organizations adopting a specific practice in a week \parencite{naumovska2021strength} and number of divestitures organizations make in a year \parencite{bettinazzi2021stakeholder}. 
+	Individual-level behavior counts used in the literature include the number of scientific articles published in a year by an academic \parencite{rotolo2013does} or number of errors that resulted in an accident in the last three months among medical doctors \parencite{naveh2015active}.
+	Behavior counts such as the above examples are valuable outcomes given that organizational science concepts are often defined terms of behavior \parencite[e.g., job performance;][]{motowidlo2003job} and strategies to validate outcomes often use observable behavior as an outcome \parencite[e.g., criterion-oriented validity;][]{cronbach1955construct}.
 	
 	The conceptual value of behavior counts as outcomes aside, data analysis with behavior counts as a dependent variable/DV require the use of specialized tools.
-	The recommended data analysis strategy with behavior counts uses regression models designed for non-negative integer or count distributions \cite(e.g.,){blevins2015count}.
+	The recommended data analysis strategy with behavior counts uses regression models designed for non-negative integer or count distributions \parencite[e.g.,][]{blevins2015count}.
 	These count regression models/CRMs include the Poisson regression/PR and negative Binomial regression/NBR models.
 	Both PR and NBR are commonly used in the organizational science literature and implemented in many data analytic software environments.
 	
@@ -51,45 +58,36 @@
 	Despite the noteworthy difference in the absolute number of behaviors in both examples, each describe a 100\% increase in the count DV value.
 		
 	Model post-estimation methods such as graphing estimated marginal means are useful interpretive tools for log-linear CRMs to better contextualize the logarithmic predicted values they produce.
-	Another increasingly common model post-estimation tool used to contextualize model predictions are relative importance analysis methods \cite{tonidandel2011relative}. 
-	Relative importance analysis methods focus on how different IVs in the model contribute to the $R^2$ as computed by methods such as dominance analysis/DA \cite{azen2003dominance}.
+	Another increasingly common model post-estimation tool used to contextualize model predictions are relative importance analysis methods \parencite{tonidandel2011relative}. 
+	Relative importance analysis methods focus on how different IVs in the model contribute to the $R^2$ as computed by methods such as dominance analysis/DA \parencite{azen2003dominance}.
 	
-	To date, published methodological work has extended DA from the linear regression model/LRM on which it was originally developed, to generalized linear models including binary \cite{azen2009using}, ordered, and multinomial logit models \cite{luchman2014relative}.	
-	This work extends DA to CRMs and makes three contributions to the literature.
+	To date, published methodological work has extended DA from the linear regression model/LRM on which it was originally developed, to generalized linear models including binary \parencite{azen2009using}, ordered, and multinomial logit models \parencite{luchman2014relative}.	
+	This work extends DA to CRMs and makes two contributions to the literature.
 	This work first reviews DA as a relative importance methodology, recommends using a specific pseudo-$R^2$ statistic for CRM-based DA, and implements multiple data analytic examples of DA with that statistic.
 	The pseudo-$R^2$ chosen for CRM-based DA is a direct generalization of the explained variance $R^2$ in the LRM to generalized linear models based on model deviance.
 	The data analytic examples then use this deviance-based pseudo-$R^2$ as the fit statistic in a series of DA computations with simulated Poisson and negative Binomial distributed data.
-	
-	Second, this work discusses data generation mechanisms with count DVs and outlines how research questions with count DVs can, under certain circumstances, be affected by a concept known as differential exposure.
-	Differential exposure is a concept whereby two observations have different numbers of opportunities to produce behavior counts.
-	Oftentimes such differential exposure is a nuisance factor related to data collection context, not of substantive interest, and is correctable in the model using an offset term with a variable measuring differential exposure.
-	As I will show in this work, differential exposure is of particular import for DA statistic computation as it can affect estimates of DA statistics even when model coefficients are relatively unaffected.
-	
-	Finally, this work extends on that of Blevins, Tsang, and Spain \citeyear{blevins2015count}'s review and recommendations for the use of CRMs in organizational science. 
+
+	Second, this work extends on that of Blevins, Tsang, and Spain \parencite*{blevins2015count}'s review and recommendations for the use of CRMs in organizational science. 
 	Blevins et al. discuss the extent of CRM use in the organizational science literature, describe model and analytic details about the PR and NBR models, and provide a flowchart that researchers can use to identify which CRM might be best to choose for their data analysis.
 	In this work, I extend on their review to add an in-depth discussion of DA and its role as a post-estimation methodology.
-	DA extends on the interpretation of coefficients to describe how the coefficients, when applied to the observed data, improve model-to-fit in predicting the count DV.
-	In addition, the discussion of differential exposure extends on Blevins et al.'s conceptual review to cover an additional consideration important for CRM-based data analysis.
-	
+	DA extends on the interpretation of coefficients to describe how the coefficients, when applied to the observed data, improve model-to-data fit in predicting the count DV.
+
 	I begin the manuscript with a detailed discussion of the conceptual background of DA--the relative importance analysis method most applicable to CRMs.	
  	Here I discuss the different levels of dominance between two IVs as defined by DA, how these levels are determined in the data, and what this level of dominance means in terms of the importance of any IV in the model.
 	The conceptual discussion of DA is followed by a more focused discussion where I apply DA to CRMs.
 	The goal of the focused CRM-based DA discussion is to recommend a model fit statistic for use in dominance designations.
-	In the third section, I apply the topics discussed in the previous two sections in a detailed PR-based DA using simulated data designed be useful in illustrating key CRM-based DA concepts.
-	In a fourth and final section, I turn to discussing the concept of differential exposure in count DVs, show how it can affect results from CRM analysis, and provide the method used to correct for it in analysis.
-	My goal in discussing differential exposure is to outline the effect of this concept on DA statistics and designations.
-	To this end, I compute and compare CRM-based DA statistics with and without corrections to illustrate the impact of ignoring this issue during analysis.
+	In the third section, I apply the topics discussed in the previous two sections in a detailed PR-based DA using simulated data designed to be useful in illustrating key CRM-based DA concepts.
 		
 \section{Dominance Analysis: A Unique Relative Importance Analysis Method}
 
-	Research methodologists and statisticians have used many methods over the years to determine how important an IV is in a LRM \cite(see reviews in){gromping2007estimators, johnson2004history}.
+	Research methodologists and statisticians have used many methods over the years to determine how important an IV is in a LRM \parencite[see reviews in][]{gromping2007estimators, johnson2004history}.
 	Importance methods have included the correlation between the IV and DV, an IV's standardized regression coefficient, as well as the increment to the $R^2$ an IV makes when predicting the DV.
-	These methods, however informative in specific circumstances, are not considered to be useful as importance metirics as they fail to simultaneously account for the IV's bivariate and multivariate (i.e., controlling for other IVs) relationships with the DV \cite{johnson2004history}.
+	These methods, however informative in specific circumstances, are not considered to be useful as importance metrics as they fail to simultaneously account for the IV's bivariate and multivariate (i.e., controlling for other IVs) relationships with the DV \parencite{johnson2004history}.
 	Accommodating both bi- and multivariate relationships is important in determining importance as, for most statistical models, the order in which IVs are included in the model is arbitrary yet IV inclusion order fundamentally affects the conclusions drawn.
 	Hence, it is essential to use importance methods that produce results that are independent of inclusion order.
 	
 	One importance method that is independent of ordering and has enjoyed favorable reviews in the methodology community is DA.
-	DA was originally developed as a method for determining IV importance for the LRM by Budescu \citeyear{budescu1993dominance}.
+	DA was originally developed as a method for determining IV importance for the LRM by Budescu \parencite*{budescu1993dominance}.
 	DA extended on past importance methods by defining importance in terms of pairwise IV comparisons across multiple sub-model $R^2$ values.
 	Sub-model $R^2$ values are those computed by re-fitting the model to the data with some subset of all the IVs.
 	In a model with $p$ IVs there are a total of $2^p$ sub-models including the full model with all $p$ IVs and the null model with none of the IVs (i.e., an intercept-only model which always produces an $R^2$ value of 0 and is often omitted).
@@ -102,7 +100,7 @@
 	In each comparison, the subscripted model indicates the LRM prediction equation in symbolic form.
 	The terms in braces represent the non-focal IV subset for the comparison.
 	$IV_x$ dominates $IV_z$ only when all the sub-model $R^2$ values that include $IV_x$ are greater than the sub-model $R^2$ values that include $IV_z$.
-	The dominance comparisons described in this section have, more recently, been named complete dominance and have been recognized as the most stringent, or hardest to achieve, dominance designation that an IV can obtain over another IV in a series of three possible dominance designations between IV pairs \cite{azen2003dominance}.	
+	The dominance comparisons described in this section have, more recently, been named complete dominance and have been recognized as the most stringent, or hardest to achieve, dominance designation that an IV can obtain over another IV in a series of three possible dominance designations between IV pairs \parencite{azen2003dominance}.	
 
 		\begin{table}[h!]
 			\centering
@@ -128,7 +126,11 @@
 	The process for determining complete dominance between a pair of IVs, for example $IV_x$ and $IV_z$, with an arbitrary number of non-focal IVs in the model ($p - 2$) is defined as:
 	
 	\begin{equation}
-		IV_x \, D \, IV_z \quad if \quad 2^{p-2} = \sum^{2^{p-2}}_{j=1} \Biggr\{ \begin{matrix} if \ R^2_{Y \sim IV_x + \{u_j\}} > R^2_{Y \sim IV_z + \{u_j\}} \ then \ 1 \\ else \ 0 \end{matrix}
+		IV_x \, D \, IV_z \quad if \quad 2^{p-2} = \sum^{2^{p-2}}_{j=1} \Biggr\{ 
+		\begin{array}{l}
+			if \ R^2_{Y \sim IV_x + \{u_j\}} > R^2_{Y \sim IV_z + \{u_j\}} \ then \ 1 \\
+			else \ 0 
+		\end{array}
 		\label{eq:cptdom}
 	\end{equation}
 	
@@ -179,21 +181,25 @@
 	
 	The $\Delta$ used in Table \ref{tab:excdl} indicates that the $R^2$ value is an increment made by the focal IV beyond the subset of non-focal IVs in braces.
 	Note that the conditional dominance statistics use $R^2$ increments from subsets that include all other non-focal IVs.
-	Hence, conditional dominance comparisons between two IVs will include increments from the IV against which they are being compared in their each average.
+	Hence, conditional dominance comparisons between two IVs will include increments from the IV against which they are being compared in their average value.
 	This is a noteworthy difference from complete dominance designations that do not use sub-model $R^2$ values that include the IV against which the focal IV is being compared.
 	
-	The process of computing conditional dominance statistics for $IV_x$ at $i$ IVs in the submodel can be formalized as in Equation \ref{eq:cdlst} below.
+	The process of computing conditional dominance statistics for $IV_x$ at $i$ IVs in the sub-model can be formalized as in Equation \ref{eq:cdlst} below.
 	
 	\begin{equation}
 		C^{i}_{IV_x} = \frac{\sum^{k_i}_{g=1} \Delta R^2_{IV_x + \{o_g\}}}{k_g}
 		\label{eq:cdlst}
 	\end{equation}
 	
-	Where $k_i$ is the number of combinations of size $i$ given $p$ IVs and $o_g$ is a distict subset of the $p-1$ IVs of size $i - 1$ that are included in the sub-model.	
+	Where $k_i$ is the number of combinations of size $i$ given $p$ IVs and $o_g$ is a distinct subset of the $p-1$ IVs of size $i - 1$ that are included in the sub-model.	
 	The process for determining conditional dominance between two IVs, $IV_x$ and $IV_z$, is defined in Equation \ref{eq:cdldom}.
 	
 	\begin{equation}
-		IV_x \ D_c \ IV_z \quad if \quad p = \sum^p_{i=1} \Biggl\{ \begin{matrix} if \ C^{i}_{IV_x} > C^{i}_{IV_z} \ then \ 1 \\ else \ 0 \end{matrix}
+		IV_x \ D_c \ IV_z \quad if \quad p = \sum^p_{i=1} \Biggl\{ 
+		\begin{array}{l}
+			if \ C^{i}_{IV_x} > C^{i}_{IV_z} \ then \ 1 \\ 
+			else \ 0 
+		\end{array}
 		\label{eq:cdldom}
 	\end{equation}
 	
@@ -254,7 +260,7 @@
 	General dominance thus suggests that $IV_x$'s predictive usefulness is, on average, better than $IV_z$ and that it is more important when discounting the effects of IV inclusion order.
 	
 	Note that the  general dominance statistic values, when summed across the $p$ IVs, equals the sub-model $R^2$ when all $p$ predictors are included.
-	This is a useful feature of these statistics that, as has been discussed in other reviews \cite{gromping2007estimators,johnson2004history}, ties this method to earlier work on IV importance focusing on the decomposition of the $R^2$ statistic.
+	This is a useful feature of these statistics that, as has been discussed in other reviews \parencite{gromping2007estimators,johnson2004history}, ties this method to earlier work on IV importance focusing on the decomposition of the $R^2$ statistic.
 
 	In the sections above, I have provided a brief discussion of DA's development and reviewed how DA statistics are computed and designations are determined.
 	In the section below, I transition from a broad outline of DA to a more targeted discussion on application of DA to CRMs.
@@ -276,7 +282,7 @@
 	Thus, choosing a fit metric that matches the probability distribution's underlying fitting criterion will best reflect how the model fits to data.
 	
 	In considering how fit metrics reflect underlying fitting criteria, I find it instructive to first consider the LRM.
-	LRM is based on a Normal or Gaussian probability distribution that has been shown to have least-squares as its fitting criterion which seeks to minimize $SS_{residual} = \sum (Y - \hat{Y})^2$ or the residual sums of squares between the predicted values from the LRM and the observed DV. The computation used to obtain the $SS_{residual}$ is also known as the deviance ($DEV$) for the Normal distribution as it describes how the model's predictions deviate from observed values \cite{mccullagh2019generalized}.
+	LRM is based on a Normal or Gaussian probability distribution that has been shown to have least-squares as its fitting criterion which seeks to minimize $SS_{residual} = \sum (Y - \hat{Y})^2$ or the residual sums of squares between the predicted values from the LRM and the observed DV. The computation used to obtain the $SS_{residual}$ is also known as the deviance ($DEV$) for the Normal distribution as it describes how the model's predictions deviate from observed values \parencite{mccullagh2019generalized}.
 	The $SS_{residual}$ can then be cast as $DEV_{model}$ or a model deviance for the LRM.
 	
 	Deviance computations apply to CRMs but can differ substantially from the LRM's least squares criterion.
@@ -288,7 +294,7 @@
 	The extra penalties assigned to underprediction are consistent with the truncated, semi-continuous nature of count DVs in that they cannot go below 0 and, thus, tend to be penalized more heavily toward the conceptual lower bound of the distribution.
 	By contrast, Normal distribution deviance has no such constraint and penalizes discrepancies from observed values equally in either direction.
 	
-	The difference between the deviance computations across LRM and CRMs in terms of their implications for model fit was first discussed by Cameron and Windmeijer \citeyear{cameron1996r} who devise the $R^2_{DEV}$ or deviance $R^2$ outlined in Equation \ref{eq:r2dev} below.
+	The difference between the deviance computations across LRM and CRMs in terms of their implications for model fit was first discussed by Cameron and Windmeijer \parencite*{cameron1996r} who devise the $R^2_{DEV}$ or deviance $R^2$ outlined in Equation \ref{eq:r2dev} below.
 	
 	\begin{equation}
 		R^{2}_{DEV} = 1 - \frac{DEV_{model}}{DEV_{null}}
@@ -310,7 +316,7 @@
 	The goal of this section is to provide an example analysis using the recommended $R^2_{DEV}$ CRM-based DA methodology.
 	This  example is intended to be useful as a guide for researchers and analysts interested in applying this method to CRMs.
 	In the section below, I begin by describing how I generated data for the example based on a PR model\footnote{
-		An example using an NBR is available in the online supplement.}.
+		An example using a NBR is available in the online supplement.}.
 	The methods used to generate these data are not directly relevant to the goals of this manuscript and, as such, have been put into an online supplement.
 	Please note that the online supplement outlines the code to generate the data and development perspective behind the generation of these data in great detail.
 	The section below is focused primarily on describing the conceptual nature of the data so that the reader can follow along prior to transitioning to analysis.
@@ -339,17 +345,16 @@
 		\centering
 		\caption{\centering Descriptive Statistics} 
 		\begin{tabular}{lrr|rrrrr}
-			\toprule
+			\hline %\toprule
 			&  & Standard & \multicolumn{5}{c}{Correlations} \\ 
-			\cmidrule(lr){4-8}
 			Variable & Mean & Deviation & $ER$ & $AS$ & $SL$ & $WE$ & $SJ$ \\ 
-			\midrule
+			\hline %\midrule
 			$ER$ & $-0.0355$ & $1.1853$ & $1.0000$ & $0.4168$ & $0.1446$ & $0.2180$ & $0.4175$ \\ 
 			$AS$ & $-0.0261$ & $1.4494$ & $0.4168$ & $1.0000$ & $0.1958$ & $0.2850$ & $0.3592$ \\ 
 			$SL$ & $-0.0056$ & $1.5480$ & $0.1446$ & $0.1958$ & $1.0000$ & $0.3295$ & $0.2913$ \\ 
 			$WE$ & $0.0144$ & $1.9211$ & $0.2180$ & $0.2850$ & $0.3295$ & $1.0000$ & $0.3726$ \\ 
 			$SJ$ & $0.9940$ & $1.0082$ & $0.4175$ & $0.3592$ & $0.2913$ & $0.3726$ & $1.0000$ \\ 
-			\bottomrule
+			\hline %\bottomrule
 		\end{tabular}
 		\label{tab:desc}
 	\end{table}
@@ -369,17 +374,16 @@
 		\centering
 		\caption{\centering Poisson Regression Predicting Sport Jackets Produced} 
 		\begin{tabular}{l|rrrrr}
-			\toprule
+			\hline %\toprule
 			\multicolumn{1}{l}{} &  &  & \multicolumn{2}{c}{95\% Confidence Interval} &   \\ 
-			\cmidrule(lr){4-5}
 			\multicolumn{1}{l}{} & $\beta$ & $\sigma_{\beta}$ & Low & High & $e^{\beta}$ \\ 
-			\midrule
+			\hline %\midrule
 			$ER$ & $0.2431$ & $0.0114$ & $0.2208$ & $0.2655$ & $1.2753$ \\  
 			$AS$ & $0.1081$ & $0.0095$ & $0.0896$ & $0.1267$ & $1.1142$ \\ 
 			$SL$ & $0.0999$ & $0.0083$ & $0.0835$ & $0.1162$ & $1.1050$ \\
 			$WE$ & $0.1158$ & $0.0069$ & $0.1024$ & $0.1293$ & $1.1228$ \\ 
 			$Intercept$ & $-0.1507$ & $0.0138$ & $-0.1780$ & $-0.1237$ & $0.8601$ \\
-			\bottomrule
+			\hline %\bottomrule
 		\end{tabular}
 		\label{tab:poisreg}
 	\end{table}
@@ -388,16 +392,16 @@
 	
 	In terms of effect size magnitude, equipment reliability had the largest effect on sport jacket counts. 
 	The IRR value shows that each one point increase in equipment reliability led to a 27.5\% increase in the number of sport jackets finished.
-	Tailor work experience obtained the second largest effect on sport jacket counts with its IRR value showing that each one point increase in staffing levels led to a 12.3\% increase in the number of sport jackets finished.
+	Tailor work experience obtained the second-largest effect on sport jacket counts with its IRR value showing that each one point increase in staffing levels led to a 12.3\% increase in the number of sport jackets finished.
 	Assistant staffing and skill level obtained the smallest effect sizes as reflected by their IRRs.
-	Assistant staffing resulted in a 11.4\% increase and work experence a 10.5\% increase in the number of sport jackets produced in two weeks. 
+	Assistant staffing resulted in a 11.4\% increase and work experience a 10.5\% increase in the number of sport jackets produced in two weeks. 
 	
 	The IRR value for the model intercept reports on the average number of sport jackets when all IVs are 0; for these results, the number of jackets produced with all four IVs at its mean value. 
 	The .8601 value obtained is similar to the overall mean of near 1 reported in Table \ref{tab:desc}.
 	This .8601 value can also used as a baseline prediction for the PR.
 	For instance, the expected number of sport jackets with equipment reliability at 1 and all other IVs at 0 is $.8601*1.2753 = 1.0969$ or just above 1 jacket.
 	Contextualizing model predictions by reporting out specific predicted values is useful for non-linear models such as PR as they more clearly depict the multiplicative effects produced by CRMs.
-	Hence, reporting on and visualizing predicted marginal means adds value to the model interpretation process \cite(see)[for a similar perspective]{ronkko2022eight}.
+	Hence, reporting on and visualizing predicted marginal means adds value to the model interpretation process \parencite[see][for a similar perspective]{ronkko2022eight}.
 	Although I do not report marginal means plots in the body of this manuscript for brevity, such plots are reported in the online supplement for interested readers.
 	
 	The PR modeling result reported in Table \ref{tab:poisreg} shows that all four IVs have predictive effects on sport jacket production and, in addition, show different effect size magnitudes that indicate likely differences in the importance of each IV for explaining sport jacket production.
@@ -415,7 +419,7 @@
 		\centering
 		\caption{\centering $R^2_{DEV}$ by Sub-model}
 		\begin{tabular}{l|r}
-			\toprule
+			\hline %\toprule
 			$SJ \sim ER$ & $0.1524$ \\ 
 			$SJ \sim AS$ & $0.1131$ \\ 
 			$SJ \sim SL$ & $0.0744$ \\ 
@@ -431,7 +435,7 @@
 			$SJ \sim ER + SL + WE$ & $0.2459$ \\ 
 			$SJ \sim AS + SL + WE$ & $0.2050$ \\ 
 			$SJ \sim ER + AS + SL + WE$ & $0.2624$ \\ 
-			\bottomrule
+			\hline %\bottomrule
 		\end{tabular}
 		\label{tab:r2sub}
 	\end{table} 
@@ -449,7 +453,7 @@
 	For instance, work experience completely dominates skill level but does not completely dominate assistant staffing.
 	Moreover, assistant staffing and skill level have no complete dominance relationship.
 	This makes clearly ranking the final three variables more nuanced as work experience is a better predictor than skill level irrespective of inclusion order, but no such clear statement can be made of the rest of the comparisons.
-	Thus, work experience is likely the second best predictor but it will require the one of the expanded dominance designations to confirm this is the case.
+	Thus, work experience is likely the second best predictor but it will require one of the expanded dominance designations to confirm this is the case.
 	
 	In order to rank the remaining variables, the conditional dominance statistics for all the tailoring shop IVs were computed using Equation \ref{eq:cdlst}.
 	The results of the conditional dominance statistic computations are depicted graphically in Figure \ref{fg:cdl} below.
@@ -458,7 +462,7 @@
 	\begin{figure}[h!]
 		\centering
 		\caption{\centering Conditional Dominance Statistics}
-		\includegraphics{includes/condit_gph}
+		\includegraphics{condit_gph}
 		\label{fg:cdl}
 	\end{figure}
 
@@ -481,12 +485,12 @@
 		\centering
 		\caption{\centering General Dominance Statistics}
 		\begin{tabular}{l|r}
-			\toprule
+			\hline %\toprule
 			$ER$ & $0.0965$ \\ 
 			$AS$ & $0.0560$ \\ 
 			$SL$ & $0.0399$ \\ 
 			$WE$ & $0.0700$ \\ 
-			\bottomrule
+			\hline %\bottomrule
 		\end{tabular}
 		\label{tab:gen}
 	\end{table}
@@ -497,231 +501,13 @@
 	
 	In conclusion, the DA results have built on reports of the model in Table \ref{tab:poisreg} by adding additional information about how each of the tailoring shop IVs explains variation or information in the sport jacket production variable. 
 	The DA results support the inference about the large IRR value obtained by equipment reliability, confirming that this variable, regardless of the order in which it might be included in the model, is most important. 
-	In addition, equipment reliability is associated with nearly one-third (i.e., $\frac{.0965}{.2624} \approx \frac{1}{3}$ of the explained information in sport jackets alone.
+	In addition, equipment reliability is associated with nearly one-third (i.e., $\frac{.0965}{.2624} \approx \frac{1}{3}$ of the explained information in sport jackets alone).
 	The DA results also provide useful contextualization of the other three IV's IRR values from Table \ref{tab:poisreg}.
 	Specifically, the IRR values for work experience, assistant staffing levels, and skill level were similar, each within .01 of one another. 
 	It would then seem like each IV might have a similar importance comparison with each other IV.
 	The dominance designations obtained showed this is not the case as work experience completely dominated only skill level and conditionally dominated assistant staffing levels. 
 	Moreover, assistant staffing levels generally dominated skill level.
 	The DA results then showed a great deal of variability in terms of strength of dominance designations even within this rather narrow window of IRR values.
-
-	\subsubsection{Section Summary}
-	
-	This section provided an extensive example of a PR model analysis using simulated data.
-	The PR model described in this section interpreted model coefficients using IRRs and applied the recommended DA methodology using the $R^2_{DEV}$ to compute dominance statistics and designations.
-	
-	The data analytic conditions under which the PR model above was generated and estimated assumed that the time window under which each tailoring shop was observed was two weeks.
-	In many real world situations involving count DVs, the time window might vary from observation to observation. 
-	Under such conditions, the observations are "exposed" to the count generating mechanism differently.
-	In the section below, I shift the focus to a conceptual discussion of what exposure means for count DVs, how differential exposure is accommodated in CRMs, and offer an example of how differential exposure affects DA statistics and designations with another data analytic example.
-	
-\section{Additional Consideration for CRMs}
-
-	CRMs are designed to model the semi-continuous and non-negative values on which count DVs take.
-	Count DVs, in addition to being semi-continuous and non-negative, are also marked by an implied level of aggregation.
-	Note that all the count DVs discussed in the introduction, as well as the simulated DV in the example above, aggregate a number of events over a specific period of time.	
-	
-	Count DVs as aggregated events is a common interpretation of a Poisson distributed variable. 
-	Indeed, Poisson variables can be defined as accumulated repeated sampling from a Binomial distribution with a set probabity of occurrence and a set number of trials \cite(e.g.,){hodges1960poisson}.
-	In this interpretation of the Poisson, the Poisson mean parameter $\mu$ is the product of the number of trials $n$ for the Binomial distribution times the probability $p$ of the event occurring in the Binomial distribution.
-	Given the Binomial interpretation of the Poisson, it is clear that CRMs assume that the counts of events realized in the data are derived from Binomial processes that share the same number of trials and probabilities of occurrence.
-	The linkage between aggregated Binomial processes and the negative Binomial distribution is even clearer as it is, in fact, defined as aggregated Binomial events or trials.
-	In the end, both PR and NBR models can be seen as a method for modeling aggregated event counts that stem from a specfic set of Binomial processes.
-	
-	Given the interpretation of a count DV as the product of a probability and a number of discrete trials, it is clear that differences in counts can arise from both differences across observations in terms of their underlying probability as well as their number of trials, or exposure to the probability.
-	Often differences in exposure are not of conceptual interest and the researcher will want to adjust the CRM for differential exposure across observations.
-	In the section below, I elaborate more on what differential exposure is, the practical effects of differential exposure on answering research questions with count DVs, and how to adjust CRM results to ensure that count DVs that might be affected by differential exposure produce accurate DA statistics and designations.
-
-	\subsection{Differential Exposure and Offset Terms}
-	
-	When answering research questions using CRMs it is valuable to consider how the central count DV could be the product of both differences in probability of events as well as differences in exposure. 
-	As an example, consider the number of positive reviews a business receives and whether a customer service training increases the number of those positive reviews.
-	From the perspective of the Binomial interpretation of count events like positive reviews, the researcher must consider whether the training will affect the probability of receiving a positive review from any given customer, the number of customers who can provide a review, or both factors.
-	For this research question, the customer service training is likely to be most relevant to the probability of receiving a positive review from any given customer.
-	Thus, with a fixed set of customers, the customer service training should increase the count of positive reviews due to increasing the probability that any one customer is happy and thus provides a positive review.
-	
-	What happens when a research question like the one above must be evaluated in two business locations that have different numbers of customers?
-	If location A has 100 customers and location B has 1,000 customers, I would expect that location B would have more positive reviews than location A given the same underlying probability of observing the postitive review event.	
-	The count DV, however, does not naturally contain this information which complicates the interpretation of the results given the contamination of the count DV with customer counts that differ by location. 
-	As an example of the potential that differential exposure has for affecting the interpretation of results with count DVs, consider what would happen in a CRM if locations A and B both receive 10 positive reviews.
-	I know that both values of 10 imply starkly different probabilities of observing an event (i.e., $\frac{10}{1000} = .01$ and $\frac{10}{100} = .1$).
-	A CRM, however, will not distinguish between each location's differential exposure given just the count DV values and will treat them as though they are the same.
-	In order to recover the correct probabilities of occurrence, the researcher needs to incorporate an additional modeling feature that informs the CRM about differential exposure.
-	
-	The modeling feature a researcher can use to adjust for differential exposure in a CRM is an offset term.  
-	The offset term, for a log-linear CRM, is natural log transformed version of a variable that reflects the known differential exposure between observations set to a coefficient value of 1.
-	Thus, to control for differential exposure, the researcher must have access to a variable that reflects, for each observation, the exposure that the observation had to the count generating probability.
-	When this exposure variable is natural logarithm transformed and included in the CRM with a coefficient of 1, the DV predicted by the model becomes the ratio of the count DV to exposure or the rate of observed events.
-	
-	The transformation that turns the count DV into a rate is easier to see when making a few algebraic manipulations to the model.
-	I will apply this transformation to a very simple CRM: an intercept only model that is fit with an offset term.
-	An intercept-only model with an offset would, as a formula, look like: $Y = e^{\beta_o\ln X_{exposure} + \beta_1}$, where $X_{exposure}$ is the exposure variable, $\beta_o$ is the offset term, and $\beta_1$ is the model intercept.
-	Taking the natural logarithm of both sides of the equation and given the offset term is 1, the equation above simplifies to $\ln Y = \ln X_{exposure} + \beta_1$.
-	Subtracting $\ln X_{exposure}$ from both sides results in $\ln Y - \ln X_{exposure} = \beta_1$.
-	Finally, I use the property of logarithms that the difference between two logarithms is the logarithm of their quotient, thus producing $\ln \frac{Y}{X_{exposure}} = \beta_1$ or, when back translated to exponential form, $\frac{Y}{X_{exposure}} = e^{\beta_1}$.
-	The natural logarithm transformed exposure variable, when included with an offset term, then necessaily results in the count DV being a rate.
-	
-	The practical effect of the use of an offset term is that the count DV better reflects the underlying probability of the event and is no longer contaiminated with different levels of exposure to the count generating probability.
-	An additional side effect of the offset term is that it reduces the extent of unexplainable variation, or deviance, in the count DV.
-	The reduction in unexplainable variation arises as observations with high counts and high exposure values are pulled nearer those with low counts and low exposure values.	
-	As a result of the reduced unexplainable variation, inclusion of an offset term affects the values obtained by  $R^2_{DEV}$ and DA statistics on which they are based.
-	
-	In the sections below, I show the effect that differential exposure has on the results of CRMs by extending the analysis applied to the sport jacket production variable to two new variables that are contaminated with differential exposure.
-	These two new variables are based on the same underlying causal model as the sport jacket production variable above but have been contaminated with two different kinds of differential exposure.
-	My intention in providing examples of the effect of multiple kinds differential exposure on count DVs is to illustrate the likely result of such differential exposure on model coefficients as well as DA designations and statistics.
-	I also show how the inclusion of an appropriate offset term can correct such differential exposure contamination for each DV.
-	
-	\subsection{Dominance Analysis with Offset Terms: Analytic Examples}
-	
-	This section extends on the data analysis above by developing two additional sport jacket production variables that were observed during time periods with two different types of holidays.	
-	As above, the generation perspective and actual implementation of generating these variables is described in the online supplement as opposed to in this manuscript directly. The section below describes the two new variables and their contaminating differential exposure processes prior to using them in analysis.
-	
-		\subsubsection{Data Generation}
-		
-	The focus in this extended analysis remains on evaluating the effect of the four tailoring shop characteristics in predicting stock jacket production from the same set of 6,780 tailoring shops. 
-	The difference in the count variables produced below are that they were measured during two-week periods with different kinds of holidays.
-	
-	One of the two-week periods in which these tailoring shops were observed occurred near a religious holiday that is not celebrated in the same way by all tailoring shops.
-	The resulting sport jacket production variable under religious holiday observance (called $SJ_{RH}$ below) was contaminated by differential exposure owing to inconsistent leaves of absence by tailors over the two-week period.
-	These inconsistent leaves of absence resulted in each tailoring shop having different numbers of days in which no work was done.
-	On days in which no work was done there was, of course, no exposure to the count generating probability.
-	Assume in this case that it is known that the observance of the religious holidays in this period of time are uncorrelated with any of the tailoring shop characteristics. 
-	Thus, the differential exposure process contaminating the sport jacket production variable with religious holiday observance is completely random.
-	
-	The second of the two-week periods in which these tailoring shops were observed occurred near a time when it is common for tailoring shops to take voluntary holidays.
-	The resulting sport jacket production variable under voluntary holiday (called $SJ_{VH}$ below) was also contaminated by differential exposure owing to inconsistent leaves of absence by tailors over the two-week period.
-	Assume in this case that it is known that taking voluntary holidays depends on tailoring shop characteristics.
-	Tailoring shops with specific characteristics were more likely to take holidays during this two-week period than other shops.
-	Thus, the differential exposure process contaminating the sport jacket production variable due to taking a voluntary holiday is correlated with the tailoring shop characteristics.
-	
-	The means, standard deviations, and correlations of the two new sport jacket production variables with each of the tailoting shop IVs are reported in Table \ref{tab:dscEx}.
-	
-	\begin{table}[h!]
-		\centering
-		\caption{\centering Descriptive Statistics with Differential Exposure}
-		\begin{tabular}{lrrrrrr}
-			\toprule
-			&  &  Standard & \multicolumn{4}{c}{Correlations} \\ 
-			\cmidrule(lr){4-7}
-			Variable & Mean & Deviation & $ER$ & $AS$ & $SL$ & $WE$ \\ 
-			\midrule
-			$SJ_{RH}$ & $0.5448$ & $0.7610$ & $0.3290$ & $0.2875$ & $0.2291$ & $0.2977$ \\  
-			$SJ_{VH}$ & $0.4876$ & $0.6754$ & $0.2265$ & $0.2084$ & $0.1328$ & $0.2254$ \\
-			\bottomrule
-		\end{tabular}
-		\label{tab:dscEx}
-	\end{table}
-	
-	The two types of holidays described above have the effect of making fewer working days and thus will reduce the magnitude of the mean and standard deviations of Poisson distributed sport jacket production variables.	
-	Consistent with that expectation, by comparison to the results in Table \ref{tab:desc}, Table \ref{tab:dscEx}'s results, show that the means and standard deviations for sport jacket production shrunk given the two types of holidays.
-	
-	The two types of holidays would also be expected to have specific effects on the correlations with the tailoring shop characteristics.
-	The random religious holiday observance differential exposure is likely to shrink correlations with all tailoring shop characteristics.
-	This is because this random differential exposure effectively adds unexplainable error variation to the sport jacket production process.
-	By contrast, the tailoring shop characteristic-correlated voluntary holiday differential exposure should change the relative magnitude of the correlations consistent with the exposure process (described in the online supplement).
-	When comparing the correlations in Table \ref{tab:desc} to those of Table \ref{tab:dscEx}, both expected patterns emerge.
-	Religious holiday observence shrinks the magnitude of the correlations but does not change the relative magnitudes meaningfully.
-	Voluntary holidays however do change the relative magnitudes (again, see online supplement for a discussion).
-	
-	The next section uses the religious holiday observence/random differential exposure-contaminated sport jacket production variable as the dependent variable in a PR as well as a PR-based DA.
-	Two different versions of this model are reported.
-	One version of the model uses the known religious holiday exposure variable in an offset term and the other does not.
-	Both models are reported and compared to show the effect of the inclusion of the offset term on model results.
-	
-		\subsubsection{Random Differential Exposure}
-		
-	The two models estimated using religious holiday contaminated sport jacket production are reported in Table \ref{tab:unexp}.
-	Only the coefficients, IRRs, and general dominance statistics are reported for each IV for brevity.
-		
-	\begin{table}[h!]
-		\centering
-		\caption{\centering Poisson Modeling Results under Random Differential Exposure}
-		\begin{tabular}{l|rrrrrr}
-			\toprule
-			\multicolumn{1}{l}{} & \multicolumn{3}{c}{Without Offset} & \multicolumn{3}{c}{With Offset} \\ 
-			\cmidrule(lr){2-4} \cmidrule(lr){5-7}
-			\multicolumn{1}{l}{} & $\beta$ & $e^{\beta}$ & $C$ & $\beta$ & $e^{\beta}$ & $C$ \\ 
-			\midrule
-			$ER$ & $0.2606$ & $1.2977$ & $0.0672$ & $0.2683$ & $1.3077$ & $0.0824$ \\ 
-			$AS$ & $0.1225$ & $1.1303$ & $0.0410$ & $0.1210$ & $1.1287$ & $0.0490$ \\ 
-			$SL$ & $0.1066$ & $1.1125$ & $0.0277$ & $0.1125$ & $1.1191$ & $0.0352$ \\  
-			$WE$ & $0.1287$ & $1.1374$ & $0.0509$ & $0.1360$ & $1.1457$ & $0.0650$ \\ 
-			$Intercept$ & $-0.7812$ & $0.4579$ & & $-2.4914$ & $0.0828$ & \\ 
-			\bottomrule
-		\end{tabular}
-	\label{tab:unexp}
-	\end{table}
-	
-	Table \ref{tab:unexp}'s results show that the effect of random differential exposure with religious holiday observance did not substantially affect the IV coefficient and IRR estimates and the results with and without offsets are similar to one another and to the results in Table \ref{tab:poisreg} where there is not differential exposure.
-	The coefficients that do change in a noteworthy way are the $Intercept$ values across models with the model omitting the offset obtaining a value near the mean of the religious holiday observance stock jacket production distribution and the model with the offset nearer the underlying probability of observing a stock jacket being produced in any given day in the two-week period (the underlying probability is .1; see online supplement for a discussion).
-	
-	In addition, the relative comparisons between the IVs' general dominance statistics did not change meaningfully given the random differential exposure with or without the offset term. 
-	The most noteworthy result is that all of the DA statistics obtained under random differential exposure in Table \ref{tab:unexp} are smaller compared to those in Table \ref{tab:gen} obtained under equal exposure.
-	Thus, irrespective of the use of an offset term, differential exposure affected the magnitude of the general dominance statistics, shrinking them all toward 0 relative to the data obtained under equal exposure.
-	
-	Although the results obtained with and without an offset term showed a similar pattern of results, the results with an offset term tended to be closer in their values to the data obtained under equal exposure.
-	As was noted above, differential exposure adds variation to the model deviance that is unexplained in the absence of an offset term.
-	The difference in the magnitude of the general dominance statistic values obtained with and without an offset term reflect this effect.
-	When the offset term is not included there is more variation in the model that is unexplained, reducing the magnitude of the $R^2_{DEV}$.
-	By contrast, when the offset term is included, the additional variation introduced by differential exposure is reduced which has the effect of increasing the $R^2_{DEV}$.
-	
-	The section below moves to the analysis using the correlated differential exposure mechanism introduced by taking voluntary holidays.
-	Again, correlated differential exposure is the process where the exposure variable is related to the IVs in the statistical model.
-	Given these relationships, the effect of correlated differential exposure on the model results is expected to be more substantial.
-	As with the random differential exposure results, the correlated exposure results include a model with an offset and without an offset.
-	
-		\subsubsection{Correlated Differential Exposure}
-		
-	The two models estimated using voluntary holiday contaminated sport jacket production are reported in Table \ref{tab:exp}.
-	As before, model coefficients, IRRs, and general dominance statistics are reported.
-	
-	\begin{table}[h!]
-		\centering
-		\caption{\centering Poisson Modeling Results under Correlated Differential Exposure}
-		\begin{tabular}{l|rrrrrr}
-			\toprule
-			\multicolumn{1}{l}{} & \multicolumn{3}{c}{Without Offset} & \multicolumn{3}{c}{With Offset} \\ 
-			\cmidrule(lr){2-4} \cmidrule(lr){5-7}
-			\multicolumn{1}{l}{} & $\beta$ & $e^{\beta}$ & $C$ & $\beta$ & $e^{\beta}$ & $C$ \\ 
-			\midrule
-			$ER$ & $0.1706$ & $1.1860$ & $0.0305$ & $0.3081$ & $1.3608$ & $0.0881$ \\ 
-			$AS$ & $0.0934$ & $1.0979$ & $0.0217$ & $0.1381$ & $1.1480$ & $0.0512$ \\
-			$SL$ & $0.0402$ & $1.0410$ & $0.0076$ & $0.1166$ & $1.1236$ & $0.0323$ \\ 
-			$WE$ & $0.1096$ & $1.1158$ & $0.0311$ & $0.1527$ & $1.1650$ & $0.0677$ \\
-			$Intercept$ & $-0.8011$ & $0.4488$ & & $-2.4769$ & $0.0840$ & \\
-			\bottomrule
-		\end{tabular}
-		\label{tab:exp}
-	\end{table}
-	
-	As compared to the random differential exposure results in Table \ref{tab:unexp}, the correlated differential exposure results in Table \ref{tab:exp} show clear differences in the patterns across models with and without an offset term.
-	The correlated differential exposure effect in the model without an offset has changed the coefficients' values noticeably, shrinking all IRR values with the most substantial shrinkage seen for equipment reliability.
-	By contrast, the model with the offset term obtains coefficient values that are, generally, more similar to the data under equal exposure especially for the equipment reliability and skill level IVs.
-	This change in the relative magnitude of the coefficients in the model without an offset is the result of the IVs now having two ways in which to predict the sport jacket production outcome: the traditional path where the IV increases the probability of obtaining a sport jacket in a given day and, in addition, the exposure path where the IV increases the probability of any given day being a non-work day.
-	When the offset term is included, the second, exposure path is controlled for in the model, and the model again reflects only the effect of each IV on the probability of producing a sport jacket on any given day.
-	
-	A crucial change in the results for the data under correlated differential exposure is that the dominance designations shift in the model without an offset term relative to the model with an offset term.
-	Without an offset, work experience is the most important variable overall, swapping places with equipment reliability. 
-	By contrast, the results with an offset term mirror those from the data under equal exposure with equipment reliability being designated the most dominant IV.
-	It is also important to note that the dominance statistics across random and correlated differential exposure models with an offset term are very similar to one another and to the results from the data under equal exposure.
-	Taken together, these results help to illustrate the value of including the offset term for the accurate computation of DA designations and statistics when there is differential exposure in the count DV.
-	
-		\subsubsection{Section Summary}
-		
-	This section discussed the impact of differential exposure on the results of CRMs with a focus on DA designations and statistics.
-	I have argued that when a researcher is interested in using a count DV to answer a research question that focuses on increasing the probability of observing the event that produces counts, that differential exposure to the probability can lead to contamination of the count DV and should be corrected using an offset term.
-	
-	The impact of differential exposure to the count generating probability was illustrated using two different count DVs with different differential exposure mechanisms.
-	One mechanism was a random differential exposure mechanism.
-	This random differential exposure was reflected by religious holiday observance on sport jacket production among the tailoring shops.
-	The random differential exposure affected the model results primarily by adding in additional unexplainable variation to the count DV that is reflected in the magnitude of the DA statistics.
-	
-	The other mechanism was a correlated differential exposure mechanism that was dependent on the levels of the tailoring shop characteristics.
-	This correlated differential exposure was reflected by taking voluntary holiday leave on sport jacket production among the tailoring shops.
-	The correlated differential exposure affected the model results more directly by producing an alternative mechanism for sport jacket production which affected model coefficients as well as DA designations and statistics.
-	
-	A key takeaway from this section is that the use of offset terms is an effective way to recover more accurate DA designations and statistics when the focus of the research is on the probability of events and the count DV is contaminated with differential exposure.
-
 	
 \section{Discussion}
 
@@ -732,10 +518,7 @@
 	In walking the reader through this example, I use the recommended DA with $R^2_{DEV}$ fit statistic approach to evaluate the relative importance of the four IVs in the simulated data.
 	This walk through of the DA focuses on interpreting IV importance with a focus on how meeting different levels of DA designation stringency offers different evidence for the importance of the IVs over one another.
 	
-	Finally, I discuss differential exposure to count generating probabilities in CRMs as a potentially biasing factor both for DA statistics and designations.
-	In the example analyses discussed that focus on differential exposure, I show that the use of an offset term is effective for recovering more accurate DA statistics and designations and should be used to correct for differential exposure in CRMs when it is likely to affect a count DV.
-	
-	In combination, this manuscript picks up where Blevins et al. \citeyear{blevins2015count} had left off by recommending the use of a specific postestimation method, DA, for better understanding model prediction as well as expanding on specific issues that affect CRMs.
+	In combination, this manuscript picks up where Blevins et al. \parencite*{blevins2015count} had left off by recommending the use of a specific postestimation method, DA, for better understanding model prediction as well as expanding on specific issues that affect CRMs.
 	It remains important to continue to consult their work when choosing to implement a CRM as their decision flowchart can help the researcher to choose the most appropriate CRM given the nature of the data.
 	I recommend that you follow the estimation of the CRM with a DA to more fully understand and contextualize the predictions made by each IV.
 	
@@ -745,41 +528,34 @@
 	\subsection{Limitations and Future Directions}
 	
 	In this work, I use only a series of PR models with simulated data to provide empirical examples.
-	The use of PR with simulated data was an intentional choice to avoid the need to work through many of the decision points outlined by Blevins et al. \citeyear{blevins2015count} related to the selection of the appropriate CRM.
-	In addition, the use of simulated data allowed for designing an underlying dataset that had specific properties---which was especially helpful for the section discussing differential exposure.
-	It is important to note again that the same modeling processes applied to an NBR is discussed in the online supplement.
+	The use of PR with simulated data was an intentional choice to avoid the need to work through many of the decision points outlined by Blevins et al. \parencite*{blevins2015count} related to the selection of the appropriate CRM.
+	In addition, the use of simulated data allowed for designing an underlying dataset that had specific properties.
 	The results of the NBR-based DA are very similar to those of the PR-based DA given the same underlying data generating model.
 	As such, I did not see adding it to the main manuscript as worth the space it would take to describe and have left it in the supplement for any interested reader.
 	I will acknowledge before moving on that the use of the simulated data as I have done in this manuscript adds additional complexity to following along with the methodology in the online supplement.
-	That said, all the procedures used to simulate the various count DVs are fully replicable, well-documented, and available as a markdown that can be used by interested readers with a working knowledge of R \cite{R}.
+	That said, all the procedures used to simulate the various count DVs are fully replicable, well-documented, and available as a markdown that can be used by interested readers with a working knowledge of R \parencite{R}.
 	
-	A key contribution of this manuscript is in discussing the effect of differential exposure on DA statistics and designations.
-	As was shown, differential exposure can bias DA results irrespective of whether the IVs are correlated with the differential exposure process or not.
-	I did not provide an extensive evaluation of the effects of differential exposure on CRM coefficients or DA statistics but rather provide a high-level conceptual discussion of the issue and illustration of what can occur in situations where an offset term correction is not applied.
-	Although a thorough evaluation of the potential bias introduced by omitting an offset term when differential exposure has contaminated the count DV was not undertaken in this work, I see future research focusing on this issue as applied to DA of potential value.
-	Such reseach could be of value in helping researchers to identify situations when such bias is more or less likely to occur given their data.
-	One suggestion for such research would be to implement it in a way similar to Braun, Converse, and Oswald's \citeyear{braun2019accuracy} evaluation of measurement reliability and sampling error on dominance statistics in meta-analytic LRM.
-	
-	Prior work on DA has also suggested the application of bootstrapping to estimate standard errors for general dominance statistics and reproduce-ability values for other dominance designations \cite{azen2009using,braun2019accuracy}. 
-	Bootstrapping the CRM-based dominance statistics and designations is possible for CRM-based DA in the same way as was outlined for logistic regression by Azen and Traxel \citeyear{azen2009using} but is not examined in the present work.
+	Prior work on DA has suggested the application of bootstrapping to estimate standard errors for general dominance statistics and reproduce-ability values for other dominance designations \parencite{azen2009using,braun2019accuracy}. 
+	Bootstrapping the CRM-based dominance statistics and designations is possible for CRM-based DA in the same way as was outlined for logistic regression by Azen and Traxel \parencite*{azen2009using} but is not examined in the present work.
 	A substantial complication with the application of standard errors to DA statistics is in providing clear, compelling rationale as to the differences in roles that null hypothesis testing plays in testing coefficients as compared to DA statistics.
 	At current, the literature does not offer useful guidelines about how the roles of each type of hypothesis test might affect the interpretation of the model and the research questions it seeks to answer.
 	
-	Finally, zero-inflation is a commonly observed condition in count DVs that has been discussed extensively in prior work \cite(e.g.,){blevins2015count}. 
-	Cameron and Windmeijer \citeyear{cameron1996r} discuss the application of the $R^2_{DEV}$ to zero-inflated CRMs and, thus, a DA methodology based on the same general approach as discussed above could be applied to zero-inflated CRMs.
+	In addition, zero-inflation is a commonly observed condition in count DVs that has been discussed extensively in prior work \parencite[e.g.,][]{blevins2015count}. 
+	Cameron and Windmeijer \parencite*{cameron1996r} discuss the application of the $R^2_{DEV}$ to zero-inflated CRMs and, thus, a DA methodology based on the same general approach as discussed above could be applied to zero-inflated CRMs.
 	One additional complication that arises with considering how to determine importance with zero-inflated models is that zero-inflated CRMs model two processes in the data. 
 	The first process is the standard count generating process whereby IVs increase or decrease counts of the DV.
 	The second is an "opt out" process whereby IVs increase or decrease the likelihood of the count being 0.
 	An additional complication introduced by the two processes modeled by zero-inflated CRMs is that it is possible to allow specific IVs to predict the count generating process, the opting out process, or both.
-	In such circumstances the researcher should consider whether an alternative approach that emphasizes parameter estimates as opposed to IVs is better suited to the importance determination with DA \cite{luchman2020relative}.
+	In such circumstances the researcher should consider whether an alternative approach that emphasizes parameter estimates as opposed to IVs is better suited to the importance determination with DA \parencite{luchman2020relative}.
 	
 	\subsection{Conclusion}
 	
 	DA is a useful post-estimation methodology for determining the importance of IVs in statistical models such as CRMs.
-	This manuscript has provided a recommended methodology for extending DA to CRMs, offered extensive examples focusing on the interpretation of DA statistics and designations with simulated data, and provided recommendations for how to adjust a CRM-based DA when observations in the count DV may have different levels of exposure to the count generating probability.
-	In combination, the conceptual discussion of DA, CRMs, and differential exposure, when paired with the empirical examples in this paper, will provide organizational and other behavioral scientists with the tools necessary for better understanding the results of CRMs they estimate and to more completely answer the research questions to which CRMs are applied.
+	This manuscript has provided a recommended methodology for extending DA to CRMs and offered extensive examples focusing on the interpretation of DA statistics and designations with simulated data.
+	In combination, the conceptual discussion of DA and CRMs when paired with the empirical examples in this paper, will provide organizational and other behavioral scientists with the tools necessary for better understanding the results of CRMs they estimate and to more completely answer research questions to which CRMs are applied.
 
-\bibliography{CountDominance.bib}
-\bibliographystyle{mslapa}
+\printbibliography
 	
 \end{document}
+
+input{CountDominance.bbl}
