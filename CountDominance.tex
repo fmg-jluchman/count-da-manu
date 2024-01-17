@@ -1,39 +1,26 @@
-\documentclass[man]{apa7}
+\documentclass[doc]{apa7}
 \usepackage[T1]{fontenc}
-\hypersetup{
-	colorlinks,
-	linkcolor=black,
-	citecolor=black,
-	urlcolor=black
-}
-\title{Relative importance analysis for count regression models}
-\author{Anonymized}
-\affiliation{Anonymized}
-\leftheader{Luchman}
-\shorttitle{Count Model Dominance}
-\journal{Journal of Business and Psychoogy}
-\volume{x}
-
 \usepackage[american]{babel}
 \usepackage[style=apa,backend=biber]{biblatex}
-%\addbibresource{CountDominance_bibli.bib}
+\usepackage{csquotes}
+\addbibresource{CountDominance.bib}
+
+\title{Relative importance analysis for count regression models}
+\author{Joseph N. Luchman}
+\affiliation{Fors Marsh}
+\leftheader{Luchman}
+\shorttitle{Count Model Dominance}
 
 \abstract{
 	Count variables are common in organizational science as an outcome. Count regression models (CRMs), such as Poisson regression, are recommended as methods to analyze count variables but can be challenging to interpret given their non-linear functional form. I recommend relative importance analysis as a method to use in interpreting CRM results. This work extends on past research by describing an approach to determining the importance of independent variables in CRMs using dominance analysis (DA). In this manuscript, I review DA as a relative importance method, recommend an $R^2$ to use with CRM-based DA, and outline the results of an analysis with simulated data that uses the recommended methodology. This work contributes to the literature by extending DA to CRMs and provides a thoroughly documented example analysis that researchers can use to implement the methodology in their research.
 }
 
 \keywords{Dominance Analysis, Relative Importance, Poisson Regression, R-square, Negative Binomial Regression, Count Data}
-
+	
 \begin{document}
-	\section{Abstract}
-	Count variables are common in organizational science as an outcome. Count regression models (CRMs), such as Poisson regression, are recommended as methods to analyze count variables but can be challenging to interpret given their non-linear functional form. I recommend relative importance analysis as a method to use in interpreting CRM results. This work extends on past research by describing an approach to determining the importance of independent variables in CRMs using dominance analysis (DA). In this manuscript, I review DA as a relative importance method, recommend an $R^2$ to use with CRM-based DA, and outline the results of an analysis with simulated data that uses the recommended methodology. This work contributes to the literature by extending DA to CRMs and provides a thoroughly documented example analysis that researchers can use to implement the methodology in their research.
-	
-	\ \ \ \ \ \emph{Keywords}: Dominance Analysis, Relative Importance, Poisson Regression, R-square, Negative Binomial Regression, Count Data
-	
-	\newpage
 
-%\maketitle
-\section{Relative importance analysis for count regression models}
+\maketitle
+
 	Organizational science often uses how many times a behavior is observed as an outcome to answer research questions. 
 	Such behavior counts arise from many different sources at the organization- and individual-level of aggregation.
 	Organization-level behavior counts used in the literature include the number of organizations adopting a specific practice in a week \parencite{naumovska2021strength} and number of divestitures organizations make in a year \parencite{bettinazzi2021stakeholder}. 
