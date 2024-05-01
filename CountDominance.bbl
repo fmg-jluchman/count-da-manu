@@ -57,6 +57,9 @@
       \field{year}{2003}
       \field{pages}{129\bibrangedash 148}
       \range{pages}{20}
+      \verb{doi}
+      \verb 10.1037/1082-989X.8.2.129
+      \endverb
     \endentry
     \entry{azen2009using}{article}{}
       \name{author}{2}{}{%
@@ -96,6 +99,9 @@
       \field{year}{2009}
       \field{pages}{319\bibrangedash 347}
       \range{pages}{29}
+      \verb{doi}
+      \verb 10.3102/1076998609332754
+      \endverb
     \endentry
     \entry{bettinazzi2021stakeholder}{article}{}
       \name{author}{2}{}{%
@@ -135,6 +141,59 @@
       \field{year}{2021}
       \field{pages}{1078\bibrangedash 1096}
       \range{pages}{19}
+      \verb{doi}
+      \verb 10.5465/amj.2019.0627
+      \endverb
+    \endentry
+    \entry{bhaskar2023regression}{article}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=18c2b0d1482d430b00e159e5a3f85a8a}{%
+           family={Bhaskar},
+           familyi={B\bibinitperiod},
+           given={Adhin},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ac4f96edefd4fdc9c83d42f5523ee692}{%
+           family={Thennarasu},
+           familyi={T\bibinitperiod},
+           given={K},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4ab6a3f02a19096880144edaffedf879}{%
+           family={Philip},
+           familyi={P\bibinitperiod},
+           given={Mariamma},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d91f1939b5c356ec6d41de05dc8f5547}{%
+           family={Jaisoorya},
+           familyi={J\bibinitperiod},
+           given={TS},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {The Quantitative Methods for Psychology}%
+      }
+      \strng{namehash}{a51bba90d5c4396590099260eda7a132}
+      \strng{fullhash}{68da3f9d12b12422fb0df2cec23faaed}
+      \strng{bibnamehash}{68da3f9d12b12422fb0df2cec23faaed}
+      \strng{authorbibnamehash}{68da3f9d12b12422fb0df2cec23faaed}
+      \strng{authornamehash}{a51bba90d5c4396590099260eda7a132}
+      \strng{authorfullhash}{68da3f9d12b12422fb0df2cec23faaed}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Quantitative Methods for Psychology}
+      \field{title}{Regression models for count data with excess zeros: A comparison using survey data.}
+      \field{year}{2023}
+      \verb{doi}
+      \verb 10.20982/tqmp.19.1.p001
+      \endverb
     \endentry
     \entry{blevins2015count}{article}{}
       \name{author}{3}{}{%
@@ -180,51 +239,9 @@
       \field{year}{2015}
       \field{pages}{47\bibrangedash 69}
       \range{pages}{23}
-    \endentry
-    \entry{braun2019accuracy}{article}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=2b4df31d307dd8c27c3d432c723bd03b}{%
-           family={Braun},
-           familyi={B\bibinitperiod},
-           given={Michael\bibnamedelima T},
-           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d478257dc2a370d0998e2737f9434e56}{%
-           family={Converse},
-           familyi={C\bibinitperiod},
-           given={Patrick\bibnamedelima D},
-           giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=e8b66b5896d55266b1ceeaffad097802}{%
-           family={Oswald},
-           familyi={O\bibinitperiod},
-           given={Frederick\bibnamedelima L},
-           giveni={F\bibinitperiod\bibinitdelim L\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {American Psychological Association}%
-      }
-      \strng{namehash}{90849b98a45f75062ac0e254fa10a583}
-      \strng{fullhash}{a0592035cfba918c2ec17e419a87d596}
-      \strng{bibnamehash}{a0592035cfba918c2ec17e419a87d596}
-      \strng{authorbibnamehash}{a0592035cfba918c2ec17e419a87d596}
-      \strng{authornamehash}{90849b98a45f75062ac0e254fa10a583}
-      \strng{authorfullhash}{a0592035cfba918c2ec17e419a87d596}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Applied Psychology}
-      \field{number}{4}
-      \field{title}{The accuracy of dominance analysis as a metric to assess relative importance: The joint impact of sampling error variance and measurement unreliability.}
-      \field{volume}{104}
-      \field{year}{2019}
-      \field{pages}{593\bibrangedash 602}
-      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1177/1094428114549601
+      \endverb
     \endentry
     \entry{budescu1993dominance}{article}{}
       \name{author}{1}{}{%
@@ -258,6 +275,9 @@
       \field{year}{1993}
       \field{pages}{542\bibrangedash 551}
       \range{pages}{10}
+      \verb{doi}
+      \verb 10.1037/0033-2909.114.3.542
+      \endverb
     \endentry
     \entry{cameron1996r}{article}{}
       \name{author}{2}{}{%
@@ -297,6 +317,9 @@
       \field{year}{1996}
       \field{pages}{209\bibrangedash 220}
       \range{pages}{12}
+      \verb{doi}
+      \verb 10.1080/07350015.1996.10524648
+      \endverb
     \endentry
     \entry{cronbach1955construct}{article}{}
       \name{author}{2}{}{%
@@ -336,6 +359,9 @@
       \field{year}{1955}
       \field{pages}{281\bibrangedash 302}
       \range{pages}{22}
+      \verb{doi}
+      \verb 10.1037/h0040957
+      \endverb
     \endentry
     \entry{gromping2007estimators}{article}{}
       \name{author}{1}{}{%
@@ -369,6 +395,9 @@
       \field{year}{2007}
       \field{pages}{139\bibrangedash 147}
       \range{pages}{9}
+      \verb{doi}
+      \verb 10.1198/000313007X188252
+      \endverb
     \endentry
     \entry{johnson2004history}{article}{}
       \name{author}{2}{}{%
@@ -408,6 +437,9 @@
       \field{year}{2004}
       \field{pages}{238\bibrangedash 257}
       \range{pages}{20}
+      \verb{doi}
+      \verb 10.1177/1094428104266510
+      \endverb
     \endentry
     \entry{luchman2014relative}{article}{}
       \name{author}{1}{}{%
@@ -441,6 +473,9 @@
       \field{year}{2014}
       \field{pages}{452\bibrangedash 471}
       \range{pages}{20}
+      \verb{doi}
+      \verb 10.1177/1094428114544509
+      \endverb
     \endentry
     \entry{luchman2020relative}{article}{}
       \name{author}{3}{}{%
@@ -483,6 +518,9 @@
       \field{year}{2020}
       \field{pages}{1\bibrangedash 20}
       \range{pages}{20}
+      \verb{doi}
+      \verb 10.47263/JASEM.4(2)02
+      \endverb
     \endentry
     \entry{mccullagh2019generalized}{book}{}
       \name{author}{2}{}{%
@@ -592,6 +630,9 @@
       \field{year}{2021}
       \field{pages}{409\bibrangedash 434}
       \range{pages}{26}
+      \verb{doi}
+      \verb 10.5465/amj.2018.0716
+      \endverb
     \endentry
     \entry{naveh2015active}{article}{}
       \name{author}{3}{}{%
@@ -637,6 +678,9 @@
       \field{year}{2015}
       \field{pages}{441\bibrangedash 459}
       \range{pages}{19}
+      \verb{doi}
+      \verb 10.1002/job.2000
+      \endverb
     \endentry
     \entry{R}{manual}{}
       \name{author}{1}{}{%
@@ -722,6 +766,9 @@
       \field{year}{2022}
       \field{pages}{48\bibrangedash 87}
       \range{pages}{40}
+      \verb{doi}
+      \verb 10.1177/109442812199190
+      \endverb
     \endentry
     \entry{rotolo2013does}{article}{}
       \name{author}{2}{}{%
@@ -761,6 +808,9 @@
       \field{year}{2013}
       \field{pages}{648\bibrangedash 670}
       \range{pages}{23}
+      \verb{doi}
+      \verb 10.1002/job.1822
+      \endverb
     \endentry
     \entry{tonidandel2011relative}{article}{}
       \name{author}{2}{}{%
@@ -800,6 +850,9 @@
       \field{year}{2011}
       \field{pages}{1\bibrangedash 9}
       \range{pages}{9}
+      \verb{doi}
+      \verb 10.1007/s10869-010-9204-3
+      \endverb
     \endentry
   \enddatalist
   \datalist[entry]{apa/global//global/global}
@@ -841,6 +894,9 @@
       \field{year}{2003}
       \field{pages}{129\bibrangedash 148}
       \range{pages}{20}
+      \verb{doi}
+      \verb 10.1037/1082-989X.8.2.129
+      \endverb
     \endentry
     \entry{azen2009using}{article}{}
       \name{author}{2}{}{%
@@ -880,6 +936,9 @@
       \field{year}{2009}
       \field{pages}{319\bibrangedash 347}
       \range{pages}{29}
+      \verb{doi}
+      \verb 10.3102/1076998609332754
+      \endverb
     \endentry
     \entry{bettinazzi2021stakeholder}{article}{}
       \name{author}{2}{}{%
@@ -919,6 +978,59 @@
       \field{year}{2021}
       \field{pages}{1078\bibrangedash 1096}
       \range{pages}{19}
+      \verb{doi}
+      \verb 10.5465/amj.2019.0627
+      \endverb
+    \endentry
+    \entry{bhaskar2023regression}{article}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=18c2b0d1482d430b00e159e5a3f85a8a}{%
+           family={Bhaskar},
+           familyi={B\bibinitperiod},
+           given={Adhin},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ac4f96edefd4fdc9c83d42f5523ee692}{%
+           family={Thennarasu},
+           familyi={T\bibinitperiod},
+           given={K},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4ab6a3f02a19096880144edaffedf879}{%
+           family={Philip},
+           familyi={P\bibinitperiod},
+           given={Mariamma},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d91f1939b5c356ec6d41de05dc8f5547}{%
+           family={Jaisoorya},
+           familyi={J\bibinitperiod},
+           given={TS},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {The Quantitative Methods for Psychology}%
+      }
+      \strng{namehash}{a51bba90d5c4396590099260eda7a132}
+      \strng{fullhash}{68da3f9d12b12422fb0df2cec23faaed}
+      \strng{bibnamehash}{68da3f9d12b12422fb0df2cec23faaed}
+      \strng{authorbibnamehash}{68da3f9d12b12422fb0df2cec23faaed}
+      \strng{authornamehash}{a51bba90d5c4396590099260eda7a132}
+      \strng{authorfullhash}{68da3f9d12b12422fb0df2cec23faaed}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Quantitative Methods for Psychology}
+      \field{title}{Regression models for count data with excess zeros: A comparison using survey data.}
+      \field{year}{2023}
+      \verb{doi}
+      \verb 10.20982/tqmp.19.1.p001
+      \endverb
     \endentry
     \entry{blevins2015count}{article}{}
       \name{author}{3}{}{%
@@ -964,51 +1076,9 @@
       \field{year}{2015}
       \field{pages}{47\bibrangedash 69}
       \range{pages}{23}
-    \endentry
-    \entry{braun2019accuracy}{article}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=2b4df31d307dd8c27c3d432c723bd03b}{%
-           family={Braun},
-           familyi={B\bibinitperiod},
-           given={Michael\bibnamedelima T},
-           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d478257dc2a370d0998e2737f9434e56}{%
-           family={Converse},
-           familyi={C\bibinitperiod},
-           given={Patrick\bibnamedelima D},
-           giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=e8b66b5896d55266b1ceeaffad097802}{%
-           family={Oswald},
-           familyi={O\bibinitperiod},
-           given={Frederick\bibnamedelima L},
-           giveni={F\bibinitperiod\bibinitdelim L\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {American Psychological Association}%
-      }
-      \strng{namehash}{90849b98a45f75062ac0e254fa10a583}
-      \strng{fullhash}{a0592035cfba918c2ec17e419a87d596}
-      \strng{bibnamehash}{a0592035cfba918c2ec17e419a87d596}
-      \strng{authorbibnamehash}{a0592035cfba918c2ec17e419a87d596}
-      \strng{authornamehash}{90849b98a45f75062ac0e254fa10a583}
-      \strng{authorfullhash}{a0592035cfba918c2ec17e419a87d596}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Applied Psychology}
-      \field{number}{4}
-      \field{title}{The accuracy of dominance analysis as a metric to assess relative importance: The joint impact of sampling error variance and measurement unreliability.}
-      \field{volume}{104}
-      \field{year}{2019}
-      \field{pages}{593\bibrangedash 602}
-      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1177/1094428114549601
+      \endverb
     \endentry
     \entry{budescu1993dominance}{article}{}
       \name{author}{1}{}{%
@@ -1042,6 +1112,9 @@
       \field{year}{1993}
       \field{pages}{542\bibrangedash 551}
       \range{pages}{10}
+      \verb{doi}
+      \verb 10.1037/0033-2909.114.3.542
+      \endverb
     \endentry
     \entry{cameron1996r}{article}{}
       \name{author}{2}{}{%
@@ -1081,6 +1154,9 @@
       \field{year}{1996}
       \field{pages}{209\bibrangedash 220}
       \range{pages}{12}
+      \verb{doi}
+      \verb 10.1080/07350015.1996.10524648
+      \endverb
     \endentry
     \entry{cronbach1955construct}{article}{}
       \name{author}{2}{}{%
@@ -1120,6 +1196,9 @@
       \field{year}{1955}
       \field{pages}{281\bibrangedash 302}
       \range{pages}{22}
+      \verb{doi}
+      \verb 10.1037/h0040957
+      \endverb
     \endentry
     \entry{gromping2007estimators}{article}{}
       \name{author}{1}{}{%
@@ -1153,6 +1232,9 @@
       \field{year}{2007}
       \field{pages}{139\bibrangedash 147}
       \range{pages}{9}
+      \verb{doi}
+      \verb 10.1198/000313007X188252
+      \endverb
     \endentry
     \entry{johnson2004history}{article}{}
       \name{author}{2}{}{%
@@ -1192,6 +1274,9 @@
       \field{year}{2004}
       \field{pages}{238\bibrangedash 257}
       \range{pages}{20}
+      \verb{doi}
+      \verb 10.1177/1094428104266510
+      \endverb
     \endentry
     \entry{luchman2014relative}{article}{}
       \name{author}{1}{}{%
@@ -1225,6 +1310,9 @@
       \field{year}{2014}
       \field{pages}{452\bibrangedash 471}
       \range{pages}{20}
+      \verb{doi}
+      \verb 10.1177/1094428114544509
+      \endverb
     \endentry
     \entry{luchman2020relative}{article}{}
       \name{author}{3}{}{%
@@ -1267,6 +1355,9 @@
       \field{year}{2020}
       \field{pages}{1\bibrangedash 20}
       \range{pages}{20}
+      \verb{doi}
+      \verb 10.47263/JASEM.4(2)02
+      \endverb
     \endentry
     \entry{mccullagh2019generalized}{book}{}
       \name{author}{2}{}{%
@@ -1376,6 +1467,9 @@
       \field{year}{2021}
       \field{pages}{409\bibrangedash 434}
       \range{pages}{26}
+      \verb{doi}
+      \verb 10.5465/amj.2018.0716
+      \endverb
     \endentry
     \entry{naveh2015active}{article}{}
       \name{author}{3}{}{%
@@ -1421,6 +1515,9 @@
       \field{year}{2015}
       \field{pages}{441\bibrangedash 459}
       \range{pages}{19}
+      \verb{doi}
+      \verb 10.1002/job.2000
+      \endverb
     \endentry
     \entry{R}{manual}{}
       \name{author}{1}{}{%
@@ -1506,6 +1603,9 @@
       \field{year}{2022}
       \field{pages}{48\bibrangedash 87}
       \range{pages}{40}
+      \verb{doi}
+      \verb 10.1177/109442812199190
+      \endverb
     \endentry
     \entry{rotolo2013does}{article}{}
       \name{author}{2}{}{%
@@ -1545,6 +1645,9 @@
       \field{year}{2013}
       \field{pages}{648\bibrangedash 670}
       \range{pages}{23}
+      \verb{doi}
+      \verb 10.1002/job.1822
+      \endverb
     \endentry
     \entry{tonidandel2011relative}{article}{}
       \name{author}{2}{}{%
@@ -1584,6 +1687,9 @@
       \field{year}{2011}
       \field{pages}{1\bibrangedash 9}
       \range{pages}{9}
+      \verb{doi}
+      \verb 10.1007/s10869-010-9204-3
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

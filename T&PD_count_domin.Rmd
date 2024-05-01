@@ -1,25 +1,34 @@
 ---
-title: Count Regression Model Dominance Analysis
-subtitle: Documentation
-#author: Joseph Luchman
-author: Anonymized for review
-output: html_notebook
-editor_options: 
-  markdown: 
+title: "Count Regression Model Dominance Analysis"
+author: "Joseph Luchman"
+subtitle: Analysis Documentation in Support of Manuscript
+output:
+  html_document:
+    df_print: paged
+editor_options:
+  markdown:
     wrap: 72
 ---
 
-This notebook provides documentation for the generation of the data used in the manuscript **Relative Importance Analysis for Count Regression Models**.
+This notebook provides documentation for the generation of the data used
+in the manuscript **Relative Importance Analysis for Count Regression
+Models**.
 
-This document extends on the main manuscript by focusing more closely on implementation details. These implementation details are are not essential for the reader to understand the manuscript but are essential for reproducibility of the results. The details in this notebook also add additional context the manuscript's analyses by, for example, extending the Poisson regression results reported to negative Binomial regression.
+This document extends on the main manuscript by focusing more closely on
+implementation details. These implementation details are are not
+essential for the reader to understand the manuscript but are essential
+for reproducibility of the results. The details in this notebook also
+add additional context to the manuscript's analyses by, for example,
+extending the Poisson regression results reported to negative Binomial
+regression.
 
-Details on the random seed as well as the details of the R environment are available at the end of this notebook.
+Details on the random seed as well as the details of the R environment
+are available at the end of this notebook.
 
 ```{r set-up, include = FALSE}
 library(gt)
 library(MASS)
 library(tidyverse)
-library(magrittr)
 library(domir)
 library(parameters)
 library(performance)
@@ -32,233 +41,310 @@ set.seed(84490856)
 
 # Data Generation
 
-The manuscript describes four tailoring shop characteristic IVs that will be used in the analysis. These IVs are:
+The manuscript describes four simulated tailoring shop characteristics
+that will be used in the analysis as IVs. These IVs are:
 
-  a. equipment reliability or _ER_
-  b. assistant staffing levels or _AS_
-  c. tailor skill level or _SL_
-  d. tailor work experience or _WE_
-  
-Each of these IVs are generated for the simulated tailoring shops described in the manuscript as the first step in the data generation methodology.
+a.  equipment reliability or *ER*
+b.  assistant staffing levels or *AS*
+c.  tailor skill level or *SL*
+d.  tailor work experience or *WE*
 
-My approach in generating the data for this manuscript was to begin by developing higher-order population parameters that were intended to give a specific set of results from a linear regression. These higher-order population parameters were useful as a conceptual structure from which to generate the data. The data, as generated, were only to be based loosely on this higher-order conceptual structure and the population parameters actually used to generate the data were sampled, and thus varied, from it in a way that was not intended to be directly under my control. As such, the results would in a general sense follow from the higher order conceptual structure imposed on the data but not be completely determined by me. 
-
-This method of developing a well-structured set of parameters from which the observed data's parameters are sampled is advantageous in my view for this manuscript. Specifically, this structure allows the data to be generated in such a way as to illustrate key concepts yet also maintaining an element of randomness and realism in its appearance and in the results they produce.
+My approach in generating the IV data for this manuscript was to begin
+by developing higher-order population parameters that would produce a
+specific result from a linear regression. The data as generated were
+only to be based loosely on this higher-order conceptual structure and
+the population parameters actually used to generate the data were
+sampled, and thus varied, from it in a way that was not intended to be
+directly under my control. As such, the results would follow from the
+higher order conceptual structure imposed on the data but not be
+completely determined by me.
 
 ## Generate IV Data
 
-The generation of the four IVs began with setting up a higher-order population-level covariance matrix describing the variances of and interrelationships between the four tailoring shop IVs. This higher-order variance-covariance matrix was used as a set of parameters from which an sampled variance-covariance was obtained. This sampled variance covariance matrix was used as the population parameters from which the observations from this study were derived.
+The generation of the four IVs began with setting up a higher-order
+population-level covariance matrix of four tailoring shop IVs. This
+higher-order variance-covariance matrix was to be applied as a parameter
+for data generation in an inverse Wishart variate generating function as
+the scale matrix parameter.
 
 ### Higher-Order Variance-Covariance Structure
 
-The variances of IVs affect their contribution to the $R^2$ and thus will also affect the dominance designations and statistics produced by each IV. As an important determinant of dominance designations and statistics, the IVs were set to different values. The variances chosen were four equally spaced values between standard deviation values of 1 and 2. The first IV, _ER_, had a $\sigma_{ER} = 1.00$ and $\sigma^2_{ER} = 1.00$. The second IV, _AS_, had $\sigma_{AS} = 1.33$ and $\sigma^2_{AS} = 1.78$.  _SL_ had $\sigma_{SL} = 1.67$ and $\sigma^2_{SL} = 2.78$.  Finally, _WE_ had $\sigma_{WE} = 2.00$ and $\sigma^2_{WE} = 4.00$.
+The variances chosen were four equally-spaced values between standard
+deviation values of 1 and 2. The first IV, *ER*, had a
+$\sigma_{ER} = 1.00$ and $\sigma^2_{ER} = 1.00$. The second IV, *AS*,
+had $\sigma_{AS} = 1.33$ and $\sigma^2_{AS} = 1.78$. *SL* had
+$\sigma_{SL} = 1.67$ and $\sigma^2_{SL} = 2.78$. Finally, *WE* had
+$\sigma_{WE} = 2.00$ and $\sigma^2_{WE} = 4.00$.
 
-Dominance designations and statistics depend on interrelationships between the IVs. I did not have any reason to expect that a specific correlation structure would be more advantageous than another in defining the higher-order structure. As such, I defined the correlation matrix to be "balanced" across IVs such that the total redundancy for any one IV was identical to the others. 
+The covariances values chosen were "balanced" across IVs such that the
+total redundancy for any one IV was identical to the others. The six
+correlations between the four IVs were designed to take on one of three
+values .250, .125, and .063 with the following values specified between
+each of the specific IVs: $r_{ER,AS} = .250$, $r_{ER,SL} = .125$,
+$r_{ER,WE} = .063$, $r_{AS,SL} = .063$, $r_{AS,WE} = .125$, and
+$r_{SL,WE} = .250$.
 
-All six correlations between the four IVs were thus designed to take on one of three values .250, .125, and .063 with the following values specified between each of the IVs: $r_{ER,AS} = .250$, $r_{ER,SL} = .125$, $r_{ER,WE} = .063$, $r_{AS,SL} = .063$, $r_{AS,WE} = .125$, and $r_{SL,WE} = .250$.
-
-The code block below sets and reports on the correlation matrix as well as the the variance-covariance matrix on which it is based.
+The code block below constructs and reports on the correlation matrix as
+well as the the variance-covariance matrix on which it is based.
 
 ```{r gen-iv-mat}
-namelist <- 
-  c("ER", "AS", "SL", "WE")
+namelist <- c("ER", "AS", "SL", "WE")
 
 Covariance_Matrix <- 
-  c(1, .5^(2:4)*sqrt(1*c((4/3)^2, (5/3)^2, 4))*sqrt(1),
-    .5^2*sqrt(1)*sqrt(1*(4/3)^2), (4/3)^2, .5^(4:3)*sqrt(1*(4/3)^2)*sqrt(1*c((5/3)^2, 4)),
-    .5^(3:4)*sqrt(1*(5/3)^2)*sqrt(1*c(1, (4/3)^2)), (5/3)^2, .5^2*sqrt(1*(5/3)^2)*sqrt(1*4),
-    .5^(4:2)*sqrt(1*4)*sqrt(1*c(1, (4/3)^2, (5/3)^2)), 4) %>%
-  matrix(nrow = 4, byrow = TRUE)
+  c(1, 
+    .5^(2:4)*sqrt(1*c((4/3)^2, (5/3)^2, 4))*sqrt(1),
+    .5^2*sqrt(1)*sqrt(1*(4/3)^2), 
+    (4/3)^2, 
+    .5^(4:3)*sqrt(1*(4/3)^2)*sqrt(1*c((5/3)^2, 4)),
+    .5^(3:4)*sqrt(1*(5/3)^2)*sqrt(1*c(1, (4/3)^2)), 
+    (5/3)^2, 
+    .5^2*sqrt(1*(5/3)^2)*sqrt(1*4),
+    .5^(4:2)*sqrt(1*4)*sqrt(1*c(1, (4/3)^2, (5/3)^2)), 
+    4) |>
+  matrix(nrow = 4, byrow = TRUE, dimnames = list(namelist, namelist))
 
-Covariance_Matrix %>% 
-  as.data.frame() %>%
-  set_names(namelist) %>%
-  set_rownames(namelist) %>%
-  gt(rownames_to_stub = TRUE) %>%
-  tab_header("Table S1: Higher-order Population Covariance Matrix") %>%
+Covariance_Matrix |> 
+  as.data.frame() |>
+  gt(rownames_to_stub = TRUE) |>
+  tab_header("Table S1: Higher-order Population Covariance Matrix") |>
   fmt_number(columns = 2:5, decimals = 4)
 
-Covariance_Matrix %>% cov2cor() %>% 
-  as.data.frame() %>%
-  set_names(namelist) %>%  
-  set_rownames(namelist) %>%
-  gt(rownames_to_stub = TRUE) %>%
-  tab_header("Table S2:  Higher-order Population Correlation Matrix")
+Covariance_Matrix |> 
+  cov2cor() |> 
+  as.data.frame() |>
+  gt(rownames_to_stub = TRUE) |>
+  tab_header("Table S2: Higher-order Population Correlation Matrix")
 ```
 
 ### Sampled Population Parameter Values
 
-The population parameters that were used to generate observations were based on the higher order variance-covariance matrix in that it was used as the scale parameter in an inverse Wishart distribution. The degree of freedom parameter for the inverse Wishart distribution was set to a large value, in this case 100. The large value for the degrees of freedom was chosen as it has the effect of reducing the variances of the sampled matrix which stabilizes the correlations of the values sampled to be closer to the population values. 
+The population parameters for use in generating data were sampled as one
+draw from an inverse Wishart distribution with the higher-order
+variance-covariance matrix as the scale parameter and a degrees of
+freedom parameter of 100. The large value for the degrees of freedom was
+chosen as it has the effect of reducing the variances of each element of
+the sampled matrix which stabilizes the correlations of the values
+sampled to be closer to the scale matrix's values.
 
-A single draw was taken from the inverse Wishart and the values obtained were used as the population parameters for the simulated data.
-
-The code block below takes the variance-covariance matrix sample and reports on the sampled values as well as the correlation matrix of the sampled values.
+The code block below takes the variance-covariance matrix sample and
+reports on the sampled values as well as the correlation matrix of the
+sampled values.
 
 ```{r sample-iv-mat}
-Covariance_Matrix_Use <- 
-  riwish(100, Covariance_Matrix)
+Covariance_Matrix_Use <- riwish(100, Covariance_Matrix)*100
 
-Covariance_Matrix_Use %>% 
-  as.data.frame() %>%
-  set_names(namelist) %>%
-  set_rownames(namelist) %>%
-  gt(rownames_to_stub = TRUE) %>%
-  tab_header("Table S3: Sampled Population Covariance Matrix") %>%
+Covariance_Matrix_Use |> 
+  as.data.frame() |>
+  gt(rownames_to_stub = TRUE) |>
+  tab_header("Table S3: Sampled Population Covariance Matrix") |>
   fmt_number(columns = 2:5, decimals = 4)
 
-Covariance_Matrix_Use %>% cov2cor() %>% 
-  as.data.frame() %>%
-  set_names(namelist) %>%  
-  set_rownames(namelist) %>%
-  gt(rownames_to_stub = TRUE) %>%
-  tab_header("Table S4: Sampled Population Correlation Matrix") %>%
+Covariance_Matrix_Use |> 
+  cov2cor() |> 
+  as.data.frame() |>
+  gt(rownames_to_stub = TRUE) |>
+  tab_header("Table S4: Sampled Population Correlation Matrix") |>
   fmt_number(columns = 2:5, decimals = 4)
 ```
 
-Note that the sampled variance-covariance matrix has variance values that are around $1/100$ of the values of the original matrix due to the degrees of freedom from the inverse Wishart. The variances of all the variables will be corrected but the correction will be applied later when the data are generated.
+Note that the sampled variance-covariance matrix is multiplied by 100 as
+it has values that are around $1/100$ of the values of the original
+matrix due to the degrees of freedom parameter.
 
-Although the variances of the variables reported on in Table S3 are too small, the sampled correlations in Table S4 appear reasonable and within expectation for organizational science data. Thus, the goal of sampling the population parameter values to be used to generate the analysis data from an inverse Wishart was successful.
+### Generate Observed Data
 
-### Generate Obseved Data
+The analysis data were generated as random draws from a Multivariate
+Normal distribution using the sampled population parameters in the
+previous step as a variance-covariance matrix.
 
-The four tailoring shop characteristic IVs were generated in a series of random draws from a Multivariate Normal distribution using the sampled population parameters each with a mean of 0.
+The number of observations in the sample was also determined using a
+single draw from a random uniform distribution that was required to
+range between 5,000 and 10,000. This range of observations that was
+chosen as it should allow for stable estimates from these data yet be
+within a range observed of many large social surveys.
 
-The number of draws from the Multivariate Normal distribution or the size of tailoring shop sample was also determined through a random process. The value used was taken from a single draw from a random uniform distribution that had a value falling between 5,000 and 10,000 rounded to the nearest integer. The range that was chosen should allow for stable estimates from these data yet be within a range observed of many large social surveys.
-
-The code block below samples the sample size value and takes all IV samples. The block also reports on descriptive statistics from the sampled IV observations including the sample size.
+The code block below samples the sample size value and takes all IV
+samples. The block also reports on descriptive statistics from the
+sampled IV observations including the sample size.
 
 ```{r gen-iv-data, message=FALSE}
 total_n <- 
-  runif(n = 1, min = 5000, max = 10000) %>% 
+  runif(n = 1, min = 5000, max = 10000) |> 
   round()
 
 Data_Frame <- 
   mvrnorm(n = total_n, 
           mu = rep(0, times = 4), 
-          Sigma = Covariance_Matrix_Use) %>% 
-  as.data.frame() %>%
-  multiply_by(10) %>%
+          Sigma = Covariance_Matrix_Use) |> 
+  as.data.frame() |>
   set_names(namelist)
 
-Data_Frame %>%
+Data_Frame |>
   summarise(
     across(everything(), .fns = mean),
-    ) %>% 
-  pivot_longer(everything(), names_to = "IV Name", values_to = "Mean") %>%
+    ) |> 
+  pivot_longer(everything(), names_to = "IV Name", values_to = "Mean") |>
   left_join(
-  Data_Frame %>%
+  Data_Frame |>
   summarise(
     across(everything(), .fns = sd),
-    ) %>% pivot_longer(everything(), names_to = "IV Name", 
-                       values_to = "Standard Deviation")
-  ) %>%
+    ) |> 
+    pivot_longer(
+      everything(), 
+      names_to = "IV Name", 
+      values_to = "Standard Deviation"
+    )
+  ) |>
   left_join(
-    Data_Frame %>% 
-      cor %>% 
+    Data_Frame |> 
+      cor() |> 
       as_tibble(rownames = "IV Name")
-  ) %>%
-  gt(rowname_col = "IV Name") %>%
-  tab_header("Table S5: Sampled Data Descriptive Statistics") %>%
-  fmt_number(columns = 2:7, decimals = 4) %>%
-  tab_spanner(columns = c(ER, AS, SL, WE), label = "Correlations") %>%
+  ) |>
+  gt(rowname_col = "IV Name") |>
+  tab_header("Table S5: Sampled Data Descriptive Statistics") |>
+  fmt_number(columns = 2:7, decimals = 4) |>
+  tab_spanner(columns = c(ER, AS, SL, WE), label = "Correlations") |>
   tab_style(
     style = cell_borders(sides = "right"),
     locations = cells_body(columns = "Standard Deviation")
-  ) %>%
-  tab_source_note(str_c("Sample Size of Simulated Data is ", 
-                        nrow(Data_Frame) %>% format(big.mark = ","), "."))
+  ) |>
+  tab_source_note(
+    str_c(
+      "Sample Size of Simulated Data is ", 
+      nrow(Data_Frame) |> 
+        format(big.mark = ","), 
+      "."
+    )
+  )
 ```
-
-Note the correction of the variances/standard deviations in the table above. The all IV values were multiplied by 10 to be closer to the original, higher-order population range.
 
 ## Generate Dependent Variables
 
-The methods used to develop each DV in the sections below were devised to ensure a specific relationship form and strength with each IV. The methodology also ensured a specific distribution type for the specific DV as was required for the data analytic demonstrations in this manuscript. 
+This section creates multiple count DVs from a single Normally
+distributed DV. The Normally distributed DV is generated first and is
+then used to determine the values of other count DVs. This method is
+used as it allows more control over the magnitudes of relationships
+between the count DV's with the IVs.
 
-This section creates multiple count DVs from a single Normally distributed DV. The intuition behind using this approach is that a Normally distributed variable is straightforward to work with. The researcher can determine the values of regression coefficients with IVs and how those coefficients translate into variance explained directly with Normally distributed variables that can be later translated into the desired count distributional form. 
+### Generate Normally Distributed Dependent Variable
 
-Translating the Normally distributed DV into each different count DV uses each variable's underlying probability distribution as the shared metric into which one distribution can be translated into another. For example, consider translating a Normally distributed value of 4, assuming a mean of 1 and standard deviation of 1.5, into the most likely value in a Poisson distribution with a mean of 5. The cumulative probability of observing a value of 4 given mean of 1 and standard deviation of 1.5 is about `r pnorm(4, 1, 1.5) |> round(5)`. The best value to translate into in the Poisson distribution with a mean of 5 would then be the nearest integer value in the Poisson distribution that corresponds with a cumulative probability of `r pnorm(4, 1, 1.5) |> round(5)`. The integer 9 has a cumulative probability of `r ppois(9, 5) |> round(5)` (an absolute difference of `r (ppois(9, 5) - pnorm(4, 1, 1.5)) |> round(5) |> abs()`) and the integer 10 has a cumulative probability of `r ppois(10, 5) |> round(5)` (an absolute difference of `r (ppois(10, 5) - pnorm(4, 1, 1.5)) |> round(5) |> abs()`). Thus, the most likely value to translate into would be 10. This is the approach taken below when translating the underlying Normally distributed variable into a Poisson and negative Binomial distributed counterpart.
+The generation of the Normally distributed variable extended from the
+methodology that was established above where a set of higher-order
+population parameters are first set and adjusted using a draws from a
+specific distribution to reduce the effect of my decisions on the
+results.
 
-The advantage of the cumulative probability and quantile function (i.e., the name of the function to back translate a cumulative probability into an observed DV value) translation approach is that it preserves relationships and predictive utility established with Normally distributed variable, but ensures the characteristics of the DV fit expectations (i.e., the DV is comprised of non-negative integers with a specific mean).
+Conceptually, the underlying Normally distributed variable can be
+thought of as a latent propensity each tailoring shop has for making
+more garments. This garment propensity variable (called $GP$) is
+generated as a linear combination of the four tailoring shop IVs. In
+devising the higher-order population coefficients, I thought it would be
+convenient to generate coefficients that, when combined with the
+higher-order population variances, would produce a specific $R^2$ under
+idealized conditions. In generating these coefficients, I intentionally
+ignored the higher-order population covariances to allow this section to
+be easier to follow and because I was not so much trying to attain a
+specific $R^2$ in the observed data but rather to have a reasonable,
+systematic approach to generating IV coefficient values.
 
-### Generate Underlying Normally Distributed Dependent Variable
-
-The generation of the underlying Normally distributed variable extended from the methodology that was established above where a set of higher-order population parameters are first set and adjusted from using a draws from a specific distribution to reduce the effect of my decisions on the results.
-
-Conceptually, the underlying Normally distributed variable can be thought of as a latent propensity each tailoring shop has for making more garments. This garment propensity variable (called $GP$) is generated as a linear combination of the four tailoring shop IVs. In devising the higher-order population coefficients, I thought it would be convenient to generate coefficients that, when combined with the higher-order population variances, would produce a specific $R^2$ under idealized conditions. In generating these coefficients, I intentionally ignored the higher-order population covariances to allow this section to be easier to follow and because I was not so much trying to attain a specific $R^2$ in the observed data but rather to have a reasonable, systematic approach to generating IV coefficient values.
-	
 #### Higher-Order Population Parameters
 
-The approach used to generate the higher-order IV coefficients values was to devise values such that the coefficients achieve a value of $R^2 = .12$. I also wanted to assign the coefficient values in a way such that no one IV contributed more to the value than any other. The simplest way to do so was to ignore the IV covariances and use the $R^2 = \sum\beta^2\sigma^2$ formula for computing the $R^2$ to work backward to obtain a value that ascribes each IV a contribution of .04. The values chosen were then: $\beta_{ER} =.20$,  $\beta_{AS} =.15$,  $\beta_{SL} =.12$, $\beta_{WE} =.10$.
+The approach used to generate the higher-order IV coefficient values was
+to devise values such that the coefficients achieve an $R^2 = .12$. I
+also wanted to assign the coefficient values in a way such that no
+single IV contributed more to the $R^2$ than any other. The simplest way
+to do so was to ignore the IV covariances and use the
+$R^2 = \sum\beta^2\sigma^2$ formula for computing the $R^2$ to work
+backward to obtain a value that ascribes each IV a contribution of .04.
+Given the population variances, the values chosen were:
+$\beta_{ER} =.20$, $\beta_{AS} =.15$, $\beta_{SL} =.12$,
+$\beta_{WE} =.10$.
 
-The code block below sets the higher order IV coefficient population parameters and reports on their values.
+The code block below sets the higher order IV coefficient population
+parameters and reports on their values.
 
 ```{r pop-coefs}
-Coefficient_Vector <- 
-  c(.2, sqrt(.04/(4/3)^2), sqrt(.04/(5/3)^2), .1)
+Coefficient_Vector <- c(.2, sqrt(.04/(4/3)^2), sqrt(.04/(5/3)^2), .1)
 
-Coefficient_Vector %>%
-  data.frame(name = namelist, value = .) %>%
-  pivot_wider(id_cols = everything()) %>%
-  gt() %>%
-  tab_header("Table S6: Higher-order Population Coefficient Values") %>%
+Coefficient_Vector |>
+  data.frame(name = namelist, value = _) |>
+  pivot_wider(id_cols = everything()) |>
+  gt() |>
+  tab_header("Table S6: Higher-order Population Coefficient Values") |>
   fmt_number(columns = 1:4, decimals = 4)
 ```
 
 #### Sampled Population Parameters
 
-The higher-order population values were used as the means in four draws from a Normal distribution each with a standard deviation of .05. As the coefficients were all within a relatively narrow range, the standard deviation of .05 allowed for the possibility that, by chance, the rank ordering of coefficient magnitudes could change. 
+The higher-order population values were used as the means in four draws
+from a Normal distribution each with a standard deviation of .05 to
+obtain coefficients. As the higher-order coefficient parameters were all
+within a relatively narrow range, the standard deviation of .05 allowed
+for the possibility that, by chance, the rank ordering of coefficient
+magnitudes could change.
 
-The code block below implements the sampling of the coefficient values and reports on their values.
+The code block below implements the sampling of the coefficient values
+and reports on their values.
 
 ```{r sampled-coeff}
-Coefficient_Vector_Use <- 
-  rnorm(4, Coefficient_Vector, .05)
+Coefficient_Vector_Use <- rnorm(4, Coefficient_Vector, .05)
 
 names(Coefficient_Vector_Use) <- namelist
 
-Coefficient_Vector_Use %>%
-  data.frame(name = namelist, value = .) %>%
-  pivot_wider(id_cols = everything()) %>%
-  gt() %>%
-  tab_header("Table S7: Sampled Population Coefficient Values") %>%
+Coefficient_Vector_Use |>
+  data.frame(name = namelist, value = _) |>
+  pivot_wider(id_cols = everything()) |>
+  gt() |>
+  tab_header("Table S7: Sampled Population Coefficient Values") |>
   fmt_number(columns = 1:4, decimals = 4)
 ```
 
-The sampled population coefficients varied from the higher-order values and varied from the higher-order coefficients' rank order as $\beta_{WE} > \beta_{SL}$ in the sampled values whereas the reverse was true of the higher-order values.
+The sampled population coefficients varied from the higher-order values
+and varied from the higher-order coefficients' rank order as
+$\beta_{WE} > \beta_{SL}$ in the sampled values whereas the reverse was
+true of the higher-order values.
 
-#### Generate Observed Values
+#### Generate Observed Normal Distribution Variable Values
 
-The garment propensity variable $GP$ was generated as a linear combination of the four tailoring shop characteristics and their respective coefficients. The error variance for $GP$ was set to be $1 - \sigma^2_{ER\beta_{ER} + AS\beta_{AS} + SL\beta_{SL} + WE\beta_{WE}}$ thus forcing the variance of $GP$ to be 1. The mean of $GP$ is also set to be 0.
+The garment propensity variable $GP$ was generated as a linear
+combination of the four tailoring shop characteristics and their
+respective coefficients. The error variance for $GP$ was set to be
+$1 - \sigma^2_{ER\beta_{ER} + AS\beta_{AS} + SL\beta_{SL} + WE\beta_{WE}}$
+thus forcing the variance of $GP$ to be 1. The mean of $GP$ is also set
+to be 0.
 
-The code block below generates and reports on the descriptive statistics of $GP$.
+The code block below generates and reports on the descriptive statistics
+of $GP$.
 
 ```{r gen-y-normal}
-Data_Frame %<>%
+Data_Frame <- 
+  Data_Frame |>
   mutate(
     GP = 
-      ER*Coefficient_Vector_Use[["ER"]] + AS*Coefficient_Vector_Use[["AS"]] + 
-      SL*Coefficient_Vector_Use[["SL"]] + WE*Coefficient_Vector_Use[["WE"]], 
+      ER*Coefficient_Vector_Use[["ER"]] + 
+      AS*Coefficient_Vector_Use[["AS"]] + 
+      SL*Coefficient_Vector_Use[["SL"]] + 
+      WE*Coefficient_Vector_Use[["WE"]], 
     GP = GP + rnorm(total_n, 0, sqrt(1 - var(GP)))
   )
 
-Data_Frame %>%
-  summarise("Mean" = mean(GP)) %>% 
+Data_Frame |>
+  summarise("Mean" = mean(GP)) |> 
   bind_cols(
-    Data_Frame %>%
+    Data_Frame |>
       summarise("Standard Deviation" = sd(GP))
-  ) %>%
+  ) |>
   bind_cols(
-    Data_Frame %>% 
-      cor %>% 
-      as_tibble(rownames = "IV Name") %>%
-      filter(`IV Name` == "GP") %>%
+    Data_Frame |> 
+      cor() |> 
+      as_tibble(rownames = "IV Name") |>
+      filter(`IV Name` == "GP") |>
       select(-GP, -`IV Name`)
-  ) %>%
-  gt() %>%
-  tab_header("Table S8: Underlying Normal Dependent Variable Descriptive Statistics") %>%
-  fmt_number(columns = 1:6, decimals = 4) %>%
-  tab_spanner(columns = c(ER, AS, SL, WE), label = "Correlations") %>%
+  ) |>
+  gt() |>
+  tab_header("Table S8: Garment Propensity Descriptive Statistics") |>
+  fmt_number(columns = 1:6, decimals = 4) |>
+  tab_spanner(columns = c(ER, AS, SL, WE), label = "Correlations") |>
   tab_style(
     style = cell_borders(sides = "right"),
     locations = cells_body(columns = "Standard Deviation")
@@ -268,60 +354,72 @@ Data_Frame %>%
 In addition, a histogram of $GP$ is reported.
 
 ```{r y-gph, message=FALSE}
-Data_Frame %>%
-  select(GP) %>%
+Data_Frame |>
+  select(GP) |>
   ggplot(aes(x = GP)) +
   stat_bin() +
-  ggtitle("Figure Sa: Distribution of the Underlying Normal Dependent Variable") +
+  ggtitle("Figure Sa: Distribution of the Garment Propensity Variable") +
   theme_light()
 ```
 
-Finally, a regression predicting $GP$ using the four tailoring shop IVs is estimated and reported on below to confirm that the sampled population coefficient values are re-obtainable in the data.
+Finally, a regression predicting $GP$ using the four tailoring shop IVs
+is estimated and reported on below to confirm that the sampled
+population coefficient values are re-obtainable in the data.
 
 ```{r y-regress}
-lm(GP ~ ., data = Data_Frame) %>% 
-  parameters() %>%
-  select(-df_error, -CI) %>%
-  rename(Low = "CI_low", High = "CI_high") %>%
-  gt(rowname_col = "Parameter") %>%
-  fmt_number(columns = 2:7, decimals = 4) %>%
-  tab_spanner(columns = c(Low, High), label = "Confidence Interval") %>%
-  tab_header("Table S9: Underlying Normal Dependent Variable Linear Regression")
+lm(GP ~ ., data = Data_Frame) |> 
+  parameters() |>
+  select(-df_error, -CI) |>
+  rename(Low = "CI_low", High = "CI_high") |>
+  gt(rowname_col = "Parameter") |>
+  fmt_number(columns = 2:7, decimals = 4) |>
+  tab_spanner(columns = c(Low, High), label = "Confidence Interval") |>
+  tab_header("Table S9: Garment Propensity Linear Regression")
 ```
 
 The results confirm that the coefficients are recoverable in the data.
 
 ### Generate Poisson Dependent Variable
 
-The Poisson distributed variable related to the number of sport jackets produced (i.e., $SJ$) was based on the garment propensity variable and translated to the Poisson distribution using the cumulative propensity to quantile method described above.
+The Poisson distributed variable related to the number of sport jackets
+produced (i.e., $SJ$) was based on the garment propensity variable and
+translated to the Poisson distribution using the cumulative propensity
+to quantile method described above.
 
-$SJ$ was given a mean of 1 was chosen to make the $SJ$ results as close to those from $GP$ as possible; using this approach both DVs will have variances of 1.	
+$SJ$ was given a mean of 1 was chosen to make the $SJ$ results as close
+to those from $GP$ as possible; using this approach both DVs will have
+variances of 1.
 
-The code block below implements the translation process and reports on the descriptive results.
+The code block below implements the translation process and reports on
+the descriptive results.
 
 ```{r gen-y-poisson}
-Data_Frame %<>%
+Data_Frame <-
+  Data_Frame |> 
   mutate(
-    SJ = GP %>% pnorm(log.p = TRUE) %>% qpois(1, log.p = TRUE)
+    SJ = 
+      GP |> 
+      pnorm(log.p = TRUE) |> 
+      qpois(1, log.p = TRUE)
   )
 
-Data_Frame %>%
-  summarise("Mean" = mean(SJ)) %>% 
+Data_Frame |>
+  summarise("Mean" = mean(SJ)) |> 
   bind_cols(
-    Data_Frame %>%
+    Data_Frame |>
       summarise("Standard Deviation" = sd(SJ))
-  ) %>%
+  ) |>
   bind_cols(
-    Data_Frame %>% 
-      cor %>% 
-      as_tibble(rownames = "IV Name") %>%
-      filter(`IV Name` == "SJ") %>%
+    Data_Frame |> 
+      cor() |> 
+      as_tibble(rownames = "IV Name") |>
+      filter(`IV Name` == "SJ") |>
       select(-SJ, -GP, -`IV Name`)
-  ) %>%
-  gt() %>%
-  tab_header("Table S10: Poisson Dependent Variable Descriptive Statistics") %>%
-  fmt_number(columns = 1:6, decimals = 4) %>%
-  tab_spanner(columns = c(ER, AS, SL, WE), label = "Correlations") %>%
+  ) |>
+  gt() |>
+  tab_header("Table S10: Poisson Dependent Variable Descriptive Statistics") |>
+  fmt_number(columns = 1:6, decimals = 4) |>
+  tab_spanner(columns = c(ER, AS, SL, WE), label = "Correlations") |>
   tab_style(
     style = cell_borders(sides = "right"),
     locations = cells_body(columns = "Standard Deviation")
@@ -331,8 +429,8 @@ Data_Frame %>%
 In addition, a histogram of $SJ$ is provided below.
 
 ```{r pois-gph, message=FALSE}
-Data_Frame %>%
-  select(SJ) %>%
+Data_Frame |>
+  select(SJ) |>
   ggplot(aes(x = SJ)) +
   stat_count() +
   ggtitle("Figure Sb: Distribution of the Poisson Dependent Variable") +
@@ -341,37 +439,50 @@ Data_Frame %>%
 
 ### Generate Negative Binomial Dependent Variable
 
-The negative Binomial distributed variable related to the number of overcoats produced (i.e., $OC$) was also based on the garment propensity variable translated to the negative Binomial distribution using the cumulative propensity to quantile method.
+The negative Binomial distributed variable related to the number of
+overcoats produced (i.e., $OC$) was also based on the garment propensity
+variable translated to the negative Binomial distribution using the
+cumulative propensity to quantile method.
 
-The generation of the $OC$ also sought to ensure as much similarity to the $GP$ variable as possible while also requiring that $OC$'s distribution fail to meet the assumptions of the Poisson distribution. The quantile function values that $GP$ was translated into were then a _size_ parameter of .5 and _mu_ parameter of 1.
+The generation of the $OC$ also sought to ensure as much similarity to
+the $GP$ variable as possible while also requiring that $OC$'s
+distribution fail to meet the assumptions of the Poisson distribution.
+The quantile function values that $GP$ was translated into were then a
+*size* parameter of .5 and *mu* parameter of 1.
 
-This combination of _size_ and _mu_ parameters result in a mean (i.e., the _mu_/$\mu$ value) of 1 but a variance that substantially exceeded 1; in this case  or a value of 3 as $\sigma^{2} = \mu + \frac{\mu^2}{size}$.
+This combination of *size* and *mu* parameters result in a mean (i.e.,
+the *mu*/$\mu$ value) of 1 but a variance that substantially exceeded 1;
+in this case or a value of 3 as $\sigma^{2} = \mu + \frac{\mu^2}{size}$.
 
-The code block below implements the translation process and reports on the descriptive results.
+The code block below implements the translation process and reports on
+the descriptive results.
 
 ```{r gen-y-neg-bin}
-Data_Frame %<>%
+Data_Frame <-
+  Data_Frame |>
   mutate(
-    OC = GP %>% pnorm(log.p = TRUE) %>% qnbinom(size = .5, mu = 1, log.p = TRUE)
+    OC = GP |> 
+      pnorm(log.p = TRUE) |> 
+      qnbinom(size = .5, mu = 1, log.p = TRUE)
   )
 
-Data_Frame %>%
-  summarise("Mean" = mean(OC)) %>% 
+Data_Frame |>
+  summarise("Mean" = mean(OC)) |> 
   bind_cols(
-    Data_Frame %>%
+    Data_Frame |>
       summarise("Standard Deviation" = sd(OC))
-  ) %>%
+  ) |>
   bind_cols(
-    Data_Frame %>% 
-      cor %>% 
-      as_tibble(rownames = "IV Name") %>%
-      filter(`IV Name` == "OC") %>%
+    Data_Frame |> 
+      cor() |> 
+      as_tibble(rownames = "IV Name") |>
+      filter(`IV Name` == "OC") |>
       select(-SJ, -GP, -`IV Name`, -OC)
-  ) %>%
-  gt() %>%
-  tab_header("Table S11: Negative Binomial Dependent Variable Descriptive Statistics") %>%
-  fmt_number(columns = 1:6, decimals = 4) %>%
-  tab_spanner(columns = c(ER, AS, SL, WE), label = "Correlations") %>%
+  ) |>
+  gt() |>
+  tab_header("Table S11: Negative Binomial Dependent Variable Descriptive Statistics") |>
+  fmt_number(columns = 1:6, decimals = 4) |>
+  tab_spanner(columns = c(ER, AS, SL, WE), label = "Correlations") |>
   tab_style(
     style = cell_borders(sides = "right"),
     locations = cells_body(columns = "Standard Deviation")
@@ -381,52 +492,61 @@ Data_Frame %>%
 In addition, a histogram of $OC$ is provided below.
 
 ```{r neg-bin-gph, message=FALSE}
-Data_Frame %>%
-  select(OC) %>%
+Data_Frame |>
+  select(OC) |>
   ggplot(aes(x = OC)) +
   stat_count() +
   ggtitle("Figure Sc: Distribution of the Negative Binomial Dependent Variable") +
   theme_light()
 ```
 
-## Report Primary Generated Data Descriptives
+## Report Primary Generated Data Descriptive Statistics
 
-This section produces Table 4 in the manuscript including the descriptive statistics for all four IVs and the $SJ$ DV reported on in the manuscript.
+This section produces Table 4 in the manuscript including the
+descriptive statistics for all four IVs and the $SJ$ DV reported on in
+the manuscript.
 
 ```{r display-observed-descriptives}
-Data_Frame %>%
-  summarise(across(everything(), mean)) %>%
-  pivot_longer(everything(), names_to = "Variable", values_to = "Mean") %>%
+table_4 <-
+Data_Frame |>
+  summarise(across(everything(), mean)) |>
+  pivot_longer(everything(), names_to = "Variable", values_to = "Mean") |>
   left_join(
-    Data_Frame %>%
-      summarise(across(everything(), sd)) %>%
+    Data_Frame |>
+      summarise(across(everything(), sd)) |>
       pivot_longer(everything(), names_to = "Variable", 
                    values_to = "Standard Deviation"),
     by = "Variable"
-  ) %>%
+  ) |>
   left_join(
-    Data_Frame %>% 
-      cor %>% 
+    Data_Frame |> 
+      cor() |> 
       as_tibble(rownames = "Variable"),
     by = "Variable"
-  ) %>%
-  filter(!(Variable %in% c("GP", "OC"))) %>%
-  select(-GP, -OC) %>%
-  gt() %>%
-  tab_header("Table 4: Descriptive Statistics") %>%
-  fmt_number(columns = 2:8, decimals = 4) %>%
-  tab_spanner(columns = c(ER, AS, SL, WE, SJ), label = "Correlations") %>%
+  ) |>
+  filter(!(Variable %in% c("GP", "OC"))) |>
+  select(-GP, -OC) |>
+  gt() |>
+  tab_header("Table 4: Descriptive Statistics") |>
+  fmt_number(columns = 2:8, decimals = 4) |>
+  tab_spanner(columns = c(ER, AS, SL, WE, SJ), label = "Correlations") |>
   tab_style(
     style = cell_borders(sides = "right"),
     locations = cells_body(columns = "Standard Deviation")
-  ) %T>%
-  print %>%
+  )
+  
+table_4 |>
+  print()
+
+table_4 |>
   gtsave(filename = "descrips_initial.tex", path = "./includes/")
 ```
 
 # Primary Modeling
 
-This section describes the model estimation and dominance analysis of the primary analysis models involving the primary $SJ$ and the unreported $OC$ DVs.
+This section describes the model estimation and dominance analysis of
+the primary analysis models involving the primary $SJ$ and the
+unreported $OC$ DVs.
 
 ## Modeling Sport Jacket Production
 
@@ -434,54 +554,64 @@ All modeling and reporting of $SJ$ is implemented in this section.
 
 ### Obtain Modeling Results
 
-The code block below estimates, formats, and reports on the Poisson regression with $SJ$. 
+The code block below estimates, formats, and reports on the Poisson
+regression with $SJ$.
 
-These results form Table 5 of the manuscript.
+These results are used in Table 5 of the manuscript.
 
 ```{r SJ-pois-reg}
 SJ_pois_reg <- 
   glm(SJ ~ ER + AS + SL + WE, 
       data = Data_Frame, 
-      family = poisson()) 
+      family = poisson()
+      ) 
 
 SJ_pois_param <- 
-  SJ_pois_reg %>% 
+  SJ_pois_reg |> 
   parameters() 
 
-SJ_pois_param  %>% 
-  select(-df_error, -CI, -z, -p) %>%
-  {bind_rows(slice_tail(., n = 4), slice_head(., n = 1))} %>%
-  rename(Low = "CI_low", High = "CI_high", B = "Coefficient", `\\sigma_{B}` = "SE") %>%
+table_5 <- 
+  SJ_pois_param  |> 
+  select(-df_error, -CI, -z, -p) |>
+  (\(df) bind_rows(slice_tail(df, n = 4), slice_head(df, n = 1)))() |>
+  rename(Low = "CI_low", High = "CI_high", 
+         B = "Coefficient", `\\sigma_{B}` = "SE") |>
   mutate(`e^B` = exp(B), 
-         Parameter = str_replace(Parameter, "\\(Intercept\\)", "Intercept")) %>%
-  gt(rowname_col = "Parameter") %>%
-  fmt_number(columns = 2:6, decimals = 4) %>%
-  tab_spanner(columns = c(Low, High), label = "95% Confidence Interval") %>%
-  tab_header("Table 5: Poisson Regression Predicting Sport Jackets Produced") %T>%
-  print %>%
+         Parameter = str_replace(Parameter, "\\(Intercept\\)", "Intercept")) |>
+  gt(rowname_col = "Parameter") |>
+  fmt_number(columns = 2:6, decimals = 4) |>
+  tab_spanner(columns = c(Low, High), label = "95% Confidence Interval") |>
+  tab_header("Table 5: Poisson Regression Predicting Sport Jackets Produced")
+
+table_5 |>
+  print()
+
+table_5 |>
   gtsave(filename = "poisson_coeff.tex", path = "./includes/")
 ```
 
-Below the marginal effects from the $SJ$ model are depicted in a graphic.
+Below the marginal effects from the $SJ$ model are depicted in a
+graphic.
 
 ```{r SJ-pois-mgn}
 map(c("ER", "AS", "SL", "WE"),
     \(iv) {
       
       lst <- 
-        list(-2:2) %>%
+        list(-2:2) |>
         set_names(iv)
       
-      SJ_pois_reg %>%
+      SJ_pois_reg |>
         emmeans::emmeans(reformulate(iv), 
-                         at = lst) %>%
-        as_tibble %>%
-        rename(mgn = all_of(iv)) %>%
-        mutate(var = iv %>% as_factor,
+                         at = lst) |>
+        as_tibble() |>
+        rename(mgn = all_of(iv)) |>
+        mutate(var = iv |> 
+                 as_factor(),
                emmean = exp(emmean))
     }
-) %>%
-  list_rbind() %>%
+) |>
+  list_rbind() |>
   ggplot(aes(x = mgn, y = emmean, group = var, color = var)) + 
   geom_line() + scale_color_viridis_d() + theme_light() + 
   ylab("Predicted Counts") + xlab("Values of Tailoring Characteristic") + 
@@ -491,25 +621,30 @@ map(c("ER", "AS", "SL", "WE"),
 
 ### Obtain All Submodels' R-squares
 
-The code block below captures all sub-model $R^2_{DEV}$ values. The values obtained in this section form Table 6 in the manuscript.
+The code block below captures all sub-model $R^2_{DEV}$ values. The
+values obtained in this section are used in Table 6 of the manuscript.
 
 ```{r SJ-pois-reg-subsets}
 IV_subsets <- 
-  expand_grid(c("ER", ""), c("AS", ""), c("SL", ""), c("WE", "")) %>%
-  set_names(c("ER", "AS", "SL", "WE")) %>%
-  mutate(num_per = rowSums(across(everything(), .fns = ~ str_length(.) > 1))) %>%
-  arrange(num_per, desc(ER), desc(AS), desc(SL), desc(WE)) %>%
-  select(-num_per) %>%
-  slice(-1) %>% 
-  t() %>%
+  expand_grid(c("ER", ""), c("AS", ""), c("SL", ""), c("WE", "")) |>
+  set_names(c("ER", "AS", "SL", "WE")) |>
+  mutate(
+    num_per = rowSums(
+      across(everything(), .fns = \(x) str_length(x) > 1)
+    )
+  ) |>
+  arrange(num_per, desc(ER), desc(AS), desc(SL), desc(WE)) |>
+  select(-num_per) |>
+  slice(-1) |> 
+  t() |>
   as_tibble() 
 
 SJ_pois_subsets <-
   map_dbl(IV_subsets,
           \(ivs) {
-            discard(ivs, ~ str_length(.) < 2) %>%
-            reformulate(response = "SJ") %>%
-              glm(data = Data_Frame, family = poisson()) %>%
+            discard(ivs, \(x) str_length(x) < 2) |>
+              reformulate(response = "SJ") |>
+              glm(data = Data_Frame, family = poisson()) |>
               r2_kullback(adjust = FALSE)
           }
   )
@@ -517,20 +652,25 @@ SJ_pois_subsets <-
 IV_subset_names <-
   map_chr(IV_subsets, 
           \(ivs) {
-            discard(ivs, ~ str_length(.) < 2) %>%
-            str_c(., collapse = " + ")
+            discard(ivs, ~ str_length(.) < 2) |>
+              str_c(collapse = " + ")
           }
   )
 
-IV_subset_names %>% 
-  str_c("SJ ~ ", .) %>%
-  as_tibble() %>%
-  bind_cols(SJ_pois_subsets) %>%
-  gt() %>%
-  tab_header("Table 6: R^2_{DEV} by Sub-model") %>%
-  fmt_number(columns = 2, decimals = 4) %>%
-  cols_label(everything() ~ "") %T>%
-  print() %>%
+table_6 <- 
+  IV_subset_names |> 
+  (\(nms) str_c("SJ ~ ", nms))() |>
+  as_tibble() |>
+  bind_cols(SJ_pois_subsets) |>
+  gt() |>
+  tab_header("Table 6: R^2_{DEV} by Sub-model") |>
+  fmt_number(columns = 2, decimals = 4) |>
+  cols_label(everything() ~ "")
+
+table_6 |>
+  print()
+
+table_6 |>
   gtsave(filename = "all_subsets.tex", path = "./includes/")
 ```
 
@@ -546,86 +686,102 @@ SJ_pois_DA <-
             glm(fml, ...) 
           return(r2_kullback(res, adjust = FALSE))
         },
-        data = Data_Frame, family = poisson())
+        data = Data_Frame, family = poisson()
+  )
 
-SJ_pois_DA %>% 
-  pluck("General_Dominance") %>%
-  as_tibble(rownames = "Variable") %>%
-  left_join(SJ_pois_DA %>% 
-              pluck("Standardized") %>%
+SJ_pois_DA |> 
+  pluck("General_Dominance") |>
+  as_tibble(rownames = "Variable") |>
+  left_join(SJ_pois_DA |> 
+              pluck("Standardized") |>
               as_tibble(rownames = "Variable"),
-            by = "Variable") %>%
-  set_names(c("Variable", "General Dominance", "Standardized")) %>%
-  gt(rowname_col = "Variable") %>%
-  tab_header("Table S12: Poisson Model General Dominance Statistics") %>%
-  fmt_number(columns = 2:3, decimals = 4) %>%
-  tab_source_note(str_c("Overall Deviance R-square is ", 
-                        SJ_pois_reg %>% r2_kullback() %>% 
-                          sprintf("%5.4f", .), "."))
+            by = "Variable") |>
+  set_names(c("Variable", "General Dominance", "Standardized")) |>
+  gt(rowname_col = "Variable") |>
+  tab_header("Table S12: Poisson Model General Dominance Statistics") |>
+  fmt_number(columns = 2:3, decimals = 4) |>
+  tab_source_note(
+    str_c("Overall Deviance R-square is ", 
+          SJ_pois_reg |> 
+            r2_kullback() |> 
+            (\(r2) sprintf("%5.4f", r2))(), 
+          "."
+    )
+  )
 
-SJ_pois_DA %>% 
-  pluck("Conditional_Dominance") %>%
-  as_tibble(rownames = "Variable") %>%
-  set_names(c("Variable", str_c("Subset Size: ", 1:4))) %>%
-  gt(rowname_col = "Variable") %>%
-  tab_header("Table S13: Poisson Model Conditional Dominance Statistics") %>%
+SJ_pois_DA |> 
+  pluck("Conditional_Dominance") |>
+  as_tibble(rownames = "Variable") |>
+  set_names(c("Variable", str_c("Subset Size: ", 1:4))) |>
+  gt(rowname_col = "Variable") |>
+  tab_header("Table S13: Poisson Model Conditional Dominance Statistics") |>
   fmt_number(columns = 2:5, decimals = 4)
 
-SJ_pois_DA %>% 
-  pluck("Complete_Dominance") %>%
-  as_tibble(rownames = "Dominating Variable") %>%
+SJ_pois_DA |> 
+  pluck("Complete_Dominance") |>
+  as_tibble(rownames = "Dominating Variable") |>
   mutate(
     `Dominating Variable` = str_remove(`Dominating Variable`, "Dmnates_")
-  ) %>%
+  ) |>
   set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
-                                           c("ER", "AS", "SL", "WE")))) %>%
-  gt(rowname_col = "Dominating Variable") %>%
-  tab_header("Table S14: Poisson Model Complete Dominance Designations") %>%
-  sub_missing() %>% 
+                                           c("ER", "AS", "SL", "WE")))) |>
+  gt(rowname_col = "Dominating Variable") |>
+  tab_header("Table S14: Poisson Model Complete Dominance Designations") |>
+  sub_missing() |> 
   tab_stubhead("Dominating Variable")
 ```
 
-The code block below reports Table 7 in the manuscript.
+The code block below generates and reports on Table 7 in the manuscript.
 
 ```{r gend-dom-display}
-SJ_pois_DA %>% 
-  pluck("General_Dominance") %>%
-  as_tibble(rownames = "Variable") %>%
-  gt(rowname_col = "Variable") %>%
-  tab_header("Table 7: General Dominance Statistics") %>%
-  cols_label(everything() ~ "") %>%
-  fmt_number(columns = 2, decimals = 4) %T>%
-  print %>%
+table_7 <- 
+  SJ_pois_DA |> 
+  pluck("General_Dominance") |>
+  as_tibble(rownames = "Variable") |>
+  gt(rowname_col = "Variable") |>
+  tab_header("Table 7: General Dominance Statistics") |>
+  cols_label(everything() ~ "") |>
+  fmt_number(columns = 2, decimals = 4)
+
+table_7 |>
+  print()
+
+table_7 |>
   gtsave(filename = "gen_dom.tex", path = "./includes/")
 ```
 
 The Figure 1 in the manuscript is also produced below.
 
 ```{r condit-domin-display, fig.height = 3, fig.width = 4.5}
-SJ_pois_DA %>%
-  pluck("Conditional_Dominance") %>%
-  as_tibble(rownames = "IV") %>%
+SJ_pois_DA |>
+  pluck("Conditional_Dominance") |>
+  as_tibble(rownames = "IV") |>
   pivot_longer(
     cols = starts_with("subset_size"),
     names_to = "Subset Size",
     values_to = "Conditional Dominance Statistic",
     names_prefix = "subset_size_"
-    ) %>% 
+    ) |> 
   mutate(
     IV = fct_relevel(IV, "ER", "AS", "SL", "WE"),
-    `Subset Size` = `Subset Size` %>% as.integer
-  ) %>%
+    `Subset Size` = 
+      `Subset Size` |> 
+      as.integer()
+  ) |>
   ggplot(
-    aes(x = `Subset Size`, y = `Conditional Dominance Statistic`, group = IV, color = IV)
+    aes(x = `Subset Size`, y = `Conditional Dominance Statistic`, 
+        group = IV, color = IV)
   ) + geom_line() + 
   theme_linedraw() +
   labs(linetype = "") + 
-  coord_trans(xlim = c(.9, 4.1), ylim = c(.015, .185), expand = FALSE, y = "log") + 
-  theme(legend.position = c(.90, .89), legend.box.background = element_rect(color = "black"), 
+  coord_trans(xlim = c(.9, 4.1), ylim = c(.015, .185), expand = FALSE, y = "log") +
+  theme(legend.position = c(.90, .89), 
+        legend.box.background = element_rect(color = "black"), 
         legend.title = element_blank(), legend.text = element_text(size = 7), 
         legend.key.height = unit(7, "pt"), axis.text.y = element_text(size = 7), 
         legend.margin = margin(b = .5, l = .5, r = .5),
-        axis.title = element_text(family = "serif")) + 
+        axis.title = element_text(family = "serif")
+  ) + 
   scale_y_continuous(n.breaks = 5) + scale_color_viridis_d()
 
 ggsave("condit_gph.png", height = 4*.75, width = 6*.75, 
@@ -636,11 +792,15 @@ ggsave("condit_gph.png", height = 4*.75, width = 6*.75,
 
 All modeling and reporting of $OC$ is implemented in this section.
 
-Ultimately, these results were not included in the manuscript as they did not meaningfully extend on the Poisson regression results.
+Ultimately, these results were not included in the manuscript as they
+did not meaningfully extend on the Poisson regression results. They are
+included here for completeness.
 
 ### Obtain Modeling Results
 
-The code block below estimates, formats, and reports on the negative Binomial regression with $OC$. The Theta parameter is included in a footnote.
+The code block below estimates, formats, and reports on the negative
+Binomial regression with $OC$. The Theta parameter is included in a
+footnote.
 
 ```{r OC-nb-reg}
 OC_nb_reg <- 
@@ -648,44 +808,50 @@ OC_nb_reg <-
       data = Data_Frame) 
 
 OC_nb_param <- 
-  OC_nb_reg %>% 
+  OC_nb_reg |> 
   parameters() 
 
-OC_nb_param  %>% 
-  select(-df_error, -CI, -z, -p) %>%
-  {bind_rows(slice_tail(., n = 4), slice_head(., n = 1))} %>%
-  rename(Low = "CI_low", High = "CI_high", B = "Coefficient") %>%
+OC_nb_param  |> 
+  select(-df_error, -CI, -z, -p) |>
+  (\(df) bind_rows(slice_tail(df, n = 4), slice_head(df, n = 1)))() |>
+  rename(Low = "CI_low", High = "CI_high", B = "Coefficient") |>
   mutate(`e^B` = exp(B), 
-         Parameter = str_replace(Parameter, "\\(Intercept\\)", "Intercept")) %>%
-  gt(rowname_col = "Parameter") %>%
-  fmt_number(columns = 2:6, decimals = 4) %>%
-  tab_spanner(columns = c(Low, High), label = "95% Confidence Interval") %>%
-  tab_header("Table S15: Negative Binomial Regression") %>% 
-  tab_source_note(str_c("Theta parameter is ", 
-                        OC_nb_reg$theta %>% 
-                          format(big.mark = ",", digits = 4), "."))
+         Parameter = str_replace(Parameter, "\\(Intercept\\)", "Intercept")) |>
+  gt(rowname_col = "Parameter") |>
+  fmt_number(columns = 2:6, decimals = 4) |>
+  tab_spanner(columns = c(Low, High), label = "95% Confidence Interval") |>
+  tab_header("Table S15: Negative Binomial Regression") |> 
+  tab_source_note(
+    str_c("Theta parameter is ", 
+          OC_nb_reg$theta |> 
+            format(big.mark = ",", digits = 4), ".")
+  )
 ```
 
-Below the marginal effects from the $OC$ model are depicted in a graphic.
+Below the marginal effects from the $OC$ model are depicted in a
+graphic.
 
 ```{r OC-nv-mgn}
 map(c("ER", "AS", "SL", "WE"),
     \(iv) {
       
       lst <- 
-        list(-2:2) %>%
+        list(-2:2) |>
         set_names(iv)
       
-      OC_nb_reg %>%
-        emmeans::emmeans(reformulate(iv), 
-                         at = lst) %>%
-        as_tibble %>%
-        rename(mgn = all_of(iv)) %>%
-        mutate(var = iv %>% as_factor,
+      OC_nb_reg |>
+        emmeans::emmeans(
+          reformulate(iv), 
+          at = lst
+        ) |>
+        as_tibble() |>
+        rename(mgn = all_of(iv)) |>
+        mutate(var = iv |> 
+                 as_factor(),
                emmean = exp(emmean))
     }
-) %>%
-  list_rbind() %>%
+) |>
+  list_rbind() |>
   ggplot(aes(x = mgn, y = emmean, group = var, color = var)) + 
   geom_line() + scale_color_viridis_d() + theme_light() + 
   ylab("Predicted Counts") + xlab("Values of Tailoring Characteristic") + 
@@ -707,40 +873,44 @@ OC_nb_DA <-
         },
         data = Data_Frame)
 
-OC_nb_DA %>% 
-  pluck("General_Dominance") %>%
-  as_tibble(rownames = "Variable") %>%
-  left_join(OC_nb_DA %>% 
-              pluck("Standardized") %>%
+OC_nb_DA |> 
+  pluck("General_Dominance") |>
+  as_tibble(rownames = "Variable") |>
+  left_join(OC_nb_DA |> 
+              pluck("Standardized") |>
               as_tibble(rownames = "Variable"),
-            by = "Variable") %>%
-  set_names(c("Variable", "General Dominance", "Standardized")) %>%
-  gt(rowname_col = "Variable") %>%
-  tab_header("Table S16: Negative Binomial Model General Dominance Statistics") %>%
-  fmt_number(columns = 2:3, decimals = 4) %>%
-  tab_source_note(str_c("Overall Deviance R-square is ", 
-                        OC_nb_reg %>% r2_kullback(adjust = FALSE) %>% 
-                          sprintf("%5.4f", .), "."))
+            by = "Variable") |>
+  set_names(c("Variable", "General Dominance", "Standardized")) |>
+  gt(rowname_col = "Variable") |>
+  tab_header("Table S16: Negative Binomial Model General Dominance Statistics") |>
+  fmt_number(columns = 2:3, decimals = 4) |>
+  tab_source_note(
+    str_c("Overall Deviance R-square is ", 
+          OC_nb_reg |> 
+            r2_kullback(adjust = FALSE) |> 
+            (\(r2) sprintf("%5.4f", r2))(), 
+          ".")
+  )
 
-OC_nb_DA %>% 
-  pluck("Conditional_Dominance") %>%
-  as_tibble(rownames = "Variable") %>%
-  set_names(c("Variable", str_c("Subset Size: ", 1:4))) %>%
-  gt(rowname_col = "Variable") %>%
-  tab_header("Table S17: Negative Binomial Model Conditional Dominance Statistics") %>%
+OC_nb_DA |> 
+  pluck("Conditional_Dominance") |>
+  as_tibble(rownames = "Variable") |>
+  set_names(c("Variable", str_c("Subset Size: ", 1:4))) |>
+  gt(rowname_col = "Variable") |>
+  tab_header("Table S17: Negative Binomial Model Conditional Dominance Statistics") |>
   fmt_number(columns = 2:5, decimals = 4)
 
-OC_nb_DA %>% 
-  pluck("Complete_Dominance") %>%
-  as_tibble(rownames = "Dominating Variable") %>%
+OC_nb_DA |> 
+  pluck("Complete_Dominance") |>
+  as_tibble(rownames = "Dominating Variable") |>
   mutate(
     `Dominating Variable` = str_remove(`Dominating Variable`, "Dmnates_")
-  ) %>%
+  ) |>
   set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
-                                           c("ER", "AS", "SL", "WE")))) %>%
-  gt(rowname_col = "Dominating Variable") %>%
-  tab_header("Table S18: Negative Binomial Model Complete Dominance Designations") %>%
-  sub_missing() %>% 
+                                           c("ER", "AS", "SL", "WE")))) |>
+  gt(rowname_col = "Dominating Variable") |>
+  tab_header("Table S18: Negative Binomial Model Complete Dominance Designations") |>
+  sub_missing() |> 
   tab_stubhead("Dominating Variable")
 ```
 
@@ -752,7 +922,9 @@ sessionInfo()
 
 The random seed information used in this session:
 
-    84490856
-    Min: 1, Max: 99999999
-    2022-08-14 14:50:02 UTC
-    Random.org
+```         
+84490856
+Min: 1, Max: 99999999
+2022-08-14 14:50:02 UTC
+Random.org
+```
