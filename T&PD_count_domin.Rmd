@@ -177,7 +177,8 @@ range between 5,000 and 10,000. This range of observations that was
 chosen as it should allow for stable estimates from these data yet be
 within a range observed of many large social surveys.
 
-The code block below samples the sample size value and takes all independent variable
+The code block below samples the sample size value and takes all 
+independent variable
 samples. The block also reports on descriptive statistics from the
 sampled independent variable observations including the sample size.
 
@@ -197,7 +198,9 @@ Data_Frame |>
   summarise(
     across(everything(), .fns = mean),
     ) |> 
-  pivot_longer(everything(), names_to = "Independent Variable Name", values_to = "Mean") |>
+  pivot_longer(everything(), 
+               names_to = "Independent Variable Name", 
+               values_to = "Mean") |>
   left_join(
   Data_Frame |>
   summarise(
@@ -217,7 +220,8 @@ Data_Frame |>
   gt(rowname_col = "Independent Variable Name") |>
   tab_header("Table S5: Sampled Data Descriptive Statistics") |>
   fmt_number(columns = 2:7, decimals = 4) |>
-  tab_spanner(columns = c(ability, motivation, tact, skill), label = "Correlations") |>
+  tab_spanner(columns = c(ability, motivation, tact, skill), 
+              label = "Correlations") |>
   tab_style(
     style = cell_borders(sides = "right"),
     locations = cells_body(columns = "Standard Deviation")
@@ -235,7 +239,8 @@ Data_Frame |>
 ## Generate Dependent Variables
 
 This section creates multiple count dependent variables from a single Normally
-distributed dependent variable. The Normally distributed dependent variable is generated first and is
+distributed dependent variable. The Normally distributed 
+dependent variable is generated first and is
 then used to determine the values of other count dependent variables. This method is
 used as it allows more control over the magnitudes of relationships
 between the count dependent variable's with the independent variables.
@@ -249,9 +254,10 @@ specific distribution to reduce the effect of my decisions on the
 results.
 
 Conceptually, the underlying Normally distributed variable can be
-thought of as a latent propensity each tailoring shop has for making
-more garments. This garment propensity variable (called $propense$) is
-generated as a linear combination of the four tailoring shop independent variables. In
+thought of as a latent propensity each person in the study has for making
+more solutions. This solution propensity variable (called $propense$) is
+generated as a linear combination of the survey scale 
+independent variables. In
 devising the higher-order population coefficients, I thought it would be
 convenient to generate coefficients that, when combined with the
 higher-order population variances, would produce a specific $R^2$ under
@@ -263,18 +269,22 @@ systematic approach to generating independent variable coefficient values.
 
 #### Higher-Order Population Parameters
 
-The approach used to generate the higher-order independent variable coefficient values was
+The approach used to generate the higher-order independent variable 
+coefficient values was
 to devise values such that the coefficients achieve an $R^2 = .12$. I
 also wanted to assign the coefficient values in a way such that no
-single independent variable contributed more to the $R^2$ than any other. The simplest way
+single independent variable contributed more to the $R^2$ than any other. 
+The simplest way
 to do so was to ignore the independent variable covariances and use the
 $R^2 = \sum\beta^2\sigma^2$ formula for computing the $R^2$ to work
-backward to obtain a value that ascribes each independent variable a contribution of .04.
+backward to obtain a value that ascribes each independent variable a 
+contribution of .04.
 Given the population variances, the values chosen were:
 $\beta_{ability} =.20$, $\beta_{motivation} =.15$, $\beta_{tact} =.12$,
 $\beta_{skill} =.10$.
 
-The code block below sets the higher order independent variable coefficient population
+The code block below sets the higher order independent variable 
+coefficient population
 parameters and reports on their values.
 
 ```{r pop-coefs}
@@ -320,8 +330,8 @@ true of the higher-order values.
 
 #### Generate Observed Normal Distribution Variable Values
 
-The garment propensity variable $propense$ was generated as a linear
-combination of the four tailoring shop characteristics and their
+The solution propensity variable $propense$ was generated as a linear
+combination of the four survey scales and their
 respective coefficients. The error variance for $propense$ was set to be
 $1 - \sigma^2_{ability\beta_{ability} + motivation\beta_{motivation} + tact\beta_{tact} + skill\beta_{skill}}$
 thus forcing the variance of $propense$ to be 1. The mean of $propense$ is also set
@@ -356,9 +366,10 @@ Data_Frame |>
       select(-propense, -`Independent Variable Name`)
   ) |>
   gt() |>
-  tab_header("Table S8: Garment Propensity Descriptive Statistics") |>
+  tab_header("Table S8: Solution Propensity Descriptive Statistics") |>
   fmt_number(columns = 1:6, decimals = 4) |>
-  tab_spanner(columns = c(ability, motivation, tact, skill), label = "Correlations") |>
+  tab_spanner(columns = c(ability, motivation, tact, skill), 
+              label = "Correlations") |>
   tab_style(
     style = cell_borders(sides = "right"),
     locations = cells_body(columns = "Standard Deviation")
@@ -372,12 +383,12 @@ Data_Frame |>
   select(propense) |>
   ggplot(aes(x = propense)) +
   stat_bin() +
-  ggtitle("Figure Sa: Distribution of the Garment Propensity Variable") +
+  ggtitle("Figure Sa: Distribution of the Solution Propensity Variable") +
   theme_light()
 ```
 
-Finally, a regression predicting $propense$ using the four tailoring shop independent variables
-is estimated and reported on below to confirm that the sampled
+Finally, a regression predicting $propense$ using the four survey scale 
+independent variables is estimated and reported on below to confirm that the sampled
 population coefficient values are re-obtainable in the data.
 
 ```{r y-regress}
@@ -388,21 +399,24 @@ lm(propense ~ ., data = Data_Frame) |>
   gt(rowname_col = "Parameter") |>
   fmt_number(columns = 2:7, decimals = 4) |>
   tab_spanner(columns = c(Low, High), label = "Confidence Interval") |>
-  tab_header("Table S9: Garment Propensity Linear Regression")
+  tab_header("Table S9: Solution Propensity Linear Regression")
 ```
 
 The results confirm that the coefficients are recoverable in the data.
 
-### Generate Poisson Dependent Variable
+### Generate Relationship Problem Solution Production
 
-The Poisson distributed variable related to the number of sport jackets
-produced (i.e., $solution$) was based on the garment propensity variable and
-translated to the Poisson distribution using the cumulative propensity
-to quantile method described above.
+The Poisson distributed variable related to the number of solutions
+produced (i.e., $solution$) was based on the solution propensity variable and
+translated to the Poisson distribution by obtaining the cumulative probability 
+that each observation would have been obtained from the Normal distribution 
+with a mean 0 and standard deviation of 1, and then translated those 
+probabilities into a Poisson distribution using a quantile function assuming 
+the Poisson distribution's mean was 1.
 
-$solution$ was given a mean of 1 was chosen to make the $solution$ results as close
-to those from $propense$ as possible; using this approach both dependent variables will have
-variances of 1.
+The Poisson distributed $solution$ was given a mean of 1 to make its results 
+as close to those from $propense$ as possible as, using this approach, both 
+dependent variables will have variances of 1.
 
 The code block below implements the translation process and reports on
 the descriptive results.
@@ -431,7 +445,7 @@ Data_Frame |>
       select(-solution, -propense, -`Independent Variable Name`)
   ) |>
   gt() |>
-  tab_header("Table S10: Poisson Dependent Variable Descriptive Statistics") |>
+  tab_header("Table S10: Solutions Descriptive Statistics") |>
   fmt_number(columns = 1:6, decimals = 4) |>
   tab_spanner(columns = c(ability, motivation, tact, skill), label = "Correlations") |>
   tab_style(
@@ -447,25 +461,27 @@ Data_Frame |>
   select(solution) |>
   ggplot(aes(x = solution)) +
   stat_count() +
-  ggtitle("Figure Sb: Distribution of the Poisson Dependent Variable") +
+  ggtitle("Figure Sb: Distribution of Solutions") +
   theme_light()
 ```
 
-### Generate Negative Binomial Dependent Variable
+### Generate Unstructured Solutions Production
 
-The negative Binomial distributed variable related to the number of
-overcoats produced (i.e., $OC$) was also based on the garment propensity
+The negative Binomial distributed variable related to the number of solutions 
+produced in an unstructured way that relied less on reasoning quality
+(i.e., $unstruct$) was also based on the solution propensity
 variable translated to the negative Binomial distribution using the
 cumulative propensity to quantile method.
 
-The generation of the $OC$ also sought to ensure as much similarity to
-the $propense$ variable as possible while also requiring that $OC$'s
+The generation of the $unstruct$ also sought to ensure as much similarity to
+the $propense$ variable as possible while also requiring that $unstruct$'s
 distribution fail to meet the assumptions of the Poisson distribution.
 The quantile function values that $propense$ was translated into were then a
 *size* parameter of .5 and *mu* parameter of 1.
 
-This combination of *size* and *mu* parameters result in a mean (i.e.,
-the *mu*/$\mu$ value) of 1 but a variance that substantially exceeded 1;
+This combination of *size* and *mu* parameters result in a mean value (i.e.,
+the *mu*/$\mu$ value) that was identical to $solution$/1 but a variance 
+that substantially exceeded 1;
 in this case or a value of 3 as $\sigma^{2} = \mu + \frac{\mu^2}{size}$.
 
 The code block below implements the translation process and reports on
@@ -475,26 +491,26 @@ the descriptive results.
 Data_Frame <-
   Data_Frame |>
   mutate(
-    OC = propense |> 
+    unstruct = propense |> 
       pnorm(log.p = TRUE) |> 
       qnbinom(size = .5, mu = 1, log.p = TRUE)
   )
 
 Data_Frame |>
-  summarise("Mean" = mean(OC)) |> 
+  summarise("Mean" = mean(unstruct)) |> 
   bind_cols(
     Data_Frame |>
-      summarise("Standard Deviation" = sd(OC))
+      summarise("Standard Deviation" = sd(unstruct))
   ) |>
   bind_cols(
     Data_Frame |> 
       cor() |> 
       as_tibble(rownames = "Independent Variable Name") |>
-      filter(`Independent Variable Name` == "OC") |>
-      select(-solution, -propense, -`Independent Variable Name`, -OC)
+      filter(`Independent Variable Name` == "unstruct") |>
+      select(-solution, -propense, -`Independent Variable Name`, -unstruct)
   ) |>
   gt() |>
-  tab_header("Table S11: Negative Binomial Dependent Variable Descriptive Statistics") |>
+  tab_header("Table S11: Unstructured Solutions Descriptive Statistics") |>
   fmt_number(columns = 1:6, decimals = 4) |>
   tab_spanner(columns = c(ability, motivation, tact, skill), label = "Correlations") |>
   tab_style(
@@ -503,21 +519,22 @@ Data_Frame |>
   )
 ```
 
-In addition, a histogram of $OC$ is provided below.
+In addition, a histogram of $unstruct$ is provided below.
 
 ```{r neg-bin-gph, message=FALSE}
 Data_Frame |>
-  select(OC) |>
-  ggplot(aes(x = OC)) +
+  select(unstruct) |>
+  ggplot(aes(x = unstruct)) +
   stat_count() +
-  ggtitle("Figure Sc: Distribution of the Negative Binomial Dependent Variable") +
+  ggtitle("Figure Sc: Distribution of Unstructured Solutions") +
   theme_light()
 ```
 
-## Report Primary Generated Data Descriptive Statistics
+## Report Generated Data Descriptive Statistics
 
 This section produces Table 4 in the manuscript including the
-descriptive statistics for all four independent variables and the $solution$ dependent variable reported on in
+descriptive statistics for all four independent variables and 
+the $solution$ dependent variable reported on in
 the manuscript.
 
 ```{r display-observed-descriptives}
@@ -538,8 +555,8 @@ Data_Frame |>
       as_tibble(rownames = "Variable"),
     by = "Variable"
   ) |>
-  filter(!(Variable %in% c("propense", "OC"))) |>
-  select(-propense, -OC) |>
+  filter(!(Variable %in% c("propense", "unstruct"))) |>
+  select(-propense, -unstruct) |>
   gt() |>
   tab_header("Table 4: Descriptive Statistics") |>
   fmt_number(columns = 2:8, decimals = 4) |>
@@ -549,8 +566,7 @@ Data_Frame |>
     locations = cells_body(columns = "Standard Deviation")
   )
   
-table_4 |>
-  print()
+table_4
 
 table_4 |>
   gtsave(filename = "descrips_initial.tex", path = "./includes/")
@@ -560,7 +576,7 @@ table_4 |>
 
 This section describes the model estimation and dominance analysis of
 the primary analysis models involving the primary $solution$ and the
-unreported $OC$ dependent variables.
+unreported $unstruct$ dependent variables.
 
 ## Modeling Relationship Problem Solutions Production
 
@@ -595,10 +611,9 @@ table_5 <-
   gt(rowname_col = "Parameter") |>
   fmt_number(columns = 2:6, decimals = 4) |>
   tab_spanner(columns = c(Low, High), label = "95% Confidence Interval") |>
-  tab_header("Table 5: Poisson Regression Predicting Relationship Problem Solutionss Produced")
+  tab_header("Table 5: Poisson Regression Predicting Relationship Problem Solutions Produced")
 
-table_5 |>
-  print()
+table_5
 
 table_5 |>
   gtsave(filename = "poisson_coeff.tex", path = "./includes/")
@@ -628,8 +643,8 @@ map(c("ability", "motivation", "tact", "skill"),
   list_rbind() |>
   ggplot(aes(x = mgn, y = emmean, group = var, color = var)) + 
   geom_line() + scale_color_viridis_d() + theme_light() + 
-  ylab("Predicted Counts") + xlab("Values of Tailoring Characteristic") + 
-  labs(color = "Tailoring\nCharacteristic") + 
+  ylab("Predicted Counts") + xlab("Values of Survey Scales") + 
+  labs(color = "Survey\nScales") + 
   ggtitle("Figure Sd: Marginal Effects of the Relationship Problem Solutions\nProduction Model")
 ```
 
@@ -651,7 +666,7 @@ IV_subsets <-
   select(-num_per) |>
   slice(-1) |> 
   t() |>
-  as_tibble() 
+  as_tibble(.name_repair = "minimal") 
 
 solution_pois_subsets <-
   map_dbl(IV_subsets,
@@ -681,8 +696,7 @@ table_6 <-
   fmt_number(columns = 2, decimals = 4) |>
   cols_label(everything() ~ "")
 
-table_6 |>
-  print()
+table_6
 
 table_6 |>
   gtsave(filename = "all_subsets.tex", path = "./includes/")
@@ -712,7 +726,7 @@ solution_pois_DA |>
             by = "Variable") |>
   set_names(c("Variable", "General Dominance", "Standardized")) |>
   gt(rowname_col = "Variable") |>
-  tab_header("Table S12: Poisson Model General Dominance Statistics") |>
+  tab_header("Table S12: Solution Production Model General Dominance Statistics") |>
   fmt_number(columns = 2:3, decimals = 4) |>
   tab_source_note(
     str_c("Overall Deviance R-square is ", 
@@ -728,19 +742,19 @@ solution_pois_DA |>
   as_tibble(rownames = "Variable") |>
   set_names(c("Variable", str_c("Subset Size: ", 1:4))) |>
   gt(rowname_col = "Variable") |>
-  tab_header("Table S13: Poisson Model Conditional Dominance Statistics") |>
+  tab_header("Table S13: Solution Production Model Conditional Dominance Statistics") |>
   fmt_number(columns = 2:5, decimals = 4)
 
 solution_pois_DA |> 
   pluck("Complete_Dominance") |>
   as_tibble(rownames = "Dominating Variable") |>
   mutate(
-    `Dominating Variable` = str_remove(`Dominating Variable`, "Dmnates_")
+    `Dominating Variable` = str_remove(`Dominating Variable`, "_>")
   ) |>
   set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
                                            c("ability", "motivation", "tact", "skill")))) |>
   gt(rowname_col = "Dominating Variable") |>
-  tab_header("Table S14: Poisson Model Complete Dominance Designations") |>
+  tab_header("Table S14: Solution Production Model Complete Dominance Proportions") |>
   sub_missing() |> 
   tab_stubhead("Dominating Variable")
 ```
@@ -757,8 +771,7 @@ table_7 <-
   cols_label(everything() ~ "") |>
   fmt_number(columns = 2, decimals = 4)
 
-table_7 |>
-  print()
+table_7
 
 table_7 |>
   gtsave(filename = "gen_dom.tex", path = "./includes/")
@@ -771,25 +784,26 @@ solution_pois_DA |>
   pluck("Conditional_Dominance") |>
   as_tibble(rownames = "Independent Variable") |>
   pivot_longer(
-    cols = starts_with("subset_size"),
+    cols = starts_with("include_at"),
     names_to = "Subset Size",
     values_to = "Conditional Dominance Statistic",
-    names_prefix = "subset_size_"
+    names_prefix = "include_at_"
     ) |> 
   mutate(
-    IV = fct_relevel(IV, "ability", "motivation", "tact", "skill"),
+    `Independent Variable` = 
+      fct_relevel(`Independent Variable`, "ability", "motivation", "tact", "skill"),
     `Subset Size` = 
       `Subset Size` |> 
       as.integer()
   ) |>
   ggplot(
     aes(x = `Subset Size`, y = `Conditional Dominance Statistic`, 
-        group = IV, color = IV)
+        group = `Independent Variable`, color = `Independent Variable`)
   ) + geom_line() + 
   theme_linedraw() +
   labs(linetype = "") + 
   coord_trans(xlim = c(.9, 4.1), ylim = c(.015, .185), expand = FALSE, y = "log") +
-  theme(legend.position = c(.90, .89), 
+  theme(legend.position.inside = c(.85, .89), legend.position = "inside",
         legend.box.background = element_rect(color = "black"), 
         legend.title = element_blank(), legend.text = element_text(size = 7), 
         legend.key.height = unit(7, "pt"), axis.text.y = element_text(size = 7), 
@@ -802,9 +816,9 @@ ggsave("condit_gph.png", height = 4*.75, width = 6*.75,
        units = "in", path = "./includes/")
 ```
 
-## Modeling Overcoat Production
+## Modeling Unstructured Solutions Production
 
-All modeling and reporting of $OC$ is implemented in this section.
+All modeling and reporting of $unstruct$ is implemented in this section.
 
 Ultimately, these results were not included in the manuscript as they
 did not meaningfully extend on the Poisson regression results. They are
@@ -813,12 +827,12 @@ included here for completeness.
 ### Obtain Modeling Results
 
 The code block below estimates, formats, and reports on the negative
-Binomial regression with $OC$. The Theta parameter is included in a
+Binomial regression with $unstruct$. The Theta parameter is included in a
 footnote.
 
-```{r OC-nb-reg}
+```{r unstruct-nb-reg}
 OC_nb_reg <- 
-  glm.nb(OC ~ ability + motivation + tact + skill, 
+  glm.nb(unstruct ~ ability + motivation + tact + skill, 
       data = Data_Frame) 
 
 OC_nb_param <- 
@@ -834,7 +848,7 @@ OC_nb_param  |>
   gt(rowname_col = "Parameter") |>
   fmt_number(columns = 2:6, decimals = 4) |>
   tab_spanner(columns = c(Low, High), label = "95% Confidence Interval") |>
-  tab_header("Table S15: Negative Binomial Regression") |> 
+  tab_header("Table S15: Unstructured Solutions Regression") |> 
   tab_source_note(
     str_c("Theta parameter is ", 
           OC_nb_reg$theta |> 
@@ -842,10 +856,10 @@ OC_nb_param  |>
   )
 ```
 
-Below the marginal effects from the $OC$ model are depicted in a
+Below the marginal effects from the $unstruct$ model are depicted in a
 graphic.
 
-```{r OC-nv-mgn}
+```{r unstruct-nv-mgn}
 map(c("ability", "motivation", "tact", "skill"),
     \(iv) {
       
@@ -868,18 +882,18 @@ map(c("ability", "motivation", "tact", "skill"),
   list_rbind() |>
   ggplot(aes(x = mgn, y = emmean, group = var, color = var)) + 
   geom_line() + scale_color_viridis_d() + theme_light() + 
-  ylab("Predicted Counts") + xlab("Values of Tailoring Characteristic") + 
-  labs(color = "Tailoring\nCharacteristic") + 
-  ggtitle("Figure Se: Marginal Effects of the Overcoat\nProduction Model")
+  ylab("Predicted Counts") + xlab("Values of Survey Scale") + 
+  labs(color = "Survey\nScale") + 
+  ggtitle("Figure Se: Marginal Effects of the Unstructured\nSolutions Model")
 ```
 
 ### Dominance Analytic Results
 
-The code block below implements the dominance analysis using $OC$.
+The code block below implements the dominance analysis using $unstruct$.
 
-```{r OC-nb-DA}
+```{r unstruct-nb-DA}
 OC_nb_DA <-
-  domir(OC ~ ability + motivation + tact + skill, 
+  domir(unstruct ~ ability + motivation + tact + skill, 
         \(fml, ...) {
           res <- 
             glm.nb(fml, ...) 
@@ -896,7 +910,7 @@ OC_nb_DA |>
             by = "Variable") |>
   set_names(c("Variable", "General Dominance", "Standardized")) |>
   gt(rowname_col = "Variable") |>
-  tab_header("Table S16: Negative Binomial Model General Dominance Statistics") |>
+  tab_header("Table S16: Unstructured Solutions Model General Dominance Statistics") |>
   fmt_number(columns = 2:3, decimals = 4) |>
   tab_source_note(
     str_c("Overall Deviance R-square is ", 
@@ -911,19 +925,19 @@ OC_nb_DA |>
   as_tibble(rownames = "Variable") |>
   set_names(c("Variable", str_c("Subset Size: ", 1:4))) |>
   gt(rowname_col = "Variable") |>
-  tab_header("Table S17: Negative Binomial Model Conditional Dominance Statistics") |>
+  tab_header("Table S17: Unstructured Solutions Model Conditional Dominance Statistics") |>
   fmt_number(columns = 2:5, decimals = 4)
 
 OC_nb_DA |> 
   pluck("Complete_Dominance") |>
   as_tibble(rownames = "Dominating Variable") |>
   mutate(
-    `Dominating Variable` = str_remove(`Dominating Variable`, "Dmnates_")
+    `Dominating Variable` = str_remove(`Dominating Variable`, "_>")
   ) |>
   set_names(c("Dominating Variable", str_c("Dominated Variable: ", 
                                            c("ability", "motivation", "tact", "skill")))) |>
   gt(rowname_col = "Dominating Variable") |>
-  tab_header("Table S18: Negative Binomial Model Complete Dominance Designations") |>
+  tab_header("Table S18: Unstructured Solutions Model Complete Dominance Proportions") |>
   sub_missing() |> 
   tab_stubhead("Dominating Variable")
 ```

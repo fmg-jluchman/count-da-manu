@@ -18,843 +18,6 @@
 
 
 \refsection{0}
-  \datalist[entry]{apa/apasortcite//global/global}
-    \entry{azen2003dominance}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=e5d19bde71379423480fdad034b0220f}{%
-           family={Azen},
-           familyi={A\bibinitperiod},
-           given={Razia},
-           giveni={R\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=6713448dd726dd635a06c9d9ccb44d3f}{%
-           family={Budescu},
-           familyi={B\bibinitperiod},
-           given={David\bibnamedelima V},
-           giveni={D\bibinitperiod\bibinitdelim V\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {American Psychological Association}%
-      }
-      \strng{namehash}{4926095d516bdb0d0e6fddde3dbe2218}
-      \strng{fullhash}{4926095d516bdb0d0e6fddde3dbe2218}
-      \strng{bibnamehash}{4926095d516bdb0d0e6fddde3dbe2218}
-      \strng{authorbibnamehash}{4926095d516bdb0d0e6fddde3dbe2218}
-      \strng{authornamehash}{4926095d516bdb0d0e6fddde3dbe2218}
-      \strng{authorfullhash}{4926095d516bdb0d0e6fddde3dbe2218}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Psychological Methods}
-      \field{number}{2}
-      \field{title}{The dominance analysis approach for comparing predictors in multiple regression.}
-      \field{volume}{8}
-      \field{year}{2003}
-      \field{pages}{129\bibrangedash 148}
-      \range{pages}{20}
-      \verb{doi}
-      \verb 10.1037/1082-989X.8.2.129
-      \endverb
-    \endentry
-    \entry{azen2009using}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=e5d19bde71379423480fdad034b0220f}{%
-           family={Azen},
-           familyi={A\bibinitperiod},
-           given={Razia},
-           giveni={R\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=c6fffa4926e102a1ac517f51844b6790}{%
-           family={Traxel},
-           familyi={T\bibinitperiod},
-           given={Nicole},
-           giveni={N\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Sage Publications Sage CA: Los Angeles, CA}%
-      }
-      \strng{namehash}{cc60392077b7f2a5ac5b9ff982e8e924}
-      \strng{fullhash}{cc60392077b7f2a5ac5b9ff982e8e924}
-      \strng{bibnamehash}{cc60392077b7f2a5ac5b9ff982e8e924}
-      \strng{authorbibnamehash}{cc60392077b7f2a5ac5b9ff982e8e924}
-      \strng{authornamehash}{cc60392077b7f2a5ac5b9ff982e8e924}
-      \strng{authorfullhash}{cc60392077b7f2a5ac5b9ff982e8e924}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Educational and Behavioral Statistics}
-      \field{number}{3}
-      \field{title}{Using dominance analysis to determine predictor importance in logistic regression}
-      \field{volume}{34}
-      \field{year}{2009}
-      \field{pages}{319\bibrangedash 347}
-      \range{pages}{29}
-      \verb{doi}
-      \verb 10.3102/1076998609332754
-      \endverb
-    \endentry
-    \entry{bettinazzi2021stakeholder}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=ea851fd740c255afb3a61f36b4b59e1b}{%
-           family={Bettinazzi},
-           familyi={B\bibinitperiod},
-           given={Emanuele\bibnamedelima LM},
-           giveni={E\bibinitperiod\bibinitdelim L\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=b5d722b7ac09123ba6c6ededf250fbb4}{%
-           family={Feldman},
-           familyi={F\bibinitperiod},
-           given={Emilie\bibnamedelima R},
-           giveni={E\bibinitperiod\bibinitdelim R\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Academy of Management Briarcliff Manor, NY}%
-      }
-      \strng{namehash}{052ed0e9e95943c10f2f3324f51e47e4}
-      \strng{fullhash}{052ed0e9e95943c10f2f3324f51e47e4}
-      \strng{bibnamehash}{052ed0e9e95943c10f2f3324f51e47e4}
-      \strng{authorbibnamehash}{052ed0e9e95943c10f2f3324f51e47e4}
-      \strng{authornamehash}{052ed0e9e95943c10f2f3324f51e47e4}
-      \strng{authorfullhash}{052ed0e9e95943c10f2f3324f51e47e4}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Academy of Management Journal}
-      \field{number}{4}
-      \field{title}{Stakeholder orientation and divestiture activity}
-      \field{volume}{64}
-      \field{year}{2021}
-      \field{pages}{1078\bibrangedash 1096}
-      \range{pages}{19}
-      \verb{doi}
-      \verb 10.5465/amj.2019.0627
-      \endverb
-    \endentry
-    \entry{bhaskar2023regression}{article}{}
-      \name{author}{4}{}{%
-        {{un=0,uniquepart=base,hash=18c2b0d1482d430b00e159e5a3f85a8a}{%
-           family={Bhaskar},
-           familyi={B\bibinitperiod},
-           given={Adhin},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=ac4f96edefd4fdc9c83d42f5523ee692}{%
-           family={Thennarasu},
-           familyi={T\bibinitperiod},
-           given={K},
-           giveni={K\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=4ab6a3f02a19096880144edaffedf879}{%
-           family={Philip},
-           familyi={P\bibinitperiod},
-           given={Mariamma},
-           giveni={M\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d91f1939b5c356ec6d41de05dc8f5547}{%
-           family={Jaisoorya},
-           familyi={J\bibinitperiod},
-           given={TS},
-           giveni={T\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {The Quantitative Methods for Psychology}%
-      }
-      \strng{namehash}{a51bba90d5c4396590099260eda7a132}
-      \strng{fullhash}{68da3f9d12b12422fb0df2cec23faaed}
-      \strng{bibnamehash}{68da3f9d12b12422fb0df2cec23faaed}
-      \strng{authorbibnamehash}{68da3f9d12b12422fb0df2cec23faaed}
-      \strng{authornamehash}{a51bba90d5c4396590099260eda7a132}
-      \strng{authorfullhash}{68da3f9d12b12422fb0df2cec23faaed}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{The Quantitative Methods for Psychology}
-      \field{title}{Regression models for count data with excess zeros: A comparison using survey data.}
-      \field{year}{2023}
-      \verb{doi}
-      \verb 10.20982/tqmp.19.1.p001
-      \endverb
-    \endentry
-    \entry{blevins2015count}{article}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=fbb3c986fc37429c638b04f8c5ed3c63}{%
-           family={Blevins},
-           familyi={B\bibinitperiod},
-           given={Dane\bibnamedelima P},
-           giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=b37bae66c19519a3ea804bc219111056}{%
-           family={Tsang},
-           familyi={T\bibinitperiod},
-           given={Eric\bibnamedelima WK},
-           giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=2c7fdbab1a41bd59ee25420fa5517395}{%
-           family={Spain},
-           familyi={S\bibinitperiod},
-           given={Seth\bibnamedelima M},
-           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Sage Publications Sage CA: Los Angeles, CA}%
-      }
-      \strng{namehash}{f4bc1098e417f03b999532ee9a0db84e}
-      \strng{fullhash}{f9d9faac5a20d4e81608f45c9aeb4b4f}
-      \strng{bibnamehash}{f9d9faac5a20d4e81608f45c9aeb4b4f}
-      \strng{authorbibnamehash}{f9d9faac5a20d4e81608f45c9aeb4b4f}
-      \strng{authornamehash}{f4bc1098e417f03b999532ee9a0db84e}
-      \strng{authorfullhash}{f9d9faac5a20d4e81608f45c9aeb4b4f}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Organizational Research Methods}
-      \field{number}{1}
-      \field{title}{Count-based research in management: Suggestions for improvement}
-      \field{volume}{18}
-      \field{year}{2015}
-      \field{pages}{47\bibrangedash 69}
-      \range{pages}{23}
-      \verb{doi}
-      \verb 10.1177/1094428114549601
-      \endverb
-    \endentry
-    \entry{budescu1993dominance}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=6713448dd726dd635a06c9d9ccb44d3f}{%
-           family={Budescu},
-           familyi={B\bibinitperiod},
-           given={David\bibnamedelima V},
-           giveni={D\bibinitperiod\bibinitdelim V\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {American Psychological Association}%
-      }
-      \strng{namehash}{6713448dd726dd635a06c9d9ccb44d3f}
-      \strng{fullhash}{6713448dd726dd635a06c9d9ccb44d3f}
-      \strng{bibnamehash}{6713448dd726dd635a06c9d9ccb44d3f}
-      \strng{authorbibnamehash}{6713448dd726dd635a06c9d9ccb44d3f}
-      \strng{authornamehash}{6713448dd726dd635a06c9d9ccb44d3f}
-      \strng{authorfullhash}{6713448dd726dd635a06c9d9ccb44d3f}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Psychological Bulletin}
-      \field{number}{3}
-      \field{title}{Dominance analysis: a new approach to the problem of relative importance of predictors in multiple regression.}
-      \field{volume}{114}
-      \field{year}{1993}
-      \field{pages}{542\bibrangedash 551}
-      \range{pages}{10}
-      \verb{doi}
-      \verb 10.1037/0033-2909.114.3.542
-      \endverb
-    \endentry
-    \entry{cameron1996r}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=dab37900e0b3d1bbd6b945d99fef4b06}{%
-           family={Cameron},
-           familyi={C\bibinitperiod},
-           given={A\bibnamedelima Colin},
-           giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=fbfaf6238f211d3a9d00bf0fb746599f}{%
-           family={Windmeijer},
-           familyi={W\bibinitperiod},
-           given={Frank\bibnamedelima AG},
-           giveni={F\bibinitperiod\bibinitdelim A\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Taylor \& Francis}%
-      }
-      \strng{namehash}{e100ee2a1912fba2ae641aa5a0929463}
-      \strng{fullhash}{e100ee2a1912fba2ae641aa5a0929463}
-      \strng{bibnamehash}{e100ee2a1912fba2ae641aa5a0929463}
-      \strng{authorbibnamehash}{e100ee2a1912fba2ae641aa5a0929463}
-      \strng{authornamehash}{e100ee2a1912fba2ae641aa5a0929463}
-      \strng{authorfullhash}{e100ee2a1912fba2ae641aa5a0929463}
-      \field{sortinit}{C}
-      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Business \& Economic Statistics}
-      \field{number}{2}
-      \field{title}{R-squared measures for count data regression models with applications to health-care utilization}
-      \field{volume}{14}
-      \field{year}{1996}
-      \field{pages}{209\bibrangedash 220}
-      \range{pages}{12}
-      \verb{doi}
-      \verb 10.1080/07350015.1996.10524648
-      \endverb
-    \endentry
-    \entry{cronbach1955construct}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=535f1fcde8830899a17499b42476a71a}{%
-           family={Cronbach},
-           familyi={C\bibinitperiod},
-           given={Lee\bibnamedelima J},
-           giveni={L\bibinitperiod\bibinitdelim J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=aefa160a756afb8fefe257e7150d3a81}{%
-           family={Meehl},
-           familyi={M\bibinitperiod},
-           given={Paul\bibnamedelima E},
-           giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {American Psychological Association}%
-      }
-      \strng{namehash}{2a760eb8af37b8db7bad0642eeede21c}
-      \strng{fullhash}{2a760eb8af37b8db7bad0642eeede21c}
-      \strng{bibnamehash}{2a760eb8af37b8db7bad0642eeede21c}
-      \strng{authorbibnamehash}{2a760eb8af37b8db7bad0642eeede21c}
-      \strng{authornamehash}{2a760eb8af37b8db7bad0642eeede21c}
-      \strng{authorfullhash}{2a760eb8af37b8db7bad0642eeede21c}
-      \field{sortinit}{C}
-      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Psychological Bulletin}
-      \field{number}{4}
-      \field{title}{Construct validity in psychological tests.}
-      \field{volume}{52}
-      \field{year}{1955}
-      \field{pages}{281\bibrangedash 302}
-      \range{pages}{22}
-      \verb{doi}
-      \verb 10.1037/h0040957
-      \endverb
-    \endentry
-    \entry{gromping2007estimators}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=fb7665cbb74f4ebc72a8c21cefe13ab1}{%
-           family={Grömping},
-           familyi={G\bibinitperiod},
-           given={Ulrike},
-           giveni={U\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Taylor \& Francis}%
-      }
-      \strng{namehash}{fb7665cbb74f4ebc72a8c21cefe13ab1}
-      \strng{fullhash}{fb7665cbb74f4ebc72a8c21cefe13ab1}
-      \strng{bibnamehash}{fb7665cbb74f4ebc72a8c21cefe13ab1}
-      \strng{authorbibnamehash}{fb7665cbb74f4ebc72a8c21cefe13ab1}
-      \strng{authornamehash}{fb7665cbb74f4ebc72a8c21cefe13ab1}
-      \strng{authorfullhash}{fb7665cbb74f4ebc72a8c21cefe13ab1}
-      \field{sortinit}{G}
-      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{The American Statistician}
-      \field{number}{2}
-      \field{title}{Estimators of relative importance in linear regression based on variance decomposition}
-      \field{volume}{61}
-      \field{year}{2007}
-      \field{pages}{139\bibrangedash 147}
-      \range{pages}{9}
-      \verb{doi}
-      \verb 10.1198/000313007X188252
-      \endverb
-    \endentry
-    \entry{johnson2004history}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=d724fba5c14d78b1477e38f0dfeca521}{%
-           family={Johnson},
-           familyi={J\bibinitperiod},
-           given={Jeff\bibnamedelima W},
-           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=518c13ebb0255bb94555ef27dbdb7f8c}{%
-           family={LeBreton},
-           familyi={L\bibinitperiod},
-           given={James\bibnamedelima M},
-           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Sage Publications Sage CA: Thousand Oaks, CA}%
-      }
-      \strng{namehash}{4c4fb4b6ebad34b436121501fe5c2919}
-      \strng{fullhash}{4c4fb4b6ebad34b436121501fe5c2919}
-      \strng{bibnamehash}{4c4fb4b6ebad34b436121501fe5c2919}
-      \strng{authorbibnamehash}{4c4fb4b6ebad34b436121501fe5c2919}
-      \strng{authornamehash}{4c4fb4b6ebad34b436121501fe5c2919}
-      \strng{authorfullhash}{4c4fb4b6ebad34b436121501fe5c2919}
-      \field{sortinit}{J}
-      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Organizational Research Methods}
-      \field{number}{3}
-      \field{title}{History and use of relative importance indices in organizational research}
-      \field{volume}{7}
-      \field{year}{2004}
-      \field{pages}{238\bibrangedash 257}
-      \range{pages}{20}
-      \verb{doi}
-      \verb 10.1177/1094428104266510
-      \endverb
-    \endentry
-    \entry{luchman2014relative}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=0056e1b318b8cfe6fd4900d5432bfe72}{%
-           family={Luchman},
-           familyi={L\bibinitperiod},
-           given={Joseph\bibnamedelima N},
-           giveni={J\bibinitperiod\bibinitdelim N\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {SAGE Publications Sage CA: Los Angeles, CA}%
-      }
-      \strng{namehash}{0056e1b318b8cfe6fd4900d5432bfe72}
-      \strng{fullhash}{0056e1b318b8cfe6fd4900d5432bfe72}
-      \strng{bibnamehash}{0056e1b318b8cfe6fd4900d5432bfe72}
-      \strng{authorbibnamehash}{0056e1b318b8cfe6fd4900d5432bfe72}
-      \strng{authornamehash}{0056e1b318b8cfe6fd4900d5432bfe72}
-      \strng{authorfullhash}{0056e1b318b8cfe6fd4900d5432bfe72}
-      \field{sortinit}{L}
-      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Organizational Research Methods}
-      \field{number}{4}
-      \field{title}{Relative importance analysis with multicategory dependent variables: An extension and review of best practices}
-      \field{volume}{17}
-      \field{year}{2014}
-      \field{pages}{452\bibrangedash 471}
-      \range{pages}{20}
-      \verb{doi}
-      \verb 10.1177/1094428114544509
-      \endverb
-    \endentry
-    \entry{luchman2020relative}{article}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=0056e1b318b8cfe6fd4900d5432bfe72}{%
-           family={Luchman},
-           familyi={L\bibinitperiod},
-           given={Joseph\bibnamedelima N},
-           giveni={J\bibinitperiod\bibinitdelim N\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=a84e9bd134c3c0b303988d91e6c21373}{%
-           family={Lei},
-           familyi={L\bibinitperiod},
-           given={X},
-           giveni={X\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=f221208d21a519dfad91e327c3bafe47}{%
-           family={Kaplan},
-           familyi={K\bibinitperiod},
-           given={Seth\bibnamedelima A},
-           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{ecacda051979efceb87fab8605dd91bd}
-      \strng{fullhash}{03c38c179c578cf6eaf99aa7d4404e33}
-      \strng{bibnamehash}{03c38c179c578cf6eaf99aa7d4404e33}
-      \strng{authorbibnamehash}{03c38c179c578cf6eaf99aa7d4404e33}
-      \strng{authornamehash}{ecacda051979efceb87fab8605dd91bd}
-      \strng{authorfullhash}{03c38c179c578cf6eaf99aa7d4404e33}
-      \field{sortinit}{L}
-      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Applied Structural Equation Modeling}
-      \field{number}{2}
-      \field{title}{Relative importance analysis with multivariate models: Shifting the focus from independent variables to parameter estimates}
-      \field{volume}{4}
-      \field{year}{2020}
-      \field{pages}{1\bibrangedash 20}
-      \range{pages}{20}
-      \verb{doi}
-      \verb 10.47263/JASEM.4(2)02
-      \endverb
-    \endentry
-    \entry{mccullagh2019generalized}{book}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=e74359f41b036a8423f056912717ddaf}{%
-           family={McCullagh},
-           familyi={M\bibinitperiod},
-           given={Peter},
-           giveni={P\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=525c6028cf4d63e0a127c938f328602d}{%
-           family={Nelder},
-           familyi={N\bibinitperiod},
-           given={John\bibnamedelima A},
-           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Routledge}%
-      }
-      \strng{namehash}{57c3b03c65cbe97b4b228800a03a951b}
-      \strng{fullhash}{57c3b03c65cbe97b4b228800a03a951b}
-      \strng{bibnamehash}{57c3b03c65cbe97b4b228800a03a951b}
-      \strng{authorbibnamehash}{57c3b03c65cbe97b4b228800a03a951b}
-      \strng{authornamehash}{57c3b03c65cbe97b4b228800a03a951b}
-      \strng{authorfullhash}{57c3b03c65cbe97b4b228800a03a951b}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Generalized linear models}
-      \field{year}{2019}
-    \endentry
-    \entry{motowidlo2003job}{article}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=77750ed919f340275c76e9051aded4ba}{%
-           family={Motowidlo},
-           familyi={M\bibinitperiod},
-           given={Stephan\bibnamedelima J},
-           giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{77750ed919f340275c76e9051aded4ba}
-      \strng{fullhash}{77750ed919f340275c76e9051aded4ba}
-      \strng{bibnamehash}{77750ed919f340275c76e9051aded4ba}
-      \strng{authorbibnamehash}{77750ed919f340275c76e9051aded4ba}
-      \strng{authornamehash}{77750ed919f340275c76e9051aded4ba}
-      \strng{authorfullhash}{77750ed919f340275c76e9051aded4ba}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Handbook of Psychology: Industrial and Organizational Psychology}
-      \field{number}{4}
-      \field{title}{Job performance}
-      \field{volume}{12}
-      \field{year}{2003}
-      \field{pages}{39\bibrangedash 53}
-      \range{pages}{15}
-    \endentry
-    \entry{naumovska2021strength}{article}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=e791c6e82f350d464e964fa57eddf874}{%
-           family={Naumovska},
-           familyi={N\bibinitperiod},
-           given={Ivana},
-           giveni={I\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=367a1ae4ab43d29853e7fd28017c7f23}{%
-           family={Zajac},
-           familyi={Z\bibinitperiod},
-           given={Edward\bibnamedelima J},
-           giveni={E\bibinitperiod\bibinitdelim J\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=1f309ec6a2907468df08fc1989605bf6}{%
-           family={Lee},
-           familyi={L\bibinitperiod},
-           given={Peggy\bibnamedelima M},
-           giveni={P\bibinitperiod\bibinitdelim M\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Academy of Management Briarcliff Manor, NY}%
-      }
-      \strng{namehash}{007a753308d476aa5a76292834c92334}
-      \strng{fullhash}{b281875c136514c6a2f1ee192f203de9}
-      \strng{bibnamehash}{b281875c136514c6a2f1ee192f203de9}
-      \strng{authorbibnamehash}{b281875c136514c6a2f1ee192f203de9}
-      \strng{authornamehash}{007a753308d476aa5a76292834c92334}
-      \strng{authorfullhash}{b281875c136514c6a2f1ee192f203de9}
-      \field{sortinit}{N}
-      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Academy of Management Journal}
-      \field{number}{2}
-      \field{title}{Strength and weakness in numbers? Unpacking the role of prevalence in the diffusion of reverse mergers}
-      \field{volume}{64}
-      \field{year}{2021}
-      \field{pages}{409\bibrangedash 434}
-      \range{pages}{26}
-      \verb{doi}
-      \verb 10.5465/amj.2018.0716
-      \endverb
-    \endentry
-    \entry{naveh2015active}{article}{}
-      \name{author}{3}{}{%
-        {{un=0,uniquepart=base,hash=f706c4a542373c1d6ed9fa7d7efed1fc}{%
-           family={Naveh},
-           familyi={N\bibinitperiod},
-           given={Eitan},
-           giveni={E\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=fbcb28d3ab8c0e9c71baec7aa1420a08}{%
-           family={Katz-Navon},
-           familyi={K\bibinithyphendelim N\bibinitperiod},
-           given={Tal},
-           giveni={T\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=a862bf1a6ae47f39c8e1c594a771eee0}{%
-           family={Stern},
-           familyi={S\bibinitperiod},
-           given={Zvi},
-           giveni={Z\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Wiley Online Library}%
-      }
-      \strng{namehash}{8b18bd4c29c6c72eff2484b68ff90800}
-      \strng{fullhash}{1e4caf29bf4903d54452cdca21710f38}
-      \strng{bibnamehash}{1e4caf29bf4903d54452cdca21710f38}
-      \strng{authorbibnamehash}{1e4caf29bf4903d54452cdca21710f38}
-      \strng{authornamehash}{8b18bd4c29c6c72eff2484b68ff90800}
-      \strng{authorfullhash}{1e4caf29bf4903d54452cdca21710f38}
-      \field{sortinit}{N}
-      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Organizational Behavior}
-      \field{number}{3}
-      \field{title}{Active learning climate and employee errors: The moderating effects of personality traits}
-      \field{volume}{36}
-      \field{year}{2015}
-      \field{pages}{441\bibrangedash 459}
-      \range{pages}{19}
-      \verb{doi}
-      \verb 10.1002/job.2000
-      \endverb
-    \endentry
-    \entry{R}{manual}{}
-      \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=dcdebb6b35bff7c0568bf8c50ef8626d}{%
-           family={{R Core Team}},
-           familyi={R\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {Vienna, Austria}%
-      }
-      \list{organization}{1}{%
-        {R Foundation for Statistical Computing}%
-      }
-      \strng{namehash}{dcdebb6b35bff7c0568bf8c50ef8626d}
-      \strng{fullhash}{dcdebb6b35bff7c0568bf8c50ef8626d}
-      \strng{bibnamehash}{dcdebb6b35bff7c0568bf8c50ef8626d}
-      \strng{authorbibnamehash}{dcdebb6b35bff7c0568bf8c50ef8626d}
-      \strng{authornamehash}{dcdebb6b35bff7c0568bf8c50ef8626d}
-      \strng{authorfullhash}{dcdebb6b35bff7c0568bf8c50ef8626d}
-      \field{sortinit}{R}
-      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{R: A Language and Environment for Statistical Computing}
-      \field{year}{2022}
-      \verb{urlraw}
-      \verb https://www.R-project.org/
-      \endverb
-      \verb{url}
-      \verb https://www.R-project.org/
-      \endverb
-    \endentry
-    \entry{ronkko2022eight}{article}{}
-      \name{author}{4}{}{%
-        {{un=0,uniquepart=base,hash=b0b46748ae7b76ed3c0816ee12a57a1a}{%
-           family={Rönkkö},
-           familyi={R\bibinitperiod},
-           given={Mikko},
-           giveni={M\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=59b01efa9f0a29934097c2ad01a0f204}{%
-           family={Aalto},
-           familyi={A\bibinitperiod},
-           given={Eero},
-           giveni={E\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=7408e885607a5050a5a3102b188b1343}{%
-           family={Tenhunen},
-           familyi={T\bibinitperiod},
-           given={Henni},
-           giveni={H\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=be1c85866485c8bca7837cf00fc73286}{%
-           family={Aguirre-Urreta},
-           familyi={A\bibinithyphendelim U\bibinitperiod},
-           given={Miguel\bibnamedelima I},
-           giveni={M\bibinitperiod\bibinitdelim I\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Sage Publications Sage CA: Los Angeles, CA}%
-      }
-      \strng{namehash}{a5da75e99aedab15933212929000db67}
-      \strng{fullhash}{478569038128aa765e56c7161b50d77e}
-      \strng{bibnamehash}{478569038128aa765e56c7161b50d77e}
-      \strng{authorbibnamehash}{478569038128aa765e56c7161b50d77e}
-      \strng{authornamehash}{a5da75e99aedab15933212929000db67}
-      \strng{authorfullhash}{478569038128aa765e56c7161b50d77e}
-      \field{sortinit}{R}
-      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Organizational Research Methods}
-      \field{number}{1}
-      \field{title}{Eight simple guidelines for improved understanding of transformations and nonlinear effects}
-      \field{volume}{25}
-      \field{year}{2022}
-      \field{pages}{48\bibrangedash 87}
-      \range{pages}{40}
-      \verb{doi}
-      \verb 10.1177/109442812199190
-      \endverb
-    \endentry
-    \entry{rotolo2013does}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=dc255afade746a4e8d80fa2886ca9954}{%
-           family={Rotolo},
-           familyi={R\bibinitperiod},
-           given={Daniele},
-           giveni={D\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=41a5c5f02e7f817ddfa9884cc74407da}{%
-           family={Messeni\bibnamedelima Petruzzelli},
-           familyi={M\bibinitperiod\bibinitdelim P\bibinitperiod},
-           given={Antonio},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Wiley Online Library}%
-      }
-      \strng{namehash}{dd421e5f09cb2f058d0c6322790c292d}
-      \strng{fullhash}{dd421e5f09cb2f058d0c6322790c292d}
-      \strng{bibnamehash}{dd421e5f09cb2f058d0c6322790c292d}
-      \strng{authorbibnamehash}{dd421e5f09cb2f058d0c6322790c292d}
-      \strng{authornamehash}{dd421e5f09cb2f058d0c6322790c292d}
-      \strng{authorfullhash}{dd421e5f09cb2f058d0c6322790c292d}
-      \field{sortinit}{R}
-      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Organizational Behavior}
-      \field{number}{5}
-      \field{title}{When does centrality matter? Scientific productivity and the moderating role of research specialization and cross-community ties}
-      \field{volume}{34}
-      \field{year}{2013}
-      \field{pages}{648\bibrangedash 670}
-      \range{pages}{23}
-      \verb{doi}
-      \verb 10.1002/job.1822
-      \endverb
-    \endentry
-    \entry{tonidandel2011relative}{article}{}
-      \name{author}{2}{}{%
-        {{un=0,uniquepart=base,hash=950e418164858e63cf3e17b2c42ba1d3}{%
-           family={Tonidandel},
-           familyi={T\bibinitperiod},
-           given={Scott},
-           giveni={S\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=518c13ebb0255bb94555ef27dbdb7f8c}{%
-           family={LeBreton},
-           familyi={L\bibinitperiod},
-           given={James\bibnamedelima M},
-           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {Springer}%
-      }
-      \strng{namehash}{b2e35ee86ce1957b7dd09a2e27ae38b6}
-      \strng{fullhash}{b2e35ee86ce1957b7dd09a2e27ae38b6}
-      \strng{bibnamehash}{b2e35ee86ce1957b7dd09a2e27ae38b6}
-      \strng{authorbibnamehash}{b2e35ee86ce1957b7dd09a2e27ae38b6}
-      \strng{authornamehash}{b2e35ee86ce1957b7dd09a2e27ae38b6}
-      \strng{authorfullhash}{b2e35ee86ce1957b7dd09a2e27ae38b6}
-      \field{sortinit}{T}
-      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Business and Psychology}
-      \field{number}{1}
-      \field{title}{Relative importance analysis: A useful supplement to regression analysis}
-      \field{volume}{26}
-      \field{year}{2011}
-      \field{pages}{1\bibrangedash 9}
-      \range{pages}{9}
-      \verb{doi}
-      \verb 10.1007/s10869-010-9204-3
-      \endverb
-    \endentry
-  \enddatalist
   \datalist[entry]{apa/global//global/global}
     \entry{azen2003dominance}{article}{}
       \name{author}{2}{}{%
@@ -883,7 +46,7 @@
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -894,9 +57,6 @@
       \field{year}{2003}
       \field{pages}{129\bibrangedash 148}
       \range{pages}{20}
-      \verb{doi}
-      \verb 10.1037/1082-989X.8.2.129
-      \endverb
     \endentry
     \entry{azen2009using}{article}{}
       \name{author}{2}{}{%
@@ -925,7 +85,7 @@
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -936,9 +96,6 @@
       \field{year}{2009}
       \field{pages}{319\bibrangedash 347}
       \range{pages}{29}
-      \verb{doi}
-      \verb 10.3102/1076998609332754
-      \endverb
     \endentry
     \entry{bettinazzi2021stakeholder}{article}{}
       \name{author}{2}{}{%
@@ -967,7 +124,7 @@
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -978,59 +135,6 @@
       \field{year}{2021}
       \field{pages}{1078\bibrangedash 1096}
       \range{pages}{19}
-      \verb{doi}
-      \verb 10.5465/amj.2019.0627
-      \endverb
-    \endentry
-    \entry{bhaskar2023regression}{article}{}
-      \name{author}{4}{}{%
-        {{un=0,uniquepart=base,hash=18c2b0d1482d430b00e159e5a3f85a8a}{%
-           family={Bhaskar},
-           familyi={B\bibinitperiod},
-           given={Adhin},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=ac4f96edefd4fdc9c83d42f5523ee692}{%
-           family={Thennarasu},
-           familyi={T\bibinitperiod},
-           given={K},
-           giveni={K\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=4ab6a3f02a19096880144edaffedf879}{%
-           family={Philip},
-           familyi={P\bibinitperiod},
-           given={Mariamma},
-           giveni={M\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d91f1939b5c356ec6d41de05dc8f5547}{%
-           family={Jaisoorya},
-           familyi={J\bibinitperiod},
-           given={TS},
-           giveni={T\bibinitperiod},
-           givenun=0}}%
-      }
-      \list{publisher}{1}{%
-        {The Quantitative Methods for Psychology}%
-      }
-      \strng{namehash}{a51bba90d5c4396590099260eda7a132}
-      \strng{fullhash}{68da3f9d12b12422fb0df2cec23faaed}
-      \strng{bibnamehash}{68da3f9d12b12422fb0df2cec23faaed}
-      \strng{authorbibnamehash}{68da3f9d12b12422fb0df2cec23faaed}
-      \strng{authornamehash}{a51bba90d5c4396590099260eda7a132}
-      \strng{authorfullhash}{68da3f9d12b12422fb0df2cec23faaed}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{The Quantitative Methods for Psychology}
-      \field{title}{Regression models for count data with excess zeros: A comparison using survey data.}
-      \field{year}{2023}
-      \verb{doi}
-      \verb 10.20982/tqmp.19.1.p001
-      \endverb
     \endentry
     \entry{blevins2015count}{article}{}
       \name{author}{3}{}{%
@@ -1065,7 +169,7 @@
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1076,9 +180,6 @@
       \field{year}{2015}
       \field{pages}{47\bibrangedash 69}
       \range{pages}{23}
-      \verb{doi}
-      \verb 10.1177/1094428114549601
-      \endverb
     \endentry
     \entry{budescu1993dominance}{article}{}
       \name{author}{1}{}{%
@@ -1101,7 +202,7 @@
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1112,9 +213,6 @@
       \field{year}{1993}
       \field{pages}{542\bibrangedash 551}
       \range{pages}{10}
-      \verb{doi}
-      \verb 10.1037/0033-2909.114.3.542
-      \endverb
     \endentry
     \entry{cameron1996r}{article}{}
       \name{author}{2}{}{%
@@ -1143,7 +241,7 @@
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1154,9 +252,6 @@
       \field{year}{1996}
       \field{pages}{209\bibrangedash 220}
       \range{pages}{12}
-      \verb{doi}
-      \verb 10.1080/07350015.1996.10524648
-      \endverb
     \endentry
     \entry{cronbach1955construct}{article}{}
       \name{author}{2}{}{%
@@ -1185,7 +280,7 @@
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1196,9 +291,6 @@
       \field{year}{1955}
       \field{pages}{281\bibrangedash 302}
       \range{pages}{22}
-      \verb{doi}
-      \verb 10.1037/h0040957
-      \endverb
     \endentry
     \entry{gromping2007estimators}{article}{}
       \name{author}{1}{}{%
@@ -1221,7 +313,7 @@
       \field{sortinit}{G}
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1232,9 +324,6 @@
       \field{year}{2007}
       \field{pages}{139\bibrangedash 147}
       \range{pages}{9}
-      \verb{doi}
-      \verb 10.1198/000313007X188252
-      \endverb
     \endentry
     \entry{johnson2004history}{article}{}
       \name{author}{2}{}{%
@@ -1263,7 +352,7 @@
       \field{sortinit}{J}
       \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1274,9 +363,49 @@
       \field{year}{2004}
       \field{pages}{238\bibrangedash 257}
       \range{pages}{20}
-      \verb{doi}
-      \verb 10.1177/1094428104266510
-      \endverb
+    \endentry
+    \entry{lindeman1980introduction}{book}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=295c755ae101e5283cee7656e01367cb}{%
+           family={Lindeman},
+           familyi={L\bibinitperiod},
+           given={Richard\bibnamedelima Harold},
+           giveni={R\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=df37cd05d76a90d57d523ea37357c687}{%
+           family={Merenda},
+           familyi={M\bibinitperiod},
+           given={Peter\bibnamedelima Francis},
+           giveni={P\bibinitperiod\bibinitdelim F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=100d769dde01f02288a8cb5eb51c97ff}{%
+           family={Gold},
+           familyi={G\bibinitperiod},
+           given={Ruth\bibnamedelima Z},
+           giveni={R\bibinitperiod\bibinitdelim Z\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Scott, Foresman Glenview, IL}%
+      }
+      \strng{namehash}{d62b6f44b163bf38aa472746f816a9e8}
+      \strng{fullhash}{178db503cf1a163383b4c165831cb8bf}
+      \strng{bibnamehash}{178db503cf1a163383b4c165831cb8bf}
+      \strng{authorbibnamehash}{178db503cf1a163383b4c165831cb8bf}
+      \strng{authornamehash}{d62b6f44b163bf38aa472746f816a9e8}
+      \strng{authorfullhash}{178db503cf1a163383b4c165831cb8bf}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Introduction to bivariate and multivariate analysis}
+      \field{volume}{4}
+      \field{year}{1980}
     \endentry
     \entry{luchman2014relative}{article}{}
       \name{author}{1}{}{%
@@ -1299,7 +428,7 @@
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1310,9 +439,6 @@
       \field{year}{2014}
       \field{pages}{452\bibrangedash 471}
       \range{pages}{20}
-      \verb{doi}
-      \verb 10.1177/1094428114544509
-      \endverb
     \endentry
     \entry{luchman2020relative}{article}{}
       \name{author}{3}{}{%
@@ -1344,7 +470,7 @@
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1355,9 +481,6 @@
       \field{year}{2020}
       \field{pages}{1\bibrangedash 20}
       \range{pages}{20}
-      \verb{doi}
-      \verb 10.47263/JASEM.4(2)02
-      \endverb
     \endentry
     \entry{mccullagh2019generalized}{book}{}
       \name{author}{2}{}{%
@@ -1386,7 +509,7 @@
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1411,7 +534,7 @@
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1456,7 +579,7 @@
       \field{sortinit}{N}
       \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1467,9 +590,6 @@
       \field{year}{2021}
       \field{pages}{409\bibrangedash 434}
       \range{pages}{26}
-      \verb{doi}
-      \verb 10.5465/amj.2018.0716
-      \endverb
     \endentry
     \entry{naveh2015active}{article}{}
       \name{author}{3}{}{%
@@ -1504,7 +624,7 @@
       \field{sortinit}{N}
       \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1515,9 +635,6 @@
       \field{year}{2015}
       \field{pages}{441\bibrangedash 459}
       \range{pages}{19}
-      \verb{doi}
-      \verb 10.1002/job.2000
-      \endverb
     \endentry
     \entry{R}{manual}{}
       \name{author}{1}{}{%
@@ -1540,7 +657,7 @@
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1592,7 +709,7 @@
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1603,9 +720,6 @@
       \field{year}{2022}
       \field{pages}{48\bibrangedash 87}
       \range{pages}{40}
-      \verb{doi}
-      \verb 10.1177/109442812199190
-      \endverb
     \endentry
     \entry{rotolo2013does}{article}{}
       \name{author}{2}{}{%
@@ -1634,7 +748,7 @@
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1645,9 +759,6 @@
       \field{year}{2013}
       \field{pages}{648\bibrangedash 670}
       \range{pages}{23}
-      \verb{doi}
-      \verb 10.1002/job.1822
-      \endverb
     \endentry
     \entry{tonidandel2011relative}{article}{}
       \name{author}{2}{}{%
@@ -1676,7 +787,7 @@
       \field{sortinit}{T}
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
       \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
+      \field{labeldatesource}{year}
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -1687,11 +798,9 @@
       \field{year}{2011}
       \field{pages}{1\bibrangedash 9}
       \range{pages}{9}
-      \verb{doi}
-      \verb 10.1007/s10869-010-9204-3
-      \endverb
     \endentry
   \enddatalist
+  \missing{bhaskar2023regression}
 \endrefsection
 \endinput
 
